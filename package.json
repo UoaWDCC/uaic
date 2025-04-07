@@ -9,10 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "firebase": "^11.4.0",
+    "@payloadcms/db-mongodb": "^3.33.0",
+    "@payloadcms/next": "^3.33.0",
+    "@payloadcms/richtext-lexical": "^3.33.0",
+    "graphql": "^16.10.0",
     "next": "15.2.2",
+    "payload": "^3.33.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "sharp": "^0.34.1"
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.7.9",
@@ -22,5 +27,6 @@
     "@types/react-dom": "^19",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@9.15.2+sha512.93e57b0126f0df74ce6bff29680394c0ba54ec47246b9cf321f0121d8d9bb03f750a705f24edc3c1180853afd7c2c3b94196d0a3d53d3e069d9e2793ef11f321"
 }
