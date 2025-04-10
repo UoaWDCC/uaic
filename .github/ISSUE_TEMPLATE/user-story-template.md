@@ -12,4 +12,4 @@ I want to
 So that
 
 Acceptance Criteria (AC):
-- criteria
+- [ ] criteria
