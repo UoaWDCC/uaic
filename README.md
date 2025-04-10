@@ -50,3 +50,11 @@ pnpm dev
 | ---------------- | --------------------------- |
 | Project Manager  | Ezekiel Ko                  |
 | Technical Lead   | Jerry Nguyen                |
+| Designer / Developer|  |
+| Developer        |  |
+| Developer        |  |
+| Developer        |  |
+| Developer        |  |
+| Developer        |  |
+| Developer        |  |
+| Developer        |  |
