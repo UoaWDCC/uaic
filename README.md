@@ -50,11 +50,10 @@ pnpm dev
 | ---------------- | --------------------------- |
 | Project Manager  | Ezekiel Ko                  |
 | Technical Lead   | Jerry Nguyen                |
-| Designer / Developer|  |
+| Designer / Developer| Angelica Huang           |
 | Developer        |  |
 | Developer        |  |
-| Developer        |  |
-| Developer        |  |
-| Developer        |  |
-| Developer        |  |
-| Developer        | Paige Phan hi|
+| Developer        | Paige Phan |
+| Developer        | Sam Richell-Smith           |
+| Developer        | Nathan Turley               |
+| Developer        | Jesse Wanghan |
