@@ -56,5 +56,5 @@ pnpm dev
 | Developer        |  |
 | Developer        |  |
 | Developer        | Sam Richell-Smith           |
-| Developer        |  |
+| Developer        | Nathan Turley               |
 | Developer        | Jesse Wanghan |
