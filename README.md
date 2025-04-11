@@ -49,7 +49,7 @@ pnpm dev
 | Role             | Member                      |
 | ---------------- | --------------------------- |
 | Project Manager  | Ezekiel Ko                  |
-| Technical Lead   | Jerry Nguyen                |
+| Technical Lead   | Tuan Minh Nguyen            |
 | Designer / Developer|  |
 | Developer        |  |
 | Developer        |  |
