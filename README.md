@@ -50,7 +50,7 @@ pnpm dev
 | ---------------- | --------------------------- |
 | Project Manager  | Ezekiel Ko                  |
 | Technical Lead   | Jerry Nguyen                |
-| Designer / Developer|  |
+| Designer / Developer| Angelica Huang           |
 | Developer        |  |
 | Developer        |  |
 | Developer        | Nicholas Garcia-Scholtz |
