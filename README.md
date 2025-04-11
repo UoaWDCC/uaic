@@ -55,6 +55,6 @@ pnpm dev
 | Developer        |  |
 | Developer        |  |
 | Developer        |  |
-| Developer        |  |
+| Developer        | Sam Richell-Smith           |
 | Developer        |  |
 | Developer        |  |
