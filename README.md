@@ -53,7 +53,7 @@ pnpm dev
 | Designer / Developer|  |
 | Developer        |  |
 | Developer        |  |
-| Developer        |  |
+| Developer        | Nicholas Garcia-Scholtz |
 | Developer        |  |
 | Developer        | Sam Richell-Smith           |
 | Developer        | Nathan Turley               |
