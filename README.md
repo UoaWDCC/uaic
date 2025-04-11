@@ -57,4 +57,4 @@ pnpm dev
 | Developer        |  |
 | Developer        |  |
 | Developer        |  |
-| Developer        |  |
+| Developer        | Jesse Wanghan |
