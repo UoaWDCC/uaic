@@ -56,5 +56,5 @@ pnpm dev
 | Developer        |  |
 | Developer        |  |
 | Developer        |  |
-| Developer        |  |
+| Developer        | Nathan Turley               |
 | Developer        |  |
