@@ -15,7 +15,7 @@ Ensure you have `pnpm` installed. An installation guide can be found [here](http
 Ensure `git` is also installed and run the following command at your desired folder:
 
 ```bash
-git clone https://github.com/UoaWDCC/esa
+git clone https://github.com/UoaWDCC/uaic
 ```
 
 Navigate to the project root and install dependencies:
