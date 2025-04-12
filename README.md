@@ -52,7 +52,7 @@ pnpm dev
 | Technical Lead   | Jerry Nguyen                |
 | Designer / Developer| Angelica Huang           
 | Developer        | Evan Au                     |
-| Developer        |  |
+| Developer        | Andre Camerino |
 | Developer        | Nicholas Garcia-Scholtz |
 | Developer        | Paige Phan |
 | Developer        | Sam Richell-Smith           |
