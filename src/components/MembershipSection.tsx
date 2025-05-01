@@ -23,7 +23,7 @@ const MembershipSection = () => {
         bg-[#EBF7FE]
         px-4 rounded-[40px] 
         text-[14px]/[35px] 
-        transition hover:text-white hover:bg-[#145CA9] active:bg-[#0f4a88]
+        transition hover:text-white hover:bg-[#145CA9] active:bg-[#0f4a88] active:text-white
         
         lg:py-2 lg:text-[25px]/[35px]   
       ">
