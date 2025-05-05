@@ -7,7 +7,7 @@ const Navbar = () => {
  const [isOpen, setIsOpen] = useState(false);
 
 
- {/* TradingView Widget */}
+ {/* TradingView Widget Script*/}
  const containerRef = useRef(null);
  useEffect(() => {
    const script = document.createElement('script');
@@ -23,7 +23,7 @@ const Navbar = () => {
      ],
      showSymbolLogo: true,
      isTransparent: false,
-     displayMode: 'adaptive',
+     displayMode: 'Compact',
      colorTheme: 'light',
      locale: 'en',
    });
@@ -36,8 +36,12 @@ const Navbar = () => {
 
  return (
    <nav className="w-full">
+
+
      {/* Top Bar */}
      <div className="bg-white sm:bg-[#F0F8FF] text-[#172741] p-4 flex justify-between items-center sm:flex-row-reverse">
+
+
        {/* Hamburger Menu */}
        <button
          className="sm:hidden"
@@ -94,14 +98,14 @@ const Navbar = () => {
 
 
      {/* TradingView Widget Desc. */}
-     <div className={" bg-[#F0F8FF] text-[#172741] p-4 flex justify-center items-center ${isOpen ? 'hidden' : 'flex'}"}>
+     <div className={` bg-[#F0F8FF] text-[#172741] text-[12px] p-4 flex justify-center items-center ${isOpen ? 'hidden' : 'flex'}`}>
        <p className="text-center">Live market update of current stocks</p>
      </div>
 
 
      {/* Mobile Menu */}
      {isOpen && (
-       <ul className="bg-[#145CA9] text-white flex-auto flex-col gap-4 sm:hidden w-full">
+       <ul className="h-screen bg-[#145CA9] text-white flex-auto flex-col gap-4 sm:hidden w-full">
          <li className="p-4 border-b border-white"><a href="/" className="hover:underline">Home</a></li>
          <li className="p-4 border-b border-white"><a href="/about" className="hover:underline">About</a></li>
          <li className="p-4 border-b border-white"><a href="/events" className="hover:underline">Events</a></li>
