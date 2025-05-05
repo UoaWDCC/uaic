@@ -39,9 +39,7 @@ const Navbar = () => {
 
 
      {/* Top Bar */}
-     <div className="bg-white sm:bg-[#F0F8FF] text-[#172741] p-4 flex justify-between items-center sm:flex-row-reverse">
-
-
+     <div className="bg-white sm:bg-[#F0F8FF] text-[#172741] p-4 flex justify-between items-center">
        {/* Hamburger Menu */}
        <button
          className="sm:hidden"
@@ -62,9 +60,8 @@ const Navbar = () => {
          </svg>
        </button>
 
-
        {/* Desktop Links */}
-       <ul className="hidden sm:flex gap-4 justify-center flex-grow order-2 sm:order-1">
+       <ul className="hidden sm:flex gap-4 justify-center flex-grow order-2">
          <li><a href="/" className="hover:underline hover:bg-[#808080] hover:rounded-xl hover:text-[#fff] p-[4px]">Home</a></li>
          <li><a href="/about" className="hover:underline hover:bg-[#808080] hover:rounded-xl hover:text-[#fff] p-[4px]">About</a></li>
          <li><a href="/events" className="hover:underline hover:bg-[#808080] hover:rounded-xl hover:text-[#fff] p-[4px]">Events</a></li>
@@ -74,11 +71,10 @@ const Navbar = () => {
        </ul>
 
        {/* Sign Up and Login */}
-       <ul className="hidden sm:flex gap-4 order-3">
+       <ul className="hidden sm:flex gap-4 ml-auto order-3">
          <li><a href="/signup" className="hover:underline hover:bg-[#808080] bg-[#fff] rounded-xl hover:text-[#fff] p-[4px]">Sign Up</a></li>
          <li><a href="/login" className="hover:underline hover:bg-[#808080] bg-[#fff] rounded-xl hover:text-[#fff] p-[4px]">Login</a></li>
        </ul>
-
 
        {/* Logo */}
        <Image
@@ -86,7 +82,7 @@ const Navbar = () => {
          alt="Logo"
          width={140}
          height={140}
-         className="order-1 sm:order-2"
+         className="order-1"
        />
      </div>
 
