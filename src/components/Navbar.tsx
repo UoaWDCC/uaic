@@ -64,13 +64,17 @@ const Navbar = () => {
 
 
        {/* Desktop Links */}
-       <ul className="hidden sm:flex gap-4 order-2 sm:order-1">
+       <ul className="hidden sm:flex gap-4 justify-center flex-grow order-2 sm:order-1">
          <li><a href="/" className="hover:underline hover:bg-[#808080] hover:rounded-xl hover:text-[#fff] p-[4px]">Home</a></li>
          <li><a href="/about" className="hover:underline hover:bg-[#808080] hover:rounded-xl hover:text-[#fff] p-[4px]">About</a></li>
          <li><a href="/events" className="hover:underline hover:bg-[#808080] hover:rounded-xl hover:text-[#fff] p-[4px]">Events</a></li>
          <li><a href="/investmentportfolio" className="hover:underline hover:bg-[#808080] hover:rounded-xl hover:text-[#fff] p-[4px]">Investment Portfolio</a></li>
          <li><a href="/bulletin" className="hover:underline hover:bg-[#808080] hover:rounded-xl hover:text-[#fff] p-[4px]">Bulletin</a></li>
          <li><a href="/contact" className="hover:underline hover:bg-[#808080] hover:rounded-xl hover:text-[#fff] p-[4px]">Contact</a></li>
+       </ul>
+
+       {/* Sign Up and Login */}
+       <ul className="hidden sm:flex gap-4 order-3">
          <li><a href="/signup" className="hover:underline hover:bg-[#808080] bg-[#fff] rounded-xl hover:text-[#fff] p-[4px]">Sign Up</a></li>
          <li><a href="/login" className="hover:underline hover:bg-[#808080] bg-[#fff] rounded-xl hover:text-[#fff] p-[4px]">Login</a></li>
        </ul>
