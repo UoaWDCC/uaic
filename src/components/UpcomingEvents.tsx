@@ -1,12 +1,5 @@
 import React from "react";
 import Event from "@/components/Event"
-import { stat } from "fs";
-// const UpcomingEvents = () => {
-//     return(
-        
-//     )
-// }
-
 
 
 const UpcomingEvents = () => {
