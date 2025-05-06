@@ -24,3 +24,17 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.bg-custom {
+  background-position: -268px center;
+  background-size: 1011.11px;
+}
+
+@media (min-width: 700px) {
+  .bg-custom {
+    background-position: center; /* override for large screen */
+    background-size: cover;      /* reset or adjust if needed */
+  }
+}
+
+
