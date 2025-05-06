@@ -23,7 +23,7 @@ const Navbar = () => {
      ],
      showSymbolLogo: true,
      isTransparent: false,
-     displayMode: 'Compact',
+     displayMode: 'standard',
      colorTheme: 'light',
      locale: 'en',
    });
@@ -96,11 +96,6 @@ const Navbar = () => {
        </div>
      </div>
 
-
-     {/* TradingView Widget Desc. */}
-     <div className={` bg-[#F0F8FF] text-[#172741] text-[12px] p-4 flex justify-center items-center ${isOpen ? 'hidden' : 'flex'}`}>
-       <p className="text-center">Live market update of current stocks</p>
-     </div>
 
 
      {/* Mobile Menu */}
