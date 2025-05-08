@@ -31,7 +31,7 @@ COPY . .
 RUN npx next build --experimental-build-mode compile
 
 # Remove development dependencies
-RUN npm prune --omit=dev
+RUN npm prune --omit=dev --legacy-peer-deps
 
 
 # Final stage for app image
