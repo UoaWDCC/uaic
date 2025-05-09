@@ -22,7 +22,7 @@ RUN apt-get update -qq && \
 
 # Install node modules
 COPY package-lock.json package.json ./
-RUN npm ci --include=dev --legacy-peer-deps
+RUN npm ci --include=dev
 
 # Copy application code
 COPY . .
@@ -31,7 +31,7 @@ COPY . .
 RUN npx next build --experimental-build-mode compile
 
 # Remove development dependencies
-RUN npm prune --omit=dev --legacy-peer-deps
+RUN npm prune --omit=dev
 
 
 # Final stage for app image
