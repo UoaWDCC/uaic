@@ -5,15 +5,22 @@ const Bulletin = () => {
   return (
     <div
       className="
+      w-full 
+      flex flex-col items-center gap-[20px] 
+      text-pretty
+    "
+    >
+    <div
+      className="
         grid 
         grid-cols-[33.33333%_1fr] grid-rows-2 
         gap-[10px] 
         w-full
         h-[150px]
-        text-[10px]/[12px] 
+        text-[12px]/[12px] 
 
         lg:h-[300px]
-        lg:text-[18px]/[22px]
+        lg:text-[22px]/[22px]
       "
     >
       <div className="bg-[#EBF7FE] flex items-center justify-center text-black">
@@ -50,6 +57,35 @@ const Bulletin = () => {
       <div className="bg-[#EBF7FE] flex items-center justify-center text-black p-4 lg:p-10">
         stonks
       </div>
+    </div>
+    <div className="w-full h-[75px] flex justify-center items-center lg:h-[200px]">
+    <div>
+    <h1
+        className="
+        p-2
+        font-[400] text-[10px] text-center
+
+        lg:text-[28px]
+      "
+      >
+        Invest, Connect and Work with Us
+      </h1>
+      <div>
+    <p
+        className="
+        p-2
+        font-[400] text-[8px] text-center
+
+        lg:text-[20px]
+      "
+      >
+        Embark on a Rewarding Journey
+      </p>
+    </div>
+    </div>
+    
+    
+    </div>
     </div>
   );
 };
