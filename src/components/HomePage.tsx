@@ -8,8 +8,8 @@ const HomePage = () => {
         <>
             <header className="
             items-center flex justify-center bg-[#F0F8FF] 
-            mt-[19px] h-[50px]
-            lg:mt-[60px] lg:h-[50px] ">
+            h-[50px]
+            lg:h-[50px] ">
                 <h2 className="text-[18px] leading-[22px]">Live market update of current stocks</h2>
             </header>
 
