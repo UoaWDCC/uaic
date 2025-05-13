@@ -3,6 +3,12 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Colours */
+  --darkBlue: #145CA9;
+  --lightBlue: #EBF7FE;
+  --grey-100: #D9D9D9;
+  --grey-200: #CBC6C6;
 }
 
 @theme inline {
@@ -10,6 +16,12 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Colours */
+  --color-darkBlue: var(--darkBlue);
+  --color-lightBlue: var(--lightBlue);
+  --color-grey-100: var(--grey-100);
+  --color-grey-200: var(--grey-200);
 }
 
 body {
