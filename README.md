@@ -50,9 +50,9 @@ pnpm dev
 | ---------------- | --------------------------- |
 | Project Manager  | Ezekiel Ko                  |
 | Technical Lead   | Jerry Nguyen                |
+| Designer / Developer| Andre Camerino           |
 | Designer / Developer| Angelica Huang           
 | Developer        | Evan Au                     |
-| Developer        | Andre Camerino |
 | Developer        | Nicholas Garcia-Scholtz |
 | Developer        | Paige Phan |
 | Developer        | Sam Richell-Smith           |
