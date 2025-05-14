@@ -8,7 +8,7 @@ const Navbar = () => {
 
 
  {/* TradingView Widget Script*/}
- const containerRef = useRef(null);
+ const containerRef = useRef<HTMLDivElement>(null);
  useEffect(() => {
    const script = document.createElement('script');
    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js';
