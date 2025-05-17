@@ -34,7 +34,7 @@ COPY . .
 RUN npx next build --experimental-build-mode compile
 
 # Remove development dependencies
-RUN pnpm prune --omit=dev
+RUN pnpm prune --prod
 
 
 # Final stage for app image
