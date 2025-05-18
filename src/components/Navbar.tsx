@@ -55,11 +55,11 @@ const Navbar = () => {
 
 
      {/* Top Bar */}
-      <div className="bg-transparent lg:bg-[#F0F8FF] text-[#172741] p-4 flex justify-between items-center">
+      <div className="bg-transparent lg:bg-[#F0F8FF] text-[#172741] lg:p-0 p-4 flex justify-between items-center">
 
        {/* Hamburger Menu */}
         <button
-          className={`lg:hidden p-4 bg-[#fff] rounded-4xl shadow-xl/10 z-50 transition-transform duration-300 ${isOpen ? "translate-x-40 shadow-none" : ""}`}
+          className={`lg:hidden p-4 bg-[#fff] rounded-4xl shadow-xl/10 z-50 transition-transform duration-300 ${isOpen ? "translate-x-55 translate-y-6 shadow-none scale-80 bg-transparent" : ""}`}
           onClick={() => setIsOpen(!isOpen)}
         >
 
@@ -74,11 +74,7 @@ const Navbar = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d={
-              isOpen
-                ? "M6 18L18 6M6 6l12 12"
-                : "M4 6h16M4 12h16M4 18h16"
-            }
+            d="M4 6h16M4 12h16M4 18h16"
           />
         </svg> 
         </button>
@@ -87,8 +83,8 @@ const Navbar = () => {
 
 
        {/* Desktop Nav */}
-       <ul className="hidden lg:flex gap-4 justify-center flex-grow order-2">
-         <li><a href="/" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[100]">Home</a></li>
+       <ul className=" hidden lg:flex gap-4 justify-center flex-grow order-2 text-xl">
+         <li><a href="/" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">Home</a></li>
          <li><a href="/about" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">About</a></li>
          <li><a href="/events" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">Events</a></li>
          <li><a href="/investmentportfolio" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">Investment Portfolio</a></li>
@@ -126,20 +122,35 @@ const Navbar = () => {
     {/* Mobile Menu */}
     <ul
       className={`
-        fixed top-[80px] left-0 h-[calc(100vh-220px)] w-64 bg-[#fff] text-[#145CA9] flex flex-col
+        fixed top-[80px] left-0 h-[calc(90vh-220px)] w-84 bg-[#fff] shadow-xl/20 rounded-4xl text-[#145CA9] flex flex-col
         transform transition-transform duration-300 ease-in-out
         lg:hidden
+        text-lg
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
       `}
     >
+      <Image
+         src="/assets/uaic.png"
+         alt="Logo"
+         width={200}
+         height={200}
+         className="p-8"
+      />
+
+      <hr className="border-t border-[#145CA9]-300 w-9/10 self-center pb-4" /> 
+
       <li className="p-4 border-b border-white"><a href="/">Home</a></li>
       <li className="p-4 border-b border-white"><a href="/about">About</a></li>
       <li className="p-4 border-b border-white"><a href="/events">Events</a></li>
       <li className="p-4 border-b border-white"><a href="/investmentportfolio">Investment Portfolio</a></li>
       <li className="p-4 border-b border-white"><a href="/bulletin">Bulletin</a></li>
-      <li className="p-4 border-b border-white"><a href="/contact">Contact</a></li>
-      <li className="p-4 border-b border-white"><a href="/signup">Sign Up</a></li>
-      <li className="p-4"><a href="/login">Login</a></li>
+      <li className="p-4 pb-8 border-b border-white"><a href="/contact">Contact</a></li>
+
+      <hr className="border-t border-[#145CA9]-300 w-9/10 self-center py-6" /> 
+
+      <li className="ml-auto p-[10px] border border-solid border-[#145CA9] hover:bg-[#fff] bg-[#145CA9] rounded-4xl text-[#fff] hover:text-[#145CA9] font-[600] text-[14px] w-auto px-6 mr-4">
+        <a href="/signin">Sign In</a>
+      </li>
     </ul>
 
    </nav>
