@@ -44,8 +44,9 @@ const Navbar = () => {
 
  return (
    <nav className="w-full">
+
      {/* Mobile Widget */}
-     <div className="tradingview-widget-container lg:hidden">
+     <div className="tradingview-widget-container lg:hidden shadow-xl/10">
        <div
          className="tradingview-widget-container__widget"
          ref={mobileRef}
@@ -54,27 +55,35 @@ const Navbar = () => {
 
 
      {/* Top Bar */}
-     <div className="bg-white lg:bg-[#F0F8FF] text-[#172741] p-4 flex justify-between items-center">
+      <div className="bg-transparent lg:bg-[#F0F8FF] text-[#172741] p-4 flex justify-between items-center">
+
        {/* Hamburger Menu */}
-       <button className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>
-         <svg
-           className="w-6 h-6"
-           fill="none"
-           stroke="#145CA9"
-           viewBox="0 0 24 24"
-         >
-           <path
-             strokeLinecap="round"
-             strokeLinejoin="round"
-             strokeWidth={2}
-             d={
-               isOpen
-                 ? "M6 18L18 6M6 6l12 12"
-                 : "M4 6h16M4 12h16M4 18h16"
-             }
-           />
-         </svg>
-       </button>
+        <button
+          className={`lg:hidden p-4 bg-[#fff] rounded-4xl shadow-xl/10 z-50 transition-transform duration-300 ${isOpen ? "translate-x-40 shadow-none" : ""}`}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+
+
+        <svg
+          className="w-10 h-10"  
+          fill="none"
+          stroke="#145CA9"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d={
+              isOpen
+                ? "M6 18L18 6M6 6l12 12"
+                : "M4 6h16M4 12h16M4 18h16"
+            }
+          />
+        </svg> 
+        </button>
+
+
 
 
        {/* Desktop Nav */}
@@ -98,9 +107,9 @@ const Navbar = () => {
        <Image
          src="/assets/uaic.png"
          alt="Logo"
-         width={140}
-         height={140}
-         className="order-1"
+         width={220}
+         height={220}
+         className="order-1 p-4"
        />
      </div>
 
@@ -114,19 +123,25 @@ const Navbar = () => {
      </div>
 
 
-     {/* Mobile Menu */}
-     {isOpen && (
-       <ul className="h-screen bg-[#145CA9] text-white flex-auto flex-col gap-4 lg:hidden w-full">
-         <li className="p-4 border-b border-white"><a href="/">Home</a></li>
-         <li className="p-4 border-b border-white"><a href="/about">About</a></li>
-         <li className="p-4 border-b border-white"><a href="/events">Events</a></li>
-         <li className="p-4 border-b border-white"><a href="/investmentportfolio">Investment Portfolio</a></li>
-         <li className="p-4 border-b border-white"><a href="/bulletin">Bulletin</a></li>
-         <li className="p-4 border-b border-white"><a href="/contact">Contact</a></li>
-         <li className="p-4 border-b border-white"><a href="/signup">Sign Up</a></li>
-         <li className="p-4"><a href="/login">Login</a></li>
-       </ul>
-     )}
+    {/* Mobile Menu */}
+    <ul
+      className={`
+        fixed top-[80px] left-0 h-[calc(100vh-220px)] w-64 bg-[#fff] text-[#145CA9] flex flex-col
+        transform transition-transform duration-300 ease-in-out
+        lg:hidden
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+      `}
+    >
+      <li className="p-4 border-b border-white"><a href="/">Home</a></li>
+      <li className="p-4 border-b border-white"><a href="/about">About</a></li>
+      <li className="p-4 border-b border-white"><a href="/events">Events</a></li>
+      <li className="p-4 border-b border-white"><a href="/investmentportfolio">Investment Portfolio</a></li>
+      <li className="p-4 border-b border-white"><a href="/bulletin">Bulletin</a></li>
+      <li className="p-4 border-b border-white"><a href="/contact">Contact</a></li>
+      <li className="p-4 border-b border-white"><a href="/signup">Sign Up</a></li>
+      <li className="p-4"><a href="/login">Login</a></li>
+    </ul>
+
    </nav>
  );
 };
