@@ -55,11 +55,15 @@ const Navbar = () => {
 
 
      {/* Top Bar */}
-      <div className="bg-transparent lg:bg-[#F0F8FF] text-[#172741] lg:p-0 p-4 flex justify-between items-center">
+     <div className="bg-transparent lg:bg-[#F0F8FF] text-[#172741] px-6 py-2 lg:px-12 flex justify-between items-center">
+
 
        {/* Hamburger Menu */}
         <button
-          className={`lg:hidden p-4 bg-[#fff] rounded-4xl shadow-xl/10 z-50 transition-transform duration-300 ${isOpen ? "translate-x-55 translate-y-6 shadow-none scale-80 bg-transparent" : ""}`}
+          className={`lg:hidden p-4 bg-[#fff] rounded-4xl shadow-xl/10 z-50 transition-transform duration-300 ${
+            isOpen ? "invisible" : "visible"
+          }`}
+          
           onClick={() => setIsOpen(!isOpen)}
         >
 
@@ -83,7 +87,7 @@ const Navbar = () => {
 
 
        {/* Desktop Nav */}
-       <ul className=" hidden lg:flex gap-4 justify-center flex-grow order-2 text-xl">
+       <ul className=" hidden lg:flex gap-3 xl:gap-10 justify-center flex-grow order-2 text-xl">
          <li><a href="/" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">Home</a></li>
          <li><a href="/about" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">About</a></li>
          <li><a href="/events" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">Events</a></li>
@@ -94,8 +98,15 @@ const Navbar = () => {
 
 
        {/* Join Us */}
-       <ul className="hidden lg:flex gap-4 ml-auto order-3 p-[10px]">
-         <li><a href="/joinus" className="p-[10px] border border-solid border-[#145CA9] hover:bg-[#fff] bg-[#145CA9] rounded-4xl text-[#fff] hover:text-[#145CA9] px-[20] py-[6] font-[600] text-[14px]">Join Us</a></li>
+       <ul className="hidden lg:flex gap-4 ml-auto order-3 ">
+         <li>
+           <a
+             href="/joinus"
+             className="border border-solid border-[#145CA9] hover:bg-[#fff] bg-[#145CA9] rounded-4xl text-[#fff] hover:text-[#145CA9] px-[30] py-[10] font-[500] text-lg"
+           >
+             Join Us
+           </a>
+         </li>
        </ul>
 
 
@@ -122,33 +133,61 @@ const Navbar = () => {
     {/* Mobile Menu */}
     <ul
       className={`
-        fixed top-[80px] left-0 h-[80vh] w-84 bg-[#fff] shadow-xl/20 rounded-4xl text-[#145CA9] flex flex-col
+        fixed top-[10%] bottom-[10%] sm:bottom-[16%] left-0 w-[90vw] max-w-[350px]
+        bg-[#fff] shadow-xl/20 rounded-3xl text-[#145CA9]
+        flex flex-col overflow-y-auto z-40
         transform transition-transform duration-300 ease-in-out
         lg:hidden
         text-lg
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
       `}
     >
-      <Image
-         src="/assets/uaic.png"
-         alt="Logo"
-         width={200}
-         height={200}
-         className="p-8"
-      />
+    <div className="flex justify-between items-center px-6 py-6 ">
+      <Image src="/assets/uaic.png" alt="Logo" width={150} height={150} />
+      <button
+        className="p-3 bg-[#fff] rounded-full"
+        onClick={() => setIsOpen(false)}
+      >
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          stroke="#145CA9"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
 
-      <hr className="border-t border-[#145CA9]-300 w-9/10 self-center pb-4" /> 
+      <hr className="border-t border-[#145CA9]-300 w-9/10 self-center" />
 
-      <li className="p-7 pl-10  border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/Home.png" alt="Home Icon" width={24} height={24} /><a href="/">Home</a></li>
-      <li className="p-7 pl-10  border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/Info.png" alt="Info Icon" width={24} height={24} /><a href="/">About</a></li>
-      <li className="p-7 pl-10  border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/Event.png" alt="Event Icon" width={24} height={24} /><a href="/">Events</a></li>
-      <li className="p-7 pl-10  border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/chart.png" alt="Investments Icon" width={24} height={24} /><a href="/">Investments</a></li>
-      <li className="p-7 pl-10 border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/document.png" alt="IBulletinnfo Icon" width={24} height={24} /><a href="/">Bulletin</a></li>
-      <li className="p-7 pl-10 pb-8 border-b border-white flex items-center gap-6"><Image src="/assets/Contact.png" alt="Contact Icon" width={24} height={24} /><a href="/">Contact</a></li>
+      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-[#F0F8FF] hover:font-semibold rounded-full">
+        <Image src="/assets/Home.png" alt="Home Icon" width={24} height={24} /> <a href="/">Home</a>
+      </li>
+      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-[#F0F8FF] hover:font-semibold rounded-full">
+        <Image src="/assets/Info.png" alt="Info Icon" width={24} height={24} /> <a href="/">About</a>
+      </li>
+      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-[#F0F8FF] hover:font-semibold rounded-full">
+        <Image src="/assets/Event.png" alt="Event Icon" width={24} height={24} /> <a href="/">Events</a>
+      </li>
+      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-[#F0F8FF] hover:font-semibold rounded-full">
+        <Image src="/assets/chart.png" alt="Investments Icon" width={24} height={24} /> <a href="/">Investments</a>
+      </li>
+      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-[#F0F8FF] hover:font-semibold rounded-full">
+        <Image src="/assets/document.png" alt="Bulletin Icon" width={24} height={24} /> <a href="/">Bulletin</a>
+      </li>
+      <li className="p-6 pl-14 pb-6 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl">
+        <Image src="/assets/Contact.png" alt="Contact Icon" width={24} height={24} /> <a href="/">Contact</a>
+      </li>
 
-      <hr className="border-t border-[#145CA9]-300 w-9/10 self-center py-6" /> 
+      <hr className="border-t border-[#145CA9]-300 w-9/10 self-center py-3" />
 
-      <li className="ml-auto p-[15px] px-[36px] border border-solid border-[#145CA9] hover:bg-[#fff] bg-[#145CA9] rounded-4xl text-[#fff] hover:text-[#145CA9] font-[600] text-[14px] w-auto px-6 mr-4">
+      <li className="ml-auto p-[10px] px-[30px] mr-[30px] border border-solid border-[#145CA9] hover:bg-[#fff] bg-[#145CA9] rounded-4xl text-[#fff] hover:text-[#145CA9] font-[600] text-lg sm:p-[16px] sm:px-[32px] sm:text-xl">
         <a href="/signin">Sign In</a>
       </li>
     </ul>
