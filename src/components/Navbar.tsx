@@ -122,7 +122,7 @@ const Navbar = () => {
     {/* Mobile Menu */}
     <ul
       className={`
-        fixed top-[80px] left-0 h-[calc(90vh-220px)] w-84 bg-[#fff] shadow-xl/20 rounded-4xl text-[#145CA9] flex flex-col
+        fixed top-[80px] left-0 h-[80vh] w-84 bg-[#fff] shadow-xl/20 rounded-4xl text-[#145CA9] flex flex-col
         transform transition-transform duration-300 ease-in-out
         lg:hidden
         text-lg
@@ -139,16 +139,16 @@ const Navbar = () => {
 
       <hr className="border-t border-[#145CA9]-300 w-9/10 self-center pb-4" /> 
 
-      <li className="p-4 pl-10 border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/Home.png" alt="Home Icon" width={24} height={24} /><a href="/">Home</a></li>
-      <li className="p-4 pl-10 border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/Info.png" alt="Info Icon" width={24} height={24} /><a href="/">About</a></li>
-      <li className="p-4 pl-10 border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/Event.png" alt="Event Icon" width={24} height={24} /><a href="/">Events</a></li>
-      <li className="p-4 pl-10 border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/chart.png" alt="Investments Icon" width={24} height={24} /><a href="/">Investments</a></li>
-      <li className="p-4 pl-10 border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/document.png" alt="IBulletinnfo Icon" width={24} height={24} /><a href="/">Bulletin</a></li>
-      <li className="p-4 pl-10 pb-8 border-b border-white flex items-center gap-6"><Image src="/assets/Contact.png" alt="Contact Icon" width={24} height={24} /><a href="/">Contact</a></li>
+      <li className="p-7 pl-10  border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/Home.png" alt="Home Icon" width={24} height={24} /><a href="/">Home</a></li>
+      <li className="p-7 pl-10  border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/Info.png" alt="Info Icon" width={24} height={24} /><a href="/">About</a></li>
+      <li className="p-7 pl-10  border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/Event.png" alt="Event Icon" width={24} height={24} /><a href="/">Events</a></li>
+      <li className="p-7 pl-10  border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/chart.png" alt="Investments Icon" width={24} height={24} /><a href="/">Investments</a></li>
+      <li className="p-7 pl-10 border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/document.png" alt="IBulletinnfo Icon" width={24} height={24} /><a href="/">Bulletin</a></li>
+      <li className="p-7 pl-10 pb-8 border-b border-white flex items-center gap-6"><Image src="/assets/Contact.png" alt="Contact Icon" width={24} height={24} /><a href="/">Contact</a></li>
 
       <hr className="border-t border-[#145CA9]-300 w-9/10 self-center py-6" /> 
 
-      <li className="ml-auto p-[10px] border border-solid border-[#145CA9] hover:bg-[#fff] bg-[#145CA9] rounded-4xl text-[#fff] hover:text-[#145CA9] font-[600] text-[14px] w-auto px-6 mr-4">
+      <li className="ml-auto p-[15px] px-[36px] border border-solid border-[#145CA9] hover:bg-[#fff] bg-[#145CA9] rounded-4xl text-[#fff] hover:text-[#145CA9] font-[600] text-[14px] w-auto px-6 mr-4">
         <a href="/signin">Sign In</a>
       </li>
     </ul>
