@@ -139,12 +139,12 @@ const Navbar = () => {
 
       <hr className="border-t border-[#145CA9]-300 w-9/10 self-center pb-4" /> 
 
-      <li className="p-4 border-b border-white"><a href="/">Home</a></li>
-      <li className="p-4 border-b border-white"><a href="/about">About</a></li>
-      <li className="p-4 border-b border-white"><a href="/events">Events</a></li>
-      <li className="p-4 border-b border-white"><a href="/investmentportfolio">Investment Portfolio</a></li>
-      <li className="p-4 border-b border-white"><a href="/bulletin">Bulletin</a></li>
-      <li className="p-4 pb-8 border-b border-white"><a href="/contact">Contact</a></li>
+      <li className="p-4 pl-10 border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/Home.png" alt="Home Icon" width={24} height={24} /><a href="/">Home</a></li>
+      <li className="p-4 pl-10 border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/Info.png" alt="Info Icon" width={24} height={24} /><a href="/">About</a></li>
+      <li className="p-4 pl-10 border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/Event.png" alt="Event Icon" width={24} height={24} /><a href="/">Events</a></li>
+      <li className="p-4 pl-10 border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/chart.png" alt="Investments Icon" width={24} height={24} /><a href="/">Investments</a></li>
+      <li className="p-4 pl-10 border-b border-white flex items-center gap-6 hover:bg-[#F0F8FF] hover:font-semibold rounded-full"><Image src="/assets/document.png" alt="IBulletinnfo Icon" width={24} height={24} /><a href="/">Bulletin</a></li>
+      <li className="p-4 pl-10 pb-8 border-b border-white flex items-center gap-6"><Image src="/assets/Contact.png" alt="Contact Icon" width={24} height={24} /><a href="/">Contact</a></li>
 
       <hr className="border-t border-[#145CA9]-300 w-9/10 self-center py-6" /> 
 
