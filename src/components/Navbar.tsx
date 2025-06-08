@@ -87,7 +87,7 @@ const Navbar = () => {
 
 
        {/* Desktop Nav */}
-       <ul className=" hidden lg:flex gap-3 xl:gap-10 justify-center flex-grow order-2 text-xl">
+       <ul className=" hidden lg:flex gap-3 xl:gap-10 2xl:gap-15 justify-center flex-grow order-2 text-xl">
          <li><a href="/" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">Home</a></li>
          <li><a href="/about" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">About</a></li>
          <li><a href="/events" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">Events</a></li>
@@ -102,7 +102,7 @@ const Navbar = () => {
          <li>
            <a
              href="/joinus"
-             className="border border-solid border-[#145CA9] hover:bg-[#fff] bg-[#145CA9] rounded-4xl text-[#fff] hover:text-[#145CA9] px-[30] py-[10] font-[500] text-lg"
+             className="border border-solid border-[#145CA9] hover:bg-[#fff] bg-[#145CA9] rounded-4xl text-[#fff] hover:text-[#145CA9] xl:px-[30] py-[10] lg:px-[20] font-[500] text-lg"
            >
              Join Us
            </a>
