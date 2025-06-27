@@ -15,19 +15,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-
         {/* Visible Navbar */}
-        <div className="fixed w-full">
-            <Navbar />
+        <div className="fixed top-0 left-0 w-full z-50">
+          <Navbar />
         </div>
 
-        {/* Invisible Navbar for layout purposes */}
-        <div className="w-full invisible">
-            <Navbar />
-        </div>
-
-        {children}
-
+        {/* Margin height to match Navbar */}
+        <div className="mt-[131.75px]">{children}</div>
       </body>
     </html>
   );
