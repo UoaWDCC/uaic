@@ -1,29 +1,12 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 
-const executiveSubteams = [
-  "Leadership Team",
-  "Bulletin and Investment Committee Chairperson",
-  "Secretary & Treasurer",
-  "Diversity and Inclusion Team",
-  "Education Team",
-  "Competitions Team 1",
-  "Competitions Team 2",
-  "Marketing Team",
-  "Social Team",
-];
 
 const ExecutiveCommitteesDropdown = () => {
   const [isMainOpen, setIsMainOpen] = useState(false);
-  const [openSubteams, setOpenSubteams] = useState<string[]>([]);
 
-  const toggleSubteam = (team: string) => {
-    setOpenSubteams((prev) =>
-      prev.includes(team)
-        ? prev.filter((t) => t !== team)
-        : [...prev, team]
-    );
-  };
+
 
   return (
 
@@ -40,18 +23,33 @@ const ExecutiveCommitteesDropdown = () => {
           <div className="text-sm text-[#145CA9]">
             <p className="mb-2 pl-4">The Investment Committee is responsible for managing the club's fund, including:</p>
             <ul className="list-disc list-inside mb-4 pl-4">
-              <li>Running competitions, educational events, social events and club-wide initiatives</li>
-              <li>Regularly communicating with our members</li>
-              <li>Managing the Investment Committee and Bulletin Committee</li>
+              <li>Ensuring all investments are in line with the fund's value investing thesis</li>
+              <li>Regularly pitching and analysing potential stock investments</li>
+              <li>Voting to decide whether an investment passes to the next stage of approval</li>
             </ul>
+            <div className="w-[500px] h-[300px] bg-[#EBF7FE] flex items-center justify-center overflow-hidden">
+              <Image
+                src="/assets/investment-committee.png"
+                alt="investment-committee"
+                width={500}
+                height={250}
+                className="object-cover"
+              />
+            </div>
+            <div className="items-center text-center">
 
-            
+              <p><strong>Back Row: </strong>Max wilson, Sam Gowen, Caden Van De Laak </p>
+              <p><strong>Middle Row: </strong>Sophia Walker, Caleb Manson, Matt Powell, Tom Maclean, Shivam Shanker </p>
+              <p><strong>Front Row: </strong>Amelia Cave, Abbey Patten, Rohit Guthpe, Aimee Ng, Cullen Tran, Lilly Crawford </p>
+              <p><strong>Absent: </strong>Isabella Boswell, Andrew Griffiths</p>
+            </div>
+
           </div>
         )}
       </div>
 
       <hr className="border-t border-[#CBC6C6] w-9/10 self-center my-6" />
-      
+
     </div>
   );
 };
