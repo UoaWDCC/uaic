@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import ProfileCard from "./ProfileCard";
 
 const executiveSubteams = [
   "Leadership Team",
@@ -13,10 +14,49 @@ const executiveSubteams = [
   "Social Team",
 ];
 
+const teamProfiles: Record<string, { name: string; title: string; degree: string; imageSrc: string }[]> = {
+  "Leadership Team": [
+    {
+      name: "Danielle Smith",
+      title: "Co-President",
+      degree: "BSc/BCom - Accounting, Finance & Statistics",
+      imageSrc: "/assets/danielle-smith.png",
+    },
+    {
+      name: "James Maclean",
+      title: "Co-President",
+      degree: "LLB/BCom - Finance & Economics",
+      imageSrc: "/assets/james-maclean.png",
+    },
+  ],
+  "Bulletin and Investment Committee Chairperson": [
+    {
+      name: "Riley Bogard-Allan",
+      title: "Bulletin Editor-in-Chief",
+      degree: "BCom/BA - Economics, Maths & History",
+      imageSrc: "/assets/riley-bogard-allan.png",
+    },
+    {
+      name: "Rohit Guthpe",
+      title: "Investment Committee Chairperson",
+      degree: "BCom - Finance & Economics",
+      imageSrc: "/assets/rohit-guthpe.png",
+    },
+  ],
+};
+
+
 const ExecutiveCommitteesDropdown = () => {
   const [isMainOpen, setIsMainOpen] = useState(false);
-  const [openSubteam, setOpenSubteam] = useState<string | null>(null);
-  const toggleSubteam = (team: string) => setOpenSubteam((prev) => (prev === team ? null : team));
+  const [openSubteams, setOpenSubteams] = useState<string[]>([]);
+
+  const toggleSubteam = (team: string) => {
+    setOpenSubteams((prev) =>
+      prev.includes(team)
+        ? prev.filter((t) => t !== team)
+        : [...prev, team]
+    );
+  };
 
   return (
 
@@ -30,7 +70,7 @@ const ExecutiveCommitteesDropdown = () => {
         </button>
 
         {isMainOpen && (
-          <div className="text-sm text-[#145CA9]"> {/* Removed pl-4 here */}
+          <div className="text-sm text-[#145CA9]">
             <p className="mb-2 pl-4">The Executive Committee is responsible for running the club, including:</p>
             <ul className="list-disc list-inside mb-4 pl-4">
               <li>Running competitions, educational events, social events and club-wide initiatives</li>
@@ -47,15 +87,28 @@ const ExecutiveCommitteesDropdown = () => {
                 >
                   <span className="font-bold">{team}</span>
                   <img
-                    src={`/assets/${openSubteam === team ? "arrow-up" : "arrow-down"}.png`}
+                    src={`/assets/${openSubteams.includes(team) ? "arrow-up" : "arrow-down"}.png`}
                     alt=""
                     className="w-7 h-7 inline-block"
                   />
                 </button>
-                {/* Show subteam details if the team is open */}
-                {openSubteam === team && (
+                
+                {/* Show subteam details using ProfileCard.tsx*/}
+                {openSubteams.includes(team) && (
                   <div className="pl-4 py-1 text-sm text-[#145CA9]">
-                    <p>Meow this is meow {team} meoww mewo.</p>
+                    {teamProfiles[team] && (
+                      <div className="flex gap-8 flex-wrap">
+                        {teamProfiles[team].map((member) => (
+                          <ProfileCard
+                            key={member.name}
+                            name={member.name}
+                            title={member.title}
+                            degree={member.degree}
+                            imageSrc={member.imageSrc}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
