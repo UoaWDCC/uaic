@@ -129,8 +129,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className=" flex-col items-center lg:hidden flex order-3">
-          <div className="max-w-[20rem]  justify-self-center">
+        <div className=" flex-col items-center lg:hidden flex order-3 h-full w-full">
+          <div className="max-w-[20rem]  justify-center items-center flex h-full w-full">
             <img src="/assets/uaic-white.png" alt="" />
           </div>
         </div>
