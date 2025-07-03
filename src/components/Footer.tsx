@@ -15,18 +15,18 @@ const Footer = () => {
     lg:p-10 "
     >
       <div
-        className="p-4 w-full grid grid-cols-1 items-start text-center gap-y-8 gap-x-16 px-16 
+        className="p-4 w-full grid grid-cols-2 items-start text-center gap-y-8 gap-x-16 px-16 
       lg:grid-cols-3 pb-4
       "
       >
         {/* Col 1 */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center order-1 lg:order-0">
           <div className="flex flex-col items-start text-left gap-4">
-            <h1 className="hidden lg:block text-[2rem] lg:text-[1.4rem] xl:text-[2.5rem] 2xl:text-[4rem] font-bold whitespace-nowrap">
+            <h1 className="flex lg:block text-[2rem] lg:text-[1.4rem] xl:text-[2.5rem] 2xl:text-[4rem] font-bold whitespace-nowrap">
               Links
             </h1>
 
-            <div className="hidden lg:flex lg:flex-col underline text-[2rem] lg:text-[1.4rem] xl:text-[1.4rem] 2xl:text-[2rem] font-light whitespace-nowrap">
+            <div className="flex lg:flex flex-col underline text-[1.4rem] lg:text-[1.4rem] xl:text-[1.4rem] 2xl:text-[2rem] font-light whitespace-nowrap">
               <h2>Home</h2>
               <h2>About</h2>
               <h2>Events</h2>
@@ -38,13 +38,13 @@ const Footer = () => {
         </div>
 
         {/* Col 2 */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center order-0 lg:order-1">
           <div className="flex flex-col items-start text-left gap-4">
-            <h1 className="hidden lg:block text-[2rem] lg:text-[1.4rem] xl:text-[2.5rem] 2xl:text-[4rem] font-bold whitespace-nowrap">
+            <h1 className="flex lg:block text-[2rem] lg:text-[1.4rem] xl:text-[2.5rem] 2xl:text-[4rem] font-bold whitespace-nowrap">
               Contact Us
             </h1>
 
-            <div className="hidden lg:flex lg:flex-col text-[2rem] lg:text-[1.4rem] xl:text-[1.4rem] 2xl:text-[2rem] font-light whitespace-nowrap gap-5">
+            <div className="flex lg:flex flex-col text-[1.4rem] lg:text-[1.4rem] xl:text-[1.4rem] 2xl:text-[2rem] font-light whitespace-nowrap gap-5">
               <div className="flex flex-row gap-8">
                 <FaPhoneAlt className="text-3xl" />
 
@@ -52,8 +52,7 @@ const Footer = () => {
               </div>
               <div className="flex flex-row gap-8">
                 <a
-                  className="hover:scale-105 hover:text-white transition-all duration-250 order-4 
-            lg:order-0"
+                  className="hover:scale-105 hover:text-white transition-all duration-250"
                   href="mailto:president@uaic.co.nz"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -64,8 +63,8 @@ const Footer = () => {
 
                 <h2>president@uaic.co.nz</h2>
               </div>
-              <div className="flex flex-row gap-8">
-                <TiLocation className="text-3xl" />
+              <div className="flex flex-row gap-8 ">
+                <TiLocation className="lg:text-3xl" />
 
                 <div>
                   <h2>34 Princess Street</h2>
@@ -78,17 +77,16 @@ const Footer = () => {
         </div>
 
         {/* Col 3 */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center order-2 ">
           <div className="flex flex-col items-start text-left gap-4">
-            <h1 className="hidden lg:block text-[2rem] lg:text-[1.4rem] xl:text-[2.5rem] 2xl:text-[4rem] font-bold whitespace-nowrap">
+            <h1 className="flex lg:block text-[2rem] lg:text-[1.4rem] xl:text-[2.5rem] 2xl:text-[4rem] font-bold whitespace-nowrap">
               Follow Us
             </h1>
 
-            <div className="hidden lg:flex lg:flex-col text-[2rem] lg:text-[1.4rem] xl:text-[1.4rem] 2xl:text-[2rem] font-light whitespace-nowrap gap-5">
+            <div className="flex lg:flex flex-col text-[1.4rem] lg:text-[1.4rem] xl:text-[1.4rem] 2xl:text-[2rem] font-light whitespace-nowrap gap-5">
               <div className="flex flex-row gap-8">
                 <a
-                  className="hover:scale-105 hover:text-white transition-all duration-250 order-2 
-            lg:order-0"
+                  className="hover:scale-105 hover:text-white transition-all duration-250 "
                   href="https://www.instagram.com/officialuaic/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -101,8 +99,7 @@ const Footer = () => {
               </div>
               <div className="flex flex-row gap-8">
                 <a
-                  className="hover:scale-105 hover:text-white transition-all duration-250 order-0
-            lg:order-0"
+                  className="hover:scale-105 hover:text-white transition-all duration-250 "
                   href="https://www.facebook.com/officialUAIC"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -115,8 +112,7 @@ const Footer = () => {
               </div>
               <div className="flex flex-row gap-8">
                 <a
-                  className="hover:scale-105 thover:scale-110 hover:text-white transition-all duration-250 order-3 
-            lg:order-0"
+                  className="hover:scale-105 thover:scale-110 hover:text-white transition-all duration-250 "
                   href="https://www.linkedin.com/company/officialuaic/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -132,15 +128,21 @@ const Footer = () => {
             </div>
           </div>
         </div>
+
+        <div className=" flex-col items-center lg:hidden flex order-3">
+          <div className="max-w-[20rem]  justify-self-center">
+            <img src="/assets/uaic-white.png" alt="" />
+          </div>
+        </div>
       </div>
 
-      <hr className="w-[100%] border-t border-gray-300 my-0" />
+      <hr className="lg:w-[100%] w-[90%] border-t border-gray-300 my-0" />
 
       <div className="flex justify-between w-full pl-12 pr-12 pt-0">
         <h1 className="lg:text-[1.4rem] ">
           © Copyright 2025 University of Auckland Investment Club
         </h1>
-        <div className="max-w-[8rem]  justify-self-center">
+        <div className="max-w-[8rem]  justify-self-center hidden lg:flex">
           <img src="/assets/uaic-white.png" alt="" />
         </div>
       </div>
