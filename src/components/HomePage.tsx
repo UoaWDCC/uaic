@@ -1,62 +1,80 @@
 import React from "react";
-import Image from "next/image";
 import Link from 'next/link';
 
 const HomePage = () => {
     return (
 
         <>
-            <header className="
-            items-center flex justify-center bg-[#F0F8FF] 
-            h-[50px]
-            lg:h-[50px] ">  
-                <h2 className="text-[18px] leading-[22px]">Live market update of current stocks</h2>
-            </header>
-
-            <div
-                className="
-                bg-no-repeat bg-cover bg-center 
-                h-[488px] mt-[24px] bg-custom
-                lg:h-[695px] lg:mt-[27px] lg:mb-[27px] lg:pt-[102px] lg:pl-[56px]"
-                style={{
-                    backgroundImage: "url('/assets/homepage.png')"
-                }}>
+            {/* This is to hide disable the scrolling horizontally of the background */}
+            <div className="
+            relative w-full 
+            overflow-x-hidden 
+            min-h-[749px]
+            ">
+                {/* Background */}
                 <div
                     className="
-                    bg-[#D9D9D9] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] border-[#CBC6C6]
-                    h-[442px] pt-[29px] pb-[29px] px-[27px] 
-                    lg:w-[417px] lg:h-[476px] lg:rounded-[10px] lg:border-[1px] 
+                    absolute bg-center bg-no-repeat bg-cover
+                    w-full h-[749px] 
+                    lg:w-[1512px] lg:h-[749px] lg:-left-[36px]
+                    z-[-2]"
+                    style={{
+                        backgroundImage: "url('/assets/bull-cow-bg.jpg')",
+                    }}
+                />
+
+                {/* Transparent Overlay */}
+                <div
+                    className="
+                    absolute 
+                    w-393 h-[749px]
+                    lg:w-[1512px] lg:h-[749px] 
+                    bg-gradient-to-r from-white/80
+                    via transparent to-white/0
+                    z-[-1]
                     "
-                    style={{ backgroundColor: 'rgba(217, 217, 217, 0.925)' }}>
+                />
+                
+                {/* Foreground content */}
+                <div className="
+                relative 
+                w-[305px] h-[324] mt-[220px] gap-[70px]
+                flex flex-col 
+                mx-auto 
+                text-center
+                lg:text-left 
+                lg:w-[494px] lg:h-[384] lg:mt-[118px] lg:ml-[112px]
+                lg:gap-[45px]
+                ">
 
-                    <h1 className="text-[19px] leading-[22px] h-[70px]">
-                        UNIVERSITY OF AUCKLAND INVESTMENT CLUB
+                    <h1
+                    className="
+                    font-[900] tracking-[0px]
+                    bg-gradient-to-r from-[#145CA9] to-[#5FB4FF] bg-clip-text text-transparent
+                    text-[41.65px] leading-[45px] mx-[20px]
+                    lg:text-[75.65px] lg:leading-[85px] lg:mx-0"
+                    >
+                    Investing is for everyone
                     </h1>
-                    <h3 className="text-[19px] leading-[22px] h-[50px]">
-                        Investing is for Everyone
-                    </h3>
-                    <p className="text-[16px] leading-[24px] h-[181px] ">
-                        The University of Auckland Investment Club was founded in 2009 and is a student-run incorporated society.
-                        <br />
-                        <br />
-                        We welcome members from all academic backgrounds and stages at the University of Auckland.
-                    </p>
 
-                    <div className="pt-[10px] flex justify-evenly">
-                        <button className="text-[20px] leading-[22px] w-[110px] h-[56px] 
-                        bg-[#FAFAFA] border-[1px] border-[#CBC6C6] rounded-[50px]
-                        shadow-[0_4px_4px_0_#00000040]">
+                    <h3 className="
+                    font-[300] tracking-[0px] text-[16px] leading-[17.84px] mx-[20px]
+                    lg:text-[24.3px] lg:leading-[32.39px] lg:mx-0">
+                    We welcome members from all academic backgrounds and stages at the University of Auckland.
+                    </h3>
+
+                    <div className="flex gap-[10px] font-[600] text-[19.68px] leading-[20.91px]">
+                        <button className="w-[146.03px] h-[46.23px] text-[#145CA9]
+                            bg-[#FFFFFF] border-[2.26px] border-[#145CA9] rounded-[50px]">
                             <Link href="/signup">
-                                Sign Up
+                                About Us
                             </Link>
                         </button>
-                        <button className="text-[20px] leading-[22px] w-[110px] h-[56px] 
-                        bg-[#FAFAFA] border-[1px] border-[#CBC6C6] rounded-[50px]
-                        shadow-[0_4px_4px_0_#00000040]">
-                            {/* <span className="scale-[1.1] origin-center block"> */}
-                            <Link href="/login">
-                                Login
-                            </Link>
+                        <button className="w-[146.03px] h-[46.23px] text-[#FFFFFF]
+                            bg-[#145CA9] rounded-[50px]">
+                                <Link href="/login">
+                                    Join Us
+                                </Link>
                         </button>
                     </div>
                 </div>
