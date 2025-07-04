@@ -43,7 +43,160 @@ const teamProfiles: Record<string, { name: string; title: string; degree: string
       imageSrc: "/assets/rohit-guthpe.png",
     },
   ],
+  "Secretary & Treasurer": [
+    {
+      name: "Amica Valencia",
+      title: "Secretary",
+      degree: "BCom - International Business & Operations & Supply Chain Management",
+      imageSrc: "/assets/amica-valencia.png",
+    },
+    {
+      name: "Isabella Boswell",
+      title: "Secretary",
+      degree: "LLB/BCom - Accounting & Commercial Law",
+      imageSrc: "/assets/isabella-boswell.png",
+    },
+    {
+      name: "Tom Maclean",
+      title: "Treasurer",
+      degree: "BCom/BSci - Finance & Computer Science",
+      imageSrc: "/assets/tom-maclean.png",
+    },
+  ],
+  "Diversity and Inclusion Team": [
+    {
+      name: "Cassandra Ekanayake",
+      title: "D&I Director",
+      degree: "BSc/BCom - Finance, Accounting & IT Management",
+      imageSrc: "/assets/cassandra-ekanayake.png",
+    },
+    {
+      name: "Kayleigh Pieters",
+      title: "D&I Officer",
+      degree: "BCom - Finance & Economics",
+      imageSrc: "/assets/kayleigh-pieters.png",
+    },
+    {
+      name: "Lisa Shiozawa",
+      title: "D&I Officer",
+      degree: "BCom - Finance & Economics",
+      imageSrc: "/assets/lisa-shiozawa.png",
+    },
+  ],
+  "Education Team": [
+    {
+      name: "Gavin Chi",
+      title: "Education Director",
+      degree: "BEng/BCom - Software Engineering, Finance & Economics",
+      imageSrc: "/assets/gavin-chi.png",
+    },
+    {
+      name: "Abby Sathyendran",
+      title: "Education Officer",
+      degree: "BCom/BA - Finance, Accounting, Economics & Statistics",
+      imageSrc: "/assets/abby-sathyendran.png",
+    },
+    {
+      name: "Reuben Paul",
+      title: "Education Officer",
+      degree: "BEng(Hons)/BCom - Mechatronics, Finance & Economics",
+      imageSrc: "/assets/reuben-paul.png",
+    },
+    {
+      name: "Samuel Foote",
+      title: "Education Officer",
+      degree: "LLB(Hons)/BCom - Finance",
+      imageSrc: "/assets/samuel-foote.png",
+    },
+  ],
+  "Competitions Team 1": [
+    {
+      name: "Aimee Ng",
+      title: "Competitions Director",
+      degree: "BCom(Hons) - Finance & Economics",
+      imageSrc: "/assets/aimee-ng.png",
+    },
+    {
+      name: "Andrew Griffiths",
+      title: "Competitions Officer",
+      degree: "BEng(Hons)/BCom - Finance",
+      imageSrc: "/assets/andrew-griffiths.png",
+    },
+    {
+      name: "Katie Parr",
+      title: "Competitions Officer",
+      degree: "BCom/BSc - Accounting, Finance & Computer Science",
+      imageSrc: "/assets/katie-parr.png",
+    },
+  ],
+  "Competitions Team 2": [
+    {
+      name: "Isabella Ho",
+      title: "Competitions Director",
+      degree: "LLB(Hons)/BCom - Finance & Economics",
+      imageSrc: "/assets/isabella-ho.png",
+    },
+    {
+      name: "Riley Atkinson",
+      title: "Competitions Officer",
+      degree: "BEng - Computer Systems",
+      imageSrc: "/assets/riley-atkinson.png",
+    },
+  ],
+  "Marketing Team": [
+    {
+      name: "Isabella Boswell",
+      title: "Marketing Director",
+      degree: "LLB/BCom - Accounting & Commercial Law",
+      imageSrc: "/assets/isabella-boswell.png",
+    },
+    {
+      name: "Angelina Katseli",
+      title: "Marketing Officer",
+      degree: "BSc/BCom - Finance, Accounting & IT Management",
+      imageSrc: "/assets/angelina-katseli.png",
+    },
+    {
+      name: "Joshua Dawson",
+      title: "Marketing Officer",
+      degree: "BCom - Finance & Economics",
+      imageSrc: "/assets/joshua-dawson.png",
+    },
+    {
+      name: "Rose Tan",
+      title: "Marketing Officer",
+      degree: "BA - Psychology & Criminology",
+      imageSrc: "/assets/rose-tan.png",
+    },
+  ],
+  "Social Team": [
+    {
+      name: "Matt Powell",
+      title: "Social Director",
+      degree: "BCom/BSc - Finance, Economics & Statistics",
+      imageSrc: "/assets/matt-powell.png",
+    },
+    {
+      name: "Miles Tapsell",
+      title: "Social Officer",
+      degree: "LLB/BCom - Finance & Accounting",
+      imageSrc: "/assets/miles-tapsell.png",
+    },
+    {
+      name: "Sam Gowen",
+      title: "Social Officer",
+      degree: "BCom - Finance & Marketing",
+      imageSrc: "/assets/sam-gowen.png",
+    },
+    {
+      name: "Shiva Nyayapati",
+      title: "Social Officer",
+      degree: "LLB/BCom - Finance & Economics",
+      imageSrc: "/assets/shiva-nyayapati.png",
+    },
+  ],
 };
+
 
 
 const ExecutiveCommitteesDropdown = () => {
