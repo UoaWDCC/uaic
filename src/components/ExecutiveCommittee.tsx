@@ -197,8 +197,6 @@ const teamProfiles: Record<string, { name: string; title: string; degree: string
   ],
 };
 
-
-
 const ExecutiveCommitteesDropdown = () => {
   const [isMainOpen, setIsMainOpen] = useState(false);
   const [openSubteams, setOpenSubteams] = useState<string[]>([]);
@@ -212,20 +210,24 @@ const ExecutiveCommitteesDropdown = () => {
   };
 
   return (
-
-    <div className="w-full max-w-md mx-auto p-4 bg-white">
-
+    <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg shadow-md">
       <div>
-
-        <button onClick={() => setIsMainOpen(!isMainOpen)} className="w-full flex justify-between items-center text-left text-[#145CA9] font-medium py-2">
+        <button
+          onClick={() => setIsMainOpen(!isMainOpen)}
+          className="w-full flex justify-between items-center text-left text-[#145CA9] font-medium py-2"
+        >
           <span className="font-bold">Executive Committees</span>
-          <img src={`/assets/${isMainOpen ? "arrow-up" : "arrow-down"}.png`} alt="" className="w-7 h-7  inline-block" />
+          <img
+            src={`/assets/${isMainOpen ? "arrow-up" : "arrow-down"}.png`}
+            alt=""
+            className="w-7 h-7 inline-block"
+          />
         </button>
 
         {isMainOpen && (
           <div className="text-sm text-[#145CA9]">
-            <p className="mb-2 pl-4">The Executive Committee is responsible for running the club, including:</p>
-            <ul className="list-disc list-inside mb-4 pl-4">
+            <p className="mb-4 pl-4">The Executive Committee is responsible for running the club, including:</p>
+            <ul className="list-disc list-inside mb-4 pl-6">
               <li>Running competitions, educational events, social events and club-wide initiatives</li>
               <li>Regularly communicating with our members</li>
               <li>Managing the Investment Committee and Bulletin Committee</li>
@@ -245,20 +247,24 @@ const ExecutiveCommitteesDropdown = () => {
                     className="w-7 h-7 inline-block"
                   />
                 </button>
-                
+
                 {/* Show subteam details using ProfileCard.tsx*/}
                 {openSubteams.includes(team) && (
                   <div className="pl-4 py-1 text-sm text-[#145CA9]">
                     {teamProfiles[team] && (
-                      <div className="flex gap-8 flex-wrap">
+                      <div className="flex flex-wrap gap-4 justify-start">
                         {teamProfiles[team].map((member) => (
-                          <ProfileCard
+                          <div
                             key={member.name}
-                            name={member.name}
-                            title={member.title}
-                            degree={member.degree}
-                            imageSrc={member.imageSrc}
-                          />
+                            className=""
+                          >
+                            <ProfileCard
+                              name={member.name}
+                              title={member.title}
+                              degree={member.degree}
+                              imageSrc={member.imageSrc}
+                            />
+                          </div>
                         ))}
                       </div>
                     )}
@@ -271,7 +277,6 @@ const ExecutiveCommitteesDropdown = () => {
       </div>
 
       <hr className="border-t border-[#CBC6C6] w-9/10 self-center my-6" />
-      
     </div>
   );
 };
