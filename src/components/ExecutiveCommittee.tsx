@@ -197,7 +197,7 @@ const teamProfiles: Record<string, { name: string; title: string; degree: string
   ],
 };
 
-const ExecutiveCommitteesDropdown = () => {
+const ExecutiveCommittee = () => {
   const [isMainOpen, setIsMainOpen] = useState(false);
   const [openSubteams, setOpenSubteams] = useState<string[]>([]);
 
@@ -281,4 +281,4 @@ const ExecutiveCommitteesDropdown = () => {
   );
 };
 
-export default ExecutiveCommitteesDropdown;
+export default ExecutiveCommittee;
