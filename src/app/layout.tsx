@@ -1,4 +1,7 @@
 import Navbar from "@/components/Navbar";
+import RecentEvents from "@/components/RecentEvents";
+import UpcomingEvents from "@/components/UpcomingEvents";
+import EventsSection from "@/components/EventsSection";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -22,6 +25,8 @@ export default function RootLayout({
 
         {/* Margin height to match Navbar */}
         <div className="mt-[131.75px]">{children}</div>
+        <EventsSection/>
+        
       </body>
     </html>
   );

@@ -10,6 +10,7 @@ interface Event {
   type: string;
   photo: string;
   description: string;
+  application_link: string
 }
 
 const events: Event[] = [
@@ -21,7 +22,8 @@ const events: Event[] = [
     location: "303S-G20",
     type: "Competition",
     photo: "/assets/jerry.jpg",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    application_link: "/events/event-id"
   },
   {
     id: "event-2-2025",
@@ -31,7 +33,8 @@ const events: Event[] = [
     location: "303S-G20",
     type: "Competition",
     photo: "/assets/jerry.jpg",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    application_link: "/events/event-id"
   },
   {
     id: "event-3-2025",
@@ -41,11 +44,12 @@ const events: Event[] = [
     location: "303S-G20",
     type: "Competition",
     photo: "/assets/jerry.jpg",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    application_link: "/events/event-id"
   }
 ]
 
-const RecentEvents = () => {
+const UpcomingEvents = () => {
   const [selectedEvent, setSelectedEvent] = useState<null | Event>(null);
   return (
     <div className="
@@ -154,26 +158,66 @@ const RecentEvents = () => {
                       {event.location}
                     </div>
                   </div>
-                  <div className="lg:w-[20%] lg:pl-8 lg:flex lg:items-center">
-                    <button
-                      onClick={() => setSelectedEvent(event)}
-                      className="
-                        mt-[14px] mb-6 px-4 py-[2px] 
-                        w-full
+                  <div className="
+                    w-full
+                    flex flex-row
+                    lg:w-[20%] lg:items-center lg:justify-center
+                    lg:flex-col lg:gap-2
+                  ">
+                    <div className="
+                      w-1/2 pr-1
+                      lg:pr-0
+                    ">
+                      <button
+                        onClick={() => setSelectedEvent(event)}
+                        className="
+                          mt-[14px] mb-6 px-4 py-[2px] 
+                          w-full
 
-                        text-center text-[var(--darkBlue)] text-[10px]
-                        border-2 rounded-[20px] 
-                        
-                        transition duration-500 ease-in-out
+                          text-center text-[var(--darkBlue)] text-[10px]
+                          border-2 rounded-[20px] 
+                          
+                          transition duration-500 ease-in-out
 
-                        hover:text-white hover:bg-[var(--darkBlue)]  
-                        transform hover:scale-102
+                          hover:opacity-80   
+                          transform hover:scale-102
 
-                        lg:text-[15px]
-                      ">
-                        Learn More
+                          lg:text-[15px]
+                          lg:mt-[0px] lg:mb-[0px]
+                          lg:w-[140px]
+                          
+                        ">
+                          Learn More
                       </button>
                     </div>
+                    <div className="
+                      w-1/2 pl-1
+                      lg:pl-0
+                    ">
+                      <button
+                        onClick={() => (window.location.href = event.application_link)}
+                        className="
+                          mt-[14px] mb-6 px-4 py-[2px] 
+                          w-full
+
+                          text-center text-[white] text-[10px]
+                          bg-[var(--darkBlue)]
+                          border-2 rounded-[20px] 
+                          
+                          transition duration-500 ease-in-out
+
+                          hover:text-white hover:opacity-80  
+                          transform hover:scale-102
+
+                          lg:text-[15px]
+                          lg:mt-[0px] lg:mb-[0px]
+                          lg:w-[140px]
+                        ">
+                          Apply Now
+                      </button>
+                    </div>
+                  </div>
+                    
                 </div>
     
               </div>
@@ -256,7 +300,7 @@ const RecentEvents = () => {
                     </div>
                   </div>
 
-                  <div className="lg:mr-10 ">
+                  <div className="lg:mr-10">
                     <img
                       src = {selectedEvent.photo}
                       alt = {`${selectedEvent.title} photo`}
@@ -273,6 +317,28 @@ const RecentEvents = () => {
                 ">
                   {selectedEvent.description}
                 </p>
+                <div className="flex justify-end">
+                  <button
+                    onClick={() => (window.location.href = selectedEvent.application_link)}
+                    className="
+                      mt-[14px] px-4 py-[4px] 
+                      w-[110px]
+
+                      text-center text-[white] text-[12px]
+                      bg-[var(--darkBlue)]
+                      border-2 rounded-[20px] 
+                            
+                      transition duration-500 ease-in-out
+
+                      hover:text-white hover:opacity-80  
+                      transform hover:scale-102
+
+                      lg:text-[15px]
+                    ">
+                      Apply Now
+                  </button>
+                </div>
+
                 <button
                   onClick={() => setSelectedEvent(null)}
                   className="
@@ -296,4 +362,4 @@ const RecentEvents = () => {
   );
 };
 
-export default RecentEvents;
+export default UpcomingEvents;
