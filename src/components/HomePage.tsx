@@ -9,15 +9,21 @@ const HomePage = () => {
             <div className="
             relative w-full 
             overflow-x-hidden 
-            min-h-[749px]
+            overflow-y-hidden 
+            mt-[166.19px]
+            min-h-[500px]
+            lg:min-h-[749px]
             ">
                 {/* Background */}
                 <div
                     className="
-                    absolute bg-center bg-no-repeat bg-cover
-                    w-full h-[749px] 
-                    lg:w-[1512px] lg:h-[749px] lg:-left-[36px]
-                    z-[-2]"
+                    fixed top-0 left-0 
+                    w-screen min-h-[610px]
+                    bg-center bg-no-repeat bg-cover
+                    lg:min-h-screen 
+                    lg:absolute
+                    z-[-2]
+                    "
                     style={{
                         backgroundImage: "url('/assets/bull-cow-bg.jpg')",
                     }}
@@ -26,19 +32,29 @@ const HomePage = () => {
                 {/* Transparent Overlay */}
                 <div
                     className="
-                    absolute 
-                    w-393 h-[749px]
-                    lg:w-[1512px] lg:h-[749px] 
-                    bg-gradient-to-r from-white/80
-                    via transparent to-white/0
+                    fixed top-0 left-0
+                    w-full h-screen
+                    bg-white/50
+                    lg:bg-[transparent]
+                    lg:bg-gradient-to-r from-white/10 to-white/0
                     z-[-1]
                     "
+                />
+
+                {/* Vertical gradient overlay (bottom → top) */}
+                <div
+                className="
+                    absolute
+                    w-full h-screen
+                    bg-gradient-to-t from-white via-white/100 lg:via-white/70 via-transparent to-white/0
+                    z-[-1]
+                "
                 />
                 
                 {/* Foreground content */}
                 <div className="
                 relative 
-                w-[305px] h-[324] mt-[220px] gap-[70px]
+                w-[305px] h-[324] mt-[80px] gap-[70px]
                 flex flex-col 
                 mx-auto 
                 text-center
