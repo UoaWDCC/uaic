@@ -24,7 +24,7 @@
 .article-scrollbar::-webkit-scrollbar-track {
   background: transparent;
   border-radius: 100vh;
-  margin-block: 60px; /* ↓↓ reduces total height of the scrollbar track */
+  margin-block: 60px;
 }
 
 .article-scrollbar::-webkit-scrollbar-thumb {
@@ -32,7 +32,7 @@
   border-radius: 100vh;
   border: 2px solid transparent;
   background-clip: content-box;
-  min-height: 40px; /* optional: ensures thumb is always a reasonable size */
+  min-height: 40px;
 }
 
 @theme inline {
