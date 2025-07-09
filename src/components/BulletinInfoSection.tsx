@@ -1,14 +1,20 @@
 import React from "react";
-import Image from "next/image";
 import BulletinInfoCard from "./BulletinInfoCard";
 
 const BulletinInfosection = () => {
   return (
     <div
       className="
-      w-full pl-30 pr-30 pb-20
+      w-full 
       text-darkBlue
-      grid grid-cols-3 justify-between gap-[100px]
+      grid justify-between 
+      
+      gap-[60px]
+      pl-20 pr-20 pb-10
+      
+      lg:pl-30 lg:pr-30 lg:pb-20
+      lg:grid-cols-3 
+      lg:gap-[100px]
     "
     >
      <BulletinInfoCard title="Investing is for Everyone" imageSrc="/assets/group-icon.png" text="Our writers study a range of degrees beyond just finance, and we are bound by our collective interest in financial markets" />
