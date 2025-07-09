@@ -23,8 +23,8 @@ export default function RootLayout({
           <Navbar />
         </div>
 
-        {/* Margin height to match Navbar */}
-        <div className="mt-[131.75px]">{children}</div>
+        {/* Margin height to match Navbar + stock view */}
+        <div className="mt-[calc(131.75px+34px)]">{children}</div> 
         
       </body>
     </html>
