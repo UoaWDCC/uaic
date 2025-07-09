@@ -11,6 +11,30 @@
   --grey-200: #CBC6C6;
 }
 
+/* Styles for the article scrollbar */
+.article-scrollbar {
+  scrollbar-width: auto;
+  scrollbar-color: var(--darkBlue) transparent;
+}
+
+.article-scrollbar::-webkit-scrollbar {
+  width: 14px;
+}
+
+.article-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 100vh;
+  margin-block: 60px; /* ↓↓ reduces total height of the scrollbar track */
+}
+
+.article-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--darkBlue);
+  border-radius: 100vh;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  min-height: 40px; /* optional: ensures thumb is always a reasonable size */
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
