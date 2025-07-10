@@ -42,10 +42,11 @@ const InvestmentCommittee = () => {
             </div>
 
             <div className="items-center text-center mt-4">
-              <p className="p-2"><strong>Back Row: </strong>Max Wilson, Sam Gowen, Caden Van De Laak</p>
-              <p className="p-2"><strong>Middle Row: </strong>Sophia Walker, Caleb Manson, Matt Powell, Tom Maclean, Shivam Shanker</p>
-              <p className="p-2"><strong>Front Row: </strong>Amelia Cave, Abbey Patten, Rohit Guthpe, Aimee Ng, Cullen Tran, Lilly Crawford</p>
-              <p className="p-2"><strong>Absent: </strong>Isabella Boswell, Andrew Griffiths</p>
+              <p className="p-2"><strong>Back Row: </strong>Daniel Guonho-Song, Andy Tran, Sohum Karl, Meghana Gaddam</p>
+              <p className="p-2"><strong>Third Row: </strong>Yasmin Coombe, Skip Gee, Connor Petrie, Oliver Turnbull</p>
+              <p className="p-2"><strong>Second Row: </strong>Yao Ming Lee, Hunter Sari, Alice Hout</p>
+              <p className="p-2"><strong>Front Row: </strong>Devika Modak, Annabelle Larsen, Isabella Ho, Riley Bogard-Allen, Lisa Shiozawa, Manav Treekam</p>
+              <p className="p-2"><strong>Absent: </strong>Bella Crawford, Waejen Kwan</p>
             </div>
           </div>
 
