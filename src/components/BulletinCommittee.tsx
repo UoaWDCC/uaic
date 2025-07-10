@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-const InvestmentCommittee = () => {
+const BulletinCommittee = () => {
   const [isMainOpen, setIsMainOpen] = useState(false);
   const [isMembersOpen, setIsMembersOpen] = useState(false);
 
@@ -143,4 +143,4 @@ const members: Member[] = [
   );
 };
 
-export default InvestmentCommittee;
+export default BulletinCommittee;
