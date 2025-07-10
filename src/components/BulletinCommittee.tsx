@@ -37,7 +37,11 @@ const members: Member[] = [
     <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg shadow-md">
       <div>
         <button
-          onClick={() => setIsMainOpen(!isMainOpen)}
+          onClick={() => {
+            setIsMainOpen(!isMainOpen);
+            // closes inner dropdowns
+            setIsMembersOpen(false);
+          }}
           className="w-full flex justify-between items-center text-left text-[#145CA9] font-medium py-2"
         >
           <span className="font-bold ">Bulletin Committees</span>
