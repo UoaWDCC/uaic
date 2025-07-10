@@ -25,9 +25,9 @@ const InvestmentCommittee = () => {
               <p className="mb-4">The Bulletin Committee is responsible for publishing the club's bulletin, including:</p>
 
               <ul className="list-disc list-inside mb-4 text-left">
-                <li>Ensuring all investments are in line with the fund's value investing thesis</li>
-                <li>Regularly pitching and analysing potential stock investments</li>
-                <li>Voting to decide whether an investment passes to the next stage of approval</li>
+                <li>Writing articles on a range of financial and economic topics</li>
+                <li>Offering advice on each other's articles</li>
+                <li>Contributing opinions towards the club's weekly magazine</li>
               </ul>
 
               <div className="w-full h-[300px] bg-[#EBF7FE] flex items-center justify-center overflow-hidden rounded-lg">
