@@ -114,6 +114,18 @@ const members: Member[] = [
 
             {isMembersOpen && (
                 <div>
+                    <section className="w-full max-w-6xl mx-auto px-4 py-8">
+  <h2 className="text-2xl font-semibold mb-6">Team Members & Roles</h2>
+  <div className="grid grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-y-4 gap-x-6">
+    {members.map((member, index) => (
+      <div key={index}>
+        <p className="text-base font-bold">{member.name}</p>
+        <p className="text-base">{member.role}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
 
                 </div>
             )}
