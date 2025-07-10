@@ -1,7 +1,7 @@
 const InvestConnectWork = () => {
     return ( 
         <div className="
-            flex flex-col pb-[12em]
+            flex flex-col pb-[12em] mt-[2em]
             bg-gradient-to-t from-darkBlue via-[#89ADD4] to-[#ffffff]
         ">
             <h1 className="
