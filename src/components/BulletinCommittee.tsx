@@ -12,8 +12,9 @@ const InvestmentCommittee = () => {
 };
 
 const members: Member[] = [
-    { name: "Riley Bogard-Allen", role: "Editor-in-Chief" },
+    { name: "Riley Bogard-Allan", role: "Editor-in-Chief" },
     { name: "Isabella Ho", role: "Sub-Editor" },
+    { name: "Skip Gee", role: "Senior Writer" },
     { name: "Devika Modak", role: "Senior Writer" },
     { name: "Daniel Gunho-Song", role: "Writer" },
     { name: "Yasmin Coombe", role: "Writer" },
@@ -21,7 +22,7 @@ const members: Member[] = [
     { name: "Meghana Gaddam", role: "Writer" },
     { name: "Connor Petrie", role: "Writer" },
     { name: "Yao Ming Lee", role: "Writer" },
-    { name: "Alice Hoult", role: "Writer" },
+    { name: "Alice Hout", role: "Writer" },
     { name: "Waejen Kwan", role: "Writer" },
     { name: "Bella Crawford", role: "Writer" },
     { name: "Sohum Karl", role: "Writer" },
@@ -84,7 +85,7 @@ const members: Member[] = [
 
             <div className="items-center text-center mt-4">
               <p className="p-2">
-                <strong>Back Row: </strong>Daniel Guonho-Song, Andy Tran, Sohum
+                <strong>Back Row: </strong>Daniel Gunho-Song, Andy Tran, Sohum
                 Karl, Meghana Gaddam
               </p>
               <p className="p-2">
@@ -97,7 +98,7 @@ const members: Member[] = [
               </p>
               <p className="p-2">
                 <strong>Front Row: </strong>Devika Modak, Annabelle Larsen,
-                Isabella Ho, Riley Bogard-Allen, Lisa Shiozawa, Manav Treekam
+                Isabella Ho, Riley Bogard-Allan, Lisa Shiozawa, Manav Treekam
               </p>
               <p className="p-2">
                 <strong>Absent: </strong>Bella Crawford, Waejen Kwan
