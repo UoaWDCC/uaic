@@ -1,10 +1,11 @@
+import InvestConnectWork from "@/components/InvestConnectWork";
 import Image from "next/image";
 import { FaInstagram, FaFacebook, FaLinkedin, FaTiktok } from "react-icons/fa";
 
 const ContactPage = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-5">
+    <div className="w-full mx-auto py-8 ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-5 px-8">
         {/* Left Column - Contact Info */}
         <div>
           <h1 className="text-3xl font-bold text-darkBlue mb-8">Contact</h1>
@@ -117,6 +118,7 @@ const ContactPage = () => {
           </div>
         </div>
       </div>
+      <InvestConnectWork/>
     </div>
   );
 };
