@@ -4,7 +4,7 @@ import InvestmentCommittee from "@/components/InvestmentCommittee";
 
 export default function about() {
     return (
-        <div className="mt-[10em] md:mt-[12em]">
+        <div className="mt-[10em] md:mt-[12em] min-h-[90vh]">
             <div className="">
                 <h1 className="
                     text-darkBlue font-bold p-4 text-[19px]

@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 
 const Navbar = () => {
@@ -111,13 +112,15 @@ const Navbar = () => {
 
 
        {/* Logo */}
-       <Image
-         src="/assets/uaic.png"
-         alt="Logo"
-         width={220}
-         height={220}
-         className="order-1 p-4"
-       />
+       <Link href="/">
+          <Image
+            src="/assets/uaic.png"
+            alt="Logo"
+            width={220}
+            height={220}
+            className="order-1 p-4"
+          />
+       </Link>
      </div>
 
 

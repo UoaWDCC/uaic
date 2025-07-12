@@ -9,7 +9,6 @@ export default function Home() {
       {/* Build Homepage Here */}
       <ArticleList/>
       <InvestConnectWork/>
-      <Footer/>
     </div>
   );
 }
