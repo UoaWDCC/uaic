@@ -138,7 +138,7 @@ const members: Member[] = [
         )}
       </div>
 
-      <hr className="border-t border-[#CBC6C6] w-9/10 self-center my-6" />
+      <hr className="border-t border-[#CBC6C6] w-9/10 md:w-full self-center my-6" />
     </div>
   );
 };
