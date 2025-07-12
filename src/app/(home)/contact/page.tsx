@@ -4,7 +4,7 @@ import { FaInstagram, FaFacebook, FaLinkedin, FaTiktok } from "react-icons/fa";
 
 const ContactPage = () => {
   return (
-    <div className="w-full mx-auto py-8 ">
+    <div className="w-full mx-auto pt-8 ">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-5 px-8">
         {/* Left Column - Contact Info */}
         <div>
