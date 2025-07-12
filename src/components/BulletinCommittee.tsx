@@ -45,7 +45,7 @@ const members: Member[] = [
           }}
           className="w-full flex justify-between items-center text-left text-[#145CA9] font-medium py-2"
         >
-          <span className="font-bold ">Bulletin Committees</span>
+          <span className="font-bold md:text-[20px]">Bulletin Committees</span>
           <img
             src={`/assets/${isMainOpen ? "arrow-up" : "arrow-down"}.png`}
             alt=""
