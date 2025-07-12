@@ -4,7 +4,7 @@ const InvestConnectWork = () => {
     return ( 
         <div className="
             flex flex-col pt-[4em]
-            md:pt-[10em]
+            md:pt-[9em]
         ">
             <h1 className="
                 text-center text-[35px] font-black leading-12 w-[10em] mx-auto
