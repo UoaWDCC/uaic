@@ -1,5 +1,4 @@
 import React from "react";
-import "../app/(home)/globals.css"
 
 const UpdatedBulletin = () => {
     return (
