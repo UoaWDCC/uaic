@@ -6,6 +6,7 @@ import {
   FaPhoneAlt,
 } from "react-icons/fa";
 import { TiLocation } from "react-icons/ti";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -33,12 +34,13 @@ const Footer = () => {
               flex lg:flex flex-col underline text-[1rem] font-light whitespace-nowrap gap-[2px]
               lg:text-[16px]
             ">
-              <h2>Home</h2>
-              <h2>About</h2>
-              <h2>Events</h2>
-              <h2>Investments</h2>
-              <h2>Articles</h2>
-              <h2>Contact</h2>
+              
+              <Link href="/">Home</Link>
+              <Link href="/about">About</Link>
+              <Link href="/events">Events</Link>
+              <Link href="/investmentportfolio">Investments</Link>
+              <Link href="/bulletin">Articles</Link>
+              <Link href="/contact">Contact</Link>
             </div>
           </div>
         </div>
