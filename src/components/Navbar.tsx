@@ -56,7 +56,10 @@ const Navbar = () => {
 
 
      {/* Top Bar */}
-     <div className="bg-transparent lg:bg-[#F0F8FF] text-[#172741] px-6 py-2 lg:px-12 flex justify-between items-center">
+     <div className="
+        bg-transparent text-[#172741] px-6 py-2 flex justify-between items-center
+        lg:bg-[#F0F8FF] lg:px-7 lg:p-0
+      ">
 
 
        {/* Hamburger Menu */}
