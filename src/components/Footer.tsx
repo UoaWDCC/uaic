@@ -11,7 +11,7 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer
-      className="w-full flex flex-col items-center justify-center gap-4 pt-4
+      className="w-full flex flex-col items-center justify-center gap-4 pt-4 pb-4
     bg-darkBlue text-white
     px-4 sm:px-6 md:px-10 lg:p-10 lg:pb-5"
     >
