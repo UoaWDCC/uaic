@@ -3,7 +3,7 @@ import "../app/(home)/globals.css"
 
 const UpdatedBulletin = () => {
     return (
-        <div className="max-w-5xl aspect-4/3 mx-auto p-6 grid grid-cols-5 grid-rows-4 gap-6 bg-white relative">
+        <div className="hidden lg:visible max-w-5xl aspect-4/3 mx-auto p-6 lg:grid grid-cols-5 grid-rows-4 gap-6 bg-white relative">
 
             <div className="
                 col-span-2 row-span-3 rounded-2xl relative bg-lightBlue flex justify-center p-8  
