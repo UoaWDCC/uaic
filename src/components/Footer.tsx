@@ -10,9 +10,9 @@ import { TiLocation } from "react-icons/ti";
 const Footer = () => {
   return (
     <footer
-      className="w-full flex flex-col items-center justify-center gap-4 pb-6 pt-4
+      className="w-full flex flex-col items-center justify-center gap-4 pt-4
     bg-darkBlue text-white
-    px-4 sm:px-6 md:px-10 lg:p-10"
+    px-4 sm:px-6 md:px-10 lg:p-10 lg:pb-5"
     >
       <div
         className="w-full grid grid-cols-2 items-start text-center gap-y-6 gap-x-8 sm:gap-x-12 md:gap-x-16
@@ -21,12 +21,18 @@ const Footer = () => {
         {/* Col 1 */}
         <div className="flex flex-col items-center order-1 lg:order-0">
           <div className="flex flex-col items-start text-left gap-1.5 lg:gap-4">
-            <h1 className="flex lg:block text-[1.25rem] lg:text-[1.4rem] xl:text-[2.5rem] 2xl:text-[4rem] font-bold whitespace-nowrap">
+            <h1 className="
+              flex lg:block text-[1.25rem] font-bold whitespace-nowrap
+              lg:text-[30px]
+            ">
               Links
             </h1>
 
             {/* TODO add routes to other pages from footer */}
-            <div className="flex lg:flex flex-col underline text-[1rem] lg:text-[1.4rem] xl:text-[1.4rem] 2xl:text-[2rem] font-light whitespace-nowrap gap-[2px]">
+            <div className="
+              flex lg:flex flex-col underline text-[1rem] font-light whitespace-nowrap gap-[2px]
+              lg:text-[16px]
+            ">
               <h2>Home</h2>
               <h2>About</h2>
               <h2>Events</h2>
@@ -40,16 +46,19 @@ const Footer = () => {
         {/* Col 2 */}
         <div className="flex flex-col items-center order-0 lg:order-1">
           <div className="flex flex-col items-start text-left gap-2.5 lg:gap-4">
-            <h1 className="flex lg:block text-[1.25rem] lg:text-[1.4rem] xl:text-[2.5rem] 2xl:text-[4rem] font-bold whitespace-nowrap">
+            <h1 className="
+              flex lg:block text-[1.25rem] font-bold whitespace-nowrap
+              lg:text-[30px]
+            ">
               Contact Us
             </h1>
 
             <div className="flex lg:flex flex-col text-[0.95rem] lg:text-[1.4rem] xl:text-[1.4rem] 2xl:text-[2rem] font-light whitespace-nowrap gap-1.5 lg:gap-5">
-              <div className="flex flex-row gap-2 lg:gap-8">
-                <FaPhoneAlt className="text-[1.25rem] lg:text-3xl" />
+              <div className="flex flex-row gap-2 lg:gap-8 lg:text-[16px]">
+                <FaPhoneAlt className="text-[1.25rem] lg:text-[1.3rem]" />
                 <h2>0800 838 383</h2>
               </div>
-              <div className="flex flex-row gap-2 lg:gap-8">
+              <div className="flex flex-row gap-2 lg:gap-8 lg:text-[16px]">
                 <a
                   className="hover:scale-105 hover:text-white transition-all duration-250"
                   href="mailto:president@uaic.co.nz"
@@ -57,12 +66,12 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   aria-label="President's Email"
                 >
-                  <MdEmail className="text-[1.25rem] lg:text-3xl" />
+                  <MdEmail className="text-[1.25rem] lg:text-[1.3rem]" />
                 </a>
                 <h2>president@uaic.co.nz</h2>
               </div>
-              <div className="flex flex-row gap-2 lg:gap-8">
-                <TiLocation className="text-[1.25rem] lg:text-3xl" />
+              <div className="flex flex-row gap-2 lg:gap-8 lg:text-[16px]">
+                <TiLocation className="text-[1.25rem] lg:text-[1.3rem]" />
                 <div>
                   <h2>34 Princess Street</h2>
                   <h2>Auckland Central,</h2>
@@ -77,7 +86,10 @@ const Footer = () => {
         
 <div className="flex flex-col items-center order-2">
   <div className="flex flex-col items-start text-left gap-2.5 lg:gap-4">
-    <h1 className="flex lg:block text-[1.25rem] lg:text-[1.4rem] xl:text-[2.5rem] 2xl:text-[4rem] font-bold whitespace-nowrap">
+    <h1 className="
+      flex lg:block text-[1.25rem] font-bold whitespace-nowrap
+      lg:text-[30px]
+    ">
       Follow Us
     </h1>
 
@@ -90,9 +102,9 @@ const Footer = () => {
           rel="noopener noreferrer"
           aria-label="Instagram"
         >
-          <FaInstagram className="text-3xl lg:text-4xl" />
+          <FaInstagram className="text-3xl lg:text-[1.3rem]" />
         </a>
-        <div>
+        <div className="lg:text-[16px]">
           <h2>@officialuaic</h2>
         </div>
       </div>
@@ -104,9 +116,9 @@ const Footer = () => {
           rel="noopener noreferrer"
           aria-label="Facebook"
         >
-          <FaFacebook className="text-3xl lg:text-4xl" />
+          <FaFacebook className="text-3xl lg:text-[1.3rem]" />
         </a>
-        <div className="flex flex-row">
+        <div className="flex flex-row lg:text-[16px]">
           <h2>@officialUAIC</h2>
           <h2 className="invisible">IIIIIII</h2>
         </div>
@@ -119,10 +131,10 @@ const Footer = () => {
           rel="noopener noreferrer"
           aria-label="LinkedIn"
         >
-          <FaLinkedin className="text-3xl lg:text-4xl" />
+          <FaLinkedin className="text-3xl lg:text-[1.3rem]" />
         </a>
         <div>
-          <h2>officialUAIC</h2>
+          <h2 className="lg:text-[16px]">officialUAIC</h2>
         </div>
       </div>
     </div>
@@ -141,7 +153,7 @@ const Footer = () => {
       <hr className="lg:w-[100%] w-[90%] border-t border-gray-300 my-0" />
 
       <div className="flex justify-center lg:justify-between w-full px-4 sm:px-8 md:px-12 pt-0">
-        <h1 className="sm:text-[0.85rem] text-[0.75rem] lg:text-[1.4rem] items-center flex text-center">
+        <h1 className="sm:text-[0.85rem] text-[0.75rem] lg:text-[16px] items-center flex text-center">
           © Copyright 2025 University of Auckland Investment Club
         </h1>
         <div className="max-w-[8rem] justify-self-center hidden lg:flex">
