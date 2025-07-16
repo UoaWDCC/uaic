@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 
 const Navbar = () => {
@@ -55,7 +56,10 @@ const Navbar = () => {
 
 
      {/* Top Bar */}
-     <div className="bg-transparent lg:bg-[#F0F8FF] text-[#172741] px-6 py-2 lg:px-12 flex justify-between items-center">
+     <div className="
+        bg-transparent text-[#172741] px-6 py-2 flex justify-between items-center
+        lg:bg-[#F0F8FF] lg:px-7 lg:p-0
+      ">
 
 
        {/* Hamburger Menu */}
@@ -111,13 +115,15 @@ const Navbar = () => {
 
 
        {/* Logo */}
-       <Image
-         src="/assets/uaic.png"
-         alt="Logo"
-         width={220}
-         height={220}
-         className="order-1 p-4"
-       />
+       <Link href="/">
+          <Image
+            src="/assets/uaic.png"
+            alt="Logo"
+            width={220}
+            height={220}
+            className="order-1 p-4"
+          />
+       </Link>
      </div>
 
 
@@ -170,19 +176,19 @@ const Navbar = () => {
         <Image src="/assets/Home.png" alt="Home Icon" width={24} height={24} /> <a href="/">Home</a>
       </li>
       <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-[#F0F8FF] hover:font-semibold rounded-full">
-        <Image src="/assets/Info.png" alt="Info Icon" width={24} height={24} /> <a href="/">About</a>
+        <Image src="/assets/Info.png" alt="Info Icon" width={24} height={24} /> <a href="/about">About</a>
       </li>
       <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-[#F0F8FF] hover:font-semibold rounded-full">
-        <Image src="/assets/Event.png" alt="Event Icon" width={24} height={24} /> <a href="/">Events</a>
+        <Image src="/assets/Event.png" alt="Event Icon" width={24} height={24} /> <a href="/events">Events</a>
       </li>
       <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-[#F0F8FF] hover:font-semibold rounded-full">
-        <Image src="/assets/chart.png" alt="Investments Icon" width={24} height={24} /> <a href="/">Investments</a>
+        <Image src="/assets/chart.png" alt="Investments Icon" width={24} height={24} /> <a href="/investmentportfolio">Investments</a>
       </li>
       <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-[#F0F8FF] hover:font-semibold rounded-full">
-        <Image src="/assets/document.png" alt="Bulletin Icon" width={24} height={24} /> <a href="/">Bulletin</a>
+        <Image src="/assets/document.png" alt="Bulletin Icon" width={24} height={24} /> <a href="/bulletin">Bulletin</a>
       </li>
       <li className="p-6 pl-14 pb-6 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl">
-        <Image src="/assets/Contact.png" alt="Contact Icon" width={24} height={24} /> <a href="/">Contact</a>
+        <Image src="/assets/Contact.png" alt="Contact Icon" width={24} height={24} /> <a href="/contact">Contact</a>
       </li>
 
       <hr className="border-t border-[#145CA9]-300 w-9/10 self-center py-3" />

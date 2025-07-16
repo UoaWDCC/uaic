@@ -4,6 +4,7 @@ import UpcomingEvents from "@/components/UpcomingEvents";
 import EventsSection from "@/components/EventsSection";
 import type { Metadata } from "next";
 import "./globals.css";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Investment Club",
@@ -23,9 +24,9 @@ export default function RootLayout({
           <Navbar />
         </div>
 
-        {/* Margin height to match Navbar + stock view */}
-        <div className="mt-[calc(131.75px+34px)]">{children}</div> 
-        
+        {/* Margin height to match Navbar */}
+        <div className="mt-[131.75px]">{children}</div>
+        <Footer/>
       </body>
     </html>
   );
