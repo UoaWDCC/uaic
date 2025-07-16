@@ -44,11 +44,10 @@ const BulletinHeroSection = () => {
         {/* Vertical gradient overlay (bottom → top) */}
         <div
           className="
-    absolute
-    w-full h-screen
-    bg-gradient-to-t from-white via-white/100 lg:via-white/70 to-white/0
-    z-[-1]
-  "
+    absolute w-full h-screen
+         bg-[linear-gradient(to_top,white_40%,transparent_100%)]
+         lg:bg-[linear-gradient(to_top,white_0%,white_25%,transparent_100%)]
+         z-[-1]"
         />
 
         {/* Foreground content */}
