@@ -28,16 +28,16 @@ const articles: Article[] = [
 const FeaturedArticles = () => {
   return (
     <div className="bg-[#fff] shadow-lg lg:shadow-none rounded-[2rem] p-4 max-w-[80%] lg:max-w-[1200px] sm:max-w-md mx-auto mt-40 mb-10">
+      
+      {/* Mobile View */}
       <div className="block lg:hidden">
         <h2 className="text-center text-lg font-semibold text-[#145CA9] my-2">
           Featured Articles
         </h2>
+
         <div className="space-y-3 my-4">
           {articles.map((article) => (
-            <div
-              key={article.issue}
-              className="relative rounded-xl overflow-hidden h-25"
-            >
+            <div key={article.issue} className="relative rounded-xl overflow-hidden h-25">
               <img
                 src={article.image}
                 alt={article.title}
@@ -55,6 +55,7 @@ const FeaturedArticles = () => {
             </div>
           ))}
         </div>
+
         <div className="mt-4 flex justify-center">
           <button className="w-[80%] bg-[#145CA9] text-white font-semibold rounded-full my-1 py-2 text-center">
             View All
@@ -64,6 +65,7 @@ const FeaturedArticles = () => {
 
       {/* Desktop View */}
       <div className="hidden lg:flex lg:gap-6">
+        
         {/* Sidebar */}
         <div className="w-1/3 bg-[#fff] shadow-lg rounded-[2rem] p-6 flex flex-col justify-center items-start">
           <h2 className="text-xl font-semibold text-[#145CA9] mb-4">
@@ -75,7 +77,7 @@ const FeaturedArticles = () => {
           </button>
         </div>
 
-        {/* Articles Grid */}
+        {/* Article Previews */}
         <div className="w-2/3 flex flex-col gap-6">
           {articles.map((article, index) => (
             <div
@@ -84,34 +86,34 @@ const FeaturedArticles = () => {
                 index === 1 ? "flex-row-reverse" : ""
               }`}
             >
-              {/* Article Section */}
+              {/* Article Image and Text */}
               <div className="relative flex-[2]">
                 <img
                   src={article.image}
                   alt={article.title}
-                  className="object-cover w-full h-full rounded-xl "
+                  className="object-cover w-full h-full rounded-xl"
                 />
-                <div className="absolute inset-0  bg-opacity-40 flex flex-col justify-center px-4 rounded-xl">
-                    <div className="w-[90%]">
+                <div className="absolute inset-0 bg-opacity-40 flex flex-col justify-center px-4 rounded-xl">
+                  <div className="w-[90%]">
                     <p className="text-sm lg:text-base text-white pb-2">
-                    Issue #{article.issue}
-                  </p>
-                  <p className="text-base lg:text-lg font-semibold text-white leading-tight">
-                    {article.title}
-                  </p>
-                    </div>
+                      Issue #{article.issue}
+                    </p>
+                    <p className="text-base lg:text-lg font-semibold text-white leading-tight">
+                      {article.title}
+                    </p>
+                  </div>
                   <div className="absolute bottom-2 right-2 text-white text-xl">
                     <img src="/assets/Read.png" alt="read icon" />
                   </div>
                 </div>
               </div>
 
-              {/* "Read More" Section */}
+              {/* Read More Button */}
               <div className="flex-[1] flex items-center justify-center bg-[#145CA9] text-white text-base lg:text-lg font-semibold rounded-xl p-2 relative">
                 <span>Read More</span>
                 <img
                   src="/assets/ExternalLink.png"
-                  alt="read icon"
+                  alt="external link icon"
                   className="w-6 h-6 absolute bottom-2 right-2"
                 />
               </div>
