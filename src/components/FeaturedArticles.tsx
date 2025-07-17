@@ -19,7 +19,7 @@ const articles: Article[] = [
     image: "/assets/article1.png",
   },
   {
-    issue: 76,
+    issue: 77,
     title: "A House of Cards: The History of Fletcher Building",
     image: "/assets/article2.png",
   },
@@ -27,23 +27,26 @@ const articles: Article[] = [
 
 const FeaturedArticles = () => {
   return (
-    <div className="bg-[#fff] shadow-lg lg:shadow-none rounded-[2rem] p-4 max-w-[80%] lg:max-w-[1200px] sm:max-w-md mx-auto mt-40 mb-10">
+    <div className="bg-[var(--background)] shadow-lg lg:shadow-none rounded-[2rem] p-4 max-w-[70%] lg:max-w-[1000px] sm:max-w-md mx-auto mt-40 mb-10">
       
       {/* Mobile View */}
       <div className="block lg:hidden">
-        <h2 className="text-center text-lg font-semibold text-[#145CA9] my-2">
+        <h2 className="text-center text-lg font-semibold text-[var(--darkBlue)] my-2">
           Featured Articles
         </h2>
 
         <div className="space-y-3 my-4">
           {articles.map((article) => (
-            <div key={article.issue} className="relative rounded-xl overflow-hidden h-25">
+            <div
+              key={article.issue}
+              className="relative rounded-xl overflow-hidden h-25 hover:scale-105 transition-transform duration-300"
+            >
               <img
                 src={article.image}
                 alt={article.title}
                 className="object-cover w-full h-full"
               />
-              <div className="absolute inset-0 bg-opacity-40 flex flex-col justify-center px-3">
+              <div className="absolute inset-0 bg-opacity-40 flex flex-col justify-center px-3 hover:bg-opacity-60 transition-colors duration-300">
                 <p className="text-xs text-white pb-2">Issue #{article.issue}</p>
                 <p className="text-sm font-semibold text-white leading-tight">
                   {article.title}
@@ -57,9 +60,9 @@ const FeaturedArticles = () => {
         </div>
 
         <div className="mt-4 flex justify-center">
-          <button className="w-[80%] bg-[#145CA9] text-white font-semibold rounded-full my-1 py-2 text-center">
+            <button className="w-[80%] bg-[var(--darkBlue)] text-white font-semibold rounded-full my-1 py-2 text-center transition-all duration-300 hover:bg-opacity-90 hover:shadow-md hover:scale-105">
             View All
-          </button>
+            </button>
         </div>
       </div>
 
@@ -67,14 +70,14 @@ const FeaturedArticles = () => {
       <div className="hidden lg:flex lg:gap-6">
         
         {/* Sidebar */}
-        <div className="w-1/3 bg-[#fff] shadow-lg rounded-[2rem] p-6 flex flex-col justify-center items-start">
-          <h2 className="text-xl font-semibold text-[#145CA9] mb-4">
-            Featured Articles
-          </h2>
-          <p className="text-sm text-[#145CA9] mb-6">Want to see more?</p>
-          <button className="bg-[#145CA9] text-white font-semibold rounded-full py-2 px-6">
-            View All
-          </button>
+        <div className="w-1/3 bg-[var(--background)] shadow-lg rounded-[2rem] p-6 flex flex-col items-start">
+            <h2 className="text-3xl font-semibold text-[var(--darkBlue)] mt-15">Featured</h2>
+            <h2 className="text-3xl font-semibold text-[var(--darkBlue)] mb-6">Articles</h2>
+            <p className="text-sm text-[var(--darkBlue)] mb-6">Want to see more?</p>
+            <button className="bg-[var(--darkBlue)] text-white font-semibold rounded-full py-2 px-6 transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg hover:scale-105">
+                View All
+            </button>
+
         </div>
 
         {/* Article Previews */}
@@ -82,9 +85,9 @@ const FeaturedArticles = () => {
           {articles.map((article, index) => (
             <div
               key={index}
-              className={`flex h-30 bg-[#F5F9FF] overflow-hidden gap-x-4 ${
+              className={`flex h-30 bg-[var(--lightBlue)] overflow-hidden gap-x-4 ${
                 index === 1 ? "flex-row-reverse" : ""
-              }`}
+              } hover:scale-105 transition-transform duration-300`}
             >
               {/* Article Image and Text */}
               <div className="relative flex-[2]">
@@ -93,7 +96,7 @@ const FeaturedArticles = () => {
                   alt={article.title}
                   className="object-cover w-full h-full rounded-xl"
                 />
-                <div className="absolute inset-0 bg-opacity-40 flex flex-col justify-center px-4 rounded-xl">
+                <div className="absolute inset-0 bg-opacity-40 flex flex-col justify-center px-4 rounded-xl hover:bg-opacity-60 transition-colors duration-300">
                   <div className="w-[90%]">
                     <p className="text-sm lg:text-base text-white pb-2">
                       Issue #{article.issue}
@@ -109,7 +112,7 @@ const FeaturedArticles = () => {
               </div>
 
               {/* Read More Button */}
-              <div className="flex-[1] flex items-center justify-center bg-[#145CA9] text-white text-base lg:text-lg font-semibold rounded-xl p-2 relative">
+              <div className="w-28 aspect-square flex items-center justify-center bg-[var(--darkBlue)] text-white text-base lg:text-lg font-semibold rounded-xl p-2 relative hover:bg-opacity-80 transition-colors duration-300">
                 <span>Read More</span>
                 <img
                   src="/assets/ExternalLink.png"
