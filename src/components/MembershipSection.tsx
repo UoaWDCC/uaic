@@ -20,10 +20,10 @@ const MembershipSection = () => {
       <a
         href="/memberships"
         className="
-        bg-[#EBF7FE]
+        bg-lightBlue
         px-4 rounded-[40px] 
         text-[14px]/[35px] 
-        transition hover:text-white hover:bg-[#145CA9] active:bg-[#0f4a88] active:text-white
+        transition hover:text-white hover:bg-darkBlue active:bg-[#0f4a88] active:text-white
         
         lg:py-2 lg:text-[25px]/[35px]   
       ">
