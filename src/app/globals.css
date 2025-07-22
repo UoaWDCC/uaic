@@ -10,6 +10,9 @@
   --lightBlue: #EBF7FE;
   --grey-100: #D9D9D9;
   --grey-200: #CBC6C6;
+
+  /* Hover */
+  --whiteHover: #F0F8FF;
 }
 
 /* Styles for the article scrollbar */
@@ -48,6 +51,9 @@
   --color-lightBlue: var(--lightBlue);
   --color-grey-100: var(--grey-100);
   --color-grey-200: var(--grey-200);
+
+  /* Hover */
+  --color-whiteHover: var(--whiteHover);
 }
 
 body {
