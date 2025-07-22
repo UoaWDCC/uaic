@@ -10,7 +10,7 @@ export default function about() {
                     text-darkBlue font-bold p-4 text-[19px]
                     md:pl-10 md:text-[27px]
                 ">The Committees</h1>
-                <hr className="border-t border-[#CBC6C6] w-full self-center my-6"/>
+                <hr className="border-t border-grey-200 w-full self-center my-6"/>
             </div>
             <ExecutiveCommittee/>
             <BulletinCommittee/>
