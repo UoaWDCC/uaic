@@ -214,7 +214,7 @@ const ExecutiveCommittee = () => {
       <div>
         <button
           onClick={() => setIsMainOpen(!isMainOpen)}
-          className="w-full flex justify-between items-center text-left text-[#145CA9] font-medium py-2"
+          className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2"
         >
           <span className="font-bold md:text-[20px]">Executive Committees</span>
           <img
@@ -225,7 +225,7 @@ const ExecutiveCommittee = () => {
         </button>
 
         {isMainOpen && (
-          <div className="text-sm text-[#145CA9]">
+          <div className="text-sm text-darkBlue">
             <p className="mb-4 pl-4">The Executive Committee is responsible for running the club, including:</p>
             <ul className="list-disc list-inside mb-4 pl-6">
               <li>Running competitions, educational events, social events and club-wide initiatives</li>
@@ -238,7 +238,7 @@ const ExecutiveCommittee = () => {
               <div key={team}>
                 <button
                   onClick={() => toggleSubteam(team)}
-                  className="w-full flex justify-between items-center text-left text-[#145CA9] font-medium py-2"
+                  className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2"
                 >
                   <span className="font-bold">{team}</span>
                   <img
@@ -250,7 +250,7 @@ const ExecutiveCommittee = () => {
 
                 {/* Show subteam details using ProfileCard.tsx*/}
                 {openSubteams.includes(team) && (
-                  <div className="pl-4 py-1 text-sm text-[#145CA9]">
+                  <div className="pl-4 py-1 text-sm text-darkBlue">
                     {teamProfiles[team] && (
                       <div className="flex flex-wrap gap-4 justify-start">
                         {teamProfiles[team].map((member) => (
@@ -276,7 +276,7 @@ const ExecutiveCommittee = () => {
         )}
       </div>
 
-      <hr className="border-t border-[#CBC6C6] w-9/10 md:w-full self-center my-6" />
+      <hr className="border-t border-grey-200 w-9/10 md:w-full self-center my-6" />
     </div>
   );
 };
