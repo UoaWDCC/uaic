@@ -18,9 +18,23 @@ const LatestArticle: React.FC<LatestArticleProps> = ({
   description,
   pdfUrl,
 }) => {
+
   const readMoreFunction = () => {
     window.open(pdfUrl, "_blank");
+
   };
+
+  const maxDescriptionLength = 380;
+
+  const truncatedDescription = description.length > maxDescriptionLength
+    ? description.slice(0, maxDescriptionLength) + "..."
+    : description;
+
+  const maxTitleLength = 70;
+
+  const truncatedTitle = title.length > maxTitleLength
+    ? title.slice(0, maxTitleLength) + "..."
+    : title;
 
   return (
     <div
@@ -52,11 +66,11 @@ const LatestArticle: React.FC<LatestArticleProps> = ({
           {/* Text */}
           <div className="flex-1 pt-6 pr-4">
             <h2 className="text-sm mb-2 font-light">Issue #{issueNumber}</h2>
-            <h1 className="text-xl font-bold mb-4 leading-tight">{title}</h1>
-            <p className="mb-6 text-darkBlue font-light">{description}</p>
+            <h1 className="text-xl font-bold mb-4 leading-tight">{truncatedTitle}</h1>
+            <p className="mb-6 text-darkBlue font-light">{truncatedDescription}</p>
             <button
               onClick={readMoreFunction}
-              className="bg-darkBlue text-white px-4 py-1 w-[224px] h-[37px] rounded-xl"
+              className="bg-darkBlue text-white px-4 py-1 w-[224px] h-[37px] rounded-xl hover:cursor-pointer"
             >
               Read More
             </button>
@@ -78,8 +92,8 @@ const LatestArticle: React.FC<LatestArticleProps> = ({
             }}
           >
             <h2 className="text-xs font-light">Issue #{issueNumber}</h2>
-            <h1 className="font-bold text-sm leading-tight">{title}</h1>
-            <p className="font-light text-xs">{description}</p>
+            <h1 className="font-bold text-sm leading-tight">{truncatedTitle}</h1>
+            <p className="font-light text-xs">{truncatedDescription}</p>
           </div>
 
           {/* Button */}
