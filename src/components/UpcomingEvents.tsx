@@ -1,5 +1,6 @@
 "use client";
 import React, {useState} from "react";
+import { TiLocation } from "react-icons/ti";
 
 interface Event {
   id: string;
@@ -150,11 +151,7 @@ const UpcomingEvents = () => {
                       text-[10px]
                       lg:text-[18px]
                     ">
-                      <img
-                        src = "/assets/LocationPin.png"
-                        alt = "Location"
-                        className= "h-[12px] lg:h-[25px]"
-                      />
+                      <TiLocation/>
                       {event.location}
                     </div>
                   </div>
@@ -280,11 +277,7 @@ const UpcomingEvents = () => {
                         flex gap-[4px]
                         text-[14px]
                       ">
-                        <img
-                          src = "/assets/LocationPin.png"
-                          alt = "Location"
-                          className= "h-[16px]"
-                        />
+                        <TiLocation/>
                         {selectedEvent.location}
                       </div>
                       <div className="pl-[4px]">
