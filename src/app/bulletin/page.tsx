@@ -11,11 +11,11 @@ const page = () => {
       <BulletinHeroSection />
       <BulletinInfosection />
       <LatestArticle
-        issueNumber={1}
-        imageSrc="/assets/latest-article.jpg"
-        title="Exploring the Latest Trends in Technology"
-        description="Dive into the latest advancements and trends shaping the tech industry today."
-        pdfUrl="/assets/latest-article.pdf"
+        issueNumber={79}
+        imageSrc="/assets/bulletin_cover.jpg"
+        title="Isn’t There Something Wrong with a World Where Everything is For Sale?"
+        description="A collection of thought-provoking articles and opinion pieces exploring the ethics of commodification, the sale of IC’s Spark, the value of fine art as an investment, and Rivian’s dramatic industry shift. Includes a partner column from Forsyth Barr on tackling New Zealand’s water quality challenges. A collection of thought-provoking articles and opinion pieces exploring the ethics of commodification, the sale of IC’s Spark, the value of fine art as an investment, and Rivian’s dramatic industry shift. Includes a partner column from Forsyth Barr on tackling New Zealand’s water quality challenges."
+        pdfUrl="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
       />
       <UpdatedBulletin />
       <ArticleList />
