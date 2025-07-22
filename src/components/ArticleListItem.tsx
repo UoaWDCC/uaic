@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import { GoBook } from "react-icons/go";
 
 type ArticleListItemProps = {
   issueNumber: number;
@@ -77,13 +77,7 @@ const ArticleListItem: React.FC<ArticleListItemProps> = ({
       >
         {`${date[0]} ${monthNames[date[1] - 1]} ${date[2]}`}
       </p>
-      <Image
-        src="/assets/book-icon.png"
-        alt="Book Icon"
-        width={40}
-        height={40}
-        className="object-contain max-h-full"
-      />
+      <GoBook className="object-contain max-h-full" size={25}/>
     </div>
   );
 };

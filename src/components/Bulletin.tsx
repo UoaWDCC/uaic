@@ -1,4 +1,6 @@
 import React from "react";
+import { GoBook } from "react-icons/go";
+
 
 const Bulletin = () => {
     return (
@@ -32,7 +34,7 @@ const Bulletin = () => {
                     </p>
                 </div>
 
-                <img src="/assets/bulletin_book_blue.png" className="w-10 absolute bottom-6 right-6" />
+                <GoBook className="w-10 absolute bottom-6 right-6" size={25}/>
             </div>
 
             {/* MINI 1 */}
@@ -48,7 +50,7 @@ const Bulletin = () => {
                     </p>
                 </div>
 
-                <img src="/assets/bulletin_book_icon.png" className="w-10 absolute bottom-6 right-6" />
+                <GoBook className="w-10 absolute bottom-6 right-6 text-white" size={25} />
             </div>
 
             {/* MINI 2 */}
@@ -64,7 +66,7 @@ const Bulletin = () => {
                     </p>
                 </div>
 
-                <img src="/assets/bulletin_book_icon.png" className="w-10 absolute bottom-6 right-6" />
+                <GoBook className="w-10 absolute bottom-6 right-6 text-white" size={25} />
             </div>
 
             {/* Want to see more */}

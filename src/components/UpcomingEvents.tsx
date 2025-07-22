@@ -113,7 +113,7 @@ const UpcomingEvents = () => {
                         px-2
                         flex items-center gap-[6px]
                       ">
-                        <IoCalendar/>
+                        <IoCalendar className = "h-[15px] lg:h-[18px]"/>
                         {event.date}
                       </div>
                       <div className="
@@ -149,7 +149,7 @@ const UpcomingEvents = () => {
                       text-[10px]
                       lg:text-[18px]
                     ">
-                      <TiLocation/>
+                      <TiLocation className= "h-[12px] lg:h-[25px]"/>
                       {event.location}
                     </div>
                   </div>
@@ -244,7 +244,7 @@ const UpcomingEvents = () => {
                         px-2
                         flex items-center gap-[6px]
                       ">
-                        <IoCalendar/>
+                        <IoCalendar className = "h-[15px]"/>
                         {selectedEvent.date}
                       </div>
                       <div className="
@@ -271,7 +271,7 @@ const UpcomingEvents = () => {
                         flex gap-[4px]
                         text-[14px]
                       ">
-                        <TiLocation/>
+                        <TiLocation className= "h-[16px]"/>
                         {selectedEvent.location}
                       </div>
                       <div className="pl-[4px]">
