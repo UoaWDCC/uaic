@@ -1,6 +1,7 @@
 "use client";
 import React, {useState} from "react";
 import { TiLocation } from "react-icons/ti";
+import { IoCalendar } from "react-icons/io5";
 
 interface Event {
   id: string;
@@ -107,11 +108,7 @@ const RecentEvents = () => {
                         px-2
                         flex items-center gap-[6px]
                       ">
-                        <img
-                          src = "/assets/Calendar.png"
-                          alt = "Date"
-                          className = "h-[15px] lg:h-[18px]"
-                        />
+                        <IoCalendar/>
                         {event.date}
                       </div>
                       <div className="
@@ -202,11 +199,7 @@ const RecentEvents = () => {
                         px-2
                         flex items-center gap-[6px]
                       ">
-                        <img
-                          src = "/assets/Calendar.png"
-                          alt = "Date"
-                          className = "h-[15px]"
-                        />
+                        <IoCalendar/>
                         {selectedEvent.date}
                       </div>
                       <div className="
