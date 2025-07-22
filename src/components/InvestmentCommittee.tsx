@@ -12,13 +12,13 @@ const InvestmentCommittee = () => {
 
       <div>
 
-        <button onClick={() => setIsMainOpen(!isMainOpen)} className="w-full flex justify-between items-center text-left text-[#145CA9] font-medium py-2">
+        <button onClick={() => setIsMainOpen(!isMainOpen)} className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2">
           <span className="font-bold md:text-[20px]">Investment Committees</span>
           <img src={`/assets/${isMainOpen ? "arrow-up" : "arrow-down"}.png`} alt="" className="w-7 h-7  inline-block" />
         </button>
 
         {isMainOpen && (
-          <div className="text-sm text-[#145CA9] flex flex-col items-center">
+          <div className="text-sm text-darkBlue flex flex-col items-center">
             <div className="w-full px-1">
               <p className="mb-4">The Investment Committee is responsible for managing the club's fund, including:</p>
 
@@ -50,7 +50,7 @@ const InvestmentCommittee = () => {
         )}
       </div>
 
-      <hr className="border-t border-[#CBC6C6] w-9/10 md:w-full self-center my-6" />
+      <hr className="border-t border-grey-200 w-9/10 md:w-full self-center my-6" />
 
     </div>
   );
