@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const BulletinCommittee = () => {
   const [isMainOpen, setIsMainOpen] = useState(false);
@@ -46,11 +47,7 @@ const members: Member[] = [
           className="w-full flex justify-between items-center text-left text-[#145CA9] font-medium py-2"
         >
           <span className="font-bold md:text-[20px]">Bulletin Committees</span>
-          <img
-            src={`/assets/${isMainOpen ? "arrow-up" : "arrow-down"}.png`}
-            alt=""
-            className="w-7 h-7  inline-block"
-          />
+          {isMainOpen ? <IoIosArrowUp size={30}/> : <IoIosArrowDown size={30}/>}
         </button>
 
         {isMainOpen && (
@@ -110,11 +107,7 @@ const members: Member[] = [
               className="w-full flex justify-between items-center text-left text-[#145CA9] font-medium py-2"
             >
               <span className="font-bold ">Team Members and Roles</span>
-              <img
-                src={`/assets/${isMembersOpen ? "arrow-up" : "arrow-down"}.png`}
-                alt=""
-                className="w-7 h-7  inline-block"
-              />
+              {isMembersOpen ? <IoIosArrowUp size={30}/> : <IoIosArrowDown size={30}/>}
             </button>
 
             {isMembersOpen && (

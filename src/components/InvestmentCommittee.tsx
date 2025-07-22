@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 
 const InvestmentCommittee = () => {
@@ -14,7 +15,8 @@ const InvestmentCommittee = () => {
 
         <button onClick={() => setIsMainOpen(!isMainOpen)} className="w-full flex justify-between items-center text-left text-[#145CA9] font-medium py-2">
           <span className="font-bold md:text-[20px]">Investment Committees</span>
-          <img src={`/assets/${isMainOpen ? "arrow-up" : "arrow-down"}.png`} alt="" className="w-7 h-7  inline-block" />
+                    {isMainOpen ? <IoIosArrowUp size={30}/> : <IoIosArrowDown size={30}/>}
+          
         </button>
 
         {isMainOpen && (

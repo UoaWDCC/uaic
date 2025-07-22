@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import ProfileCard from "./ProfileCard";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const executiveSubteams = [
   "Leadership Team",
@@ -217,11 +218,7 @@ const ExecutiveCommittee = () => {
           className="w-full flex justify-between items-center text-left text-[#145CA9] font-medium py-2"
         >
           <span className="font-bold md:text-[20px]">Executive Committees</span>
-          <img
-            src={`/assets/${isMainOpen ? "arrow-up" : "arrow-down"}.png`}
-            alt=""
-            className="w-7 h-7 inline-block"
-          />
+          {isMainOpen ? <IoIosArrowUp size={30}/> : <IoIosArrowDown size={30}/>}
         </button>
 
         {isMainOpen && (
@@ -241,13 +238,10 @@ const ExecutiveCommittee = () => {
                   className="w-full flex justify-between items-center text-left text-[#145CA9] font-medium py-2"
                 >
                   <span className="font-bold">{team}</span>
-                  <img
-                    src={`/assets/${openSubteams.includes(team) ? "arrow-up" : "arrow-down"}.png`}
-                    alt=""
-                    className="w-7 h-7 inline-block"
-                  />
-                </button>
+          {openSubteams.includes(team) ? <IoIosArrowUp size={30}/> : <IoIosArrowDown size={30}/>}
 
+                </button>
+                            
                 {/* Show subteam details using ProfileCard.tsx*/}
                 {openSubteams.includes(team) && (
                   <div className="pl-4 py-1 text-sm text-[#145CA9]">
