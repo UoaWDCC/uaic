@@ -10,7 +10,6 @@ const BulletinHeroSection = () => {
             relative w-full 
             overflow-x-hidden 
             overflow-y-hidden 
-            mt-0 lg:mt-[166.19px]
             min-h-[500px]
             lg:min-h-[749px]
             "
