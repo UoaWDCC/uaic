@@ -8,7 +8,7 @@ const InvestConnectWork = () => {
         ">
             <h1 className="
                 text-center text-[35px] font-black leading-12 w-[10em] mx-auto
-                bg-gradient-to-r from-darkBlue to-[#5FB4FF] text-transparent bg-clip-text
+                bg-gradient-to-r from-darkBlue to-babyBlue text-transparent bg-clip-text
 
                 md:text-[50px] md:leading-15
             ">Invest, Connect and Work with us</h1>
