@@ -9,6 +9,7 @@ import UpdatedBulletin from "@/components/Bulletin";
 import HomePage from "@/components/HomePage";
 import SponsorsBanner from "@/components/SponsorsBanner";
 import RecentEvents from "@/components/RecentEvents";
+import UpcomingEvents from "@/components/UpcomingEvents";
 
 
 
@@ -16,7 +17,6 @@ export default function Home() {
   return (
     <div>
       {/* Build Homepage Here */}
-      <RecentEvents/>
       <HomePage/>
       <SponsorsBanner/>
       <ArticleList/>
