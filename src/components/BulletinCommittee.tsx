@@ -44,14 +44,14 @@ const members: Member[] = [
             // closes inner dropdowns
             setIsMembersOpen(false);
           }}
-          className="w-full flex justify-between items-center text-left text-[#145CA9] font-medium py-2"
+          className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2"
         >
           <span className="font-bold md:text-[20px]">Bulletin Committees</span>
           {isMainOpen ? <IoIosArrowUp size={30}/> : <IoIosArrowDown size={30}/>}
         </button>
 
         {isMainOpen && (
-          <div className="text-sm text-[#145CA9] flex flex-col items-center">
+          <div className="text-sm text-darkBlue flex flex-col items-center">
             {/* changed nathans sizing design slightly, as the edges of the description and image were getting cut off at smaller widths below 500px */}
             <div className="w-9/10 flex flex-col items-center">
               <p className="mb-4">
@@ -69,7 +69,7 @@ const members: Member[] = [
                 </li>
               </ul>
 
-              <div className="w-full h-[300px] max-w-[500px] bg-[#EBF7FE] flex items-center justify-center overflow-hidden rounded-lg">
+              <div className="w-full h-[300px] max-w-[500px] bg-lightBlue flex items-center justify-center overflow-hidden rounded-lg">
                 <Image
                   src="/assets/bulletin-committee.png"
                   alt="bulletin-committee"
@@ -104,7 +104,7 @@ const members: Member[] = [
 
             <button
               onClick={() => setIsMembersOpen(!isMembersOpen)}
-              className="w-full flex justify-between items-center text-left text-[#145CA9] font-medium py-2"
+              className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2"
             >
               <span className="font-bold ">Team Members and Roles</span>
               {isMembersOpen ? <IoIosArrowUp size={30}/> : <IoIosArrowDown size={30}/>}
@@ -131,7 +131,7 @@ const members: Member[] = [
         )}
       </div>
 
-      <hr className="border-t border-[#CBC6C6] w-9/10 md:w-full self-center my-6" />
+      <hr className="border-t border-grey-200 w-9/10 md:w-full self-center my-6" />
     </div>
   );
 };

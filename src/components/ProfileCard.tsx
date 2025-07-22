@@ -16,8 +16,8 @@ const ProfileCard = ({ name, title, degree, imageSrc }: ProfileCardProps) => {
         alt={name}
         className="rounded-full w-32 h-32 object-cover mb-2"
       />
-      <p className="text-[#145CA9] font-bold">{name} | {title}</p>
-      <p className="text-[#145CA9] text-sm">{degree}</p>
+      <p className="text-darkBlue font-bold">{name} | {title}</p>
+      <p className="text-darkBlue text-sm">{degree}</p>
     </div>
   );
 };

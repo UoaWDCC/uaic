@@ -58,13 +58,13 @@ const Navbar = () => {
      {/* Top Bar */}
      <div className="
         bg-transparent text-[#172741] px-6 py-2 flex justify-between items-center
-        lg:bg-[#F0F8FF] lg:px-7 lg:p-0
+        lg:bg-whiteHover lg:px-7 lg:p-0
       ">
 
 
        {/* Hamburger Menu */}
         <button
-          className={`lg:hidden p-4 bg-[#fff] rounded-4xl shadow-xl/10 z-50 transition-transform duration-300 ${
+          className={`lg:hidden p-4 bg-white rounded-4xl shadow-xl/10 z-50 transition-transform duration-300 ${
             isOpen ? "invisible" : "visible"
           }`}
           
@@ -75,7 +75,7 @@ const Navbar = () => {
         <svg
           className="w-10 h-10"  
           fill="none"
-          stroke="#145CA9"
+          stroke='var(--darkBlue)'
           viewBox="0 0 24 24"
         >
           <path
@@ -92,12 +92,12 @@ const Navbar = () => {
 
        {/* Desktop Nav */}
        <ul className=" hidden lg:flex gap-3 xl:gap-10 2xl:gap-15 justify-center flex-grow order-2 text-xl">
-         <li><a href="/" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">Home</a></li>
-         <li><a href="/about" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">About</a></li>
-         <li><a href="/events" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">Events</a></li>
-         <li><a href="/investmentportfolio" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">Investment Portfolio</a></li>
-         <li><a href="/bulletin" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">Bulletin</a></li>
-         <li><a href="/contact" className="hover:text-[#145CA9] hover:rounded-xl p-[4px] font-[300]">Contact</a></li>
+         <li><a href="/" className="hover:text-darkBlue hover:rounded-xl p-[4px] font-[300]">Home</a></li>
+         <li><a href="/about" className="hover:text-darkBlue hover:rounded-xl p-[4px] font-[300]">About</a></li>
+         <li><a href="/events" className="hover:text-darkBlue hover:rounded-xl p-[4px] font-[300]">Events</a></li>
+         <li><a href="/investmentportfolio" className="hover:text-darkBlue hover:rounded-xl p-[4px] font-[300]">Investment Portfolio</a></li>
+         <li><a href="/bulletin" className="hover:text-darkBlue hover:rounded-xl p-[4px] font-[300]">Bulletin</a></li>
+         <li><a href="/contact" className="hover:text-darkBlue hover:rounded-xl p-[4px] font-[300]">Contact</a></li>
        </ul>
 
 
@@ -106,7 +106,7 @@ const Navbar = () => {
          <li>
            <a
              href="/joinus"
-             className="border border-solid border-[#145CA9] hover:bg-[#fff] bg-[#145CA9] rounded-4xl text-[#fff] hover:text-[#145CA9] xl:px-[30] py-[10] lg:px-[20] font-[500] text-lg"
+             className="border border-solid border-darkBlue hover:bg-white bg-darkBlue rounded-4xl text-white hover:text-darkBlue xl:px-[30] py-[10] lg:px-[20] font-[500] text-lg"
            >
              Join Us
            </a>
@@ -140,7 +140,7 @@ const Navbar = () => {
     <ul
       className={`
         fixed top-[10%] bottom-[10%] sm:bottom-[16%] left-0 w-[90vw] max-w-[350px]
-        bg-[#fff] shadow-xl/20 rounded-3xl text-[#145CA9]
+        bg-white shadow-xl/20 rounded-3xl text-darkBlue
         flex flex-col overflow-y-auto z-40
         transform transition-transform duration-300 ease-in-out
         lg:hidden
@@ -151,7 +151,7 @@ const Navbar = () => {
     <div className="flex justify-between items-center px-6 py-6 ">
       <Image src="/assets/uaic.png" alt="Logo" width={150} height={150} />
       <button
-        className="p-3 bg-[#fff] rounded-full"
+        className="p-3 bg-white rounded-full"
         onClick={() => setIsOpen(false)}
       >
         <svg
@@ -170,30 +170,30 @@ const Navbar = () => {
       </button>
     </div>
 
-      <hr className="border-t border-[#145CA9]-300 w-9/10 self-center" />
+      <hr className="border-t border-darkBlue-300 w-9/10 self-center" />
 
-      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-[#F0F8FF] hover:font-semibold rounded-full">
+      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
         <Image src="/assets/Home.png" alt="Home Icon" width={24} height={24} /> <a href="/">Home</a>
       </li>
-      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-[#F0F8FF] hover:font-semibold rounded-full">
+      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
         <Image src="/assets/Info.png" alt="Info Icon" width={24} height={24} /> <a href="/about">About</a>
       </li>
-      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-[#F0F8FF] hover:font-semibold rounded-full">
+      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
         <Image src="/assets/Event.png" alt="Event Icon" width={24} height={24} /> <a href="/events">Events</a>
       </li>
-      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-[#F0F8FF] hover:font-semibold rounded-full">
+      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
         <Image src="/assets/chart.png" alt="Investments Icon" width={24} height={24} /> <a href="/investmentportfolio">Investments</a>
       </li>
-      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-[#F0F8FF] hover:font-semibold rounded-full">
+      <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
         <Image src="/assets/document.png" alt="Bulletin Icon" width={24} height={24} /> <a href="/bulletin">Bulletin</a>
       </li>
       <li className="p-6 pl-14 pb-6 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl">
         <Image src="/assets/Contact.png" alt="Contact Icon" width={24} height={24} /> <a href="/contact">Contact</a>
       </li>
 
-      <hr className="border-t border-[#145CA9]-300 w-9/10 self-center py-3" />
+      <hr className="border-t border-darkBlue-300 w-9/10 self-center py-3" />
 
-      <li className="ml-auto p-[10px] px-[30px] mr-[30px] border border-solid border-[#145CA9] hover:bg-[#fff] bg-[#145CA9] rounded-4xl text-[#fff] hover:text-[#145CA9] font-[600] text-lg sm:p-[16px] sm:px-[32px] sm:text-xl">
+      <li className="ml-auto p-[10px] px-[30px] mr-[30px] border border-solid border-darkBlue hover:bg-white bg-darkBlue rounded-4xl text-white hover:text-darkBlue font-[600] text-lg sm:p-[16px] sm:px-[32px] sm:text-xl">
         <a href="/signin">Sign In</a>
       </li>
     </ul>

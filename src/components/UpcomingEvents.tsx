@@ -54,7 +54,7 @@ const UpcomingEvents = () => {
   return (
     <div className="
       text-center mt-[20px] 
-      text-[#000000]
+      text-black
       lg:w-full
       lg:px-[120px]
       lg:mt-[0px]
@@ -86,8 +86,8 @@ const UpcomingEvents = () => {
               
               <div
                 className="
-                  bg-[#FFFFFF]                  
-                  border-2 border-[#F3F3F3] rounded-[25px]
+                  bg-white                  
+                  border-2 border-grey-100 rounded-[25px]
                   w-full 
                   lg:w-auto
                   lg:flex-grow
@@ -96,13 +96,13 @@ const UpcomingEvents = () => {
                   px-6
                   mt-6
                   lg:px-8   
-                  lg:flex lg:divide-x lg:divide-[#D6D6D6]     
+                  lg:flex lg:divide-x lg:divide-grey-100     
                 ">
                   <div className="lg:w-0 lg:flex-grow lg:pr-8 min-w-0">
                     <div className="
                       inline-flex 
-                      border-2 border-[#D6D6D6] rounded-[16px] 
-                      divide-x py-[2px] divide-[#D6D6D6]
+                      border-2 border-grey-100 rounded-[16px] 
+                      divide-x py-[2px] divide-grey-100
                       text-[10px]
                       lg:text-[14px] lg:py[3px]        
                     ">
@@ -241,8 +241,8 @@ const UpcomingEvents = () => {
                   <div>
                     <div className="
                       inline-flex 
-                      border-2 border-[#D6D6D6] rounded-[16px] 
-                      divide-x py-[2px] divide-[#D6D6D6]
+                      border-2 border-grey-100 rounded-[16px] 
+                      divide-x py-[2px] divide-grey-100
                       text-[10px]
                     ">
                       <div className="

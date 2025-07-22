@@ -66,7 +66,7 @@ const HomePage = () => {
                     <h1
                     className="
                     font-[900] tracking-[0px]
-                    bg-gradient-to-r from-[#145CA9] to-[#5FB4FF] bg-clip-text text-transparent
+                    bg-gradient-to-r from-darkBlue to-babyBlue bg-clip-text text-transparent
                     text-[41.65px] leading-[45px] mx-[20px]
                     lg:text-[75.65px] lg:leading-[85px] lg:mx-0"
                     >
@@ -80,14 +80,14 @@ const HomePage = () => {
                     </h3>
 
                     <div className="flex gap-[10px] font-[600] text-[19.68px] leading-[20.91px]">
-                        <button className="w-[146.03px] h-[46.23px] text-[#145CA9]
-                            bg-[#FFFFFF] border-[2.26px] border-[#145CA9] rounded-[50px]">
+                        <button className="w-[146.03px] h-[46.23px] text-darkBlue
+                            bg-white border-[2.26px] border-darkBlue rounded-[50px]">
                             <Link href="/signup">
                                 About Us
                             </Link>
                         </button>
-                        <button className="w-[146.03px] h-[46.23px] text-[#FFFFFF]
-                            bg-[#145CA9] rounded-[50px]">
+                        <button className="w-[146.03px] h-[46.23px] text-white
+                            bg-darkBlue rounded-[50px]">
                                 <Link href="/login">
                                     Join Us
                                 </Link>

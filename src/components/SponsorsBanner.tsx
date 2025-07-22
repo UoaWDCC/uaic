@@ -13,7 +13,7 @@ const SponsorsBanner = () => {
             ">
 
         <h3 className="
-                        mt-[0px] font-[600] text-[#145CA9] 
+                        mt-[0px] font-[600] text-darkBlue 
                         text-[19.04px] leading-[19.04px] text-center
                         lg:mt-[40px]
                         lg:text-[28px] lg:leading-[22px]
