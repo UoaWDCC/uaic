@@ -66,7 +66,7 @@ const HomePage = () => {
                     <h1
                     className="
                     font-[900] tracking-[0px]
-                    bg-gradient-to-r from-darkBlue to-[#5FB4FF] bg-clip-text text-transparent
+                    bg-gradient-to-r from-darkBlue to-babyBlue bg-clip-text text-transparent
                     text-[41.65px] leading-[45px] mx-[20px]
                     lg:text-[75.65px] lg:leading-[85px] lg:mx-0"
                     >
