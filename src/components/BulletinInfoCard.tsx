@@ -3,13 +3,13 @@ import Image from "next/image";
 
 type BulletinInfoCardProps = {
   title: string;
-  imageSrc: string;
+  icon: React.ReactNode;
   text: string;
 };
 
 const BulletinInfoCard: React.FC<BulletinInfoCardProps> = ({
   title,
-  imageSrc,
+  icon,
   text,
 }) => {
   return (
@@ -18,13 +18,7 @@ const BulletinInfoCard: React.FC<BulletinInfoCardProps> = ({
     flex flex-col gap-[7px]
     "
     >
-      <Image
-        src={imageSrc}
-        alt="Group Icon"
-        width={50}
-        height={50}
-        className="w-[50px] h-[50px] mr-4"
-      />
+      <div className="text-5xl">{icon}</div>
       <h1
         className="
         font-bold
