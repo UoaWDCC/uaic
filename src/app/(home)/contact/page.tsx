@@ -113,7 +113,7 @@ const ContactPage = () => {
         <div className="hidden lg:block">
           <div className= "rounded-lg h-96 flex items-center justify-center">
             <div className="text-center">
-              <Image src="/assets/contact-image.png" width={580} height={387} alt="contactImage"/>
+              <Image src="/assets/execs/contact-image.webp" width={580} height={387} alt="contactImage"/>
             </div>
           </div>
         </div>

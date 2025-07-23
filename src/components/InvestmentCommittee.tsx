@@ -32,7 +32,7 @@ const InvestmentCommittee = () => {
 
               <div className="w-full h-[300px] flex items-center justify-center overflow-hidden rounded-lg">
                 <Image
-                  src="/assets/investment-committee.png"
+                  src="/assets/execs/investment-committee.webp"
                   alt="investment-committee"
                   width={500}
                   height={300}

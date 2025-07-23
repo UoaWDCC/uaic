@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import { TiLocation } from "react-icons/ti";
 import { IoCalendar } from "react-icons/io5";
 import { LuClock9 } from "react-icons/lu";
+import Image from "next/image";
 
 interface Event {
   id: string;
@@ -23,7 +24,7 @@ const events: Event[] = [
     title: "Our Upcoming Christmas Present: Mr Jerry",
     location: "303S-G20",
     type: "Competition",
-    photo: "/assets/jerry.jpg",
+    photo: "/assets/jerry.webp",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
   },
   {
@@ -33,7 +34,7 @@ const events: Event[] = [
     title: "Our Upcoming Christmas Present: Mr Jerry",
     location: "303S-G20",
     type: "Competition",
-    photo: "/assets/jerry.jpg",
+    photo: "/assets/jerry.webp",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
   },
   {
@@ -43,7 +44,7 @@ const events: Event[] = [
     title: "Our Upcoming Christmas Present: Mr Jerry longggggggggggggggggggggggggg title",
     location: "303S-G20",
     type: "Competition",
-    photo: "/assets/jerry.jpg",
+    photo: "/assets/jerry.webp",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
   }
 ]
@@ -76,11 +77,9 @@ const RecentEvents = () => {
                 hidden 
                 lg:block lg:w-1/7 lg:h-full flex-shrink-0
               ">
-                <img
-                  src = {event.photo}
+                <Image src = {event.photo}
                   alt = {`${event.title} photo`}
-                  className="w-full h-full object-cover rounded-3xl"
-                />
+                  className="w-full h-full object-cover rounded-3xl"/>
               </div>
               
               <div
@@ -237,8 +236,7 @@ const RecentEvents = () => {
                   </div>
 
                   <div className="lg:mr-10 ">
-                    <img
-                      src = {selectedEvent.photo}
+                      <Image src = {selectedEvent.photo}
                       alt = {`${selectedEvent.title} photo`}
                       className="
                         w-full h-[140px] object-cover rounded-3xl my-4

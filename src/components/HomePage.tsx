@@ -25,7 +25,7 @@ const HomePage = () => {
                     z-[-2]
                     "
                     style={{
-                        backgroundImage: "url('/assets/bull-cow-bg.jpg')",
+                        backgroundImage: "url('/assets/home/bull-cow-bg.webp')",
                     }}
                 />
 

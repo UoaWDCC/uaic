@@ -153,7 +153,7 @@ const Navbar = () => {
       `}
     >
     <div className="flex justify-between items-center px-6 py-6 ">
-      <Image src="/assets/uaic.png" alt="Logo" width={150} height={150} />
+      <Image src="/assets/logos/uaic.webp" alt="Logo" width={150} height={150} />
       <button
         className="p-3 bg-white rounded-full"
         onClick={() => setIsOpen(false)}

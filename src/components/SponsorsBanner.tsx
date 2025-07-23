@@ -32,7 +32,7 @@ const SponsorsBanner = () => {
             "
         >
             <Image
-            src="/assets/forsyth-barr-logo-v1.png"
+            src="/assets/logos/forsyth-barr-logo-v1.webp"
             alt="forsyth-barr"
             width={135}
             height={16.95}
@@ -44,7 +44,7 @@ const SponsorsBanner = () => {
             />
 
             <Image
-            src="/assets/NBR-logo-v1.png"
+            src="/assets/logos/NBR-logo-v1.webp"
             alt="NBR"
             width={88}
             height={25.14}

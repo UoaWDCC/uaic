@@ -7,6 +7,7 @@ import {
 } from "react-icons/fa";
 import { TiLocation } from "react-icons/ti";
 import Link from "next/link";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -147,7 +148,7 @@ const Footer = () => {
         {/* Mobile Logo */}
         <div className="flex-col items-center lg:hidden flex order-3 h-full w-full">
           <div className="max-w-[16rem] justify-center items-center flex h-full w-full">
-            <img src="/assets/uaic-white.png" alt="" />
+            <Image src="/assets/logos/uaic-white.webp" alt="uaic white logo" width={150} height={150}/>
           </div>
         </div>
       </div>
@@ -159,7 +160,7 @@ const Footer = () => {
           © Copyright 2025 University of Auckland Investment Club
         </h1>
         <div className="max-w-[8rem] justify-self-center hidden lg:flex">
-          <img src="/assets/uaic-white.png" alt="" />
+          <Image src="/assets/logos/uaic-white.webp" alt="uaic white logo" width={150} height={150}/>
         </div>
       </div>
     </footer>

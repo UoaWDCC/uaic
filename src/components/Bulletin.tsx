@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { GoBook } from "react-icons/go";
 import { LuExternalLink } from "react-icons/lu";
@@ -10,7 +11,7 @@ const Bulletin = () => {
             <div className="
                 col-span-2 row-span-3 rounded-2xl relative bg-lightBlue flex justify-center p-8  
             ">
-                <img src="/assets/bulletin_cover.jpg" alt="Cover Image" className="w-full rounded-xl"/>
+                <Image src="/assets/bulletins/bulletin_cover.webp" alt="Cover Image" className="w-full rounded-xl" width={260} height={366}/>
             </div>
 
             <span className="col-start-1 col-end-3 row-start-1 row-end-2 bg-lightBlue z-2 absolute -right-[1rem] w-[2rem] h-[1rem]" />
@@ -41,7 +42,7 @@ const Bulletin = () => {
             {/* MINI 1 */}
             <div className="
                 col-span-3 row-span-1 rounded-2xl text-white p-6 relative flex flex-col justify-between
-                bg-cover bg-center bg-darkBlue/50 bg-blend-multiply bg-[url('/assets/sample_article_1.png')]
+                bg-cover bg-center bg-darkBlue/50 bg-blend-multiply bg-[url('/assets/bulletins/article1.webp')]
                 hover:brightness-90 transition cursor-pointer
             ">
                 <div className="max-w-[85%] h-full ml-4 flex flex-col justify-center font-semibold">
@@ -57,7 +58,7 @@ const Bulletin = () => {
             {/* MINI 2 */}
             <div className="
                 col-span-3 row-span-1 rounded-2xl text-white p-6 relative flex flex-col justify-between
-                bg-cover bg-center bg-darkBlue/50 bg-blend-multiply bg-[url('/assets/sample_article_2.png')]
+                bg-cover bg-center bg-darkBlue/50 bg-blend-multiply bg-[url('/assets/bulletins/article2.webp')]
                 hover:brightness-90 transition cursor-pointer
             ">
                 <div className="max-w-[85%] h-full ml-4 flex flex-col justify-center font-semibold">

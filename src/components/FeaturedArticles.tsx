@@ -2,6 +2,7 @@
 import React from "react";
 import { LuExternalLink } from "react-icons/lu";
 import { GoBook } from "react-icons/go";
+import Image from "next/image";
 
 interface Article {
   issue: number;
@@ -13,17 +14,17 @@ const articles: Article[] = [
   {
     issue: 76,
     title: "A House of Cards: The History of Fletcher Building",
-    image: "/assets/article2.png",
+    image: "/assets/bulletins/article2.webp",
   },
   {
     issue: 78,
     title: "Measuring Up? New Zealand’s Standardised Testing Debate",
-    image: "/assets/article1.png",
+    image: "/assets/bulletins/article1.webp",
   },
   {
     issue: 77,
     title: "A House of Cards: The History of Fletcher Building",
-    image: "/assets/article2.png",
+    image: "/assets/bulletins/article2.webp",
   },
 ];
 
@@ -43,11 +44,9 @@ const FeaturedArticles = () => {
               key={article.issue}
               className="relative rounded-xl overflow-hidden h-25 hover:scale-105 transition-transform duration-300"
             >
-              <img
-                src={article.image}
+              <Image src={article.image}
                 alt={article.title}
-                className="object-cover w-full h-full"
-              />
+                className="object-cover w-full h-full"/>
               <div className="absolute inset-0 bg-opacity-40 flex flex-col justify-center px-3 hover:bg-opacity-60 transition-colors duration-300">
                 <p className="text-xs text-white pb-2">Issue #{article.issue}</p>
                 <p className="text-sm font-semibold text-white leading-tight">
@@ -93,11 +92,9 @@ const FeaturedArticles = () => {
             >
               {/* Article Image and Text */}
               <div className="relative flex-[2]">
-                <img
-                  src={article.image}
+                <Image src={article.image}
                   alt={article.title}
-                  className="object-cover w-full h-full rounded-xl"
-                />
+                  className="object-cover w-full h-full rounded-xl"/>
                 <div className="absolute inset-0 bg-opacity-40 flex flex-col justify-center px-4 rounded-xl hover:bg-opacity-60 transition-colors duration-300">
                   <div className="w-[90%]">
                     <p className="text-sm lg:text-base text-white pb-2">

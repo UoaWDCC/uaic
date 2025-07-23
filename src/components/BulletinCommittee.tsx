@@ -71,7 +71,7 @@ const members: Member[] = [
 
               <div className="w-full h-[300px] max-w-[500px] bg-lightBlue flex items-center justify-center overflow-hidden rounded-lg">
                 <Image
-                  src="/assets/bulletin-committee.png"
+                  src="/assets/execs/bulletin-committee.webp"
                   alt="bulletin-committee"
                   width={500}
                   height={300}
