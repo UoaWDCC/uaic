@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { LuChartNoAxesCombined } from "react-icons/lu";
 
 
 const Navbar = () => {
@@ -182,7 +183,7 @@ const Navbar = () => {
         <Image src="/assets/Event.png" alt="Event Icon" width={24} height={24} /> <a href="/events">Events</a>
       </li>
       <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
-        <Image src="/assets/chart.png" alt="Investments Icon" width={24} height={24} /> <a href="/investmentportfolio">Investments</a>
+        <LuChartNoAxesCombined size={24}/> <a href="/investmentportfolio">Investments</a>
       </li>
       <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
         <Image src="/assets/document.png" alt="Bulletin Icon" width={24} height={24} /> <a href="/bulletin">Bulletin</a>
