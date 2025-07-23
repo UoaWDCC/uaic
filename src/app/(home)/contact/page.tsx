@@ -46,9 +46,7 @@ const ContactPage = () => {
                 </a>
               </div>
               <div>
-                <h3 className="font-bold text-darkBlue">
-                  Bulletin Inquiries
-                </h3>
+                <h3 className="font-bold text-darkBlue">Bulletin Inquiries</h3>
                 <a
                   href="mailto:education@uaic.co.nz"
                   className="text-darkBlue underline"
@@ -67,25 +65,41 @@ const ContactPage = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <FaInstagram className="h-5 w-5 text-darkBlue" />
-                <a href="https://www.instagram.com/officialuaic/" target="_blank" className="text-darkBlue underline">
+                <a
+                  href="https://www.instagram.com/officialuaic/"
+                  target="_blank"
+                  className="text-darkBlue underline"
+                >
                   @officialuaic
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <FaFacebook className="h-5 w-5 text-darkBlue" />
-                <a href="https://www.facebook.com/officialUAIC" target="_blank" className="text-darkBlue underline">
+                <a
+                  href="https://www.facebook.com/officialUAIC"
+                  target="_blank"
+                  className="text-darkBlue underline"
+                >
                   University of Auckland Investment Club
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <FaLinkedin className="h-5 w-5 text-darkBlue" />
-                <a href="https://www.linkedin.com/company/officialuaic/" target="_blank" className="text-darkBlue underline">
+                <a
+                  href="https://www.linkedin.com/company/officialuaic/"
+                  target="_blank"
+                  className="text-darkBlue underline"
+                >
                   University of Auckland Investment Club
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <FaTiktok className="h-5 w-5 text-darkBlue" />
-                <a href="https://www.tiktok.com/@officialuaic" target="_blank" className="text-darkBlue underline">
+                <a
+                  href="https://www.tiktok.com/@officialuaic"
+                  target="_blank"
+                  className="text-darkBlue underline"
+                >
                   @officialuaic UoA Investment Club
                 </a>
               </div>
@@ -98,9 +112,7 @@ const ContactPage = () => {
               Address
             </h2>
             <div className="text-darkBlue font-bold">
-              <p>
-                University of Auckland Investment Club
-              </p>
+              <p>University of Auckland Investment Club</p>
               <p>Level 1, Owen G. Glenn Building</p>
               <p>12 Grafton Road, Auckland CBD</p>
               <p>Auckland 1010</p>
@@ -111,14 +123,19 @@ const ContactPage = () => {
 
         {/* Right Column - Image (Desktop only) */}
         <div className="hidden lg:block">
-          <div className= "rounded-lg h-96 flex items-center justify-center">
+          <div className="rounded-lg h-96 flex items-center justify-center">
             <div className="text-center">
-              <Image src="/assets/execs/contact-image.webp" width={580} height={387} alt="contactImage"/>
+              <Image
+                src="/assets/execs/contact-image.webp"
+                width={580}
+                height={387}
+                alt="contactImage"
+              />
             </div>
           </div>
         </div>
       </div>
-      <InvestConnectWork/>
+      <InvestConnectWork />
     </div>
   );
 };

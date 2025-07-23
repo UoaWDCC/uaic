@@ -8,11 +8,11 @@ const BulletinCommittee = () => {
   const [isMembersOpen, setIsMembersOpen] = useState(false);
 
   type Member = {
-  name: string;
-  role: string;
-};
+    name: string;
+    role: string;
+  };
 
-const members: Member[] = [
+  const members: Member[] = [
     { name: "Riley Bogard-Allan", role: "Editor-in-Chief" },
     { name: "Isabella Ho", role: "Sub-Editor" },
     { name: "Skip Gee", role: "Senior Writer" },
@@ -31,9 +31,8 @@ const members: Member[] = [
     { name: "Lisa Shiozawa", role: "Writer" },
     { name: "Hunter Sari", role: "Writer" },
     { name: "Manav Treekam", role: "Writer" },
-    { name: "Annabelle Larsen", role: "Writer" }
-];
-
+    { name: "Annabelle Larsen", role: "Writer" },
+  ];
 
   return (
     <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg shadow-md">
@@ -47,7 +46,11 @@ const members: Member[] = [
           className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2"
         >
           <span className="font-bold md:text-[20px]">Bulletin Committees</span>
-          {isMainOpen ? <IoIosArrowUp size={30}/> : <IoIosArrowDown size={30}/>}
+          {isMainOpen ? (
+            <IoIosArrowUp size={30} />
+          ) : (
+            <IoIosArrowDown size={30} />
+          )}
         </button>
 
         {isMainOpen && (
@@ -107,25 +110,29 @@ const members: Member[] = [
               className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2"
             >
               <span className="font-bold ">Team Members and Roles</span>
-              {isMembersOpen ? <IoIosArrowUp size={30}/> : <IoIosArrowDown size={30}/>}
+              {isMembersOpen ? (
+                <IoIosArrowUp size={30} />
+              ) : (
+                <IoIosArrowDown size={30} />
+              )}
             </button>
 
             {isMembersOpen && (
-                <div>
-                    <section className="w-full max-w-6xl mx-auto px-4 py-8">
-  <h2 className="text-2xl font-semibold mb-6">Team Members & Roles</h2>
-  <div className="grid grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-y-4 gap-x-6">
-    {members.map((member, index) => (
-      <div key={index}>
-        <p className="text-base font-bold">{member.name}</p>
-        <p className="text-base">{member.role}</p>
-      </div>
-    ))}
-  </div>
-</section>
-
-
-                </div>
+              <div>
+                <section className="w-full max-w-6xl mx-auto px-4 py-8">
+                  <h2 className="text-2xl font-semibold mb-6">
+                    Team Members & Roles
+                  </h2>
+                  <div className="grid grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-y-4 gap-x-6">
+                    {members.map((member, index) => (
+                      <div key={index}>
+                        <p className="text-base font-bold">{member.name}</p>
+                        <p className="text-base">{member.role}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              </div>
             )}
           </div>
         )}

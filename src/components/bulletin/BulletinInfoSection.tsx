@@ -20,9 +20,21 @@ const BulletinInfosection = () => {
       lg:gap-[100px]
     "
     >
-     <BulletinInfoCard title="Investing is for Everyone" icon={<MdGroups/>} text="Our writers study a range of degrees beyond just finance, and we are bound by our collective interest in financial markets" />
-     <BulletinInfoCard title="Education" icon={<RiGraduationCapFill />} text="Education is one of our core values - all our analysts are supported in their roles through regular workshops and ongoing mentorship, assisting our team in making the best decisions when discussion the market" />
-     <BulletinInfoCard title="Article Frequency" icon={<LuAlarmClockCheck/>} text="Articles are published on a frequent basis and sent our to all club members" />
+      <BulletinInfoCard
+        title="Investing is for Everyone"
+        icon={<MdGroups />}
+        text="Our writers study a range of degrees beyond just finance, and we are bound by our collective interest in financial markets"
+      />
+      <BulletinInfoCard
+        title="Education"
+        icon={<RiGraduationCapFill />}
+        text="Education is one of our core values - all our analysts are supported in their roles through regular workshops and ongoing mentorship, assisting our team in making the best decisions when discussion the market"
+      />
+      <BulletinInfoCard
+        title="Article Frequency"
+        icon={<LuAlarmClockCheck />}
+        text="Articles are published on a frequent basis and sent our to all club members"
+      />
     </div>
   );
 };

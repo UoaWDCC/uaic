@@ -2,17 +2,12 @@
 
 import React from "react";
 import { GoBook } from "react-icons/go";
+import Link from "next/link";
 
 type ArticleListItemProps = {
   issueNumber: number;
   date: number[];
   link: string;
-};
-
-const openArticle = (link: string) => {
-  if (link) {
-    window.open(link, "_blank");
-  }
 };
 
 const monthNames = [
@@ -36,9 +31,9 @@ const ArticleListItem: React.FC<ArticleListItemProps> = ({
   link,
 }) => {
   return (
-    <div
-      onClick={() => openArticle(link)}
-      className="
+    <Link href={link} target="_blank">
+      <div
+        className="
     bg-white 
     grid grid-cols-[2fr_3fr_0.5fr] items-center 
     text-darkBlue
@@ -56,29 +51,30 @@ const ArticleListItem: React.FC<ArticleListItemProps> = ({
     lg:px-10
     lg:max-h-[97px] lg:min-h-[97px]  
   "
-    >
-      <h2
-        className="
+      >
+        <h2
+          className="
         font-bold
 
         text-sm
 
         lg:text-2xl 
       "
-      >
-        Issue #{issueNumber}
-      </h2>
-      <p
-        className="
+        >
+          Issue #{issueNumber}
+        </h2>
+        <p
+          className="
         text-sm
 
         lg:text-xl
       "
-      >
-        {`${date[0]} ${monthNames[date[1] - 1]} ${date[2]}`}
-      </p>
-      <GoBook className="object-contain max-h-full" size={25}/>
-    </div>
+        >
+          {`${date[0]} ${monthNames[date[1] - 1]} ${date[2]}`}
+        </p>
+        <GoBook className="object-contain max-h-full" size={25} />
+      </div>
+    </Link>
   );
 };
 
