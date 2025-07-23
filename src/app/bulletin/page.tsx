@@ -1,9 +1,9 @@
 import React from "react";
-import BulletinHeroSection from "@/components/BulletinHeroSection";
-import LatestArticle from "@/components/LatestArticle";
-import BulletinInfosection from "@/components/BulletinInfoSection";
-import Bulletin from "@/components/Bulletin";
-import ArticleList from "@/components/ArticleList";
+import BulletinHeroSection from "@/components/bulletin/BulletinHeroSection";
+import LatestArticle from "@/components/bulletin/LatestArticle";
+import BulletinInfosection from "@/components/bulletin/BulletinInfoSection";
+import Bulletin from "@/components/home/Bulletin";
+import ArticleList from "@/components/home/ArticleList";
 
 const page = () => {
   return (

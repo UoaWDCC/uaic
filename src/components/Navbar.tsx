@@ -121,7 +121,7 @@ const Navbar = () => {
        {/* Logo */}
        <Link href="/">
           <Image
-            src="/assets/uaic.png"
+            src="/assets/logos/uaic.webp"
             alt="Logo"
             width={220}
             height={220}

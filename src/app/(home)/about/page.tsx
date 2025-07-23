@@ -1,6 +1,6 @@
-import BulletinCommittee from "@/components/BulletinCommittee";
-import ExecutiveCommittee from "@/components/ExecutiveCommittee";
-import InvestmentCommittee from "@/components/InvestmentCommittee";
+import BulletinCommittee from "@/components/about/BulletinCommittee";
+import ExecutiveCommittee from "@/components/about/ExecutiveCommittee";
+import InvestmentCommittee from "@/components/about/InvestmentCommittee";
 
 export default function about() {
     return (
