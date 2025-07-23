@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import { LuExternalLink } from "react-icons/lu";
+import { GoBook } from "react-icons/go";
 
 interface Article {
   issue: number;
@@ -53,7 +55,7 @@ const FeaturedArticles = () => {
                 </p>
               </div>
               <div className="absolute bottom-2 right-2 text-white text-xl">
-                <img src="/assets/Read.png" alt="read icon" />
+                <GoBook size={25}/>
               </div>
             </div>
           ))}
@@ -106,7 +108,7 @@ const FeaturedArticles = () => {
                     </p>
                   </div>
                   <div className="absolute bottom-2 right-2 text-white text-xl">
-                    <img src="/assets/Read.png" alt="read icon" />
+                    <GoBook size={25} />
                   </div>
                 </div>
               </div>
@@ -114,11 +116,7 @@ const FeaturedArticles = () => {
               {/* Read More Button */}
               <div className="w-28 aspect-square flex items-center justify-center bg-[var(--darkBlue)] text-white text-base lg:text-lg font-semibold rounded-xl p-2 relative hover:bg-opacity-80 transition-colors duration-300">
                 <span>Read More</span>
-                <img
-                  src="/assets/ExternalLink.png"
-                  alt="external link icon"
-                  className="w-6 h-6 absolute bottom-2 right-2"
-                />
+                <LuExternalLink className="w-6 h-6 absolute bottom-2 right-2" size={25}/>
               </div>
             </div>
           ))}

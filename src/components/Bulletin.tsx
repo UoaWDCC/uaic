@@ -1,5 +1,6 @@
 import React from "react";
 import { GoBook } from "react-icons/go";
+import { LuExternalLink } from "react-icons/lu";
 
 
 const Bulletin = () => {
@@ -78,8 +79,7 @@ const Bulletin = () => {
                     <p className="text-3xl leading-[0.9]">Want to <br/> see more?</p>
                     <p className="text-xl mt-3 underline">Click to View All</p>
                 </div>
-
-                <img src="/assets/external_link_icon.png" className="w-10 absolute bottom-6 right-6" />
+                <LuExternalLink className="w-10 absolute bottom-6 right-6" size={25}/>
             </div>
 
         </div>

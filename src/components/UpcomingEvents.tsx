@@ -2,6 +2,7 @@
 import React, {useState} from "react";
 import { TiLocation } from "react-icons/ti";
 import { IoCalendar } from "react-icons/io5";
+import { LuClock9 } from "react-icons/lu";
 
 
 interface Event {
@@ -120,11 +121,7 @@ const UpcomingEvents = () => {
                         px-2
                         flex items-center gap-[6px] 
                       ">
-                        <img 
-                          src = "/assets/Clock.png"
-                          alt = "Time"
-                          className = "h-[15px] lg:h-[18px]"
-                          />
+                          <LuClock9 className = "h-[15px] lg:h-[18px]"/>
                           {event.time}
                       </div>
                     </div>
@@ -251,11 +248,7 @@ const UpcomingEvents = () => {
                         px-2
                         flex items-center gap-[6px] 
                       ">
-                        <img 
-                          src = "/assets/Clock.png"
-                          alt = "Time"
-                          className = "h-[15px]"
-                          />
+                          <LuClock9 className = "h-[15px]"/>
                           {selectedEvent.time}
                       </div>
                     </div>
