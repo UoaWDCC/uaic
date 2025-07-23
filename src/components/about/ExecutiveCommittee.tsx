@@ -15,7 +15,10 @@ const executiveSubteams = [
   "Social Team",
 ];
 
-const teamProfiles: Record<string, { name: string; title: string; degree: string; imageSrc: string }[]> = {
+const teamProfiles: Record<
+  string,
+  { name: string; title: string; degree: string; imageSrc: string }[]
+> = {
   "Leadership Team": [
     {
       name: "Danielle Smith",
@@ -48,7 +51,8 @@ const teamProfiles: Record<string, { name: string; title: string; degree: string
     {
       name: "Amica Valencia",
       title: "Secretary",
-      degree: "BCom - International Business & Operations & Supply Chain Management",
+      degree:
+        "BCom - International Business & Operations & Supply Chain Management",
       imageSrc: "/assets/execs/secretary-treasurer/amica-valencia.webp",
     },
     {
@@ -204,9 +208,7 @@ const ExecutiveCommittee = () => {
 
   const toggleSubteam = (team: string) => {
     setOpenSubteams((prev) =>
-      prev.includes(team)
-        ? prev.filter((t) => t !== team)
-        : [...prev, team]
+      prev.includes(team) ? prev.filter((t) => t !== team) : [...prev, team]
     );
   };
 
@@ -218,14 +220,24 @@ const ExecutiveCommittee = () => {
           className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2"
         >
           <span className="font-bold md:text-[20px]">Executive Committees</span>
-          {isMainOpen ? <IoIosArrowUp size={30}/> : <IoIosArrowDown size={30}/>}
+          {isMainOpen ? (
+            <IoIosArrowUp size={30} />
+          ) : (
+            <IoIosArrowDown size={30} />
+          )}
         </button>
 
         {isMainOpen && (
           <div className="text-sm text-darkBlue">
-            <p className="mb-4 pl-4">The Executive Committee is responsible for running the club, including:</p>
+            <p className="mb-4 pl-4">
+              The Executive Committee is responsible for running the club,
+              including:
+            </p>
             <ul className="list-disc list-inside mb-4 pl-6">
-              <li>Running competitions, educational events, social events and club-wide initiatives</li>
+              <li>
+                Running competitions, educational events, social events and
+                club-wide initiatives
+              </li>
               <li>Regularly communicating with our members</li>
               <li>Managing the Investment Committee and Bulletin Committee</li>
             </ul>
@@ -238,20 +250,20 @@ const ExecutiveCommittee = () => {
                   className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2"
                 >
                   <span className="font-bold">{team}</span>
-          {openSubteams.includes(team) ? <IoIosArrowUp size={30}/> : <IoIosArrowDown size={30}/>}
-
+                  {openSubteams.includes(team) ? (
+                    <IoIosArrowUp size={30} />
+                  ) : (
+                    <IoIosArrowDown size={30} />
+                  )}
                 </button>
-                            
+
                 {/* Show subteam details using ProfileCard.tsx*/}
                 {openSubteams.includes(team) && (
                   <div className="pl-4 py-1 text-sm text-darkBlue">
                     {teamProfiles[team] && (
                       <div className="flex flex-wrap gap-4 justify-start">
                         {teamProfiles[team].map((member) => (
-                          <div
-                            key={member.name}
-                            className=""
-                          >
+                          <div key={member.name} className="">
                             <ProfileCard
                               name={member.name}
                               title={member.title}

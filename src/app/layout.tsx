@@ -26,7 +26,7 @@ export default function RootLayout({
 
         {/* Margin height to match Navbar */}
         <div className="mt-[131.75px]">{children}</div>
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

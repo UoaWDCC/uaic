@@ -7,14 +7,20 @@ const EventsSection = () => {
   const [selected, setSelected] = useState("upcoming");
 
   return (
-    <div className="
+    <div
+      className="
       flex flex-col items-center 
       gap-6 mt-[200px]
       bg-[radial-gradient(circle,_var(--darkBlue)_0%,_white_42%)]
-    ">
+    "
+    >
       <div className="flex w-fit rounded-full bg-gradient-to-r from-white to-white mt-[80px]">
         <button
-          onClick={() => selected === "recent" ? setSelected("upcoming") : setSelected("recent")}
+          onClick={() =>
+            selected === "recent"
+              ? setSelected("upcoming")
+              : setSelected("recent")
+          }
           className={`
             px-6 py-2 
             rounded-full 
@@ -30,7 +36,11 @@ const EventsSection = () => {
           Upcoming Events
         </button>
         <button
-          onClick={() => selected === "upcoming" ? setSelected("recent") : setSelected("upcoming")}
+          onClick={() =>
+            selected === "upcoming"
+              ? setSelected("recent")
+              : setSelected("upcoming")
+          }
           className={`
             px-6 py-2 
             rounded-full 
@@ -40,8 +50,7 @@ const EventsSection = () => {
               selected === "recent"
                 ? "bg-[var(--darkBlue)] text-white"
                 : "text-black bg-white"
-            }`
-          }
+            }`}
         >
           Recent Events
         </button>

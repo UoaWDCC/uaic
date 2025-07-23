@@ -5,23 +5,26 @@ import Image from "next/image";
 const SponsorsBanner = () => {
   return (
     <>
-      <div className="
+      <div
+        className="
             relative
             h-[178px] lg:h-[229px]
             bg-white
             overflow-hidden
-            ">
-
-        <h3 className="
+            "
+      >
+        <h3
+          className="
                         mt-[0px] font-[600] text-darkBlue 
                         text-[19.04px] leading-[19.04px] text-center
                         lg:mt-[40px]
                         lg:text-[28px] lg:leading-[22px]
-                        ">
-                        Our Sponsors
-            </h3>
-        <div  
-            className="
+                        "
+        >
+          Our Sponsors
+        </h3>
+        <div
+          className="
             flex justify-evenly items-center 
             h-[25.14px] w-[285px] mt-[60px]
             mx-auto 
@@ -31,7 +34,7 @@ const SponsorsBanner = () => {
             lg:w-[971.4px]
             "
         >
-            <Image
+          <Image
             src="/assets/logos/forsyth-barr-logo-v1.webp"
             alt="forsyth-barr"
             width={135}
@@ -41,9 +44,9 @@ const SponsorsBanner = () => {
                 lg:w-[500px] 
                 lg:h-[280px]
             "
-            />
+          />
 
-            <Image
+          <Image
             src="/assets/logos/NBR-logo-v1.webp"
             alt="NBR"
             width={88}
@@ -53,8 +56,7 @@ const SponsorsBanner = () => {
                 lg:w-[182px] 
                 lg:h-[52px]
             "
-            />
-
+          />
         </div>
       </div>
     </>
