@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
-import RecentEvents from "@/components/RecentEvents";
-import UpcomingEvents from "@/components/UpcomingEvents";
+import RecentEvents from "@/components/events/RecentEvents";
+import UpcomingEvents from "@/components/events/UpcomingEvents";
 import EventsSection from "@/components/EventsSection";
 import type { Metadata } from "next";
 import "./globals.css";

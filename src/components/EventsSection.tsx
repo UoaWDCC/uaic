@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import RecentEvents from "@/components/RecentEvents";
-import UpcomingEvents from "@/components/UpcomingEvents";
+import RecentEvents from "@/components/events/RecentEvents";
+import UpcomingEvents from "@/components/events/UpcomingEvents";
 
 const EventsSection = () => {
   const [selected, setSelected] = useState("upcoming");

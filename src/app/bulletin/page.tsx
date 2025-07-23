@@ -1,9 +1,9 @@
 import React from "react";
-import BulletinHeroSection from "@/components/BulletinHeroSection";
-import LatestArticle from "@/components/LatestArticle";
-import BulletinInfosection from "@/components/BulletinInfoSection";
-import Bulletin from "@/components/Bulletin";
-import ArticleList from "@/components/ArticleList";
+import BulletinHeroSection from "@/components/bulletin/BulletinHeroSection";
+import LatestArticle from "@/components/bulletin/LatestArticle";
+import BulletinInfosection from "@/components/bulletin/BulletinInfoSection";
+import Bulletin from "@/components/home/Bulletin";
+import ArticleList from "@/components/home/ArticleList";
 
 const page = () => {
   return (
@@ -19,7 +19,7 @@ const page = () => {
       <div className="order-2 lg:order-3 w-full">
         <LatestArticle
           issueNumber={79}
-          imageSrc="/assets/bulletin_cover.jpg"
+          imageSrc="/assets/bulletins/bulletin_cover.webp"
           title="Isn’t There Something Wrong with a World Where Everything is For Sale?"
           description="A collection of thought-provoking articles and opinion pieces exploring the ethics of commodification, the sale of IC’s Spark, the value of fine art as an investment, and Rivian’s dramatic industry shift. Includes a partner column from Forsyth Barr on tackling New Zealand’s water quality challenges. A collection of thought-provoking articles and opinion pieces exploring the ethics of commodification, the sale of IC’s Spark, the value of fine art as an investment, and Rivian’s dramatic industry shift. Includes a partner column from Forsyth Barr on tackling New Zealand’s water quality challenges."
           pdfUrl="https://www.youtube.com/watch?v=dQw4w9WgXcQ"

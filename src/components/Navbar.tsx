@@ -2,6 +2,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { LuChartNoAxesCombined, LuInfo } from "react-icons/lu";
+import { RiContactsLine } from "react-icons/ri";
+import { TiDocumentText,TiHome } from "react-icons/ti";
+import { PiCalendarStarFill } from "react-icons/pi";
 
 
 const Navbar = () => {
@@ -117,7 +121,7 @@ const Navbar = () => {
        {/* Logo */}
        <Link href="/">
           <Image
-            src="/assets/uaic.png"
+            src="/assets/logos/uaic.webp"
             alt="Logo"
             width={220}
             height={220}
@@ -149,7 +153,7 @@ const Navbar = () => {
       `}
     >
     <div className="flex justify-between items-center px-6 py-6 ">
-      <Image src="/assets/uaic.png" alt="Logo" width={150} height={150} />
+      <Image src="/assets/logos/uaic.webp" alt="Logo" width={150} height={150} />
       <button
         className="p-3 bg-white rounded-full"
         onClick={() => setIsOpen(false)}
@@ -173,22 +177,22 @@ const Navbar = () => {
       <hr className="border-t border-darkBlue-300 w-9/10 self-center" />
 
       <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
-        <Image src="/assets/Home.png" alt="Home Icon" width={24} height={24} /> <a href="/">Home</a>
+        <TiHome size={24}/> <a href="/">Home</a>
       </li>
       <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
-        <Image src="/assets/Info.png" alt="Info Icon" width={24} height={24} /> <a href="/about">About</a>
+        <LuInfo size={24}/> <a href="/about">About</a>
       </li>
       <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
-        <Image src="/assets/Event.png" alt="Event Icon" width={24} height={24} /> <a href="/events">Events</a>
+        <PiCalendarStarFill size={24}/> <a href="/events">Events</a>
       </li>
       <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
-        <Image src="/assets/chart.png" alt="Investments Icon" width={24} height={24} /> <a href="/investmentportfolio">Investments</a>
+        <LuChartNoAxesCombined size={24}/> <a href="/investmentportfolio">Investments</a>
       </li>
       <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
-        <Image src="/assets/document.png" alt="Bulletin Icon" width={24} height={24} /> <a href="/bulletin">Bulletin</a>
+        <TiDocumentText size={24}/> <a href="/bulletin">Bulletin</a>
       </li>
       <li className="p-6 pl-14 pb-6 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl">
-        <Image src="/assets/Contact.png" alt="Contact Icon" width={24} height={24} /> <a href="/contact">Contact</a>
+        <RiContactsLine size={24}/> <a href="/contact">Contact</a>
       </li>
 
       <hr className="border-t border-darkBlue-300 w-9/10 self-center py-3" />
