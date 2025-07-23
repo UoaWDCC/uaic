@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { IoBookOutline } from "react-icons/io5";
 
 type ArticleListItemProps = {
   issueNumber: number;
@@ -77,13 +78,7 @@ const ArticleListItem: React.FC<ArticleListItemProps> = ({
       >
         {`${date[0]} ${monthNames[date[1] - 1]} ${date[2]}`}
       </p>
-      <Image
-        src="/assets/book-icon.png"
-        alt="Book Icon"
-        width={40}
-        height={40}
-        className="object-contain max-h-full"
-      />
+      <div className="lg:text-4xl"><IoBookOutline /></div>
     </div>
   );
 };
