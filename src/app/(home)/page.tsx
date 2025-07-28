@@ -4,7 +4,7 @@ import UpdatedBulletin from "@/components/home/Bulletin";
 import HomePage from "@/components/home/HomePage";
 import SponsorsBanner from "@/components/home/SponsorsBanner";
 import EventsSection from "@/components/EventsSection";
-import JoinUs from "@/components/JoinUs";
+
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
       <ArticleList />
       <UpdatedBulletin />
       <InvestConnectWork />
-      <JoinUs />
+
     </div>
   );
 }
