@@ -4,7 +4,9 @@ const JoinUs = () => {
 
     return(
         <>
-            div.
+            <div className="w-full min-h-[500px] lg:min-h-[749px]">
+
+            </div>
         
         
         
