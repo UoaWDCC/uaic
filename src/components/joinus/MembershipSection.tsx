@@ -5,7 +5,7 @@ import PerksGrid from "./PerksGrid";
 const MembershipSection = () => {
   return (
     <div className="
-    bg-[radial-gradient(70%_70%_at_50%_55%,rgba(20,92,169,0.2)_60%,rgba(255,255,255,0.2)_80%)]
+    bg-[radial-gradient(70%_60%_at_50%_50%,rgba(20,92,169,0.2)_60%,rgba(255,255,255,0.2)_80%)]
     
     sm:bg-[radial-gradient(70%_60%_at_50%_55%,rgba(20,92,169,0.4)_0%,rgba(255,255,255,0.2)_80%)]"
     >
