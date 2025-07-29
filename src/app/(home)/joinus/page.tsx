@@ -1,6 +1,6 @@
 'use client';
 
-import JoinUsDescription from "@/components/joinus/MembershipSection";
+import JoinUsDescription from "@/components/joinus/JoinUsDescription";
 import MembershipSection from "@/components/joinus/MembershipSection";
 import SignupSection from "@/components/joinus/SignupSection";
 

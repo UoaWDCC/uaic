@@ -8,12 +8,13 @@ const PerksGrid = () => {
   return (
     <div
       className="
+      
       w-full 
       text-darkBlue
       grid justify-between 
       
-      gap-[60px]
-      pl-20 pr-20 pb-10
+      gap-[50px]
+      pl-10 pr-10 pt-10 pb-20
       
       lg:pl-30 lg:pr-30 lg:pb-20
       lg:grid-cols-3 

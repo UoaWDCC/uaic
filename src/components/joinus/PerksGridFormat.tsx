@@ -17,15 +17,15 @@ const PerksGridFormat: React.FC<SignupPerksFormatProps> = ({
     flex flex-col gap-[7px]
     "
     >
-      <div className="text-5xl">{icon}</div>
-      <h1
+      <div className="text-3xl">{icon}</div>
+      <h2
         className="
         font-bold
-        text-xl
+        text-base
       "
       >
         {title}
-      </h1>
+      </h2>
       <p
         className="
         font-light text-sm
