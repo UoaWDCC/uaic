@@ -3,11 +3,16 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
 import { s3Storage } from "@payloadcms/storage-s3";
+import { Users } from "./collections/Users";
+import { Media } from "./collections/Media";
 
 export default buildConfig({
   editor: lexicalEditor(),
 
-  collections: [],
+  collections: [
+    Users,
+    Media,
+  ],
 
   secret: process.env.PAYLOAD_SECRET || "",
 
