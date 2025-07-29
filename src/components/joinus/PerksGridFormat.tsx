@@ -6,7 +6,7 @@ type SignupPerksFormatProps = {
   text: string;
 };
 
-const SignupPerksFormat: React.FC<SignupPerksFormatProps> = ({
+const PerksGridFormat: React.FC<SignupPerksFormatProps> = ({
   title,
   icon,
   text,
@@ -37,4 +37,4 @@ const SignupPerksFormat: React.FC<SignupPerksFormatProps> = ({
   );
 };
 
-export default SignupPerksFormat;
+export default PerksGridFormat;

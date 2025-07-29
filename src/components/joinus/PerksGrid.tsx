@@ -1,10 +1,10 @@
 import React from "react";
-import SignupPerksFormat from "./SignupPerksFormat";
+import PerksGridFormat from "./PerksGridFormat";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import { LuTrophy } from "react-icons/lu";
 import { IoIosPeople } from "react-icons/io";
 
-const SignupPerksDetails = () => {
+const PerksGrid = () => {
   return (
     <div
       className="
@@ -20,17 +20,17 @@ const SignupPerksDetails = () => {
       lg:gap-[100px]
     "
     >
-      <SignupPerksFormat
+      <PerksGridFormat
         title="Membership Sign-Up Fee"
         icon={<FaMoneyCheckAlt />}
         text="The sign-up cost is $20 + $1.58 processing fees to become a registered member of UAIC for the remainder of the year. The full $20 fee is put towards the administration of the club."
       />
-      <SignupPerksFormat
+      <PerksGridFormat
         title="Free Events and Competitions"
         icon={<LuTrophy />}
         text="All events and competitions that we run are free for members, so you won’t have to pay any more fees after this"
       />
-      <SignupPerksFormat
+      <PerksGridFormat
         title="Join via Engage Platform"
         icon={<IoIosPeople />}
         text="Once you have completed payment, you may request to join University of Auckland Investment Club on the University's Engage platform"
@@ -39,4 +39,4 @@ const SignupPerksDetails = () => {
   );
 };
 
-export default SignupPerksDetails;
+export default PerksGrid;
