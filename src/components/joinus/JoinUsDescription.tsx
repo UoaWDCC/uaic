@@ -3,7 +3,8 @@ const JoinUsDescription = () => {
   return (
     <>
     {/* Join Us container */}
-    <div className="">
+    <div className="pl-3 pr-3
+    sm:pl-10 sm:pr-10">
         <h1
         className="mt-2 md:pl-10 text-darkBlue font-bold px-4 text-[19px] md:pl-10 md:text-[20px]">
         Join Us

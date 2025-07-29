@@ -6,7 +6,9 @@ const SignupSection = () => {
     <div className="
     bg-[radial-gradient(70%_60%_at_50%_55%,rgba(20,92,169,0.2)_60%,rgba(255,255,255,0.2)_80%)]
     lg:bg-[radial-gradient(70%_60%_at_50%_55%,rgba(20,92,169,0.4)_0%,rgba(255,255,255,0.2)_80%)]
-    pb-30"
+    pb-30
+    pl-3 pr-3
+    sm:pl-10 sm:pr-10"
     >
 
       <h1 className="mt-6 md:pl-10 text-darkBlue font-bold px-4 text-[19px] md:text-[20px]">

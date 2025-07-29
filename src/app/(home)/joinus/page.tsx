@@ -6,7 +6,7 @@ import SignupSection from "@/components/joinus/SignupSection";
 
 const JoinUsPage= () => {
   return (
-    <div className="mt-[10em] md:mt-[12em] min-h-[90vh] w-full mx-auto pb-20">
+    <div className="mt-[10em] md:mt-[12em] min-h-[90vh] w-full mx-auto">
       <JoinUsDescription />
       <MembershipSection />
       <SignupSection />
