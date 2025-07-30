@@ -5,6 +5,7 @@ import HomePage from "@/components/home/HomePage";
 import SponsorsBanner from "@/components/home/SponsorsBanner";
 import EventsSection from "@/components/EventsSection";
 
+
 export default function Home() {
   return (
     <div>
@@ -15,6 +16,7 @@ export default function Home() {
       <ArticleList />
       <UpdatedBulletin />
       <InvestConnectWork />
+
     </div>
   );
 }
