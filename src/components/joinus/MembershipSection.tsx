@@ -31,7 +31,7 @@ const MembershipSection = () => {
         "
       >
         <p>
-          Memberships for 2025 will be active from the sign-up date to the end of the year.
+          Memberships for 2025 will be active from the sign-up date to the end of the year. Fill in this form to be a member of UAIC for 2025!
           <br />
           <br />
         </p>
@@ -58,16 +58,14 @@ const MembershipSection = () => {
           <p>NZ$21.58</p>
         </div>
 
-        <p
+        {/* <p
           className="
-            pt-8 pl-3 pr-3 sm:pl-10 sm:pr-10
-            text-sm font-normal
-          "
+            pt-8 text-sm font-normal"
         >
           Fill in this form to be a member of UAIC for 2025!
           <br />
           <br />
-        </p>
+        </p> */}
 
         <PerksGrid />
       </div>

@@ -16,7 +16,7 @@ const PerksGrid = () => {
       gap-[50px]
       pl-10 pr-10 pt-10 pb-20
       
-      lg:pl-30 lg:pr-30 lg:pb-20
+      lg:pl-30 lg:pr-30 lg:pb-20 lg:pt-10
       lg:grid-cols-3 
       lg:gap-[100px]
     "

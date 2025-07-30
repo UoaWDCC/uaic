@@ -8,8 +8,9 @@ const JoinUsPage= () => {
   return (
     <div className="mt-[10em] md:mt-[12em] min-h-[90vh] w-full mx-auto">
       <JoinUsDescription />
-      <MembershipSection />
       <SignupSection />
+      <MembershipSection />
+      
     </div>
   );
 }
