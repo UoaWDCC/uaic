@@ -12,7 +12,7 @@ const InvestmentCommittee = () => {
     const fetchImage = async () => {
       try {
         const res = await fetch(
-          `/api/media?where[filename][equals]=investment-comitee-group-photo.png&limit=1`
+          `/api/media?where[filename][equals]=investment-comitee-group-photo.webp&limit=1`
         );
         const data = await res.json();
         if (data?.docs?.length > 0) {
