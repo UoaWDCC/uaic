@@ -4,33 +4,45 @@ import PerksGrid from "./PerksGrid";
 
 const MembershipSection = () => {
   return (
-    <div className="
-    bg-[radial-gradient(70%_60%_at_50%_50%,rgba(20,92,169,0.2)_60%,rgba(255,255,255,0.2)_80%)]
-    
-    sm:bg-[radial-gradient(70%_60%_at_50%_55%,rgba(20,92,169,0.4)_0%,rgba(255,255,255,0.2)_80%)]
-    
-    pl-3 pr-3
-    sm:pl-10 sm:pr-10"
+    <div
+      className="
+        bg-[radial-gradient(70%_60%_at_50%_50%,rgba(20,92,169,0.2)_60%,rgba(255,255,255,0.2)_80%)]
+        sm:bg-[radial-gradient(70%_60%_at_50%_55%,rgba(20,92,169,0.4)_0%,rgba(255,255,255,0.2)_80%)]
+        pl-3 pr-3 sm:pl-10 sm:pr-10
+      "
     >
-
-    
       {/* Membership Title */}
-      <h1 className="mt-10 md:pl-10 text-darkBlue font-bold px-4 text-[19px] md:text-[20px]">
+      <h1
+        className="
+          mt-10 md:pl-10 px-4
+          text-[19px] md:text-[20px]
+          font-bold text-darkBlue
+        "
+      >
         Membership
       </h1>
-      <hr className="border-t border-grey-200 w-[95%] mx-auto" />
+      <hr className="mx-auto w-[95%] border-t border-grey-200" />
 
       {/* Membership Description */}
-      <div className="mt-6 md:pl-10 px-4 text-darkBlue leading-relaxed text-sm font-normal self-center">
+      <div
+        className="
+          mt-6 md:pl-10 px-4 self-center
+          text-sm md:text-[13px] font-normal leading-relaxed text-darkBlue
+        "
+      >
         <p>
           Memberships for 2025 will be active from the sign-up date to the end of the year.
           <br />
           <br />
         </p>
 
-        {/*uaic 2025 Membership Image Button*/}
+        {/* uaic 2025 Membership Image Button */}
         <div className="flex justify-center">
-          <button onClick={() => alert("The hardest thing to learn in life is which bridge to cross and which to burn.")}>
+          <button
+            onClick={() =>
+              alert("The hardest thing to learn in life is which bridge to cross and which to burn.")
+            }
+          >
             <Image
               src="/assets/joinus/uaic2025Membership.webp"
               alt="UAIC Membership 2025 Sign Up Image"
@@ -42,19 +54,25 @@ const MembershipSection = () => {
         </div>
 
         {/* Membership price */}
-        <div className="flex justify-center font-bold mt-6">
+        <div className="mt-6 flex justify-center font-bold">
           <p>NZ$21.58</p>
         </div>
-        <p className="pt-8 text-sm font-normal pl-3 pr-3 sm:pl-10 sm:pr-10">
-          Fill in this form to be a member of UAIC for 2025! 
+
+        <p
+          className="
+            pt-8 pl-3 pr-3 sm:pl-10 sm:pr-10
+            text-sm font-normal
+          "
+        >
+          Fill in this form to be a member of UAIC for 2025!
           <br />
           <br />
-        </p> 
+        </p>
 
         <PerksGrid />
       </div>
     </div>
-  )
+  );
 };
 
 export default MembershipSection;
