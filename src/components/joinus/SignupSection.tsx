@@ -19,8 +19,6 @@ const SignupSection = () => {
       <div className="mt-6 md:pl-10 px-4 text-darkBlue leading-relaxed text-sm font-normal self-center">
         <p>
           Sign up to register competitions Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          <br />
-          <br />
         </p>
       </div>
 
@@ -31,7 +29,7 @@ const SignupSection = () => {
             alt="UAIC Membership Display Image"
             width={300}
             height={400}
-            className="transition ease-linear hover:brightness-75"
+            className="transition ease-linear hover:brightness-75 pt-5"
           />
         </button>
       </div>

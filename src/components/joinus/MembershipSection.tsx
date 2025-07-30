@@ -31,9 +31,7 @@ const MembershipSection = () => {
         "
       >
         <p>
-          Memberships for 2025 will be active from the sign-up date to the end of the year. Fill in this form to be a member of UAIC for 2025!
-          <br />
-          <br />
+          Memberships for 2025 will be active from the sign-up date to the end of the year. To become a member of UAIC for 2025, click the image below and fill in the form!
         </p>
 
         {/* uaic 2025 Membership Image Button */}
@@ -48,24 +46,10 @@ const MembershipSection = () => {
               alt="UAIC Membership 2025 Sign Up Image"
               width={200}
               height={300}
-              className="transition ease-linear hover:brightness-75"
+              className="transition ease-linear hover:brightness-75 pt-10 pb-5"
             />
           </button>
         </div>
-
-        {/* Membership price */}
-        <div className="mt-6 flex justify-center font-bold">
-          <p>NZ$21.58</p>
-        </div>
-
-        {/* <p
-          className="
-            pt-8 text-sm font-normal"
-        >
-          Fill in this form to be a member of UAIC for 2025!
-          <br />
-          <br />
-        </p> */}
 
         <PerksGrid />
       </div>
