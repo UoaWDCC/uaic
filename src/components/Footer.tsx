@@ -7,6 +7,7 @@ import {
 } from "react-icons/fa";
 import { TiLocation } from "react-icons/ti";
 import Link from "next/link";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -22,19 +23,22 @@ const Footer = () => {
         {/* Col 1 */}
         <div className="flex flex-col items-center order-1 lg:order-0">
           <div className="flex flex-col items-start text-left gap-1.5 lg:gap-4">
-            <h1 className="
+            <h1
+              className="
               flex lg:block text-[1.25rem] font-bold whitespace-nowrap
               lg:text-[30px]
-            ">
+            "
+            >
               Links
             </h1>
 
             {/* TODO add routes to other pages from footer */}
-            <div className="
+            <div
+              className="
               flex lg:flex flex-col underline text-[1rem] font-light whitespace-nowrap gap-[2px]
               lg:text-[16px]
-            ">
-              
+            "
+            >
               <Link href="/">Home</Link>
               <Link href="/about">About</Link>
               <Link href="/events">Events</Link>
@@ -48,10 +52,12 @@ const Footer = () => {
         {/* Col 2 */}
         <div className="flex flex-col items-center order-0 lg:order-1">
           <div className="flex flex-col items-start text-left gap-2.5 lg:gap-4">
-            <h1 className="
+            <h1
+              className="
               flex lg:block text-[1.25rem] font-bold whitespace-nowrap
               lg:text-[30px]
-            ">
+            "
+            >
               Contact Us
             </h1>
 
@@ -85,69 +91,75 @@ const Footer = () => {
         </div>
 
         {/* Col 3 */}
-        
-<div className="flex flex-col items-center order-2">
-  <div className="flex flex-col items-start text-left gap-2.5 lg:gap-4">
-    <h1 className="
+
+        <div className="flex flex-col items-center order-2">
+          <div className="flex flex-col items-start text-left gap-2.5 lg:gap-4">
+            <h1
+              className="
       flex lg:block text-[1.25rem] font-bold whitespace-nowrap
       lg:text-[30px]
-    ">
-      Follow Us
-    </h1>
+    "
+            >
+              Follow Us
+            </h1>
 
-    <div className="flex lg:flex flex-col text-[0.95rem] lg:text-[1.4rem] xl:text-[1.4rem] 2xl:text-[2rem] font-light whitespace-nowrap gap-1.5 lg:gap-5">
-      <div className="flex flex-row gap-2 lg:gap-8">
-        <a
-          className="hover:scale-105 hover:text-white transition-all duration-250"
-          href="https://www.instagram.com/officialuaic/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Instagram"
-        >
-          <FaInstagram className="text-3xl lg:text-[1.3rem]" />
-        </a>
-        <div className="lg:text-[16px]">
-          <h2>@officialuaic</h2>
+            <div className="flex lg:flex flex-col text-[0.95rem] lg:text-[1.4rem] xl:text-[1.4rem] 2xl:text-[2rem] font-light whitespace-nowrap gap-1.5 lg:gap-5">
+              <div className="flex flex-row gap-2 lg:gap-8">
+                <a
+                  className="hover:scale-105 hover:text-white transition-all duration-250"
+                  href="https://www.instagram.com/officialuaic/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                >
+                  <FaInstagram className="text-3xl lg:text-[1.3rem]" />
+                </a>
+                <div className="lg:text-[16px]">
+                  <h2>@officialuaic</h2>
+                </div>
+              </div>
+              <div className="flex flex-row gap-2 lg:gap-8">
+                <a
+                  className="hover:scale-105 hover:text-white transition-all duration-250"
+                  href="https://www.facebook.com/officialUAIC"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                >
+                  <FaFacebook className="text-3xl lg:text-[1.3rem]" />
+                </a>
+                <div className="flex flex-row lg:text-[16px]">
+                  <h2>@officialUAIC</h2>
+                  <h2 className="invisible">IIIIIII</h2>
+                </div>
+              </div>
+              <div className="flex flex-row gap-2 lg:gap-8">
+                <a
+                  className="hover:scale-105 hover:text-white transition-all duration-250"
+                  href="https://www.linkedin.com/company/officialuaic/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                >
+                  <FaLinkedin className="text-3xl lg:text-[1.3rem]" />
+                </a>
+                <div>
+                  <h2 className="lg:text-[16px]">officialUAIC</h2>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="flex flex-row gap-2 lg:gap-8">
-        <a
-          className="hover:scale-105 hover:text-white transition-all duration-250"
-          href="https://www.facebook.com/officialUAIC"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Facebook"
-        >
-          <FaFacebook className="text-3xl lg:text-[1.3rem]" />
-        </a>
-        <div className="flex flex-row lg:text-[16px]">
-          <h2>@officialUAIC</h2>
-          <h2 className="invisible">IIIIIII</h2>
-        </div>
-      </div>
-      <div className="flex flex-row gap-2 lg:gap-8">
-        <a
-          className="hover:scale-105 hover:text-white transition-all duration-250"
-          href="https://www.linkedin.com/company/officialuaic/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="LinkedIn"
-        >
-          <FaLinkedin className="text-3xl lg:text-[1.3rem]" />
-        </a>
-        <div>
-          <h2 className="lg:text-[16px]">officialUAIC</h2>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 
         {/* Mobile Logo */}
         <div className="flex-col items-center lg:hidden flex order-3 h-full w-full">
           <div className="max-w-[16rem] justify-center items-center flex h-full w-full">
-            <img src="/assets/uaic-white.png" alt="" />
+            <Image
+              src="/assets/logos/uaic-white.webp"
+              alt="uaic white logo"
+              width={150}
+              height={150}
+            />
           </div>
         </div>
       </div>
@@ -159,7 +171,12 @@ const Footer = () => {
           © Copyright 2025 University of Auckland Investment Club
         </h1>
         <div className="max-w-[8rem] justify-self-center hidden lg:flex">
-          <img src="/assets/uaic-white.png" alt="" />
+          <Image
+            src="/assets/logos/uaic-white.webp"
+            alt="uaic white logo"
+            width={150}
+            height={150}
+          />
         </div>
       </div>
     </footer>
