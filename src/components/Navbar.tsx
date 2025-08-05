@@ -9,6 +9,7 @@ import { PiCalendarStarFill } from "react-icons/pi";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const mobileRef = useRef<HTMLDivElement>(null);
   const desktopRef = useRef<HTMLDivElement>(null);
 
@@ -91,13 +92,33 @@ const Navbar = () => {
               Home
             </a>
           </li>
-          <li>
+          <li 
+            className="relative"
+            onMouseEnter={() => setIsAboutDropdownOpen(true)}
+            onMouseLeave={() => setIsAboutDropdownOpen(false)}
+          >
             <a
               href="/about"
               className="hover:text-darkBlue hover:rounded-xl p-[4px] font-[300]"
             >
               About
             </a>
+            {/* Dropdown Menu */}
+            {isAboutDropdownOpen && (
+              <div 
+                className="absolute top-full left-0 bg-darkBlue text-white shadow-lg rounded-lg z-50"
+                style={{ width: '220px', height: '80px' }}
+              >
+                <div className="flex flex-col h-full">
+                  <div className="flex-1 px-4 py-2 text-sm hover:bg-blue-700 flex items-center border-b border-blue-600 cursor-pointer">
+                    The Committees
+                  </div>
+                  <div className="flex-1 px-4 py-2 text-sm hover:bg-blue-700 flex items-center cursor-pointer">
+                    FAQ
+                  </div>
+                </div>
+              </div>
+            )}
           </li>
           <li>
             <a
