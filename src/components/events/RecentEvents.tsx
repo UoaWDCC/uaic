@@ -288,6 +288,8 @@ const RecentEvents = () => {
                         w-full h-[140px] object-cover rounded-3xl my-4
                         lg:mx-6 
                       "
+                    width={140}
+                    height={140}
                   />
                 </div>
               </div>

@@ -9,43 +9,44 @@ const page = () => {
         <div className="w-full">
             <EventLanding />
         </div>
+        <div className="bg-white w-full">
+            <div className="
+                bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)]
+                flex flex-col items-center gap-[20px]
+                w-full pb-[100px]
 
-        <div className="
-            bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)]
-            flex flex-col items-center gap-[20px]
-            w-full pt-[100px] pb-[100px] mt-10
-
-            lg:gap-[70px]
-        ">
-            <h1 className="
-                text-darkBlue 
-                font-[590] 
-                
-                lg:text-2xl
+                lg:gap-[70px] 
             ">
-                Upcoming Events
-            </h1>
+                <h1 className="
+                    text-darkBlue 
+                    font-[590] 
+                    
+                    lg:text-2xl
+                ">
+                    Upcoming Events
+                </h1>
 
-            <UpcomingEvents />
-        </div>
+                <UpcomingEvents />
+            </div>
 
-        <div className="
-            bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)]
-            flex flex-col items-center gap-[20px]
-            w-full pt-[100px] pb-[100px] mt-10
+            <div className="
+                bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)]
+                flex flex-col items-center gap-[20px]
+                w-full pt-[100px] pb-[100px] mt-10 mb-20
 
-            lg:gap-[70px]
-        ">
-            <h1 className="
-                text-darkBlue 
-                font-[590] 
-                
-                lg:text-2xl
+                lg:gap-[70px]
             ">
-                Recent Events
-            </h1>
+                <h1 className="
+                    text-darkBlue 
+                    font-[590] 
+                    
+                    lg:text-2xl
+                ">
+                    Recent Events
+                </h1>
 
-            <RecentEvents />
+                <RecentEvents />
+            </div>
         </div>
     </div>
   );
