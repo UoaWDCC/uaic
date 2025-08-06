@@ -7,6 +7,7 @@ import InvestConnectWork from "@/components/InvestConnectWork";
 import UpdatedBulletin from "@/components/Bulletin";
 import HomePage from "@/components/HomePage";
 import SponsorsBanner from "@/components/SponsorsBanner";
+import EventsSection from "@/components/EventsSection";
 
 
 
@@ -16,6 +17,7 @@ export default function Home() {
       {/* Build Homepage Here */}
       <HomePage/>
       <SponsorsBanner/>
+      <EventsSection/>
       <ArticleList/>
       <UpdatedBulletin/>
       <InvestConnectWork/>
