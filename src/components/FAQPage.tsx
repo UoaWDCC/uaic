@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 const FAQPage = () => {
   const [isFaqOneOpen, setIsFaqOneOpen] = useState(false);
@@ -24,34 +25,34 @@ const FAQPage = () => {
   }, []);
 
   return (
-    <div className="lg:p-16">
-      <div className="lg:pt-0 lg:text-[35px] p-4 mt-[35px] text-[23px] text-darkBlue font-bold">
+    <div className="lg:px-16">
+      <div className="px-8 py-4 text-[23px] font-bold text-darkBlue lg:pt-0 lg:text-[35px]">
         FAQ
       </div>
 
-      <hr className="w-screen lg:w-auto lg:mx-4 border-t border-gray-300 mb-2" />
+      <hr className="mb-2 w-screen border-t border-gray-300 lg:mx-4 lg:w-auto" />
 
       {/* FAQ 1 */}
-      <div className="m-4 p-4 rounded-lg mb-10 shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:shadow-none">
+      <div className="m-4 mb-10 rounded-lg p-4 shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:shadow-none">
         <button
           onClick={() => {
             if (window.innerWidth < 1024) {
               setIsFaqOneOpen((prev) => !prev);
             }
           }}
-          className="w-full flex justify-between items-center text-left text-darkBlue"
+          className="flex w-full items-center justify-between text-left text-darkBlue"
         >
-          <span className="font-bold text-[18px] lg:text-[32px]">What is UIAC?</span>
-          <img
-            src={`/assets/${isFaqOneOpen ? "arrow-down" : "arrow-up"}.png`}
-            alt="Toggle FAQ"
-            className="lg:hidden w-7 h-7 inline-block"
-          />
+          <span className="text-[18px] font-bold lg:text-[28px]">What is UIAC?</span>
+          {isFaqOneOpen ? (
+            <IoIosArrowDown className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
+          ) : (
+            <IoIosArrowUp className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
+          )}
         </button>
         {isFaqOneOpen && (
           <div className="text-sm text-darkBlue">
             <div className="w-full">
-              <p className="lg:text-[28px] text-[16px] mt-4 font-normal">
+              <p className="mt-4 text-[16px] font-normal lg:text-[24px]">
                 The University of Auckland Investment Club was founded in 2009 and is a
                 student-run incorporated society. We welcome members from all academic
                 backgrounds and stages at the University of Auckland.
@@ -62,26 +63,26 @@ const FAQPage = () => {
       </div>
 
       {/* FAQ 2 */}
-      <div className="m-4 p-4 rounded-lg mb-10 shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:shadow-none">
+      <div className="m-4 mb-10 rounded-lg p-4 shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:shadow-none">
         <button
           onClick={() => {
             if (window.innerWidth < 1024) {
               setIsFaqTwoOpen((prev) => !prev);
             }
           }}
-          className="w-full flex justify-between items-center text-left text-darkBlue"
+          className="flex w-full items-center justify-between text-left text-darkBlue"
         >
-          <span className="font-bold text-[18px] lg:text-[32px]">What does UAIC do?</span>
-          <img
-            src={`/assets/${isFaqTwoOpen ? "arrow-down" : "arrow-up"}.png`}
-            alt="Toggle FAQ"
-            className="lg:hidden w-7 h-7 inline-block"
-          />
+          <span className="text-[18px] font-bold lg:text-[28px]">What does UAIC do?</span>
+          {isFaqTwoOpen ? (
+            <IoIosArrowDown className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
+          ) : (
+            <IoIosArrowUp className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
+          )}
         </button>
         {isFaqTwoOpen && (
           <div className="text-sm text-darkBlue">
             <div className="w-full">
-              <p className="lg:text-[28px] text-[16px] mt-4 font-normal">
+              <p className="mt-4 text-[16px] font-normal lg:text-[24px]">
                 UAIC runs a plethora of events throughout the year as part of our core
                 offering such as competitions, educational events, and social events
                 for its members. Additionally, there are two more branches of UAIC:
@@ -97,26 +98,26 @@ const FAQPage = () => {
       </div>
 
       {/* FAQ 3 */}
-      <div className="m-4 p-4 rounded-lg mb-10 shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:shadow-none">
+      <div className="m-4 mb-10 rounded-lg p-4 shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:shadow-none">
         <button
           onClick={() => {
             if (window.innerWidth < 1024) {
               setIsFaqThreeOpen((prev) => !prev);
             }
           }}
-          className="w-full flex justify-between items-center text-left text-darkBlue"
+          className="flex w-full items-center justify-between text-left text-darkBlue"
         >
-          <span className="font-bold text-[18px] lg:text-[32px]">How do I become a member of UAIC?</span>
-          <img
-            src={`/assets/${isFaqThreeOpen ? "arrow-down" : "arrow-up"}.png`}
-            alt="Toggle FAQ"
-            className="lg:hidden w-7 h-7 inline-block"
-          />
+          <span className="text-[18px] font-bold lg:text-[28px]">How do I become a member of UAIC?</span>
+          {isFaqThreeOpen ? (
+            <IoIosArrowDown className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
+          ) : (
+            <IoIosArrowUp className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
+          )}
         </button>
         {isFaqThreeOpen && (
           <div className="text-sm text-darkBlue">
             <div className="w-full">
-              <p className="lg:text-[28px] text-[16px] mt-4 font-normal">
+              <p className="mt-4 text-[16px] font-normal lg:text-[24px]">
                 Becoming a member is simple. Sign up online at [www.uaic.co.nz/membership].
                 The sign-up cost is $20 to become a registered member for the remainder of
                 the year. The full $20 fee is put towards the administration of the club.
@@ -129,26 +130,26 @@ const FAQPage = () => {
       </div>
 
       {/* FAQ 4 */}
-      <div className="m-4 p-4 rounded-lg mb-10 shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:shadow-none">
+      <div className="m-4 mb-10 rounded-lg p-4 shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:shadow-none">
         <button
           onClick={() => {
             if (window.innerWidth < 1024) {
               setIsFaqFourOpen((prev) => !prev);
             }
           }}
-          className="w-full flex justify-between items-center text-left text-darkBlue"
+          className="flex w-full items-center justify-between text-left text-darkBlue"
         >
-          <span className="font-bold text-[18px] lg:text-[32px]">What events does UAIC hold?</span>
-          <img
-            src={`/assets/${isFaqFourOpen ? "arrow-down" : "arrow-up"}.png`}
-            alt="Toggle FAQ"
-            className="lg:hidden w-7 h-7 inline-block"
-          />
+          <span className="text-[18px] font-bold lg:text-[28px]">What events does UAIC hold?</span>
+          {isFaqFourOpen ? (
+            <IoIosArrowDown className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
+          ) : (
+            <IoIosArrowUp className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
+          )}
         </button>
         {isFaqFourOpen && (
           <div className="text-sm text-darkBlue">
             <div className="w-full">
-              <p className="lg:text-[28px] text-[16px] mt-4 font-normal">
+              <p className="mt-4 text-[16px] font-normal lg:text-[24px]">
                 Check out our Instagram at [www.instagram.com/officialuaic] to
                 learn more. All our events are advertised there, or alternatively,
                 check out our Events page.
@@ -159,26 +160,26 @@ const FAQPage = () => {
       </div>
 
       {/* FAQ 5 */}
-      <div className="m-4 p-4 rounded-lg mb-10 shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:shadow-none">
+      <div className="m-4 mb-10 rounded-lg p-4 shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:shadow-none">
         <button
           onClick={() => {
             if (window.innerWidth < 1024) {
               setIsFaqFiveOpen((prev) => !prev);
             }
           }}
-          className="w-full flex justify-between items-center text-left text-darkBlue"
+          className="flex w-full items-center justify-between text-left text-darkBlue"
         >
-          <span className="font-bold text-[18px] lg:text-[32px]">How do I become a part of the UAIC executive leadership team?</span>
-          <img
-            src={`/assets/${isFaqFiveOpen ? "arrow-down" : "arrow-up"}.png`}
-            alt="Toggle FAQ"
-            className="lg:hidden w-7 h-7 inline-block"
-          />
+          <span className="text-[18px] font-bold lg:text-[28px]">How do I become a part of the UAIC executive leadership team?</span>
+          {isFaqFiveOpen ? (
+            <IoIosArrowDown className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
+          ) : (
+            <IoIosArrowUp className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
+          )}
         </button>
         {isFaqFiveOpen && (
           <div className="text-sm text-darkBlue">
             <div className="w-full">
-              <p className="lg:text-[28px] text-[16px] mt-4 font-normal">
+              <p className="mt-4 text-[16px] font-normal lg:text-[24px]">
                 Applications to be a part of the Executive team, Bulletin team, and
                 Investment Committee open towards the end of each semester as
                 vacancies open. Keep an eye out on our Instagram page for the most
