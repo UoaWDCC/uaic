@@ -7,15 +7,13 @@ const InvestmentCommittee = () => {
   const [isMainOpen, setIsMainOpen] = useState(false);
 
   return (
-    <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">
+    <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg shadow-md">
       <div>
         <button
           onClick={() => setIsMainOpen(!isMainOpen)}
           className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2"
         >
-          <span className="font-bold md:text-[20px]">
-            Investment Committees
-          </span>
+          <span className="font-bold md:text-[20px]">Investment Committees</span>
           {isMainOpen ? (
             <IoIosArrowUp size={30} />
           ) : (
@@ -25,7 +23,7 @@ const InvestmentCommittee = () => {
 
         {isMainOpen && (
           <div className="text-sm text-darkBlue flex flex-col items-center">
-            <div className="w-full px-1">
+            <div className="w-9/10 flex flex-col items-center">
               <p className="mb-4">
                 The Investment Committee is responsible for managing the club's
                 fund, including:
@@ -45,7 +43,7 @@ const InvestmentCommittee = () => {
                 </li>
               </ul>
 
-              <div className="w-full h-[300px] flex items-center justify-center overflow-hidden rounded-lg">
+              <div className="w-full h-[300px] max-w-[500px] bg-lightBlue flex items-center justify-center overflow-hidden rounded-lg">
                 <Image
                   src="/assets/execs/investment-committee.webp"
                   alt="investment-committee"
