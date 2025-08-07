@@ -1,16 +1,37 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState} from "react";
 import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { getImage } from '@/features/users/data/getImage';
 
 const InvestmentCommittee = () => {
   const [isMainOpen, setIsMainOpen] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  
+  const handleToggle = async () => {
+    setIsMainOpen(!isMainOpen);
+
+    if (!isMainOpen && !imageUrl) {
+      setIsLoading(true);
+      try {
+        const url = await getImage('investment-comitee-group-photo.webp');
+        setImageUrl(url);
+      } catch (error) {
+        console.error('Failed to load image:', error);
+        setImageUrl(null);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
 
   return (
     <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">
       <div>
         <button
-          onClick={() => setIsMainOpen(!isMainOpen)}
+          onClick={handleToggle}
           className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2"
         >
           <span className="font-bold md:text-[20px]">
@@ -44,18 +65,26 @@ const InvestmentCommittee = () => {
                   stage of approval
                 </li>
               </ul>
-
               <div className="w-full h-[300px] flex items-center justify-center overflow-hidden rounded-lg">
-                <Image
-                  src="/assets/execs/investment-committee.webp"
-                  alt="investment-committee"
-                  width={500}
-                  height={300}
-                  className="object-cover"
-                />
+                {isLoading ? (
+                  <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                    <span>Loading image...</span>
+                  </div>
+                ) : imageUrl ? (
+                  <Image
+                    src={imageUrl}
+                    alt="investment-committee"
+                    width={500}
+                    height={300}
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                    <span>Image not available</span>
+                  </div>
+                )}
               </div>
             </div>
-
             <div className="items-center text-center mt-4">
               <p className="p-2">
                 <strong>Back Row: </strong>Max Wilson, Sam Gowen, Caden Van De
