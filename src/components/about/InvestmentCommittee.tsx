@@ -53,13 +53,23 @@ const InvestmentCommittee = ({ imageUrl }: Props) => {
 
             <div className="w-full h-[300px] flex items-center justify-center overflow-hidden rounded-lg">
               {imageUrl ? (
+            <div className="w-full h-[300px] flex items-center justify-center overflow-hidden rounded-lg">
+              {imageUrl ? (
                 <Image
+                  src={imageUrl}
                   src={imageUrl}
                   alt="investment-committee"
                   width={500}
                   height={300}
                   className="object-cover"
                 />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                  <span>Loading image...</span>
+                </div>
+              )}
+            </div>
+            
               ) : (
                 <div className="w-full h-full flex items-center justify-center bg-gray-100">
                   <span>Loading image...</span>
