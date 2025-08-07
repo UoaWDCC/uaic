@@ -1,29 +1,16 @@
-"use client";
+'use client';
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
-const InvestmentCommittee = () => {
-  const [isMainOpen, setIsMainOpen] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+type Props = {
+  imageUrl: string | null
+}
 
-  useEffect(() => {
-    // Fetch the media item by filename
-    const fetchImage = async () => {
-      try {
-        const res = await fetch(
-          `/api/media?where[filename][equals]=investment-comitee-group-photo.webp&limit=1`
-        );
-        const data = await res.json();
-        if (data?.docs?.length > 0) {
-          setImageUrl(data.docs[0].url);
-        }
-      } catch (err) {
-        setImageUrl(null);
-      }
-    };
-    fetchImage();
-  }, []);
+const InvestmentCommittee = ({ imageUrl }: Props) => {
+  const [isMainOpen, setIsMainOpen] = useState(false)
+
+
 
   return (
     <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">

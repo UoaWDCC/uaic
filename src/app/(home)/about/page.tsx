@@ -1,8 +1,11 @@
 import BulletinCommittee from "@/components/about/BulletinCommittee";
 import ExecutiveCommittee from "@/components/about/ExecutiveCommittee";
 import InvestmentCommittee from "@/components/about/InvestmentCommittee";
+import { getImage } from '@/features/users/data/getImage';
 
-export default function about() {
+export default async function about() {
+  const imageUrl = await getImage('investment-comitee-group-photo.webp');
+
   return (
     <div className="mt-[10em] md:mt-[12em] min-h-[90vh]">
       <div className="">
@@ -18,7 +21,7 @@ export default function about() {
       </div>
       <ExecutiveCommittee />
       <BulletinCommittee />
-      <InvestmentCommittee />
+      <InvestmentCommittee imageUrl={imageUrl} />
     </div>
   );
 }
