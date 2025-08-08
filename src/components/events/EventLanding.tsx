@@ -9,15 +9,15 @@ const EventLanding = () => {
             relative w-full 
             overflow-x-hidden 
             overflow-y-hidden 
-            min-h-[500px]
+            min-h-[80vh]
             lg:min-h-[749px]
         ">
             {/* Background */}
             <div className="
                 fixed top-0 left-0 
-                w-screen min-h-[610px]
+                w-screen min-h-[80vh]
                 bg-center bg-no-repeat bg-cover bg-[url('/assets/home/bull-cow-bg.webp')]
-                lg:min-h-screen 
+                lg:min-h-screen
                 lg:absolute
                 z-[-2]
             "/>
@@ -36,7 +36,7 @@ const EventLanding = () => {
             <div className="
                 absolute
                 w-full h-screen
-                bg-[linear-gradient(to_top,white_40%,transparent_100%)]
+                bg-[linear-gradient(to_top,white_25%,white_25%,transparent_100%)]
                 lg:bg-[linear-gradient(to_top,white_0%,white_25%,transparent_100%)]
                 z-[-1]
             "/>
@@ -44,7 +44,7 @@ const EventLanding = () => {
             {/* Foreground content */}
             <div className="
                     relative 
-                    w-[305px] h-[324] mt-[80px] gap-[70px]
+                    w-[305px] h-[324] mt-[15vh] gap-[70px]
                     flex flex-col 
                     mx-auto 
                     text-center

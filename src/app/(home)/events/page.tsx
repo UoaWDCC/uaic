@@ -11,10 +11,11 @@ const page = () => {
         </div>
         <div className="bg-white w-full">
             <div className="
-                bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)]
+                bg-[linear-gradient(transparent,rgba(20,92,169,0.4)_50%,transparent)]
                 flex flex-col items-center gap-[20px]
                 w-full pb-[100px]
 
+                lg:bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)]
                 lg:gap-[70px] 
             ">
                 <h1 className="
@@ -30,10 +31,11 @@ const page = () => {
             </div>
 
             <div className="
-                bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)]
+                bg-[linear-gradient(transparent,rgba(20,92,169,0.4)_50%,transparent)]
                 flex flex-col items-center gap-[20px]
-                w-full pt-[100px] pb-[100px] mt-10 mb-20
+                w-full pt-[100px] pb-[100px] mt-5 mb-20
 
+                lg:bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)]
                 lg:gap-[70px]
             ">
                 <h1 className="
