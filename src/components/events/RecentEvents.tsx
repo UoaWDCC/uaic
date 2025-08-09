@@ -51,6 +51,18 @@ const events: Event[] = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
+  {
+    id: "event-4-2025",
+    date: "25. Dec-2025",
+    time: "9:00AM - 5:00PM",
+    title:
+      "Our Upcoming Christmas Present: Mr Jerry longggggggggggggggggggggggggg title",
+    location: "303S-G20",
+    type: "Competition",
+    photo: "/assets/jerry.webp",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  },
 ];
 
 const RecentEvents = () => {
@@ -73,7 +85,7 @@ const RecentEvents = () => {
         <div
           className="
           flex flex-col items-stretch gap-[26px] 
-          text-left
+          text-left h-[35em] lg:h-[38em] overflow-y-auto
         "
         >
           {events.map((event: Event) => (
