@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import Button from "../Button";
 
 const BulletinHeroSection = () => {
   return (
@@ -81,19 +81,11 @@ const BulletinHeroSection = () => {
             that actively publish the recurring news bulletin
           </h3>
 
-          <div className="flex gap-[10px] font-[600] text-[19.68px] leading-[20.91px]">
-            <button
-              className="w-[146.03px] h-[46.23px] text-darkBlue
-                            bg-white border-[2.26px] border-darkBlue rounded-[50px]"
-            >
-              <Link href="/signup">About Us</Link>
-            </button>
-            <button
-              className="w-[146.03px] h-[46.23px] text-white
-                            bg-darkBlue rounded-[50px]"
-            >
-              <Link href="/login">Join Us</Link>
-            </button>
+          <div className="flex gap-[8px] w-[320px] h-[53px]">
+            <Button link="/about" variant="secondary">
+              About Us
+            </Button>
+            <Button link="/login">Join Us</Button>
           </div>
         </div>
       </div>
