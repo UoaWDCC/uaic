@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Button from "../Button";
 
 type LatestArticleProps = {
   issueNumber: number;
@@ -69,45 +70,41 @@ const LatestArticle: React.FC<LatestArticleProps> = ({
             <p className="mb-6 text-darkBlue font-light">
               {truncatedDescription}
             </p>
+            <div className="w-[224px] h-[35px]">
+              <Button link={pdfUrl}>Read More</Button>
+            </div>
+          </div>
+
+          {/* Small screen layout: vertical image background + gradient + text */}
+          <div className="flex flex-col lg:hidden relative w-[330px] h-[561px] rounded-3xl overflow-hidden bg-white items-center gap-[14px]">
+            {/* Title */}
+            <h1 className="text-darkBlue text-xl font-bold lg:text-2xl mt-6">
+              Latest Article
+            </h1>
+
+            {/* Content */}
+            <div
+              className="relative w-[295px] h-[417px] flex flex-col gap-[9px] p-6 bg-cover bg-center text-white justify-end rounded-3xl"
+              style={{
+                backgroundImage: `linear-gradient(to top, rgba(20,92,169,1) 0%, rgba(20,92,169,1) 50%, rgba(255,255,255,0) 75%), url('${imageSrc}')`,
+              }}
+            >
+              <h2 className="text-xs font-light">Issue #{issueNumber}</h2>
+              <h1 className="font-bold text-sm leading-tight">
+                {truncatedTitle}
+              </h1>
+              <p className="font-light text-xs">{truncatedDescription}</p>
+            </div>
+
+            {/* Button */}
             <Link
               href={pdfUrl}
               target="_blank"
-              className="bg-darkBlue text-white px-4 py-1 w-[224px] h-[50px] rounded-3xl hover:cursor-pointer"
+              className="bg-darkBlue text-white px-4 py-1 w-[295px] h-[37px] rounded-xl hover:cursor-pointer flex items-center justify-center"
             >
               Read More
             </Link>
           </div>
-        </div>
-
-        {/* Small screen layout: vertical image background + gradient + text */}
-        <div className="flex flex-col lg:hidden relative w-[330px] h-[561px] rounded-3xl overflow-hidden bg-white items-center gap-[14px]">
-          {/* Title */}
-          <h1 className="text-darkBlue text-xl font-bold lg:text-2xl mt-6">
-            Latest Article
-          </h1>
-
-          {/* Content */}
-          <div
-            className="relative w-[295px] h-[417px] flex flex-col gap-[9px] p-6 bg-cover bg-center text-white justify-end rounded-3xl"
-            style={{
-              backgroundImage: `linear-gradient(to top, rgba(20,92,169,1) 0%, rgba(20,92,169,1) 50%, rgba(255,255,255,0) 75%), url('${imageSrc}')`,
-            }}
-          >
-            <h2 className="text-xs font-light">Issue #{issueNumber}</h2>
-            <h1 className="font-bold text-sm leading-tight">
-              {truncatedTitle}
-            </h1>
-            <p className="font-light text-xs">{truncatedDescription}</p>
-          </div>
-
-          {/* Button */}
-          <Link
-            href={pdfUrl}
-            target="_blank"
-            className="bg-darkBlue text-white px-4 py-1 w-[295px] h-[37px] rounded-xl hover:cursor-pointer flex items-center justify-center"
-          >
-            Read More
-          </Link>
         </div>
       </div>
     </div>
