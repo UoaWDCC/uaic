@@ -2,21 +2,21 @@
 import React, { useState} from "react";
 import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { getImage } from '@/features/users/data/getImage';
+import { getICGroupPhoto } from '@/features/users/data/getICGroupPhoto';
 
 const InvestmentCommittee = () => {
   const [isMainOpen, setIsMainOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  
+
   const handleToggle = async () => {
     setIsMainOpen(!isMainOpen);
 
     if (!isMainOpen && !imageUrl) {
       setIsLoading(true);
       try {
-        const url = await getImage('investment-comitee-group-photo.webp');
+        const url = await getICGroupPhoto();
         setImageUrl(url);
       } catch (error) {
         console.error('Failed to load image:', error);
