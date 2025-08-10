@@ -2,7 +2,8 @@
 
 // You can change the color variant of the button using the 'variant' prop
 // This button component takes up the size of the parent container
-// If there is no set height and width from the parent container, it resets to a default size
+// If there is no set height and width from the parent container, it resets to a default size (using defaultSize prop)
+// Use defaultSize prop, if you wish to use default size without a parent container
 
 import React from 'react';
 import Link from 'next/link';
@@ -14,6 +15,7 @@ interface ButtonProps {
   variant?: 'primary' | 'secondary';
   disabled?: boolean;
   className?: string;
+  defaultSize?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -23,6 +25,7 @@ const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
   disabled = false,
   className = '',
+  defaultSize = false,
 }) => {
   const variantClasses = {
     primary: `
@@ -35,8 +38,13 @@ const Button: React.FC<ButtonProps> = ({
     `,
   };
 
+  // Size classes switch based on defaultSize prop
+  const sizeClasses = defaultSize
+    ? 'lg:w-[180px] h-[50px]'
+    : 'w-full h-full';
+
   const baseClasses = `
-    inline-flex w-full h-full lg:w-[180px] lg:h-[50px] px-8 rounded-3xl
+    inline-flex ${sizeClasses} px-8 rounded-3xl
     items-center justify-center text-xl select-none
     cursor-pointer transition-colors duration-200
     ${variantClasses[variant]}
