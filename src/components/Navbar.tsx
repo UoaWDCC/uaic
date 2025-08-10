@@ -5,11 +5,14 @@ import Link from "next/link";
 import { LuChartNoAxesCombined, LuInfo } from "react-icons/lu";
 import { RiContactsLine } from "react-icons/ri";
 import { TiDocumentText, TiHome } from "react-icons/ti";
-import { PiCalendarStarFill } from "react-icons/pi";
+import { PiCalendarStarFill, PiQuestion } from "react-icons/pi";
 import Button from "./Button";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
+  const [showAboutSubpage, setShowAboutSubpage] = useState(false);
   const mobileRef = useRef<HTMLDivElement>(null);
   const desktopRef = useRef<HTMLDivElement>(null);
 
@@ -62,9 +65,8 @@ const Navbar = () => {
       >
         {/* Hamburger Menu */}
         <button
-          className={`lg:hidden p-4 bg-white rounded-4xl shadow-xl/10 z-50 transition-transform duration-300 ${
-            isOpen ? "invisible" : "visible"
-          }`}
+          className={`lg:hidden p-4 bg-white rounded-4xl shadow-xl/10 z-50 transition-transform duration-300 ${isOpen ? "invisible" : "visible"
+            }`}
           onClick={() => setIsOpen(!isOpen)}
         >
           <svg
@@ -103,13 +105,39 @@ const Navbar = () => {
               Home
             </a>
           </li>
-          <li>
+          <li
+            className="relative"
+            onMouseEnter={() => setIsAboutDropdownOpen(true)}
+            onMouseLeave={() => setIsAboutDropdownOpen(false)}
+          >
             <a
               href="/about"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px]"
+              className=" hover:rounded-xl p-[4px] font-[300]"
             >
               About
             </a>
+            {/* Dropdown Menu */}
+            {isAboutDropdownOpen && (
+              <div
+                className="absolute top-full left-0 bg-darkBlue text-white shadow-lg rounded-lg z-50 overflow-hidden"
+                style={{ width: '220px', height: '80px' }}
+              >
+                <div className="flex flex-col h-full">
+                  <a
+                    href="/about"
+                    className="flex-1 px-4 py-2 text-sm hover:bg-blue-700 flex items-center cursor-pointer rounded-t-lg font-[300]"
+                  >
+                    The Committees
+                  </a>
+                  <a
+                    href="/FAQ"
+                    className="flex-1 px-4 py-2 text-sm hover:bg-blue-700 flex items-center cursor-pointer rounded-b-lg font-[300]"
+                  >
+                    FAQ
+                  </a>
+                </div>
+              </div>
+            )}
           </li>
           <li>
             <a
@@ -203,8 +231,14 @@ const Navbar = () => {
         <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
           <TiHome size={24} /> <a href="/">Home</a>
         </li>
-        <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
-          <LuInfo size={24} /> <a href="/about">About</a>
+        <li
+          className="p-6 pl-14 border-b border-white flex items-center justify-between text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer"
+          onClick={() => setShowAboutSubpage(true)}
+        >
+          <div className="flex items-center gap-5">
+            <LuInfo size={24} /> <span>About</span>
+          </div>
+          <IoIosArrowForward size={20} />
         </li>
         <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
           <PiCalendarStarFill size={24} /> <a href="/events">Events</a>
@@ -226,6 +260,67 @@ const Navbar = () => {
           <Button link="/signup">Join Us</Button>
         </li>
       </ul>
+
+      {/* About Sub-page */}
+      <div
+        className={`
+        pb-9
+        fixed top-[10%] bottom-[10%] sm:bottom-[16%] left-0 w-[90vw] max-w-[350px]
+        bg-white shadow-xl/20 rounded-3xl text-darkBlue
+        flex flex-col overflow-y-auto z-50
+        transform transition-transform duration-300 ease-in-out
+        lg:hidden
+        ${showAboutSubpage ? "translate-x-0" : "-translate-x-full"}
+      `}
+      >
+        {/* Header with Back Button */}
+        <div className="flex items-center px-6 py-6 border-b border-gray-200">
+          <button
+            onClick={() => setShowAboutSubpage(false)}
+            className="flex items-center gap-2 text-darkBlue hover:text-blue-700"
+          >
+            <IoIosArrowBack size={20} />
+            <span className="text-[22px] font-semibold">Back</span>
+          </button>
+        </div>
+
+        <hr className="border-t border-darkBlue-300 w-9/10 self-center" />
+
+        {/* Sub-menu Items */}
+        <div className="flex-1">
+          <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl rounded-full">
+            <LuInfo size={24} />
+            <a
+              href="/about"
+              onClick={() => {
+                setShowAboutSubpage(false);
+                setIsOpen(false);
+              }}
+            >
+              The Committees
+            </a>
+          </li>
+
+          <li className="p-6 pl-14 pb-6 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
+            <PiQuestion size={30} />
+            <a
+              href="/FAQ"
+              onClick={() => {
+                setShowAboutSubpage(false);
+                setIsOpen(false);
+              }}
+            >
+              FAQ
+            </a>
+          </li>
+        </div>
+
+        <hr className="border-t border-darkBlue-300 w-9/10 self-center py-3 " />
+
+        <div className="ml-auto p-[10px] px-[30px] mr-[30px] border border-solid border-darkBlue bg-darkBlue rounded-4xl text-white font-[600] text-lg sm:p-[16px] sm:px-[32px] sm:text-xl">
+          <a href="/signin">Sign In</a>
+        </div>
+      </div>
     </nav>
   );
 };

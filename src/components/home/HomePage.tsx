@@ -11,7 +11,7 @@ const HomePage = () => {
             relative w-full 
             overflow-x-hidden 
             overflow-y-hidden 
-            mt-[166.19px]
+            lg:mt-[142px]
             min-h-[500px]
             lg:min-h-[749px]
             "
