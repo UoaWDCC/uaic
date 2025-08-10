@@ -10,22 +10,21 @@ const InvestmentCommittee = () => {
   const [isLoading, setIsLoading] = useState(false);
 
 
-  const handleToggle = async () => {
-    setIsMainOpen(!isMainOpen);
-
-    if (!isMainOpen && !imageUrl) {
-      setIsLoading(true);
-      try {
-        const url = await getICGroupPhoto();
-        setImageUrl(url);
-      } catch (error) {
-        console.error('Failed to load image:', error);
-        setImageUrl(null);
-      } finally {
-        setIsLoading(false);
-      }
+const handleToggle = async () => {
+  if (!isMainOpen && !imageUrl) {
+    setIsLoading(true);
+    try {
+      const url = await getICGroupPhoto();
+      setImageUrl(url);
+    } catch (error) {
+      console.error('Failed to load image:', error);
+      setImageUrl(null);
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }
+  setIsMainOpen(!isMainOpen);
+};
 
   return (
     <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg shadow-md">
