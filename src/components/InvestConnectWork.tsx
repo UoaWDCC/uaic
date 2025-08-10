@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Button from "./Button";
 
 const InvestConnectWork = () => {
   return (
@@ -23,20 +24,10 @@ const InvestConnectWork = () => {
                 bg-[linear-gradient(to_top,_var(--darkBlue)_0%,_#89ADD4_50%,_white_100%)] w-full
                 h-[250px] bg-no-repeat bg-top
                 md:h-[400px]
+                flex justify-center lg:pt-[40px]
             "
       >
-        <Link href="/joinus">
-          <button
-            className="
-                    mx-auto flex justify-center mt-[2em] font-semibold
-                    bg-[#f1f8ff] text-darkBlue px-[1.8em] py-[0.3em] rounded-[1em] hover:cursor-pointer
-
-                    md:text-[1.2em] md:mt-[2em] md:px-[2.5em] md:py-[0.8em] md:rounded-[2em]
-                    "
-          >
-            Join Us
-          </button>
-        </Link>
+        <Button link="/signup" defaultSize={true}>Join Us</Button>
       </div>
     </div>
   );
