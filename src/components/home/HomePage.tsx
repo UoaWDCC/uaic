@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Button from "../Button";
 
 const HomePage = () => {
   return (
@@ -18,13 +19,12 @@ const HomePage = () => {
         {/* Background */}
         <div
           className="
-                    fixed top-0 left-0 
-                    w-screen min-h-[610px]
-                    bg-center bg-no-repeat bg-cover
-                    lg:min-h-screen 
-                    lg:absolute
-                    z-[-2]
-                    "
+    absolute top-0 left-0 
+    w-screen min-h-[610px]
+    bg-center bg-no-repeat bg-cover
+    lg:min-h-screen
+    z-[-2]
+  "
           style={{
             backgroundImage: "url('/assets/home/bull-cow-bg.webp')",
           }}
@@ -84,19 +84,11 @@ const HomePage = () => {
             University of Auckland.
           </h3>
 
-          <div className="flex gap-[10px] font-[600] text-[19.68px] leading-[20.91px]">
-            <button
-              className="w-[146.03px] h-[46.23px] text-darkBlue
-                            bg-white border-[2.26px] border-darkBlue rounded-[50px]"
-            >
-              <Link href="/signup">About Us</Link>
-            </button>
-            <button
-              className="w-[146.03px] h-[46.23px] text-white
-                            bg-darkBlue rounded-[50px]"
-            >
-              <Link href="/login">Join Us</Link>
-            </button>
+          <div className="flex gap-[8px] w-[320px] h-[53px]">
+            <Button link="/about" variant="secondary">
+              About Us
+            </Button>
+            <Button link="/login">Join Us</Button>
           </div>
         </div>
       </div>

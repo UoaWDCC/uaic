@@ -6,6 +6,7 @@ import { LuChartNoAxesCombined, LuInfo } from "react-icons/lu";
 import { RiContactsLine } from "react-icons/ri";
 import { TiDocumentText, TiHome } from "react-icons/ti";
 import { PiCalendarStarFill, PiQuestion } from "react-icons/pi";
+import Button from "./Button";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 const Navbar = () => {
@@ -58,9 +59,9 @@ const Navbar = () => {
       {/* Top Bar */}
       <div
         className="
-        bg-transparent text-[#172741] px-6 py-2 flex justify-between items-center
-        lg:bg-whiteHover lg:px-7 lg:p-0
-      "
+    bg-transparent text-[#172741] px-6 py-2 flex items-center justify-between
+    lg:bg-whiteHover lg:px-7 lg:p-0
+  "
       >
         {/* Hamburger Menu */}
         <button
@@ -83,12 +84,23 @@ const Navbar = () => {
           </svg>
         </button>
 
+        {/* Logo */}
+        <Link href="/">
+          <Image
+            src="/assets/logos/uaic.webp"
+            alt="Logo"
+            width={220}
+            height={220}
+            className="p-4"
+          />
+        </Link>
+
         {/* Desktop Nav */}
-        <ul className=" hidden lg:flex gap-3 xl:gap-10 2xl:gap-15 justify-center flex-grow order-2 text-xl">
+        <ul className="hidden lg:flex gap-3 xl:gap-10 2xl:gap-15 text-xl font-[300]">
           <li>
             <a
               href="/"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px] font-[300]"
+              className="hover:text-darkBlue hover:rounded-xl p-[4px]"
             >
               Home
             </a>
@@ -130,7 +142,7 @@ const Navbar = () => {
           <li>
             <a
               href="/events"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px] font-[300]"
+              className="hover:text-darkBlue hover:rounded-xl p-[4px]"
             >
               Events
             </a>
@@ -138,7 +150,7 @@ const Navbar = () => {
           <li>
             <a
               href="/investmentportfolio"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px] font-[300]"
+              className="hover:text-darkBlue hover:rounded-xl p-[4px]"
             >
               Investment Portfolio
             </a>
@@ -146,7 +158,7 @@ const Navbar = () => {
           <li>
             <a
               href="/bulletin"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px] font-[300]"
+              className="hover:text-darkBlue hover:rounded-xl p-[4px]"
             >
               Bulletin
             </a>
@@ -154,35 +166,17 @@ const Navbar = () => {
           <li>
             <a
               href="/contact"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px] font-[300]"
+              className="hover:text-darkBlue hover:rounded-xl p-[4px]"
             >
               Contact
             </a>
           </li>
         </ul>
 
-        {/* Join Us */}
-        <ul className="hidden lg:flex gap-4 ml-auto order-3 ">
-          <li>
-            <a
-              href="/joinus"
-              className="border border-solid border-darkBlue hover:bg-white bg-darkBlue rounded-4xl text-white hover:text-darkBlue xl:px-[30] py-[10] lg:px-[20] font-[500] text-lg"
-            >
-              Join Us
-            </a>
-          </li>
-        </ul>
+        <div className="hidden lg:block">
+          <Button link="/signup" defaultSize>Join Us</Button>
+        </div>
 
-        {/* Logo */}
-        <Link href="/">
-          <Image
-            src="/assets/logos/uaic.webp"
-            alt="Logo"
-            width={220}
-            height={220}
-            className="order-1 p-4"
-          />
-        </Link>
       </div>
 
       {/* Desktop Widget */}
@@ -263,7 +257,7 @@ const Navbar = () => {
         <hr className="border-t border-darkBlue-300 w-9/10 self-center py-3" />
 
         <li className="ml-auto p-[10px] px-[30px] mr-[30px] border border-solid border-darkBlue hover:bg-white bg-darkBlue rounded-4xl text-white hover:text-darkBlue font-[600] text-lg sm:p-[16px] sm:px-[32px] sm:text-xl">
-          <a href="/signin">Sign In</a>
+          <Button link="/signup">Join Us</Button>
         </li>
       </ul>
 
