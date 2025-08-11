@@ -174,7 +174,7 @@ const Navbar = () => {
         </ul>
 
         <div className="hidden lg:block">
-          <Button link="/signup" defaultSize>Join Us</Button>
+          <Button link="/joinus" defaultSize>Join Us</Button>
         </div>
 
       </div>
