@@ -37,7 +37,7 @@ export const Member: CollectionConfig = {
       name: 'events',
       type: 'relationship',
       label: "Events",
-      relationTo: 'event' as CollectionSlug,
+      relationTo: 'events' as CollectionSlug,
       hasMany: true,
       required: true
     },

@@ -7,7 +7,7 @@ import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
 import { InvestmentCommitteeImages } from "./collections/InvestmentCommitteeImages";
 import { Member } from "./collections/Member";
-import { Event } from "./collections/Event";
+import { Events } from "./collections/Events";
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -17,7 +17,7 @@ export default buildConfig({
     Media,
     InvestmentCommitteeImages,
     Member, 
-    Event
+    Events
 
   ],
 
