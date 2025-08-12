@@ -1,7 +1,20 @@
-import type { CollectionConfig } from "payload";
+import type { CollectionConfig, CollectionSlug} from "payload";
+
 
 export const Event: CollectionConfig = {
   slug: 'event',
+  labels: {
+    singular: 'Event',
+    plural: 'Events'
+  },
+  admin: {
+
+  },
+  upload: {
+    imageSizes: [
+      
+    ]
+  },
   fields: [
     {
       name: 'event', 
@@ -29,15 +42,21 @@ export const Event: CollectionConfig = {
     },
     {
       name: 'image',
-      type: 'text',
+      type: 'upload',
       label: 'Image',
+      relationTo: 'media',
       required: true
     },
     {
-      name: 'attendees (from Member Collection)',
-      type: 'text',
-      label: '',
+      name: 'attendees',
+      type: 'relationship',
+      label: 'Attendees',
+      relationTo: 'member' as CollectionSlug,
+      hasMany: true,
       required: true
     }
-  ]
-}
+  ],
+  access: {
+    read: () => true,
+  },
+} 

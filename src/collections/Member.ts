@@ -1,4 +1,4 @@
-import type { CollectionConfig } from "payload";
+import type { CollectionConfig, CollectionSlug  } from "payload";
 
 export const Member: CollectionConfig = {
   slug: 'member',
@@ -35,9 +35,14 @@ export const Member: CollectionConfig = {
     },
     {
       name: 'events',
-      type: 'text',
-      label: 'Events',
+      type: 'relationship',
+      label: "Events",
+      relationTo: 'event' as CollectionSlug,
+      hasMany: true,
       required: true
     },
-  ]
-}
+  ],
+  access: {
+    read: () => true,
+  },
+} 
