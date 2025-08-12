@@ -8,6 +8,7 @@ import { Media } from "./collections/Media";
 import { InvestmentCommitteeImages } from "./collections/InvestmentCommitteeImages";
 import { Member } from "./collections/Member";
 import { Events } from "./collections/Events";
+import { Executive } from "./collections/Executive";
 
 export default buildConfig({
   editor: lexicalEditor(),

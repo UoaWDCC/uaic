@@ -44,5 +44,5 @@ export const Member: CollectionConfig = {
   ],
   access: {
     read: () => true,
-  },
+  }
 } 
