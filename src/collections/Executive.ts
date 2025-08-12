@@ -10,10 +10,10 @@ export const Executive: CollectionConfig = {
             required: true
         },
         {
-            name: 'event',
+            name: 'member',
             type: 'relationship',
-            label: 'Event',
-            relationTo: 'events' as CollectionSlug,
+            label: 'Member',
+            relationTo: 'member' as CollectionSlug,
             hasMany: true,
             required: false
         }
