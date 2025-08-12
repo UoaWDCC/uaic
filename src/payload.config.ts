@@ -6,6 +6,8 @@ import { s3Storage } from "@payloadcms/storage-s3";
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
 import { InvestmentCommitteeImages } from "./collections/InvestmentCommitteeImages";
+import { Member } from "./collections/Member";
+import { Events } from "./collections/Events";
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -14,6 +16,9 @@ export default buildConfig({
     Users,
     Media,
     InvestmentCommitteeImages,
+    Member, 
+    Events
+
   ],
 
   secret: process.env.PAYLOAD_SECRET || "",
