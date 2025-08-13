@@ -1,6 +1,7 @@
 import InvestConnectWork from "@/components/InvestConnectWork";
 import Image from "next/image";
 import { FaInstagram, FaFacebook, FaLinkedin, FaTiktok } from "react-icons/fa";
+import Link from "next/link";
 
 const ContactPage = () => {
   return (
@@ -18,41 +19,41 @@ const ContactPage = () => {
             <div className="space-y-3">
               <div>
                 <h3 className="font-bold text-darkBlue">General Inquiries</h3>
-                <a
+                <Link
                   href="mailto:president@uaic.co.nz"
                   className="text-darkBlue underline"
                 >
                   president@uaic.co.nz
-                </a>
+                </Link>
               </div>
               <div>
                 <h3 className="font-bold text-darkBlue">Event Inquiries</h3>
-                <a
+                <Link
                   href="mailto:marketing@uaic.co.nz"
                   className="text-darkBlue underline"
                 >
                   marketing@uaic.co.nz
-                </a>
+                </Link>
               </div>
               <div>
                 <h3 className="font-bold text-darkBlue">
                   Competitions Inquiries
                 </h3>
-                <a
+                <Link
                   href="mailto:competitions@uaic.co.nz"
                   className="text-darkBlue underline"
                 >
                   competitions@uaic.co.nz
-                </a>
+                </Link>
               </div>
               <div>
                 <h3 className="font-bold text-darkBlue">Bulletin Inquiries</h3>
-                <a
+                <Link
                   href="mailto:education@uaic.co.nz"
                   className="text-darkBlue underline"
                 >
                   education@uaic.co.nz
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -65,43 +66,43 @@ const ContactPage = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <FaInstagram className="h-5 w-5 text-darkBlue" />
-                <a
+                <Link
                   href="https://www.instagram.com/officialuaic/"
                   target="_blank"
                   className="text-darkBlue underline"
                 >
                   @officialuaic
-                </a>
+                </Link>
               </div>
               <div className="flex items-center space-x-3">
                 <FaFacebook className="h-5 w-5 text-darkBlue" />
-                <a
+                <Link
                   href="https://www.facebook.com/officialUAIC"
                   target="_blank"
                   className="text-darkBlue underline"
                 >
                   University of Auckland Investment Club
-                </a>
+                </Link>
               </div>
               <div className="flex items-center space-x-3">
                 <FaLinkedin className="h-5 w-5 text-darkBlue" />
-                <a
+                <Link
                   href="https://www.linkedin.com/company/officialuaic/"
                   target="_blank"
                   className="text-darkBlue underline"
                 >
                   University of Auckland Investment Club
-                </a>
+                </Link>
               </div>
               <div className="flex items-center space-x-3">
                 <FaTiktok className="h-5 w-5 text-darkBlue" />
-                <a
+                <Link
                   href="https://www.tiktok.com/@officialuaic"
                   target="_blank"
                   className="text-darkBlue underline"
                 >
                   @officialuaic UoA Investment Club
-                </a>
+                </Link>
               </div>
             </div>
           </div>
