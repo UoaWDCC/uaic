@@ -98,24 +98,24 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <ul className="hidden lg:flex gap-3 xl:gap-10 2xl:gap-15 text-xl font-[300]">
           <li>
-            <a
+            <Link
               href="/"
               className="hover:text-darkBlue hover:rounded-xl p-[4px]"
             >
               Home
-            </a>
+            </Link>
           </li>
           <li
             className="relative"
             onMouseEnter={() => setIsAboutDropdownOpen(true)}
             onMouseLeave={() => setIsAboutDropdownOpen(false)}
           >
-            <a
+            <Link
               href="/about"
               className=" hover:rounded-xl p-[4px] font-[300]"
             >
               About
-            </a>
+            </Link>
             {/* Dropdown Menu */}
             {isAboutDropdownOpen && (
               <div
@@ -123,53 +123,53 @@ const Navbar = () => {
                 style={{ width: '220px', height: '80px' }}
               >
                 <div className="flex flex-col h-full">
-                  <a
+                  <Link
                     href="/about"
                     className="flex-1 px-4 py-2 text-sm hover:bg-blue-700 flex items-center cursor-pointer rounded-t-lg font-[300]"
                   >
                     The Committees
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/FAQ"
                     className="flex-1 px-4 py-2 text-sm hover:bg-blue-700 flex items-center cursor-pointer rounded-b-lg font-[300]"
                   >
                     FAQ
-                  </a>
+                  </Link>
                 </div>
               </div>
             )}
           </li>
           <li>
-            <a
+            <Link
               href="/events"
               className="hover:text-darkBlue hover:rounded-xl p-[4px]"
             >
               Events
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="/investmentportfolio"
               className="hover:text-darkBlue hover:rounded-xl p-[4px]"
             >
               Investment Portfolio
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="/bulletin"
               className="hover:text-darkBlue hover:rounded-xl p-[4px]"
             >
               Bulletin
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="/contact"
               className="hover:text-darkBlue hover:rounded-xl p-[4px]"
             >
               Contact
-            </a>
+            </Link>
           </li>
         </ul>
 
@@ -229,7 +229,7 @@ const Navbar = () => {
         <hr className="border-t border-darkBlue-300 w-9/10 self-center" />
 
         <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
-          <TiHome size={24} /> <a href="/">Home</a>
+          <TiHome size={24} /> <Link href="/">Home</Link>
         </li>
         <li
           className="p-6 pl-14 border-b border-white flex items-center justify-between text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer"
@@ -241,17 +241,17 @@ const Navbar = () => {
           <IoIosArrowForward size={20} />
         </li>
         <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
-          <PiCalendarStarFill size={24} /> <a href="/events">Events</a>
+          <PiCalendarStarFill size={24} /> <Link href="/events">Events</Link>
         </li>
         <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
           <LuChartNoAxesCombined size={24} />{" "}
-          <a href="/investmentportfolio">Investments</a>
+          <Link href="/investmentportfolio">Investments</Link>
         </li>
         <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
-          <TiDocumentText size={24} /> <a href="/bulletin">Bulletin</a>
+          <TiDocumentText size={24} /> <Link href="/bulletin">Bulletin</Link>
         </li>
         <li className="p-6 pl-14 pb-6 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl">
-          <RiContactsLine size={24} /> <a href="/contact">Contact</a>
+          <RiContactsLine size={24} /> <Link href="/contact">Contact</Link>
         </li>
 
         <hr className="border-t border-darkBlue-300 w-9/10 self-center py-3" />
@@ -290,7 +290,7 @@ const Navbar = () => {
         <div className="flex-1">
           <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl rounded-full">
             <LuInfo size={24} />
-            <a
+            <Link
               href="/about"
               onClick={() => {
                 setShowAboutSubpage(false);
@@ -298,12 +298,12 @@ const Navbar = () => {
               }}
             >
               The Committees
-            </a>
+            </Link>
           </li>
 
           <li className="p-6 pl-14 pb-6 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
             <PiQuestion size={30} />
-            <a
+            <Link
               href="/FAQ"
               onClick={() => {
                 setShowAboutSubpage(false);
@@ -311,14 +311,14 @@ const Navbar = () => {
               }}
             >
               FAQ
-            </a>
+            </Link>
           </li>
         </div>
 
         <hr className="border-t border-darkBlue-300 w-9/10 self-center py-3 " />
 
         <div className="ml-auto p-[10px] px-[30px] mr-[30px] border border-solid border-darkBlue bg-darkBlue rounded-4xl text-white font-[600] text-lg sm:p-[16px] sm:px-[32px] sm:text-xl">
-          <a href="/signin">Sign In</a>
+          <Link href="/signin">Sign In</Link>
         </div>
       </div>
     </nav>
