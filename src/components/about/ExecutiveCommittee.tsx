@@ -213,7 +213,7 @@ const ExecutiveCommittee = () => {
   };
 
   return (
-    <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg shadow-md">
+    <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">
       <div>
         <button
           onClick={() => setIsMainOpen(!isMainOpen)}
