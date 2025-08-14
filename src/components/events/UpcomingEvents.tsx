@@ -216,7 +216,7 @@ const UpcomingEvents = () => {
                           
                           transition duration-500 ease-in-out
 
-                          hover:opacity-80   
+                          hover:opacity-80 hover:cursor-pointer 
                           transform hover:scale-102
 
                           lg:text-[15px]
@@ -246,7 +246,7 @@ const UpcomingEvents = () => {
                           
                           transition duration-500 ease-in-out
 
-                          hover:text-white hover:opacity-80  
+                          hover:text-white hover:opacity-80  hover:cursor-pointer 
                           transform hover:scale-102
 
                           lg:text-[15px]
@@ -383,7 +383,7 @@ const UpcomingEvents = () => {
                       hover:text-white hover:opacity-80  
                       transform hover:scale-102
 
-                      lg:text-[15px]
+                      lg:text-[15px] hover:cursor-pointer
                     "
                   >
                     Apply Now

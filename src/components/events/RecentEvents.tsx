@@ -198,7 +198,7 @@ const RecentEvents = () => {
                         transition duration-500 ease-in-out
 
                         hover:text-white hover:bg-[var(--darkBlue)]  
-                        transform hover:scale-102
+                        transform hover:scale-102 hover:cursor-pointer
 
                         lg:text-[15px]
                       "
