@@ -43,7 +43,7 @@ const BulletinCommittee = () => {
             // closes inner dropdowns
             setIsMembersOpen(false);
           }}
-          className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2"
+          className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2 hover:cursor-pointer"
         >
           <span className="font-bold md:text-[20px]">Bulletin Committees</span>
           {isMainOpen ? (
@@ -107,7 +107,7 @@ const BulletinCommittee = () => {
 
             <button
               onClick={() => setIsMembersOpen(!isMembersOpen)}
-              className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2"
+              className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2 hover:cursor-pointer"
             >
               <span className="font-bold ">Team Members and Roles</span>
               {isMembersOpen ? (
@@ -119,7 +119,7 @@ const BulletinCommittee = () => {
 
             {isMembersOpen && (
               <div>
-                <section className="w-full max-w-6xl mx-auto px-4 py-8">
+                <section className="w-full max-w-6xl mx-auto px-4 py-8 ">
                   <h2 className="text-2xl font-semibold mb-6">
                     Team Members & Roles
                   </h2>
