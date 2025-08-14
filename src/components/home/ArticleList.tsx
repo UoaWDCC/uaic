@@ -5,7 +5,7 @@ const ArticleList: React.FC = () => {
   return (
     <div
       className="
-        bg-[radial-gradient(circle_at_center,rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)]
+        bg-[radial-gradient(circle_at_center,rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_60%)]
         flex flex-col items-center 
         w-full
         
