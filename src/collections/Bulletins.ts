@@ -25,7 +25,7 @@ export const Bulletins: CollectionConfig = {
     {
       name: "description",
       type: "textarea",
-      required: true,
+
     },
     {
       name: "bulletinCover",
