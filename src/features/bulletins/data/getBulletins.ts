@@ -8,7 +8,11 @@ export interface Bulletin {
   issueNumber: number
   publishDate: string
   description?: string
-  bulletinCover?: {
+  bulletinCover: {
+    url: string
+    alt?: string
+  }
+  bulletinPDF: {
     url: string
     alt?: string
   }
@@ -20,9 +24,9 @@ export const getBulletins = async (): Promise<Bulletin[]> => {
   try {
     const result = await payload.find({
       collection: 'bulletin',
-      limit: 100, // adjust as needed
-      sort: '-publishDate', // newest first
-      depth: 1, // to resolve bulletinCover relation
+      limit: 100,
+      sort: '-publishDate',
+      depth: 1,
     })
 
     return result.docs.map((doc: any) => ({
@@ -37,7 +41,7 @@ export const getBulletins = async (): Promise<Bulletin[]> => {
             alt: doc.bulletinCover.alt || doc.title,
           }
         : undefined,
-    bulletinPDF: doc.bulletinPDF
+      bulletinPDF: doc.bulletinPDF
         ? {
             url: doc.bulletinPDF.url,
             alt: doc.bulletinPDF.alt || doc.title,
@@ -48,4 +52,11 @@ export const getBulletins = async (): Promise<Bulletin[]> => {
     console.error('Error fetching bulletins:', error)
     return []
   }
+}
+
+// --- New helper for latest bulletin ---
+export const getLatestBulletin = async (): Promise<Bulletin | null> => {
+  const bulletins = await getBulletins()
+  if (bulletins.length === 0) return null
+  return bulletins[0] // because bulletins are sorted newest first
 }

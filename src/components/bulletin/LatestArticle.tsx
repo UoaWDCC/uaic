@@ -1,36 +1,26 @@
-"use client";
+import Image from "next/image"
+import Button from "../Button"
+import { getLatestBulletin } from "@/features/bulletins/data/getBulletins";
 
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import Button from "../Button";
+export default async function LatestArticle() {
+  const latest = await getLatestBulletin()
 
-type LatestArticleProps = {
-  issueNumber: number;
-  imageSrc: string;
-  title: string;
-  description: string;
-  pdfUrl: string;
-};
+  if (!latest) return null
 
-const LatestArticle: React.FC<LatestArticleProps> = ({
-  issueNumber,
-  imageSrc,
-  title,
-  description,
-  pdfUrl,
-}) => {
-  const maxDescriptionLength = 380;
-
+  const maxDescriptionLength = 380
   const truncatedDescription =
-    description.length > maxDescriptionLength
-      ? description.slice(0, maxDescriptionLength) + "..."
-      : description;
+    latest.description && latest.description.length > maxDescriptionLength
+      ? latest.description.slice(0, maxDescriptionLength) + "..."
+      : latest.description || ""
 
-  const maxTitleLength = 70;
-
+  const maxTitleLength = 70
   const truncatedTitle =
-    title.length > maxTitleLength ? title.slice(0, maxTitleLength) + "..." : title;
+    latest.title.length > maxTitleLength
+      ? latest.title.slice(0, maxTitleLength) + "..."
+      : latest.title
+
+  const imageSrc = latest.bulletinCover?.url || "/placeholder.jpg"
+  const pdfUrl = latest.bulletinPDF?.url || "#"
 
   return (
     <div
@@ -51,17 +41,12 @@ const LatestArticle: React.FC<LatestArticleProps> = ({
         <div className="hidden lg:flex lg:flex-row gap-[75px] p-7 text-darkBlue">
           {/* Image Container */}
           <div className="relative w-[259px] h-[366px] rounded-3xl overflow-hidden">
-            <Image
-              src={imageSrc}
-              alt="Article Cover"
-              fill
-              className="object-cover"
-            />
+            <Image src={imageSrc} alt={latest.title} fill className="object-cover" />
           </div>
 
           {/* Text */}
           <div className="flex-1 pt-6 pr-4">
-            <h2 className="text-sm mb-2 font-light">Issue #{issueNumber}</h2>
+            <h2 className="text-sm mb-2 font-light">Issue #{latest.issueNumber}</h2>
             <h1 className="text-xl font-bold mb-4 leading-tight">{truncatedTitle}</h1>
             <p className="mb-6 text-darkBlue font-light">{truncatedDescription}</p>
             <div className="w-[224px] h-[35px]">
@@ -72,33 +57,24 @@ const LatestArticle: React.FC<LatestArticleProps> = ({
 
         {/* Mobile layout */}
         <div className="flex flex-col lg:hidden relative w-[330px] h-[561px] rounded-3xl overflow-hidden bg-white items-center gap-[14px]">
-          {/* Title */}
-          <h1 className="text-darkBlue text-xl font-bold lg:text-2xl mt-6">
-            Latest Article
-          </h1>
+          <h1 className="text-darkBlue text-xl font-bold lg:text-2xl mt-6">Latest Article</h1>
 
-          {/* Content */}
           <div
             className="relative w-[295px] h-[417px] flex flex-col gap-[9px] p-6 bg-cover bg-center text-white justify-end rounded-3xl"
             style={{
               backgroundImage: `linear-gradient(to top, rgba(20,92,169,1) 0%, rgba(20,92,169,1) 50%, rgba(255,255,255,0) 75%), url('${imageSrc}')`,
             }}
           >
-            <h2 className="text-xs font-light">Issue #{issueNumber}</h2>
+            <h2 className="text-xs font-light">Issue #{latest.issueNumber}</h2>
             <h1 className="font-bold text-sm leading-tight">{truncatedTitle}</h1>
             <p className="font-light text-xs">{truncatedDescription}</p>
           </div>
 
-          {/* Button */}
-          <div
-            className="w-[295px] h-[37px]"
-          >
+          <div className="w-[295px] h-[37px]">
             <Button link={pdfUrl}>Read More</Button>
           </div>
         </div>
       </div>
     </div>
-  );
-};
-
-export default LatestArticle;
+  )
+}
