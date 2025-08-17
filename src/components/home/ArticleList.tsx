@@ -1,6 +1,6 @@
 import Dropdown from "@/components/Dropdown";
 import ArticleListItem from "./ArticleListItem";
-import { getBulletins } from "@/features/bulletins/data/getBulletins";
+import { Bulletin, getBulletins } from "@/features/bulletins/data/getBulletins";
 
 const ArticleList = async () => {
   // fetch bulletins server-side
