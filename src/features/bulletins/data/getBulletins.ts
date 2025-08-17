@@ -54,9 +54,8 @@ export const getBulletins = async (): Promise<Bulletin[]> => {
   }
 }
 
-// --- New helper for latest bulletin ---
 export const getLatestBulletin = async (): Promise<Bulletin | null> => {
   const bulletins = await getBulletins()
   if (bulletins.length === 0) return null
-  return bulletins[0] // because bulletins are sorted newest first
+  return bulletins[0]
 }

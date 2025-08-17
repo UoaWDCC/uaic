@@ -4,6 +4,7 @@ import { getLatestBulletin } from "@/features/bulletins/data/getBulletins";
 
 export default async function LatestArticle() {
   const latest = await getLatestBulletin()
+  console.log(latest)
 
   if (!latest) return null
 
@@ -19,6 +20,7 @@ export default async function LatestArticle() {
       ? latest.title.slice(0, maxTitleLength) + "..."
       : latest.title
 
+  // create a placeholder cover page and add here
   const imageSrc = latest.bulletinCover?.url || "/placeholder.jpg"
   const pdfUrl = latest.bulletinPDF?.url || "#"
 
