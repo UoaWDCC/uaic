@@ -21,7 +21,7 @@ export default async function LatestArticle() {
       : latest.title
 
   // create a placeholder cover page and add here
-  const imageSrc = latest.bulletinCover?.url || "/placeholder.jpg"
+  const imageSrc = latest.bulletinCover?.url || "/assets/bulletins/placeholder-bulletin-cover.png"
   const pdfUrl = latest.bulletinPDF?.url || "#"
 
   return (
