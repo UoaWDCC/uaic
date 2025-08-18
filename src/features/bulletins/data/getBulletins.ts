@@ -25,7 +25,7 @@ export const getBulletins = async (): Promise<Bulletin[]> => {
     const result = await payload.find({
       collection: 'bulletin',
       limit: 100,
-      sort: '-publishDate',
+      sort: ['-issueNumber', '-publishDate'], 
       depth: 1,
     })
 
