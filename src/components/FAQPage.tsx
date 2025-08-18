@@ -8,46 +8,27 @@ type FAQ = {
   answer: string;
 };
 
-const FAQPage = () => {
-  const [faqs, setFaqs] = useState<FAQ[]>([]);
+const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
   const [openFaqs, setOpenFaqs] = useState<Record<string, boolean>>({});
-
-
-  useEffect(() => {
-    const fetchFaqs = async () => {
-      try {
-        const res = await fetch("/api/FAQS");
-        const data = await res.json();
-        setFaqs(Array.isArray(data) ? data : data.docs || []);
-      } catch (err) {
-        console.error("Error fetching FAQs:", err);
-      }
-    };
-    fetchFaqs();
-  }, []);
-  
 
   useEffect(() => {
     const updateOpenFaqs = () => {
       const shouldOpen = window.innerWidth >= 1024;
       const newState: Record<string, boolean> = {};
-      faqs.forEach(faq => newState[faq.id] = shouldOpen);
+      faqs.forEach((faq) => (newState[faq.id] = shouldOpen));
       setOpenFaqs(newState);
     };
-  
+
     updateOpenFaqs();
     window.addEventListener("resize", updateOpenFaqs);
     return () => window.removeEventListener("resize", updateOpenFaqs);
   }, [faqs]);
-  
-
 
   const toggleFaq = (id: string) => {
     if (window.innerWidth < 1024) {
       setOpenFaqs((prev) => ({ ...prev, [id]: !prev[id] }));
     }
   };
-
 
   return (
     <div className="lg:px-16">

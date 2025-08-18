@@ -1,7 +1,7 @@
 import { CollectionConfig } from 'payload';
 
 const FAQ: CollectionConfig = {
-  slug: 'FAQS',
+  slug: 'FAQ',
   admin: {
     useAsTitle: 'question',
   },
