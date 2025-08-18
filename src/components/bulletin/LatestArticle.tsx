@@ -4,7 +4,6 @@ import { getLatestBulletin } from "@/features/bulletins/data/getBulletins";
 
 export default async function LatestArticle() {
   const latest = await getLatestBulletin()
-  console.log(latest)
 
   if (!latest) return null
 
