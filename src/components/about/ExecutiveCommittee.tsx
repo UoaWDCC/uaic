@@ -213,11 +213,11 @@ const ExecutiveCommittee = () => {
   };
 
   return (
-    <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg shadow-md">
+    <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">
       <div>
         <button
           onClick={() => setIsMainOpen(!isMainOpen)}
-          className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2"
+          className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2 hover:cursor-pointer"
         >
           <span className="font-bold md:text-[20px]">Executive Committees</span>
           {isMainOpen ? (
@@ -247,7 +247,7 @@ const ExecutiveCommittee = () => {
               <div key={team}>
                 <button
                   onClick={() => toggleSubteam(team)}
-                  className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2"
+                  className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2 hover:cursor-pointer"
                 >
                   <span className="font-bold">{team}</span>
                   {openSubteams.includes(team) ? (

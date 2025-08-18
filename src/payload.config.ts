@@ -4,12 +4,18 @@ import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
 import { s3Storage } from "@payloadcms/storage-s3";
 import FAQ from './collections/FAQ';
+import { Users } from "./collections/Users";
+import { Media } from "./collections/Media";
+import { InvestmentCommitteeImages } from "./collections/InvestmentCommitteeImages";
 
 export default buildConfig({
   editor: lexicalEditor(),
 
   collections: [
     FAQ,
+    Users,
+    Media,
+    InvestmentCommitteeImages,
   ],
 
   secret: process.env.PAYLOAD_SECRET || "",
@@ -30,7 +36,10 @@ export default buildConfig({
         media: {
           prefix: "media",
         },
-      },
+        "investment-committee-images": {
+        prefix: "investment-committee-images",
+        },
+      } as any,
       bucket: process.env.S3_BUCKET || "",
       config: {
         credentials: {

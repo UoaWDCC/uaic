@@ -67,7 +67,7 @@ const Footer = () => {
                 <h2>0800 838 383</h2>
               </div>
               <div className="flex flex-row gap-2 lg:gap-8 lg:text-[16px]">
-                <a
+                <Link
                   className="hover:scale-105 hover:text-white transition-all duration-250"
                   href="mailto:president@uaic.co.nz"
                   target="_blank"
@@ -75,7 +75,7 @@ const Footer = () => {
                   aria-label="President's Email"
                 >
                   <MdEmail className="text-[1.25rem] lg:text-[1.3rem]" />
-                </a>
+                </Link>
                 <h2>president@uaic.co.nz</h2>
               </div>
               <div className="flex flex-row gap-2 lg:gap-8 lg:text-[16px]">
@@ -105,7 +105,7 @@ const Footer = () => {
 
             <div className="flex lg:flex flex-col text-[0.95rem] lg:text-[1.4rem] xl:text-[1.4rem] 2xl:text-[2rem] font-light whitespace-nowrap gap-1.5 lg:gap-5">
               <div className="flex flex-row gap-2 lg:gap-8">
-                <a
+                <Link
                   className="hover:scale-105 hover:text-white transition-all duration-250"
                   href="https://www.instagram.com/officialuaic/"
                   target="_blank"
@@ -113,13 +113,13 @@ const Footer = () => {
                   aria-label="Instagram"
                 >
                   <FaInstagram className="text-3xl lg:text-[1.3rem]" />
-                </a>
+                </Link>
                 <div className="lg:text-[16px]">
                   <h2>@officialuaic</h2>
                 </div>
               </div>
               <div className="flex flex-row gap-2 lg:gap-8">
-                <a
+                <Link
                   className="hover:scale-105 hover:text-white transition-all duration-250"
                   href="https://www.facebook.com/officialUAIC"
                   target="_blank"
@@ -127,14 +127,14 @@ const Footer = () => {
                   aria-label="Facebook"
                 >
                   <FaFacebook className="text-3xl lg:text-[1.3rem]" />
-                </a>
+                </Link>
                 <div className="flex flex-row lg:text-[16px]">
                   <h2>@officialUAIC</h2>
                   <h2 className="invisible">IIIIIII</h2>
                 </div>
               </div>
               <div className="flex flex-row gap-2 lg:gap-8">
-                <a
+                <Link
                   className="hover:scale-105 hover:text-white transition-all duration-250"
                   href="https://www.linkedin.com/company/officialuaic/"
                   target="_blank"
@@ -142,7 +142,7 @@ const Footer = () => {
                   aria-label="LinkedIn"
                 >
                   <FaLinkedin className="text-3xl lg:text-[1.3rem]" />
-                </a>
+                </Link>
                 <div>
                   <h2 className="lg:text-[16px]">officialUAIC</h2>
                 </div>

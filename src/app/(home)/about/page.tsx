@@ -18,7 +18,7 @@ export default function about() {
       </div>
       <ExecutiveCommittee />
       <BulletinCommittee />
-      <InvestmentCommittee />
+      <InvestmentCommittee/>
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Button from "../Button";
 
 type LatestArticleProps = {
   issueNumber: number;
@@ -29,9 +30,7 @@ const LatestArticle: React.FC<LatestArticleProps> = ({
   const maxTitleLength = 70;
 
   const truncatedTitle =
-    title.length > maxTitleLength
-      ? title.slice(0, maxTitleLength) + "..."
-      : title;
+    title.length > maxTitleLength ? title.slice(0, maxTitleLength) + "..." : title;
 
   return (
     <div
@@ -48,10 +47,10 @@ const LatestArticle: React.FC<LatestArticleProps> = ({
       </h1>
 
       <div className="bg-white rounded-4xl w-[330px] lg:w-[805px] h-auto lg:h-[423px] overflow-hidden">
-        {/* Large screen layout: row with image + text */}
+        {/* Desktop layout */}
         <div className="hidden lg:flex lg:flex-row gap-[75px] p-7 text-darkBlue">
           {/* Image Container */}
-          <div className="relative w-[259px] h-[366px] rounded-3xl overflow-hidden hidden lg:block">
+          <div className="relative w-[259px] h-[366px] rounded-3xl overflow-hidden">
             <Image
               src={imageSrc}
               alt="Article Cover"
@@ -63,23 +62,15 @@ const LatestArticle: React.FC<LatestArticleProps> = ({
           {/* Text */}
           <div className="flex-1 pt-6 pr-4">
             <h2 className="text-sm mb-2 font-light">Issue #{issueNumber}</h2>
-            <h1 className="text-xl font-bold mb-4 leading-tight">
-              {truncatedTitle}
-            </h1>
-            <p className="mb-6 text-darkBlue font-light">
-              {truncatedDescription}
-            </p>
-            <Link
-              href={pdfUrl}
-              target="_blank"
-              className="bg-darkBlue text-white px-4 py-1 w-[224px] h-[50px] rounded-3xl hover:cursor-pointer"
-            >
-              Read More
-            </Link>
+            <h1 className="text-xl font-bold mb-4 leading-tight">{truncatedTitle}</h1>
+            <p className="mb-6 text-darkBlue font-light">{truncatedDescription}</p>
+            <div className="w-[224px] h-[35px]">
+              <Button link={pdfUrl}>Read More</Button>
+            </div>
           </div>
         </div>
 
-        {/* Small screen layout: vertical image background + gradient + text */}
+        {/* Mobile layout */}
         <div className="flex flex-col lg:hidden relative w-[330px] h-[561px] rounded-3xl overflow-hidden bg-white items-center gap-[14px]">
           {/* Title */}
           <h1 className="text-darkBlue text-xl font-bold lg:text-2xl mt-6">
@@ -94,20 +85,16 @@ const LatestArticle: React.FC<LatestArticleProps> = ({
             }}
           >
             <h2 className="text-xs font-light">Issue #{issueNumber}</h2>
-            <h1 className="font-bold text-sm leading-tight">
-              {truncatedTitle}
-            </h1>
+            <h1 className="font-bold text-sm leading-tight">{truncatedTitle}</h1>
             <p className="font-light text-xs">{truncatedDescription}</p>
           </div>
 
           {/* Button */}
-          <Link
-            href={pdfUrl}
-            target="_blank"
-            className="bg-darkBlue text-white px-4 py-1 w-[295px] h-[37px] rounded-xl hover:cursor-pointer flex items-center justify-center"
+          <div
+            className="w-[295px] h-[37px]"
           >
-            Read More
-          </Link>
+            <Button link={pdfUrl}>Read More</Button>
+          </div>
         </div>
       </div>
     </div>

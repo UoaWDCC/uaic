@@ -1,6 +1,7 @@
 // this component fills outside container
 
 import React from "react";
+import Link from "next/link";
 
 const MembershipSection = () => {
   return (
@@ -19,7 +20,7 @@ const MembershipSection = () => {
       >
         Click to learn more about our Membership
       </h1>
-      <a
+      <Link
         href="/memberships"
         className="
         bg-lightBlue
@@ -31,7 +32,7 @@ const MembershipSection = () => {
       "
       >
         Membership
-      </a>
+      </Link>
     </div>
   );
 };
