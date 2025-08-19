@@ -67,6 +67,7 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    FAQ: FAQ;
     users: User;
     media: Media;
     'investment-committee-images': InvestmentCommitteeImage;
@@ -76,6 +77,7 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
+    FAQ: FAQSelect<false> | FAQSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'investment-committee-images': InvestmentCommitteeImagesSelect<false> | InvestmentCommitteeImagesSelect<true>;
@@ -114,6 +116,17 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQ".
+ */
+export interface FAQ {
+  id: string;
+  question: string;
+  answer: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -192,6 +205,10 @@ export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
+        relationTo: 'FAQ';
+        value: string | FAQ;
+      } | null)
+    | ({
         relationTo: 'users';
         value: string | User;
       } | null)
@@ -244,6 +261,16 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQ_select".
+ */
+export interface FAQSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

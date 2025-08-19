@@ -2,6 +2,7 @@ import React from "react";
 import EventLanding from "@/components/events/EventLanding";
 import RecentEvents from "@/components/events/RecentEvents";
 import UpcomingEvents from "@/components/events/UpcomingEvents";
+import BlueGradient from "@/components/BlueGradient";
 
 const page = () => {
   return (
@@ -49,6 +50,7 @@ const page = () => {
 
                 <RecentEvents />
             </div>
+            <BlueGradient/>
         </div>
     </div>
   );

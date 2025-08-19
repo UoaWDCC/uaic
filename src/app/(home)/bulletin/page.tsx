@@ -4,6 +4,7 @@ import LatestArticle from "@/components/bulletin/LatestArticle";
 import BulletinInfosection from "@/components/bulletin/BulletinInfoSection";
 import Bulletin from "@/components/home/Bulletin";
 import ArticleList from "@/components/home/ArticleList";
+import BlueGradient from "@/components/BlueGradient";
 
 const page = () => {
   return (
@@ -32,6 +33,7 @@ const page = () => {
 
       <div className="order-4 lg:order-5 w-full">
         <ArticleList />
+        <BlueGradient/>
       </div>
     </div>
   );
