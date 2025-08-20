@@ -1,6 +1,7 @@
 'use client';
 
 import { useSession, signOut } from '@/lib/auth-client';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -91,12 +92,12 @@ export default function UserInfo() {
            Only Auckland University email addresses are allowed. Please try again using your University email.
           </p>
         )}
-        <a 
+        <Link 
           href="/login" 
           className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
           Sign In
-        </a>
+        </Link>
       </div>
     );
   }
