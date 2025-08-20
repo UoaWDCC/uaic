@@ -8,8 +8,6 @@ import { useEffect, useState } from 'react';
 interface DeleteUserResponse {
   success: boolean;
   message: string;
-  deletedCount?: number;
-  error?: string;
 }
 
 export default function UserInfo() {
@@ -98,7 +96,7 @@ export default function UserInfo() {
         >
           Sign In
         </Link>
-      </div>
+    </div>
     );
   }
 }
