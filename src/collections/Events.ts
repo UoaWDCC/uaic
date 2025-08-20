@@ -8,7 +8,7 @@ export const Events: CollectionConfig = {
     plural: 'Events'
   },
   admin: {
-
+    
   },
   upload: {
     imageSizes: [
