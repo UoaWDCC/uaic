@@ -7,6 +7,7 @@ import FAQ from './collections/FAQ';
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
 import { InvestmentCommitteeImages } from "./collections/InvestmentCommitteeImages";
+import { Portfolio } from "./collections/Portfolio";
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -16,6 +17,7 @@ export default buildConfig({
     Users,
     Media,
     InvestmentCommitteeImages,
+    Portfolio,
   ],
 
   secret: process.env.PAYLOAD_SECRET || "",
