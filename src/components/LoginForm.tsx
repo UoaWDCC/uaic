@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useEffect } from 'react';
 import { signIn } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
+import { useSession } from '@/lib/auth-client';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -10,6 +12,7 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
+  const session = useSession();
 
   const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +36,15 @@ export default function LoginForm() {
       setLoading(false);
     }
   };
-
+  useEffect(() => {
+        if (!session.isPending){
+          if (session.data?.user.email === "ngar756@aucklanduni.ac.nz"){
+            router.push('/dashboard');
+          } else {
+            console.log("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLL");
+          }
+        }
+      }, [session]);
   const handleGoogleSignIn = async () => {
     setLoading(true);
     setError('');

@@ -3,8 +3,6 @@ import { MongoClient } from "mongodb";
 
 const uri = process.env.DATABASE_URI as string;
 
-console.log("Whaddup")
-
 if (!uri) {
   throw new Error("Please define the MONGODB_URI environment variable in .env");
 }
