@@ -1,6 +1,7 @@
 import BulletinCommittee from "@/components/about/BulletinCommittee";
 import ExecutiveCommittee from "@/components/about/ExecutiveCommittee";
 import InvestmentCommittee from "@/components/about/InvestmentCommittee";
+import BlueGradient from "@/components/BlueGradient";
 
 export default function about() {
   return (
@@ -19,6 +20,7 @@ export default function about() {
       <ExecutiveCommittee />
       <BulletinCommittee />
       <InvestmentCommittee/>
+      <BlueGradient/>
     </div>
   );
 }

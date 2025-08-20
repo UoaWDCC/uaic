@@ -1,5 +1,6 @@
 'use client';
 
+import BlueGradient from "@/components/BlueGradient";
 import JoinUsDescription from "@/components/joinus/JoinUsDescription";
 import MembershipSection from "@/components/joinus/MembershipSection";
 import SignupSection from "@/components/joinus/SignupSection";
@@ -10,7 +11,7 @@ const JoinUsPage= () => {
       <JoinUsDescription />
       <SignupSection />
       <MembershipSection />
-      
+      <BlueGradient/>
     </div>
   );
 }
