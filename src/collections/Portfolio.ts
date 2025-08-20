@@ -14,7 +14,8 @@ export const Portfolio: CollectionConfig = {
     },
     {
       name: "description",
-      type: "textarea", // larger text area for descriptions
+      type: "textarea", 
+      required: true,
     },
     {
       name: "investmentDate",
@@ -24,14 +25,17 @@ export const Portfolio: CollectionConfig = {
     {
       name: "ticker",
       type: "text",
+      required: true,
     },
     {
       name: "exchange",
       type: "text",
+      required: true,
     },
     {
       name: "industry",
       type: "text",
+      required: true,
     },
   ],
 };
