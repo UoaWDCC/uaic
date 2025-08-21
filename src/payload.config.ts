@@ -7,6 +7,9 @@ import FAQ from './collections/FAQ';
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
 import { InvestmentCommitteeImages } from "./collections/InvestmentCommitteeImages";
+import { Member } from "./collections/Member";
+import { Events } from "./collections/Events";
+import { Executive } from "./collections/Executive";
 import { Portfolio } from "./collections/Portfolio";
 
 export default buildConfig({
@@ -17,6 +20,8 @@ export default buildConfig({
     Users,
     Media,
     InvestmentCommitteeImages,
+    Member, 
+    Events,
     Portfolio,
   ],
 
