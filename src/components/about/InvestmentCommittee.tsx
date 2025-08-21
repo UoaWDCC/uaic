@@ -1,27 +1,14 @@
-"use client";
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { getICGroupPhoto } from "@/features/users/data/getICGroupPhoto";
 
-const InvestmentCommittee = () => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+export default async function InvestmentCommittee() {
+  let imageUrl: string | null = null;
 
-  useEffect(() => {
-    const fetchImage = async () => {
-      try {
-        const url = await getICGroupPhoto();
-        setImageUrl(url);
-      } catch (error) {
-        console.error("Failed to load image:", error);
-        setImageUrl(null);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchImage();
-  }, []);
+  try {
+    imageUrl = await getICGroupPhoto();
+  } catch (error) {
+    console.error("Failed to load IC group photo:", error);
+  }
 
   return (
     <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">
@@ -29,6 +16,7 @@ const InvestmentCommittee = () => {
         <span className="font-bold md:text-[20px] text-darkBlue">
           Investment Committee
         </span>
+
         <div className="text-sm text-darkBlue flex flex-col items-center">
           <div className="w-9/10 flex flex-col items-center">
             <p className="mb-4">
@@ -51,11 +39,7 @@ const InvestmentCommittee = () => {
             </ul>
 
             <div className="w-full h-[300px] flex items-center justify-center overflow-hidden rounded-lg">
-              {isLoading ? (
-                <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                  <span>Loading image...</span>
-                </div>
-              ) : imageUrl ? (
+              {imageUrl ? (
                 <Image
                   src={imageUrl}
                   alt="investment-committee"
@@ -73,7 +57,8 @@ const InvestmentCommittee = () => {
 
           <div className="items-center text-center mt-4">
             <p className="p-2">
-              <strong>Back Row: </strong>Max Wilson, Sam Gowen, Caden Van De Laak
+              <strong>Back Row: </strong>Max Wilson, Sam Gowen, Caden Van De
+              Laak
             </p>
             <p className="p-2">
               <strong>Middle Row: </strong>Sophia Walker, Caleb Manson, Matt
@@ -89,9 +74,8 @@ const InvestmentCommittee = () => {
           </div>
         </div>
       </div>
+
       <hr className="border-t border-grey-200 w-9/10 md:w-full self-center my-6" />
     </div>
   );
-};
-
-export default InvestmentCommittee;
+}
