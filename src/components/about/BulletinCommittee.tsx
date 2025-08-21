@@ -37,24 +37,8 @@ const BulletinCommittee = () => {
   return (
     <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">
       <div>
-        <button
-          onClick={() => {
-            setIsMainOpen(!isMainOpen);
-            // closes inner dropdowns
-            setIsMembersOpen(false);
-          }}
-          className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2 hover:cursor-pointer"
-        >
-          <span className="font-bold md:text-[20px]">Bulletin Committees</span>
-          {isMainOpen ? (
-            <IoIosArrowUp size={30} />
-          ) : (
-            <IoIosArrowDown size={30} />
-          )}
-        </button>
-
-        {isMainOpen && (
-          <div className="text-sm text-darkBlue flex flex-col items-center">
+        <span className="font-bold md:text-[20px] text-darkBlue">Bulletin Committee</span>
+          <div className="text-sm text-darkBlue flex flex-col items-center mt-[1em]">
             {/* changed nathans sizing design slightly, as the edges of the description and image were getting cut off at smaller widths below 500px */}
             <div className="w-9/10 flex flex-col items-center">
               <p className="mb-4">
@@ -135,7 +119,6 @@ const BulletinCommittee = () => {
               </div>
             )}
           </div>
-        )}
       </div>
 
       <hr className="border-t border-grey-200 w-9/10 md:w-full self-center my-6" />
