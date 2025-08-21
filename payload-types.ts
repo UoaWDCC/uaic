@@ -71,6 +71,9 @@ export interface Config {
     users: User;
     media: Media;
     'investment-committee-images': InvestmentCommitteeImage;
+    member: Member;
+    events: Event;
+    portfolio: Portfolio;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -81,6 +84,9 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'investment-committee-images': InvestmentCommitteeImagesSelect<false> | InvestmentCommitteeImagesSelect<true>;
+    member: MemberSelect<false> | MemberSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
+    portfolio: PortfolioSelect<false> | PortfolioSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -199,6 +205,51 @@ export interface InvestmentCommitteeImage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "member".
+ */
+export interface Member {
+  id: string;
+  member: string;
+  upi: string;
+  studentID: string;
+  role: string;
+  degree: string;
+  events?: (string | Event)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: string;
+  event: string;
+  date: string;
+  location: string;
+  description: string;
+  image?: (string | null) | Media;
+  attendees?: (string | Member)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "portfolio".
+ */
+export interface Portfolio {
+  id: string;
+  companyName: string;
+  description: string;
+  investmentDate: string;
+  ticker: string;
+  exchange: string;
+  industry: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -219,6 +270,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'investment-committee-images';
         value: string | InvestmentCommitteeImage;
+      } | null)
+    | ({
+        relationTo: 'member';
+        value: string | Member;
+      } | null)
+    | ({
+        relationTo: 'events';
+        value: string | Event;
+      } | null)
+    | ({
+        relationTo: 'portfolio';
+        value: string | Portfolio;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -338,6 +401,48 @@ export interface InvestmentCommitteeImagesSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "member_select".
+ */
+export interface MemberSelect<T extends boolean = true> {
+  member?: T;
+  upi?: T;
+  studentID?: T;
+  role?: T;
+  degree?: T;
+  events?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  event?: T;
+  date?: T;
+  location?: T;
+  description?: T;
+  image?: T;
+  attendees?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "portfolio_select".
+ */
+export interface PortfolioSelect<T extends boolean = true> {
+  companyName?: T;
+  description?: T;
+  investmentDate?: T;
+  ticker?: T;
+  exchange?: T;
+  industry?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
