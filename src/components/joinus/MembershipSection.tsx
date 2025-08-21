@@ -15,7 +15,7 @@ const MembershipSection = () => {
       <h1
         className="
           mt-10 md:pl-10 px-4
-          text-[19px] md:text-[20px]
+          text-header
           font-bold text-darkBlue
         "
       >
@@ -27,7 +27,7 @@ const MembershipSection = () => {
       <div
         className="
           mt-6 md:pl-10 px-4 self-center
-          text-sm md:text-[13px] font-normal leading-relaxed text-darkBlue
+          text-body font-normal leading-relaxed text-darkBlue
         "
       >
         <p>

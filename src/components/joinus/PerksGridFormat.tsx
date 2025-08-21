@@ -21,14 +21,14 @@ const PerksGridFormat: React.FC<SignupPerksFormatProps> = ({
       <h2
         className="
         font-bold
-        text-base
+        text-header
       "
       >
         {title}
       </h2>
       <p
         className="
-        font-light text-sm
+        font-light text-body
       "
       >
         {text}
