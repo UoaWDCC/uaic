@@ -37,7 +37,7 @@ const BulletinCommittee = () => {
   return (
     <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">
       <div>
-        <span className="font-bold md:text-[20px]">Bulletin Committees</span>
+        <span className="font-bold md:text-[20px] text-darkBlue">Bulletin Committee</span>
           <div className="text-sm text-darkBlue flex flex-col items-center mt-[1em]">
             {/* changed nathans sizing design slightly, as the edges of the description and image were getting cut off at smaller widths below 500px */}
             <div className="w-9/10 flex flex-col items-center">

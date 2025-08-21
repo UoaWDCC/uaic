@@ -29,19 +29,7 @@ const handleToggle = async () => {
   return (
     <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">
       <div>
-        <button
-          onClick={handleToggle}
-          className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2 hover:cursor-pointer"
-        >
-          <span className="font-bold md:text-[20px]">Investment Committees</span>
-          {isMainOpen ? (
-            <IoIosArrowUp size={30} />
-          ) : (
-            <IoIosArrowDown size={30} />
-          )}
-        </button>
-
-        {isMainOpen && (
+        <span className="font-bold md:text-[20px] text-darkBlue">Investment Committee</span>
           <div className="text-sm text-darkBlue flex flex-col items-center">
             <div className="w-9/10 flex flex-col items-center">
               <p className="mb-4">
@@ -101,7 +89,6 @@ const handleToggle = async () => {
               </p>
             </div>
           </div>
-        )}
       </div>
 
       <hr className="border-t border-grey-200 w-9/10 md:w-full self-center my-6" />
