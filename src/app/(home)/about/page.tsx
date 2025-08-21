@@ -9,8 +9,8 @@ export default function about() {
       <div className="">
         <h1
           className="
-                    text-darkBlue font-bold pb-4 px-4 text-[19px]
-                    md:pl-10 md:text-[27px]
+                    text-darkBlue font-bold pb-4 px-4 text-header
+                    md:pl-10
                 "
         >
           The Committees

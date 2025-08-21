@@ -22,7 +22,7 @@ const ProfileCard = ({ name, title, degree, imageSrc }: ProfileCardProps) => {
       <p className="text-darkBlue font-bold">
         {name} | {title}
       </p>
-      <p className="text-darkBlue text-sm">{degree}</p>
+      <p className="text-darkBlue text-body">{degree}</p>
     </div>
   );
 };
