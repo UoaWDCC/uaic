@@ -12,12 +12,12 @@ const SignupSection = () => {
     pl-3 pr-3 py-10
     sm:pl-10 sm:pr-10 sm:py-0"
     >
-      <h1 className="mt-6 md:pl-10 text-darkBlue font-bold px-4 text-[19px] md:text-[20px]">
+      <h1 className="mt-6 md:pl-10 text-darkBlue font-bold px-4 text-header">
         Sign Up to Join Competitions
       </h1>
       <hr className="border-t border-grey-200 w-[95%] mx-auto" />
 
-      <div className="mt-6 md:pl-10 px-4 text-darkBlue leading-relaxed text-sm font-normal self-center">
+      <div className="mt-6 md:pl-10 px-4 text-darkBlue leading-relaxed text-body font-normal self-center">
         <p>
           Sign up to register competitions Lorem ipsum dolor sit amet,
           consectetur adipiscing elit, sed do eiusmod tempor incididunt ut

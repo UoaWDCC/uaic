@@ -9,48 +9,48 @@ const ContactPage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-5 px-8">
         {/* Left Column - Contact Info */}
         <div>
-          <h1 className="text-3xl font-bold text-darkBlue mb-8">Contact</h1>
+          <h1 className="text-title font-bold text-darkBlue mb-8">Contact</h1>
 
           {/* Email Inquiries */}
           <div className="mb-8">
-            <h2 className="text-xl font-bold text-darkBlue mb-4">
+            <h2 className="text-header font-bold text-darkBlue mb-4">
               Email Inquiries
             </h2>
             <div className="space-y-3">
               <div>
-                <h3 className="font-bold text-darkBlue">General Inquiries</h3>
+                <h3 className="font-bold text-darkBlue text-body">General Inquiries</h3>
                 <Link
                   href="mailto:president@uaic.co.nz"
-                  className="text-darkBlue underline"
+                  className="text-darkBlue underline text-body"
                 >
                   president@uaic.co.nz
                 </Link>
               </div>
               <div>
-                <h3 className="font-bold text-darkBlue">Event Inquiries</h3>
+                <h3 className="font-bold text-darkBlue text-body">Event Inquiries</h3>
                 <Link
                   href="mailto:marketing@uaic.co.nz"
-                  className="text-darkBlue underline"
+                  className="text-darkBlue underline text-body"
                 >
                   marketing@uaic.co.nz
                 </Link>
               </div>
               <div>
-                <h3 className="font-bold text-darkBlue">
+                <h3 className="font-bold text-darkBlue text-body">
                   Competitions Inquiries
                 </h3>
                 <Link
                   href="mailto:competitions@uaic.co.nz"
-                  className="text-darkBlue underline"
+                  className="text-darkBlue underline text-body"
                 >
                   competitions@uaic.co.nz
                 </Link>
               </div>
               <div>
-                <h3 className="font-bold text-darkBlue">Bulletin Inquiries</h3>
+                <h3 className="font-bold text-darkBlue text-body">Bulletin Inquiries</h3>
                 <Link
                   href="mailto:education@uaic.co.nz"
-                  className="text-darkBlue underline"
+                  className="text-darkBlue underline text-body"
                 >
                   education@uaic.co.nz
                 </Link>
@@ -60,7 +60,7 @@ const ContactPage = () => {
 
           {/* Social Media */}
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-darkBlue mb-4">
+            <h2 className="text-header font-semibold text-darkBlue mb-4">
               Find Us on Social Media
             </h2>
             <div className="space-y-3">
@@ -69,7 +69,7 @@ const ContactPage = () => {
                 <Link
                   href="https://www.instagram.com/officialuaic/"
                   target="_blank"
-                  className="text-darkBlue underline"
+                  className="text-darkBlue underline text-body"
                 >
                   @officialuaic
                 </Link>
@@ -79,7 +79,7 @@ const ContactPage = () => {
                 <Link
                   href="https://www.facebook.com/officialUAIC"
                   target="_blank"
-                  className="text-darkBlue underline"
+                  className="text-darkBlue underline text-body"
                 >
                   University of Auckland Investment Club
                 </Link>
@@ -89,17 +89,17 @@ const ContactPage = () => {
                 <Link
                   href="https://www.linkedin.com/company/officialuaic/"
                   target="_blank"
-                  className="text-darkBlue underline"
+                  className="text-darkBlue underline text-body"
                 >
                   University of Auckland Investment Club
                 </Link>
               </div>
               <div className="flex items-center space-x-3">
-                <FaTiktok className="h-5 w-5 text-darkBlue" />
+                <FaTiktok className="h-5 w-5 text-darkBlue text-body" />
                 <Link
                   href="https://www.tiktok.com/@officialuaic"
                   target="_blank"
-                  className="text-darkBlue underline"
+                  className="text-darkBlue underline text-body"
                 >
                   @officialuaic UoA Investment Club
                 </Link>
@@ -109,10 +109,10 @@ const ContactPage = () => {
 
           {/* Address */}
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-darkBlue mb-4">
+            <h2 className="text-header font-semibold text-darkBlue mb-4">
               Address
             </h2>
-            <div className="text-darkBlue font-bold">
+            <div className="text-darkBlue font-bold text-body">
               <p>University of Auckland Investment Club</p>
               <p>Level 1, Owen G. Glenn Building</p>
               <p>12 Grafton Road, Auckland CBD</p>

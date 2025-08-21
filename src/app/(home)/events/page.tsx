@@ -21,9 +21,8 @@ const page = () => {
             ">
                 <h1 className="
                     text-darkBlue 
-                    font-[590] 
-                    
-                    lg:text-2xl
+                    font-bold 
+                    text-title
                 ">
                     Upcoming Events
                 </h1>
@@ -41,9 +40,8 @@ const page = () => {
             ">
                 <h1 className="
                     text-darkBlue 
-                    font-[590] 
-                    
-                    lg:text-2xl
+                    font-bold 
+                    text-title
                 ">
                     Recent Events
                 </h1>

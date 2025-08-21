@@ -188,7 +188,7 @@ const teamProfiles: Record<
             degree: "LLB/BCom - Finance & Accounting",
             imageSrc: "/assets/execs/social/miles-tapsell.webp",
         },
-        {
+        { 
             name: "Sam Gowen",
             title: "Social Officer",
             degree: "BCom - Finance & Marketing",
@@ -218,7 +218,7 @@ const ExecutiveCommittee = () => {
     return (
         <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">
             <div>
-                <span className="font-bold md:text-[20px] text-darkBlue">
+                <span className="font-bold text-header text-darkBlue">
                     Executive Committees
                 </span>
 
@@ -241,12 +241,12 @@ const ExecutiveCommittee = () => {
 
                     {/* Render subteams */}
                     {executiveSubteams.map((team) => (
-                        <div key={team}>
+                        <div key={team} className="mt-[0.5rem]">
                             <button
                                 onClick={() => toggleSubteam(team)}
                                 className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2 hover:cursor-pointer"
                             >
-                                <span className="font-bold">{team}</span>
+                                <span className="font-bold text-header w-[22rem] md:w-[30rem]">{team}</span>
                                 {openSubteams.includes(team) ? (
                                     <IoIosArrowUp size={30} />
                                 ) : (
@@ -263,7 +263,7 @@ const ExecutiveCommittee = () => {
                                                 (member) => (
                                                     <div
                                                         key={member.name}
-                                                        className=""
+                                                        className="text-body"
                                                     >
                                                         <ProfileCard
                                                             name={member.name}

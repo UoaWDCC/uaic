@@ -37,10 +37,10 @@ const BulletinCommittee = () => {
   return (
     <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">
       <div>
-        <span className="font-bold md:text-[20px] text-darkBlue">Bulletin Committee</span>
+        <span className="font-bold text-header text-darkBlue">Bulletin Committee</span>
           <div className="text-sm text-darkBlue flex flex-col items-center mt-[1em]">
             {/* changed nathans sizing design slightly, as the edges of the description and image were getting cut off at smaller widths below 500px */}
-            <div className="w-9/10 flex flex-col items-center">
+            <div className="w-9/10 flex flex-col items-center text-body">
               <p className="mb-4">
                 The Bulletin Committee is responsible for publishing the club's
                 bulletin, including:
@@ -67,7 +67,7 @@ const BulletinCommittee = () => {
               </div>
             </div>
 
-            <div className="items-center text-center mt-4">
+            <div className="items-center text-center mt-4 text-body">
               <p className="p-2">
                 <strong>Back Row: </strong>Daniel Gunho-Song, Andy Tran, Sohum
                 Karl, Meghana Gaddam
@@ -93,7 +93,7 @@ const BulletinCommittee = () => {
               onClick={() => setIsMembersOpen(!isMembersOpen)}
               className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2 hover:cursor-pointer"
             >
-              <span className="font-bold ">Team Members and Roles</span>
+              <span className="font-bold text-body">Team Members and Roles</span>
               {isMembersOpen ? (
                 <IoIosArrowUp size={30} />
               ) : (
@@ -104,14 +104,14 @@ const BulletinCommittee = () => {
             {isMembersOpen && (
               <div>
                 <section className="w-full max-w-6xl mx-auto px-4 py-8 ">
-                  <h2 className="text-2xl font-semibold mb-6">
+                  <h2 className="text-2xl font-semibold mb-6 text-body">
                     Team Members & Roles
                   </h2>
                   <div className="grid grid-cols-2 md:grid-cols-4  lg:grid-cols-4 gap-y-4 gap-x-6">
                     {members.map((member, index) => (
                       <div key={index}>
-                        <p className="text-base font-bold">{member.name}</p>
-                        <p className="text-base">{member.role}</p>
+                        <p className="text-base font-bold text-body">{member.name}</p>
+                        <p className="text-base text-body">{member.role}</p>
                       </div>
                     ))}
                   </div>
