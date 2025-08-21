@@ -2,6 +2,9 @@ import type { CollectionConfig, CollectionSlug  } from "payload";
 
 export const Member: CollectionConfig = {
   slug: 'member',
+  admin: {
+    useAsTitle: 'member',
+  },
   fields: [
     {
       name: 'member', 
@@ -39,7 +42,6 @@ export const Member: CollectionConfig = {
       label: "Events",
       relationTo: 'events' as CollectionSlug,
       hasMany: true,
-      required: true
     },
   ],
   access: {

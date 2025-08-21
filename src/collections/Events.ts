@@ -8,12 +8,7 @@ export const Events: CollectionConfig = {
     plural: 'Events'
   },
   admin: {
-    
-  },
-  upload: {
-    imageSizes: [
-      
-    ]
+    useAsTitle: 'event',
   },
   fields: [
     {
@@ -45,7 +40,6 @@ export const Events: CollectionConfig = {
       type: 'upload',
       label: 'Image',
       relationTo: 'media',
-      required: true
     },
     {
       name: 'attendees',
@@ -53,7 +47,6 @@ export const Events: CollectionConfig = {
       label: 'Attendees',
       relationTo: 'member' as CollectionSlug,
       hasMany: true,
-      required: true
     }
   ],
   access: {
