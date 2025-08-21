@@ -13,13 +13,13 @@ export default async function InvestmentCommittee() {
   return (
     <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">
       <div>
-        <span className="font-bold md:text-[20px] text-darkBlue">
+        <span className="font-bold text-header text-darkBlue">
           Investment Committee
         </span>
 
         <div className="text-sm text-darkBlue flex flex-col items-center">
-          <div className="w-9/10 flex flex-col items-center">
-            <p className="mb-4">
+          <div className="w-9/10 flex flex-col items-center text-body">
+            <p className="my-4">
               The Investment Committee is responsible for managing the club's
               fund, including:
             </p>
@@ -55,7 +55,7 @@ export default async function InvestmentCommittee() {
             </div>
           </div>
 
-          <div className="items-center text-center mt-4">
+          <div className="items-center text-center mt-4 text-body">
             <p className="p-2">
               <strong>Back Row: </strong>Max Wilson, Sam Gowen, Caden Van De
               Laak
