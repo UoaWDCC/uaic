@@ -246,7 +246,7 @@ const ExecutiveCommittee = () => {
                                 onClick={() => toggleSubteam(team)}
                                 className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2 hover:cursor-pointer"
                             >
-                                <span className="font-bold text-header w-[22rem]">{team}</span>
+                                <span className="font-bold text-header w-[22rem] md:w-[30rem]">{team}</span>
                                 {openSubteams.includes(team) ? (
                                     <IoIosArrowUp size={30} />
                                 ) : (

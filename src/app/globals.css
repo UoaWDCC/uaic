@@ -58,7 +58,7 @@
   /* 📏 Font sizes */
   --text-title: 2rem;
   --text-header: 1.3rem;
-  --text-body: 0.9rem;
+  --text-body: 1rem;
 }
 
 body {

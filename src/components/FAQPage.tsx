@@ -32,7 +32,7 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
 
   return (
     <div className="lg:px-16">
-      <div className="px-8 py-4 text-[23px] font-bold text-darkBlue lg:pt-0 lg:text-[35px]">
+      <div className="px-8 py-4 text-title font-bold text-darkBlue lg:pt-0">
         FAQ
       </div>
 
@@ -41,13 +41,13 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
       {faqs.map((faq) => (
         <div
           key={faq.id}
-          className="m-4 mb-10 rounded-lg p-4 shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:shadow-none"
+          className="m-4 mb-4 rounded-lg p-4 shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:shadow-none"
         >
           <button
             onClick={() => toggleFaq(faq.id)}
             className="flex w-full items-center justify-between text-left text-darkBlue"
           >
-            <span className="text-[18px] font-bold lg:text-[28px]">
+            <span className="text-header font-bold">
               {faq.question}
             </span>
             {openFaqs[faq.id] ? (
@@ -59,7 +59,7 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
           {openFaqs[faq.id] && (
             <div className="text-sm text-darkBlue">
               <div className="w-full">
-                <p className="mt-4 text-[16px] font-normal lg:text-[24px]">
+                <p className="mt-4 text-body font-normal">
                   {faq.answer}
                 </p>
               </div>
