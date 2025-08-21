@@ -42,7 +42,7 @@ const LatestArticle: React.FC<LatestArticleProps> = ({
         lg:bg-[radial-gradient(70%_60%_at_50%_55%,rgba(20,92,169,0.4)_0%,rgba(255,255,255,0.2)_80%)]
       "
     >
-      <h1 className="text-darkBlue font-[590] hidden text-xl lg:block lg:text-2xl">
+      <h1 className="text-darkBlue font-bold hidden text-title lg:block lg:text-2xl">
         Latest Article
       </h1>
 
@@ -60,12 +60,12 @@ const LatestArticle: React.FC<LatestArticleProps> = ({
           </div>
 
           {/* Text */}
-          <div className="flex-1 pt-6 pr-4">
-            <h2 className="text-sm mb-2 font-light">Issue #{issueNumber}</h2>
-            <h1 className="text-xl font-bold mb-4 leading-tight">{truncatedTitle}</h1>
+          <div className="flex-1 pt-6 pr-4 text-body">
+            <h2 className="mb-2 font-light">Issue #{issueNumber}</h2>
+            <h1 className="font-bold mb-4 leading-tight">{truncatedTitle}</h1>
             <p className="mb-6 text-darkBlue font-light">{truncatedDescription}</p>
             <div className="w-[224px] h-[35px]">
-              <Button link={pdfUrl}>Read More</Button>
+              <Button link={pdfUrl} className="text-body">Read More</Button>
             </div>
           </div>
         </div>

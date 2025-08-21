@@ -55,9 +55,7 @@ const ArticleListItem: React.FC<ArticleListItemProps> = ({
         <h2
           className="
         font-bold
-
         text-sm
-
         lg:text-2xl 
       "
         >

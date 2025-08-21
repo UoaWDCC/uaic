@@ -5,7 +5,7 @@ import BulletinInfosection from "@/components/bulletin/BulletinInfoSection";
 import Bulletin from "@/components/home/Bulletin";
 import ArticleList from "@/components/home/ArticleList";
 import BlueGradient from "@/components/BlueGradient";
-
+ 
 const page = () => {
   return (
     <div className="w-full flex flex-col items-center">
@@ -33,7 +33,6 @@ const page = () => {
 
       <div className="order-4 lg:order-5 w-full">
         <ArticleList />
-        <BlueGradient/>
       </div>
     </div>
   );

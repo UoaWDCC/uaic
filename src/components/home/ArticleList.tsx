@@ -19,9 +19,8 @@ const ArticleList: React.FC = () => {
       <h1
         className="
         text-darkBlue 
-        font-[590] 
-        
-        lg:text-2xl
+        font-bold
+        text-title
       "
       >
         All Articles

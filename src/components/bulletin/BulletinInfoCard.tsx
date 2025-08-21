@@ -22,14 +22,14 @@ const BulletinInfoCard: React.FC<BulletinInfoCardProps> = ({
       <h1
         className="
         font-bold
-        text-xl
+        text-header
       "
       >
         {title}
       </h1>
       <p
         className="
-        font-light text-sm
+        font-light text-body
       "
       >
         {text}
