@@ -26,7 +26,7 @@ export default buildConfig({
 
   upload: {
     limits: {
-      fileSize: 5000000,
+      fileSize: 20 * 1024 * 1024, // Had to increase to 20MiB as it was hardcapping my beautiful pdf uploads
     },
   },
 
