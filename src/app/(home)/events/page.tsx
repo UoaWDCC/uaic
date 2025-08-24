@@ -2,6 +2,7 @@ import React from "react";
 import EventLanding from "@/components/events/EventLanding";
 import RecentEvents from "@/components/events/RecentEvents";
 import UpcomingEvents from "@/components/events/UpcomingEvents";
+import BlueGradient from "@/components/BlueGradient";
 
 const page = () => {
   return (
@@ -20,9 +21,8 @@ const page = () => {
             ">
                 <h1 className="
                     text-darkBlue 
-                    font-[590] 
-                    
-                    lg:text-2xl
+                    font-bold 
+                    text-title
                 ">
                     Upcoming Events
                 </h1>
@@ -40,15 +40,15 @@ const page = () => {
             ">
                 <h1 className="
                     text-darkBlue 
-                    font-[590] 
-                    
-                    lg:text-2xl
+                    font-bold 
+                    text-title
                 ">
                     Recent Events
                 </h1>
 
                 <RecentEvents />
             </div>
+            <BlueGradient/>
         </div>
     </div>
   );

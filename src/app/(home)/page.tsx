@@ -16,7 +16,6 @@ export default function Home() {
       <ArticleList />
       <UpdatedBulletin />
       <InvestConnectWork />
-
     </div>
   );
 }

@@ -4,7 +4,8 @@ import LatestArticle from "@/components/bulletin/LatestArticle";
 import BulletinInfosection from "@/components/bulletin/BulletinInfoSection";
 import Bulletin from "@/components/home/Bulletin";
 import ArticleList from "@/components/home/ArticleList";
-
+import BlueGradient from "@/components/BlueGradient";
+ 
 const page = () => {
   return (
     <div className="w-full flex flex-col items-center">

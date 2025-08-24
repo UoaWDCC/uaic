@@ -1,15 +1,16 @@
 import BulletinCommittee from "@/components/about/BulletinCommittee";
 import ExecutiveCommittee from "@/components/about/ExecutiveCommittee";
 import InvestmentCommittee from "@/components/about/InvestmentCommittee";
+import BlueGradient from "@/components/BlueGradient";
 
 export default function about() {
   return (
-    <div className="mt-[10em] md:mt-[12em] min-h-[90vh]">
+    <div className="mt-[10em] md:mt-[11.5em] min-h-[90vh]">
       <div className="">
         <h1
           className="
-                    text-darkBlue font-bold p-4 text-[19px]
-                    md:pl-10 md:text-[27px]
+                    text-darkBlue font-bold pb-4 px-4 text-header
+                    md:pl-10
                 "
         >
           The Committees
@@ -19,6 +20,7 @@ export default function about() {
       <ExecutiveCommittee />
       <BulletinCommittee />
       <InvestmentCommittee/>
+      <BlueGradient/>
     </div>
   );
 }

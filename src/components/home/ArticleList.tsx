@@ -19,7 +19,6 @@ const ArticleList = async () => {
       "
     >
       <h1 className="text-darkBlue font-[590] lg:text-2xl">All Articles</h1>
-
       {/* Dropdown Container */}
       <div
         className="
