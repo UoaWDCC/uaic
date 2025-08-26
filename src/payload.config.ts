@@ -7,6 +7,7 @@ import FAQ from './collections/FAQ';
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
 import { InvestmentCommitteeImages } from "./collections/InvestmentCommitteeImages";
+import { Bulletins } from "./collections/Bulletins";
 import { Member } from "./collections/Member";
 import { Events } from "./collections/Events";
 import { Executive } from "./collections/Executive";
@@ -20,6 +21,7 @@ export default buildConfig({
     Users,
     Media,
     InvestmentCommitteeImages,
+    Bulletins,
     Member, 
     Events,
     Portfolio,
@@ -33,7 +35,7 @@ export default buildConfig({
 
   upload: {
     limits: {
-      fileSize: 5000000,
+      fileSize: 20 * 1024 * 1024, // Had to increase to 20MiB as it was hardcapping my beautiful pdf uploads
     },
   },
 
