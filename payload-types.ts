@@ -71,7 +71,9 @@ export interface Config {
     users: User;
     media: Media;
     'investment-committee-images': InvestmentCommitteeImage;
+    bulletin: Bulletin;
     member: Member;
+    executive: Executive;
     events: Event;
     portfolio: Portfolio;
     'payload-locked-documents': PayloadLockedDocument;
@@ -84,7 +86,9 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'investment-committee-images': InvestmentCommitteeImagesSelect<false> | InvestmentCommitteeImagesSelect<true>;
+    bulletin: BulletinSelect<false> | BulletinSelect<true>;
     member: MemberSelect<false> | MemberSelect<true>;
+    executive: ExecutiveSelect<false> | ExecutiveSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     portfolio: PortfolioSelect<false> | PortfolioSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -205,6 +209,27 @@ export interface InvestmentCommitteeImage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bulletin".
+ */
+export interface Bulletin {
+  id: string;
+  /**
+   * Upload the PDF directly or select from media
+   */
+  bulletinPDF: string | Media;
+  issueNumber: number;
+  publishDate: string;
+  title: string;
+  description?: string | null;
+  /**
+   * Only image files are allowed
+   */
+  bulletinCover?: (string | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "member".
  */
 export interface Member {
@@ -212,9 +237,21 @@ export interface Member {
   member: string;
   upi: string;
   studentID: string;
-  role: string;
+  role: 'member' | 'exec' | 'leadership';
+  executiveInformation?: (string | null) | Executive;
   degree: string;
   events?: (string | Event)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "executive".
+ */
+export interface Executive {
+  id: string;
+  executive: string;
+  member?: (string | Member)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -225,7 +262,8 @@ export interface Member {
 export interface Event {
   id: string;
   event: string;
-  date: string;
+  startDate: string;
+  endDate: string;
   location: string;
   description: string;
   image?: (string | null) | Media;
@@ -272,8 +310,16 @@ export interface PayloadLockedDocument {
         value: string | InvestmentCommitteeImage;
       } | null)
     | ({
+        relationTo: 'bulletin';
+        value: string | Bulletin;
+      } | null)
+    | ({
         relationTo: 'member';
         value: string | Member;
+      } | null)
+    | ({
+        relationTo: 'executive';
+        value: string | Executive;
       } | null)
     | ({
         relationTo: 'events';
@@ -404,6 +450,20 @@ export interface InvestmentCommitteeImagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bulletin_select".
+ */
+export interface BulletinSelect<T extends boolean = true> {
+  bulletinPDF?: T;
+  issueNumber?: T;
+  publishDate?: T;
+  title?: T;
+  description?: T;
+  bulletinCover?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "member_select".
  */
 export interface MemberSelect<T extends boolean = true> {
@@ -411,8 +471,19 @@ export interface MemberSelect<T extends boolean = true> {
   upi?: T;
   studentID?: T;
   role?: T;
+  executiveInformation?: T;
   degree?: T;
   events?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "executive_select".
+ */
+export interface ExecutiveSelect<T extends boolean = true> {
+  executive?: T;
+  member?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -422,7 +493,8 @@ export interface MemberSelect<T extends boolean = true> {
  */
 export interface EventsSelect<T extends boolean = true> {
   event?: T;
-  date?: T;
+  startDate?: T;
+  endDate?: T;
   location?: T;
   description?: T;
   image?: T;
