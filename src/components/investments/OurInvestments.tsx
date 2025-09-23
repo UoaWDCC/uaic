@@ -45,45 +45,52 @@ const OurInvestments = () => {
   const [activeTab, setActiveTab] = useState<"current" | "past">("current");
 
   return (
-    <section className="px-6 py-12">
-{/* Pills style tab switcher */}
-<div className="flex justify-center mb-12 relative">
-  <div className="relative flex bg-darkBlue border-5 border-darkBlue rounded-full overflow-hidden w-[400px]">
-    {/* Sliding background */}
-    <div
-      className="absolute top-0 left-0 h-full w-1/2 bg-white rounded-full transition-transform duration-300"
-      style={{
-        transform:
-          activeTab === "current" ? "translateX(0%)" : "translateX(100%)",
-      }}
-    />
-    <button
-      onClick={() => setActiveTab("current")}
-      className={`relative w-1/2 px-6 py-2 text-sm font-semibold transition-colors duration-300 ${
-        activeTab === "current" ? "text-darkBlue" : "text-white"
-      }`}
-    >
-      Current Investments
-    </button>
-    <button
-      onClick={() => setActiveTab("past")}
-      className={`relative w-1/2 px-6 py-2 text-sm font-semibold transition-colors duration-300 ${
-        activeTab === "past" ? "text-darkBlue" : "text-white"
-      }`}
-    >
-      Past Investments
-    </button>
-  </div>
-</div>
+    <section className="px-4 py-8 lg:px-80 lg:py-12 bg-background">
+      {/* Pills style tab switcher */}
+      <div className="flex flex-col gap-4 lg:flex-row lg:justify-center mb-8 lg:mb-12">
+        <div className="relative flex w-full lg:w-[500px] bg-darkBlue border-2 lg:border-4 border-darkBlue rounded-full overflow-hidden">
+          {/* Sliding background */}
+          <div
+            className="absolute top-0 left-0 h-full w-1/2 bg-background rounded-full transition-transform duration-300"
+            style={{
+              transform:
+                activeTab === "current" ? "translateX(0%)" : "translateX(100%)",
+            }}
+          />
+          <button
+            onClick={() => setActiveTab("current")}
+            className={`relative w-1/2 px-4 py-2 text-sm lg:text-body font-semibold transition-colors duration-300 ${
+              activeTab === "current" ? "text-darkBlue" : "text-background"
+            }`}
+          >
+            Current Investments
+          </button>
+          <button
+            onClick={() => setActiveTab("past")}
+            className={`relative w-1/2 px-4 py-2 text-sm lg:text-body font-semibold transition-colors duration-300 ${
+              activeTab === "past" ? "text-darkBlue" : "text-background"
+            }`}
+          >
+            Past Investments
+          </button>
+        </div>
+      </div>
 
       {/* Investment cards */}
-      <div className="grid md:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10">
         {investments.map((inv, idx) => (
-          <div key={idx} className="p-6 hover:shadow-lg transition">
-            <h2 className="text-darkBlue font-bold text-lg mb-3">{inv.name}</h2>
-            <p className="text-foreground text-body mb-4">{inv.description}</p>
+          <div
+            key={idx}
+            className="p-4 lg:p-6 bg-background rounded-lg shadow-sm hover:shadow-lg transition"
+          >
+            <h2 className="text-darkBlue font-bold text-lg lg:text-header mb-2 lg:mb-3">
+              {inv.name}
+            </h2>
+            <p className="text-foreground text-sm lg:text-body mb-3 lg:mb-4">
+              {inv.description}
+            </p>
 
-            <div className="grid grid-cols-4 gap-4 text-sm text-foreground">
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 text-sm lg:text-body text-foreground">
               <div>
                 <p className="font-semibold text-darkBlue">Investment Date</p>
                 <p>{inv.date}</p>

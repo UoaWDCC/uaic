@@ -29,7 +29,7 @@ const StockView: React.FC<StockViewProps> = ({ symbol, title, height = 300 }) =>
       symbol,
       interval: "D",
       timezone: "Pacific/Auckland",
-      theme: "dark",
+      theme: "light",
       style: "1",
       locale: "en",
       hide_top_toolbar: true,
@@ -38,7 +38,7 @@ const StockView: React.FC<StockViewProps> = ({ symbol, title, height = 300 }) =>
       hide_volume: false,
       calendar: false,
       details: false,
-      backgroundColor: "#0F0F0F",
+      backgroundColor: "",
       gridColor: "rgba(242, 242, 242, 0.06)",
       save_image: true,
       withdateranges: false,
@@ -56,12 +56,12 @@ const StockView: React.FC<StockViewProps> = ({ symbol, title, height = 300 }) =>
   return (
     <div className="text-center">
       {/* Chart heading */}
-      <h2 className="text-xl font-semibold text-blue-900 mb-4">{title}</h2>
+      <h2 className="text-header font-semibold text-darkBlue mb-4">{title}</h2>
 
       {/* Chart container */}
       <div
         ref={widgetRef}
-        className="tradingview-widget-container mx-auto w-full max-w-3xl border border-gray-200 rounded-lg overflow-hidden shadow-md bg-white"
+        className="tradingview-widget-container mx-auto w-full max-w-3xl rounded-lg overflow-hidden shadow-md bg-background"
         style={{ height }}
       >
         <div
