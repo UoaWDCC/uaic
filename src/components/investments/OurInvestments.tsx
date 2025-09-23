@@ -46,39 +46,40 @@ const OurInvestments = () => {
 
   return (
     <section className="px-6 py-12">
-      {/* Tabs */}
-      <div className="flex justify-center mb-8">
-        <div className="flex border-b border-grey-200">
-          <button
-            onClick={() => setActiveTab("current")}
-            className={`px-6 py-2 font-semibold transition ${
-              activeTab === "current"
-                ? "text-white bg-darkBlue rounded-t-md"
-                : "text-darkBlue hover:bg-whiteHover rounded-t-md"
-            }`}
-          >
-            Current Investments
-          </button>
-          <button
-            onClick={() => setActiveTab("past")}
-            className={`px-6 py-2 font-semibold transition ${
-              activeTab === "past"
-                ? "text-white bg-darkBlue rounded-t-md"
-                : "text-darkBlue hover:bg-whiteHover rounded-t-md"
-            }`}
-          >
-            Past Investments
-          </button>
-        </div>
-      </div>
+{/* Pills style tab switcher */}
+<div className="flex justify-center mb-12 relative">
+  <div className="relative flex bg-darkBlue border-5 border-darkBlue rounded-full overflow-hidden w-[400px]">
+    {/* Sliding background */}
+    <div
+      className="absolute top-0 left-0 h-full w-1/2 bg-white rounded-full transition-transform duration-300"
+      style={{
+        transform:
+          activeTab === "current" ? "translateX(0%)" : "translateX(100%)",
+      }}
+    />
+    <button
+      onClick={() => setActiveTab("current")}
+      className={`relative w-1/2 px-6 py-2 text-sm font-semibold transition-colors duration-300 ${
+        activeTab === "current" ? "text-darkBlue" : "text-white"
+      }`}
+    >
+      Current Investments
+    </button>
+    <button
+      onClick={() => setActiveTab("past")}
+      className={`relative w-1/2 px-6 py-2 text-sm font-semibold transition-colors duration-300 ${
+        activeTab === "past" ? "text-darkBlue" : "text-white"
+      }`}
+    >
+      Past Investments
+    </button>
+  </div>
+</div>
 
       {/* Investment cards */}
       <div className="grid md:grid-cols-2 gap-10">
         {investments.map((inv, idx) => (
-          <div
-            key={idx}
-            className=" p-6 hover:shadow-lg transition"
-          >
+          <div key={idx} className="p-6 hover:shadow-lg transition">
             <h2 className="text-darkBlue font-bold text-lg mb-3">{inv.name}</h2>
             <p className="text-foreground text-body mb-4">{inv.description}</p>
 
