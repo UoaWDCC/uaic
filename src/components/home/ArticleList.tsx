@@ -4,7 +4,7 @@ import { Bulletin, getBulletins } from "@/features/bulletins/data/getBulletins";
 
 const ArticleList = async () => {
   // fetch bulletins server-side
-  const bulletins: Bulletin[] = await getBulletins();
+  const bulletins: Bulletin[] = await getBulletins({ limit: 100 });
 
   return (
     <div
