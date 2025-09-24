@@ -18,13 +18,13 @@ export interface Bulletin {
   }
 }
 
-export const getBulletins = async (): Promise<Bulletin[]> => {
+export const getBulletins = async ({ limit }: { limit: number }): Promise<Bulletin[]> => {
   const payload = await getPayload({ config })
 
   try {
     const result = await payload.find({
       collection: 'bulletin',
-      limit: 100,
+      limit: limit,
       sort: ['-issueNumber', '-publishDate'], 
       depth: 1,
     })
