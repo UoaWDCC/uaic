@@ -18,10 +18,28 @@ export const Events: CollectionConfig = {
       required: true
     },
     {
-      name: 'date',
-      type: 'text',
-      label: 'Date and Time',
-      required: true
+      name: 'startDate',
+      type: 'date',
+      label: 'Start Date & Time',
+      required: true,
+      admin: {
+        date: {
+          pickerAppearance: 'dayAndTime',
+          displayFormat: 'yyyy-MM-dd HH:mm',
+        },
+      },
+    },
+    {
+      name: 'endDate',
+      type: 'date',
+      label: 'End Date & Time',
+      required: true,
+      admin: {
+        date: {
+          pickerAppearance: 'dayAndTime',
+          displayFormat: 'yyyy-MM-dd HH:mm',
+        },
+      },
     },
     {
       name: 'location',

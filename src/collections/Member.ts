@@ -26,9 +26,25 @@ export const Member: CollectionConfig = {
     },
     {
       name: 'role',
-      type: 'text',
+      type: 'select',
       label: 'Role (Member, Exec, Leadership)',
+      options: [
+        { label: 'Member', value: 'member'},
+        { label: 'Executive', value: 'exec'},
+        { label: 'Leadership', value: 'leadership'}
+      ],
       required: true
+    },
+    {
+      name: 'executiveInformation',
+      type: 'relationship',
+      label: 'Executive Information',
+      relationTo: 'executive' as CollectionSlug,
+      required: false,
+      admin: {
+        condition: (data) => data?.role === 'exec',
+      }
+
     },
     {
       name: 'degree',
