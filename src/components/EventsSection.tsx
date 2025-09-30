@@ -25,7 +25,7 @@ const EventsSection = () => {
             px-6 py-2 
             rounded-full 
             transition-all duration-600 
-            font-medium 
+            font-medium hover:cursor-pointer
             ${
               selected === "upcoming"
                 ? "bg-[var(--darkBlue)] text-white"
@@ -45,7 +45,7 @@ const EventsSection = () => {
             px-6 py-2 
             rounded-full 
             transition-all duration-600 
-            font-medium 
+            font-medium hover:cursor-pointer
             ${
               selected === "recent"
                 ? "bg-[var(--darkBlue)] text-white"
