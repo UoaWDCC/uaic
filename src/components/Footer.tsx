@@ -39,12 +39,12 @@ const Footer = () => {
               lg:text-[16px]
             "
             >
-              <Link href="/">Home</Link>
-              <Link href="/about">About</Link>
-              <Link href="/events">Events</Link>
-              <Link href="/investmentportfolio">Investments</Link>
-              <Link href="/bulletin">Articles</Link>
-              <Link href="/contact">Contact</Link>
+              <Link href="/" className="hover:cursor-pointer">Home</Link>
+              <Link href="/about" className="hover:cursor-pointer">About</Link>
+              <Link href="/events" className="hover:cursor-pointer">Events</Link>
+              <Link href="/investmentportfolio" className="hover:cursor-pointer">Investments</Link>
+              <Link href="/bulletin" className="hover:cursor-pointer">Articles</Link>
+              <Link href="/contact" className="hover:cursor-pointer">Contact</Link>
             </div>
           </div>
         </div>
@@ -68,7 +68,7 @@ const Footer = () => {
               </div>
               <div className="flex flex-row gap-2 lg:gap-8 lg:text-[16px]">
                 <Link
-                  className="hover:scale-105 hover:text-white transition-all duration-250"
+                  className="hover:scale-105 hover:text-white hover:cursor-pointer transition-all duration-250"
                   href="mailto:president@uaic.co.nz"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -106,7 +106,7 @@ const Footer = () => {
             <div className="flex lg:flex flex-col text-[0.95rem] lg:text-[1.4rem] xl:text-[1.4rem] 2xl:text-[2rem] font-light whitespace-nowrap gap-1.5 lg:gap-5">
               <div className="flex flex-row gap-2 lg:gap-8">
                 <Link
-                  className="hover:scale-105 hover:text-white transition-all duration-250"
+                  className="hover:scale-105 hover:text-white hover:cursor-pointer transition-all duration-250"
                   href="https://www.instagram.com/officialuaic/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -120,7 +120,7 @@ const Footer = () => {
               </div>
               <div className="flex flex-row gap-2 lg:gap-8">
                 <Link
-                  className="hover:scale-105 hover:text-white transition-all duration-250"
+                  className="hover:scale-105 hover:text-white hover:cursor-pointer transition-all duration-250"
                   href="https://www.facebook.com/officialUAIC"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -135,7 +135,7 @@ const Footer = () => {
               </div>
               <div className="flex flex-row gap-2 lg:gap-8">
                 <Link
-                  className="hover:scale-105 hover:text-white transition-all duration-250"
+                  className="hover:scale-105 hover:text-white hover:cursor-pointer transition-all duration-250"
                   href="https://www.linkedin.com/company/officialuaic/"
                   target="_blank"
                   rel="noopener noreferrer"

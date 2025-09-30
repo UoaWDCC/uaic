@@ -16,6 +16,10 @@ const Navbar = () => {
   const mobileRef = useRef<HTMLDivElement>(null);
   const desktopRef = useRef<HTMLDivElement>(null);
 
+  const handleLinkClick = () => {
+    setIsOpen(false);
+  };
+
   useEffect(() => {
     const createWidget = (container: HTMLDivElement | null) => {
       if (!container) return;
@@ -65,7 +69,7 @@ const Navbar = () => {
       >
         {/* Hamburger Menu */}
         <button
-          className={`lg:hidden p-4 bg-white rounded-4xl shadow-xl/10 z-50 transition-transform duration-300 ${isOpen ? "invisible" : "visible"
+          className={`lg:hidden p-4 bg-white rounded-4xl shadow-xl/10 z-50 transition-transform duration-300 cursor-pointer ${isOpen ? "invisible" : "visible"
             }`}
           onClick={() => setIsOpen(!isOpen)}
         >
@@ -100,7 +104,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px]"
+              className="hover:text-darkBlue hover:rounded-xl p-[4px] cursor-pointer"
             >
               Home
             </Link>
@@ -112,7 +116,7 @@ const Navbar = () => {
           >
             <Link
               href="/about"
-              className=" hover:rounded-xl p-[4px] font-[300]"
+              className=" hover:rounded-xl p-[4px] font-[300] cursor-pointer"
             >
               About
             </Link>
@@ -142,7 +146,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/events"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px]"
+              className="hover:text-darkBlue hover:rounded-xl p-[4px] cursor-pointer"
             >
               Events
             </Link>
@@ -150,7 +154,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/investmentportfolio"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px]"
+              className="hover:text-darkBlue hover:rounded-xl p-[4px] cursor-pointer"
             >
               Investment Portfolio
             </Link>
@@ -158,7 +162,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/bulletin"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px]"
+              className="hover:text-darkBlue hover:rounded-xl p-[4px] cursor-pointer"
             >
               Bulletin
             </Link>
@@ -166,7 +170,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/contact"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px]"
+              className="hover:text-darkBlue hover:rounded-xl p-[4px] cursor-pointer"
             >
               Contact
             </Link>
@@ -174,7 +178,7 @@ const Navbar = () => {
         </ul>
 
         <div className="hidden lg:block">
-          <Button link="/joinus" defaultSize>Join Us</Button>
+          <Button link="/joinus" defaultSize className="cursor-pointer">Join Us</Button>
         </div>
 
       </div>
@@ -207,7 +211,7 @@ const Navbar = () => {
             height={150}
           />
           <button
-            className="p-3 bg-white rounded-full"
+            className="p-3 bg-white rounded-full cursor-pointer"
             onClick={() => setIsOpen(false)}
           >
             <svg
@@ -228,36 +232,38 @@ const Navbar = () => {
 
         <hr className="border-t border-darkBlue-300 w-9/10 self-center" />
 
-        <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
-          <TiHome size={24} /> <Link href="/">Home</Link>
+        <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
+          <TiHome size={24} /> <Link href="/" onClick={handleLinkClick}>Home</Link>
         </li>
         <li
           className="p-6 pl-14 border-b border-white flex items-center justify-between text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer"
-          onClick={() => setShowAboutSubpage(true)}
+          onClick={() => {
+            setShowAboutSubpage(true);
+            handleLinkClick();
+          }}
         >
           <div className="flex items-center gap-5">
             <LuInfo size={24} /> <span>About</span>
           </div>
           <IoIosArrowForward size={20} />
         </li>
-        <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
-          <PiCalendarStarFill size={24} /> <Link href="/events">Events</Link>
+        <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
+          <PiCalendarStarFill size={24} /> <Link href="/events" onClick={handleLinkClick}>Events</Link>
         </li>
-        <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
-          <LuChartNoAxesCombined size={24} />{" "}
-          <Link href="/investmentportfolio">Investments</Link>
+        <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
+          <LuChartNoAxesCombined size={24} /> <Link href="/investmentportfolio" onClick={handleLinkClick}>Investments</Link>
         </li>
-        <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
-          <TiDocumentText size={24} /> <Link href="/bulletin">Bulletin</Link>
+        <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
+          <TiDocumentText size={24} /> <Link href="/bulletin" onClick={handleLinkClick}>Bulletin</Link>
         </li>
-        <li className="p-6 pl-14 pb-6 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl">
-          <RiContactsLine size={24} /> <Link href="/contact">Contact</Link>
+        <li className="p-6 pl-14 pb-6 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
+          <RiContactsLine size={24} /> <Link href="/contact" onClick={handleLinkClick}>Contact</Link>
         </li>
 
         <hr className="border-t border-darkBlue-300 w-9/10 self-center py-3" />
 
-        <li className="ml-auto p-[10px] px-[30px] mr-[30px] border border-solid border-darkBlue hover:bg-white bg-darkBlue rounded-4xl text-white hover:text-darkBlue font-[600] text-lg sm:p-[16px] sm:px-[32px] sm:text-xl">
-          <Button link="/signup">Join Us</Button>
+        <li className="ml-auto mr-[30px] font-[600] text-lg sm:text-xl">
+          <Button link="/signup" className="p-[10px] px-[40px] sm:p-[12px] sm:px-[48px]">Join Us</Button>
         </li>
       </ul>
 
@@ -288,7 +294,7 @@ const Navbar = () => {
 
         {/* Sub-menu Items */}
         <div className="flex-1">
-          <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl rounded-full">
+          <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl rounded-full hover:bg-whiteHover hover:font-semibold rounded-full  cursor-pointer">
             <LuInfo size={24} />
             <Link
               href="/about"
@@ -301,7 +307,7 @@ const Navbar = () => {
             </Link>
           </li>
 
-          <li className="p-6 pl-14 pb-6 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full">
+          <li className="p-6 pl-14 pb-6 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
             <PiQuestion size={30} />
             <Link
               href="/FAQ"
@@ -317,7 +323,7 @@ const Navbar = () => {
 
         <hr className="border-t border-darkBlue-300 w-9/10 self-center py-3 " />
 
-        <div className="ml-auto p-[10px] px-[30px] mr-[30px] border border-solid border-darkBlue bg-darkBlue rounded-4xl text-white font-[600] text-lg sm:p-[16px] sm:px-[32px] sm:text-xl">
+        <div className="ml-auto p-[10px] px-[30px] mr-[30px] border border-solid border-darkBlue bg-darkBlue rounded-4xl text-white font-[600] text-lg sm:p-[16px] sm:px-[32px] sm:text-xl hover:bg-white hover:text-darkBlue">
           <Link href="/signin">Sign In</Link>
         </div>
       </div>

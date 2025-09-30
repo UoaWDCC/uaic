@@ -45,7 +45,7 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
         >
           <button
             onClick={() => toggleFaq(faq.id)}
-            className="flex w-full items-center justify-between text-left text-darkBlue"
+            className="flex w-full items-center justify-between text-left text-darkBlue hover:cursor-pointer"
           >
             <span className="text-header font-bold">
               {faq.question}
@@ -57,7 +57,7 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
             )}
           </button>
           {openFaqs[faq.id] && (
-            <div className="text-sm text-darkBlue">
+            <div className="text-sm text-darkBlue hover:cursor-pointer">
               <div className="w-full">
                 <p className="mt-4 text-body font-normal">
                   {faq.answer}
