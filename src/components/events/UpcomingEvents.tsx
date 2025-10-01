@@ -18,61 +18,57 @@ interface Event {
   application_link: string;
 }
 
-const events: Event[] = [
-  {
-    id: "event-1-2025",
-    date: "25. Dec-2025",
-    time: "9:00AM - 5:00PM",
-    title: "Our Upcoming Christmas Present: Mr Jerry",
-    location: "303S-G20",
-    type: "Competition",
-    photo: "/assets/jerry.webp",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    application_link: "/events/event-id",
-  },
-  {
-    id: "event-2-2025",
-    date: "25. Dec-2025",
-    time: "9:00AM - 5:00PM",
-    title: "Our Upcoming Christmas Present: Mr Jerry",
-    location: "303S-G20",
-    type: "Competition",
-    photo: "/assets/jerry.webp",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    application_link: "/events/event-id",
-  },
-  {
-    id: "event-3-2025",
-    date: "25. Dec-2025",
-    time: "9:00AM - 5:00PM",
-    title:
-      "Our Upcoming Christmas Present: Mr Jerry longggggggggggggggggggggggggg title",
-    location: "303S-G20",
-    type: "Competition",
-    photo: "/assets/jerry.webp",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    application_link: "/events/event-id",
-  },
-  {
-    id: "event-4-2025",
-    date: "25. Dec-2025",
-    time: "9:00AM - 5:00PM",
-    title:
-      "Our Upcoming Christmas Present: Mr Jerry longggggggggggggggggggggggggg title",
-    location: "303S-G20",
-    type: "Competition",
-    photo: "/assets/jerry.webp",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    application_link: "/events/event-id",
-  },
-];
+interface UpcomingEventsProps {
+  events: any[]; // Raw events from database
+}
 
-const UpcomingEvents = () => {
+const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
   const [selectedEvent, setSelectedEvent] = useState<null | Event>(null);
+  
+  // Transform database events to component format
+  const events: Event[] = rawEvents.map((dbEvent) => {
+    const startDate = new Date(dbEvent.startDate);
+    const endDate = new Date(dbEvent.endDate);
+    
+    const formattedDate = startDate.toLocaleDateString('en-NZ', { 
+      day: '2-digit', 
+      month: 'short', 
+      year: 'numeric' 
+    }).replace(',', '');
+    
+    const startTime = startDate.toLocaleTimeString('en-NZ', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: true 
+    });
+    
+    const endTime = endDate.toLocaleTimeString('en-NZ', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: true 
+    });
+    
+    return {
+      id: dbEvent.id,
+      date: formattedDate,
+      time: `${startTime} - ${endTime}`,
+      title: dbEvent.event,
+      location: dbEvent.location,
+      type: "Event",
+      photo: dbEvent.image?.url || '/assets/placeholder.jpg',
+      description: dbEvent.description,
+      application_link: `/events/${dbEvent.id}`,
+    };
+  });
+
+  if (events.length === 0) {
+    return (
+      <div className="text-center text-gray-500 py-10">
+        No upcoming events at this time.
+      </div>
+    );
+  }
+
   return (
     <div
       className="

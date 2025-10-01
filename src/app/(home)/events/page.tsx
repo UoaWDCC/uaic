@@ -3,8 +3,13 @@ import EventLanding from "@/components/events/EventLanding";
 import RecentEvents from "@/components/events/RecentEvents";
 import UpcomingEvents from "@/components/events/UpcomingEvents";
 import BlueGradient from "@/components/BlueGradient";
+import { getUpcomingEvents, getRecentEvents } from "@/features/users/data/getEvents";
 
-const page = () => {
+const page = async () => {
+  // Fetch data server-side
+  const upcomingEvents = await getUpcomingEvents();
+  const recentEvents = await getRecentEvents();
+
   return (
     <div className="w-full flex flex-col items-center">
         <div className="w-full">
@@ -29,7 +34,7 @@ const page = () => {
                     Upcoming Events
                 </h1>
 
-                <UpcomingEvents />
+                <UpcomingEvents events={upcomingEvents} />
             </div>
 
             <div className="
@@ -50,7 +55,7 @@ const page = () => {
                     Recent Events
                 </h1>
 
-                <RecentEvents />
+                <RecentEvents events={recentEvents} />
             </div>
             <BlueGradient/>
         </div>
