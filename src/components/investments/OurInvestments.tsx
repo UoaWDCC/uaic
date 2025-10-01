@@ -59,7 +59,7 @@ const OurInvestments = () => {
           />
           <button
             onClick={() => setActiveTab("current")}
-            className={`relative w-1/2 px-4 py-2 text-sm lg:text-body font-semibold transition-colors duration-300 ${
+            className={`relative w-1/2 px-4 py-2 text-sm lg:text-body font-semibold transition-colors duration-300 hover:cursor-pointer ${
               activeTab === "current" ? "text-darkBlue" : "text-background"
             }`}
           >
@@ -67,7 +67,7 @@ const OurInvestments = () => {
           </button>
           <button
             onClick={() => setActiveTab("past")}
-            className={`relative w-1/2 px-4 py-2 text-sm lg:text-body font-semibold transition-colors duration-300 ${
+            className={`relative w-1/2 px-4 py-2 text-sm lg:text-body font-semibold transition-colors duration-300 hover:cursor-pointer ${
               activeTab === "past" ? "text-darkBlue" : "text-background"
             }`}
           >
@@ -81,7 +81,7 @@ const OurInvestments = () => {
         {investments.map((inv, idx) => (
           <div
             key={idx}
-            className="p-4 lg:p-6 bg-background rounded-lg shadow-sm hover:shadow-lg transition"
+            className="p-4 lg:p-6 bg-background rounded-lg shadow-sm hover:shadow-lg transition hover:cursor-pointer"
           >
             <h2 className="text-darkBlue font-bold text-lg lg:text-header mb-2 lg:mb-3">
               {inv.name}

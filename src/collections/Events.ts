@@ -15,7 +15,12 @@ export const Events: CollectionConfig = {
       name: 'event', 
       type: 'text', 
       label: 'Event Name',
-      required: true
+      required: true,
+      admin: {
+        style: {
+          cursor: 'pointer',
+        },
+      },
     },
     {
       name: 'startDate',
@@ -26,6 +31,9 @@ export const Events: CollectionConfig = {
         date: {
           pickerAppearance: 'dayAndTime',
           displayFormat: 'yyyy-MM-dd HH:mm',
+        },
+        style: {
+          cursor: 'pointer',
         },
       },
     },
@@ -39,25 +47,43 @@ export const Events: CollectionConfig = {
           pickerAppearance: 'dayAndTime',
           displayFormat: 'yyyy-MM-dd HH:mm',
         },
+        style: {
+          cursor: 'pointer',
+        },
       },
     },
     {
       name: 'location',
       type: 'text',
       label: 'Location',
-      required: true
+      required: true,
+      admin: {
+        style: {
+          cursor: 'pointer',
+        },
+      },
     },
     {
       name: 'description',
       type: 'text',
       label: 'Description',
-      required: true
+      required: true,
+      admin: {
+        style: {
+          cursor: 'pointer',
+        },
+      },
     },
     {
       name: 'image',
       type: 'upload',
       label: 'Image',
       relationTo: 'media',
+      admin: {
+        style: {
+          cursor: 'pointer',
+        },
+      },
     },
     {
       name: 'attendees',
@@ -65,9 +91,14 @@ export const Events: CollectionConfig = {
       label: 'Attendees',
       relationTo: 'member' as CollectionSlug,
       hasMany: true,
+      admin: {
+        style: {
+          cursor: 'pointer',
+        },
+      },
     }
   ],
   access: {
     read: () => true,
   },
-} 
+}

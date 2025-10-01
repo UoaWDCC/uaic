@@ -199,7 +199,7 @@ const RecentEvents = () => {
 
                         hover:text-white hover:bg-[var(--darkBlue)]  
                         transform hover:scale-102 hover:cursor-pointer
-
+                        cursor-pointer
                         lg:text-[15px]
                       "
                     >
@@ -219,6 +219,7 @@ const RecentEvents = () => {
               bg-black/20 backdrop-blur-md 
               flex justify-center items-center 
               px-4
+              cursor-pointer
             "
           >
             <div
@@ -323,6 +324,7 @@ const RecentEvents = () => {
                     transition duration-300 ease-in-out
                     rounded-md hover:rounded-full
                     hover:text-white hover:bg-[var(--darkBlue)]
+                    cursor-pointer
                   "
                 aria-label="Close"
               >

@@ -382,6 +382,7 @@ const UpcomingEvents = () => {
 
                       hover:text-white hover:opacity-80  
                       transform hover:scale-102
+                      hover:cursor-pointer
 
                       lg:text-[15px] hover:cursor-pointer
                     "

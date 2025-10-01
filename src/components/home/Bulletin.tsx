@@ -8,7 +8,7 @@ const Bulletin = () => {
     <div className="hidden lg:visible max-w-5xl aspect-4/3 mx-auto p-6 lg:grid grid-cols-5 grid-rows-4 gap-6 bg-white relative">
       <div
         className="
-                col-span-2 row-span-3 rounded-2xl relative bg-lightBlue flex justify-center p-8  
+                col-span-2 row-span-3 rounded-2xl relative bg-lightBlue flex justify-center p-8 hover:cursor-pointer  
             "
       >
         <Image
@@ -33,7 +33,7 @@ const Bulletin = () => {
       <div
         className="
                 col-span-3 row-span-2 rounded-2xl text-darkBlue p-6 relative flex flex-col justify-between
-                bg-lightBlue -ml-6
+                bg-lightBlue -ml-6 hover:cursor-pointer
             "
       >
         <div className="h-full ml-4 mt-2 flex flex-col justify-start font-semibold">
@@ -59,7 +59,7 @@ const Bulletin = () => {
         className="
                 col-span-3 row-span-1 rounded-2xl text-white p-6 relative flex flex-col justify-between
                 bg-cover bg-center bg-darkBlue/50 bg-blend-multiply bg-[url('/assets/bulletins/article1.webp')]
-                hover:brightness-90 transition cursor-pointer
+                hover:brightness-90 hover:cursor-pointer transition cursor-pointer
             "
       >
         <div className="max-w-[85%] h-full ml-4 flex flex-col justify-center font-semibold">
@@ -80,7 +80,7 @@ const Bulletin = () => {
         className="
                 col-span-3 row-span-1 rounded-2xl text-white p-6 relative flex flex-col justify-between
                 bg-cover bg-center bg-darkBlue/50 bg-blend-multiply bg-[url('/assets/bulletins/article2.webp')]
-                hover:brightness-90 transition cursor-pointer
+                hover:brightness-90 hover:cursor-pointer transition cursor-pointer
             "
       >
         <div className="max-w-[85%] h-full ml-4 flex flex-col justify-center font-semibold">
@@ -100,7 +100,7 @@ const Bulletin = () => {
       <div
         className="
                 col-span-2 row-span-1 rounded-2xl text-white font-semibold p-6 relative flex items-center justify-left
-                bg-darkBlue hover:brightness-90 transition cursor-pointer
+                bg-darkBlue hover:brightness-90 hover:cursor-pointer transition cursor-pointer
             "
       >
         <div className="ml-4">
