@@ -91,6 +91,7 @@ const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
             <div
               key={event.id}
               className="
+                flex-shrink-0
                 lg:flex lg:flex-row lg:gap-[20px] lg:h-[180px]
             "
             >

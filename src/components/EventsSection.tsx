@@ -3,7 +3,12 @@ import React, { useState } from "react";
 import RecentEvents from "@/components/events/RecentEvents";
 import UpcomingEvents from "@/components/events/UpcomingEvents";
 
-const EventsSection = () => {
+interface EventsSectionProps {
+  upcomingEvents: any[];
+  recentEvents: any[];
+}
+
+const EventsSection = ({ upcomingEvents, recentEvents }: EventsSectionProps) => {
   const [selected, setSelected] = useState("upcoming");
 
   return (
@@ -16,11 +21,7 @@ const EventsSection = () => {
     >
       <div className="flex w-fit rounded-full bg-gradient-to-r from-white to-white mt-[80px]">
         <button
-          onClick={() =>
-            selected === "recent"
-              ? setSelected("upcoming")
-              : setSelected("recent")
-          }
+          onClick={() => setSelected("upcoming")}
           className={`
             px-6 py-2 
             rounded-full 
@@ -36,11 +37,7 @@ const EventsSection = () => {
           Upcoming Events
         </button>
         <button
-          onClick={() =>
-            selected === "upcoming"
-              ? setSelected("recent")
-              : setSelected("upcoming")
-          }
+          onClick={() => setSelected("recent")}
           className={`
             px-6 py-2 
             rounded-full 
@@ -58,7 +55,11 @@ const EventsSection = () => {
 
       {/* Conditional Rendering */}
       <div className="w-full">
-        {selected === "upcoming" ? <UpcomingEvents /> : <RecentEvents />}
+        {selected === "upcoming" ? (
+          <UpcomingEvents events={upcomingEvents} />
+        ) : (
+          <RecentEvents events={recentEvents} />
+        )}
       </div>
     </div>
   );
