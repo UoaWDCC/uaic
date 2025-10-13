@@ -55,7 +55,7 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
       title: dbEvent.event,
       location: dbEvent.location,
       type: "Event",
-      photo: dbEvent.image?.url || '/assets/placeholder.jpg',
+      photo: dbEvent.image?.url || '/assets/logos/uaic.webp',
       description: dbEvent.description,
       application_link: `/events/${dbEvent.id}`,
     };
@@ -107,7 +107,7 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
                 <Image
                   src={event.photo}
                   alt={`${event.title} photo`}
-                  className="w-full h-full object-cover rounded-3xl"
+                  className="w-full h-full object-contain rounded-3xl"
                   width={220}
                   height={220}
                 />
@@ -347,7 +347,7 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
                     src={selectedEvent.photo}
                     alt={`${selectedEvent.title} photo`}
                     className="
-                        w-full h-[140px] object-cover rounded-3xl my-4
+                        w-full h-[140px] object-contain rounded-3xl my-4
                         lg:mx-6 
                       "
                     width={140}
