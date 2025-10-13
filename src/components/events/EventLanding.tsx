@@ -55,14 +55,14 @@ const EventLanding = () => {
                 <h1 className="
                     font-[900] tracking-[0px]
                     bg-gradient-to-r from-[#145CA9] to-[#5FB4FF] bg-clip-text text-transparent
-                    text-[41.65px] leading-[45px] mx-[20px]
+                    text-[41.65px] leading-[45px] mx-[32px]
                     lg:text-[75.65px] lg:leading-[85px] lg:mx-0
                 ">
                     Events
                 </h1>
 
                 <h3 className="
-                    font-[300] tracking-[0px] text-[16px] leading-[17.84px] mx-[20px]
+                    font-[300] tracking-[0px] text-[16px] leading-[17.84px] mx-[32px]
                     lg:text-[24.3px] lg:leading-[32.39px] lg:mx-0
                 ">
                     Workshops, guest speakers, and networking - Stay tuned for what's coming up here at UAIC!

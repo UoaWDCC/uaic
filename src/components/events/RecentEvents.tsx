@@ -71,14 +71,14 @@ const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
       className="
       text-center mt-[20px] 
       text-black
-      lg:w-full
-      lg:px-[120px]
+      w-full
       lg:mt-[0px]
     "
     >
       <div
         className="
-        px-[32px]
+        px-[16px]
+        lg:px-0
       "
       >
         <div
@@ -185,12 +185,13 @@ const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
                       {event.location}
                     </div>
                   </div>
-                  <div className="lg:w-[20%] lg:pl-8 lg:flex lg:items-center">
+                  <div className="lg:w-auto lg:pl-8 lg:flex lg:items-center">
                     <button
                       onClick={() => setSelectedEvent(event)}
                       className="
-                        mt-[14px] mb-6 px-4 py-[2px] 
+                        mt-[14px] mb-6 px-2 py-[2px] 
                         w-full
+                        min-w-0
 
                         text-center text-[var(--darkBlue)] text-[10px]
                         border-2 rounded-[20px] 
@@ -200,7 +201,7 @@ const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
                         hover:text-white hover:bg-[var(--darkBlue)]  
                         transform hover:scale-102 hover:cursor-pointer
                         cursor-pointer
-                        lg:text-[15px]
+                        lg:text-[15px] lg:w-[140px] lg:px-4
                       "
                     >
                       Learn More

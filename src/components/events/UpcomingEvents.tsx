@@ -74,14 +74,14 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
       className="
       text-center mt-[20px] 
       text-black
-      lg:w-full
-      lg:px-[120px]
+      w-full
       lg:mt-[0px]
     "
     >
       <div
         className="
-        px-[32px]
+        px-[16px]
+        lg:px-0
       "
       >
         <div
@@ -191,22 +191,23 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
                   <div
                     className="
                     w-full
-                    flex flex-row
-                    lg:w-[20%] lg:items-center lg:justify-center
-                    lg:flex-col lg:gap-2
+                    flex flex-row gap-2
+                    lg:w-auto lg:items-center lg:justify-center
+                    lg:flex-col lg:gap-2 lg:pl-8
                   "
                   >
                     <div
                       className="
-                      w-1/2 pr-1
-                      lg:pr-0
+                      flex-1
+                      lg:flex-none
                     "
                     >
                       <button
                         onClick={() => setSelectedEvent(event)}
                         className="
-                          mt-[14px] mb-6 px-4 py-[2px] 
+                          mt-[14px] mb-6 px-2 py-[2px] 
                           w-full
+                          min-w-0
 
                           text-center text-[var(--darkBlue)] text-[10px]
                           border-2 rounded-[20px] 
@@ -218,7 +219,7 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
 
                           lg:text-[15px]
                           lg:mt-[0px] lg:mb-[0px]
-                          lg:w-[140px]
+                          lg:w-[140px] lg:px-4
                           
                         "
                       >
@@ -227,15 +228,16 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
                     </div>
                     <div
                       className="
-                      w-1/2 pl-1
-                      lg:pl-0
+                      flex-1
+                      lg:flex-none
                     "
                     >
                       <Link href={event.application_link}>
                         <button
                           className="
-                          mt-[14px] mb-6 px-4 py-[2px] 
+                          mt-[14px] mb-6 px-2 py-[2px] 
                           w-full
+                          min-w-0
 
                           text-center text-[white] text-[10px]
                           bg-[var(--darkBlue)]
@@ -248,7 +250,7 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
 
                           lg:text-[15px]
                           lg:mt-[0px] lg:mb-[0px]
-                          lg:w-[140px]
+                          lg:w-[140px] lg:px-4
                         "
                         >
                           Apply Now

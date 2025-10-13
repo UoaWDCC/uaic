@@ -17,6 +17,8 @@ const EventsSection = ({ upcomingEvents, recentEvents }: EventsSectionProps) => 
       flex flex-col items-center 
       gap-6 mt-[200px]
       bg-[radial-gradient(circle,_var(--darkBlue)_0%,_white_42%)]
+      px-[16px]
+      lg:px-[120px]
     "
     >
       <div className="flex w-fit rounded-full bg-gradient-to-r from-white to-white mt-[80px]">
