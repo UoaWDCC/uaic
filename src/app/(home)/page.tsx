@@ -4,15 +4,18 @@ import UpdatedBulletin from "@/components/home/Bulletin";
 import HomePage from "@/components/home/HomePage";
 import SponsorsBanner from "@/components/home/SponsorsBanner";
 import EventsSection from "@/components/EventsSection";
+import { getUpcomingEvents, getRecentEvents } from "@/features/users/data/getEvents";
 
+export default async function Home() {
+  const upcomingEvents = await getUpcomingEvents();
+  const recentEvents = await getRecentEvents();
 
-export default function Home() {
   return (
     <div>
       {/* Build Homepage Here */}
       <HomePage />
       <SponsorsBanner />
-      <EventsSection />
+      <EventsSection upcomingEvents={upcomingEvents} recentEvents={recentEvents} />
       <ArticleList />
       <UpdatedBulletin />
       <InvestConnectWork />

@@ -16,70 +16,69 @@ interface Event {
   description: string;
 }
 
-const events: Event[] = [
-  {
-    id: "event-1-2025",
-    date: "25. Dec-2025",
-    time: "9:00AM - 5:00PM",
-    title: "Our Upcoming Christmas Present: Mr Jerry",
-    location: "303S-G20",
-    type: "Competition",
-    photo: "/assets/jerry.webp",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    id: "event-2-2025",
-    date: "25. Dec-2025",
-    time: "9:00AM - 5:00PM",
-    title: "Our Upcoming Christmas Present: Mr Jerry",
-    location: "303S-G20",
-    type: "Competition",
-    photo: "/assets/jerry.webp",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    id: "event-3-2025",
-    date: "25. Dec-2025",
-    time: "9:00AM - 5:00PM",
-    title:
-      "Our Upcoming Christmas Present: Mr Jerry longggggggggggggggggggggggggg title",
-    location: "303S-G20",
-    type: "Competition",
-    photo: "/assets/jerry.webp",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    id: "event-4-2025",
-    date: "25. Dec-2025",
-    time: "9:00AM - 5:00PM",
-    title:
-      "Our Upcoming Christmas Present: Mr Jerry longggggggggggggggggggggggggg title",
-    location: "303S-G20",
-    type: "Competition",
-    photo: "/assets/jerry.webp",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-];
+interface RecentEventsProps {
+  events: any[]; // Raw events from database
+}
 
-const RecentEvents = () => {
+const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
   const [selectedEvent, setSelectedEvent] = useState<null | Event>(null);
+  
+  // Transform database events to component format
+  const events: Event[] = rawEvents.map((dbEvent) => {
+    const startDate = new Date(dbEvent.startDate);
+    const endDate = new Date(dbEvent.endDate);
+    
+    const formattedDate = startDate.toLocaleDateString('en-NZ', { 
+      day: '2-digit', 
+      month: 'short', 
+      year: 'numeric' 
+    }).replace(',', '');
+    
+    const startTime = startDate.toLocaleTimeString('en-NZ', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: true 
+    });
+    
+    const endTime = endDate.toLocaleTimeString('en-NZ', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: true 
+    });
+    
+    return {
+      id: dbEvent.id,
+      date: formattedDate,
+      time: `${startTime} - ${endTime}`,
+      title: dbEvent.event,
+      location: dbEvent.location,
+      type: "Event",
+      photo: dbEvent.image?.url || '/assets/logos/uaic.webp',
+      description: dbEvent.description,
+    };
+  });
+
+  if (events.length === 0) {
+    return (
+      <div className="text-center text-gray-500 py-10">
+        No recent events to display.
+      </div>
+    );
+  }
+
   return (
     <div
       className="
       text-center mt-[20px] 
       text-black
-      lg:w-full
-      lg:px-[120px]
+      w-full
       lg:mt-[0px]
     "
     >
       <div
         className="
-        px-[32px]
+        px-[16px]
+        lg:px-0
       "
       >
         <div
@@ -92,6 +91,7 @@ const RecentEvents = () => {
             <div
               key={event.id}
               className="
+                flex-shrink-0
                 lg:flex lg:flex-row lg:gap-[20px] lg:h-[180px]
             "
             >
@@ -104,7 +104,7 @@ const RecentEvents = () => {
                 <Image
                   src={event.photo}
                   alt={`${event.title} photo`}
-                  className="w-full h-full object-cover rounded-3xl"
+                  className="w-full h-full object-contain rounded-3xl"
                   width={220}
                   height={220}
                 />
@@ -185,12 +185,13 @@ const RecentEvents = () => {
                       {event.location}
                     </div>
                   </div>
-                  <div className="lg:w-[20%] lg:pl-8 lg:flex lg:items-center">
+                  <div className="lg:w-auto lg:pl-8 lg:flex lg:items-center">
                     <button
                       onClick={() => setSelectedEvent(event)}
                       className="
-                        mt-[14px] mb-6 px-4 py-[2px] 
+                        mt-[14px] mb-6 px-2 py-[2px] 
                         w-full
+                        min-w-0
 
                         text-center text-[var(--darkBlue)] text-[10px]
                         border-2 rounded-[20px] 
@@ -200,7 +201,7 @@ const RecentEvents = () => {
                         hover:text-white hover:bg-[var(--darkBlue)]  
                         transform hover:scale-102 hover:cursor-pointer
                         cursor-pointer
-                        lg:text-[15px]
+                        lg:text-[15px] lg:w-[140px] lg:px-4
                       "
                     >
                       Learn More
@@ -298,7 +299,7 @@ const RecentEvents = () => {
                     src={selectedEvent.photo}
                     alt={`${selectedEvent.title} photo`}
                     className="
-                        w-full h-[140px] object-cover rounded-3xl my-4
+                        w-full h-[140px] object-contain rounded-3xl my-4
                         lg:mx-6 
                       "
                     width={140}
