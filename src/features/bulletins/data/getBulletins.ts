@@ -1,6 +1,7 @@
 'use server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
+import { number } from 'payload/shared'
 
 export interface Bulletin {
   id: string
@@ -18,13 +19,13 @@ export interface Bulletin {
   }
 }
 
-export const getBulletins = async ({ limit }: { limit: number }): Promise<Bulletin[]> => {
+export const getBulletins = async ({ number }: { number?: number }): Promise<Bulletin[]> => {
   const payload = await getPayload({ config })
 
   try {
     const result = await payload.find({
       collection: 'bulletin',
-      limit: limit,
+      limit: number,
       sort: ['-issueNumber', '-publishDate'], 
       depth: 1,
     })
@@ -55,7 +56,7 @@ export const getBulletins = async ({ limit }: { limit: number }): Promise<Bullet
 }
 
 export const getLatestBulletin = async (): Promise<Bulletin | null> => {
-  const bulletins = await getBulletins()
+  const bulletins = await getBulletins({ number: 1 })
   if (bulletins.length === 0) return null
   return bulletins[0]
 }
