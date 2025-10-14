@@ -1,10 +1,23 @@
-import React from "react";
+'use client'
+
+import React, { useEffect, useState } from "react";
+import { getLandingPageImage } from "@/features/users/data/getLandingPageImage";
 import Button from "../Button";
 
 const BulletinHeroSection = () => {
+  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      const imageUrl = await getLandingPageImage("bulletin");
+      setBackgroundImage(imageUrl || "/assets/home/bull-cow-bg.webp"); // fallback
+    };
+
+    fetchImage();
+  }, []);
+
   return (
     <>
-      {/* This is to hide disable the scrolling horizontally of the background */}
       <div
         className="
             relative w-full 
@@ -24,7 +37,7 @@ const BulletinHeroSection = () => {
     z-[-2]
   "
           style={{
-            backgroundImage: "url('/assets/home/bull-cow-bg.webp')",
+            backgroundImage: `url('${backgroundImage || "/assets/home/bull-cow-bg.webp"}')`,
           }}
         />
 
