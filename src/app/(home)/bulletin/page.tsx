@@ -5,7 +5,8 @@ import BulletinInfosection from "@/components/bulletin/BulletinInfoSection";
 import Bulletin from "@/components/home/Bulletin";
 import ArticleList from "@/components/home/ArticleList";
 import BlueGradient from "@/components/BlueGradient";
- 
+import BulletinSlider from "@/components/bulletin/BulletinSlider";
+
 const page = () => {
   return (
     <div className="w-full flex flex-col items-center">
@@ -28,10 +29,12 @@ const page = () => {
       </div>
 
       <div className="order-3 lg:order-4 w-full">
-        <Bulletin />
+        {/* Original Bulletin Layout */}
+        {/* <Bulletin /> */}
+        <BulletinSlider />
       </div>
 
-      <div className="order-4 lg:order-5 w-full">
+      <div className="order-4 lg:order-5 w-full" id="all-articles">
         <ArticleList />
       </div>
     </div>
