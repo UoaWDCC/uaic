@@ -12,6 +12,7 @@ import { Member } from "./collections/Member";
 import { Events } from "./collections/Events";
 import { Executive } from "./collections/Executive";
 import { Portfolio } from "./collections/Portfolio";
+import { LandingPageImages } from "./collections/LandingPageImages";
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -21,6 +22,7 @@ export default buildConfig({
     Users,
     Media,
     InvestmentCommitteeImages,
+    LandingPageImages,
     Bulletins,
     Member,
     Executive, 
