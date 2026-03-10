@@ -263,7 +263,7 @@ const Navbar = () => {
         <hr className="border-t border-darkBlue-300 w-9/10 self-center py-3" />
 
         <li className="ml-auto mr-[30px] font-[600] text-lg sm:text-xl">
-          <Button link="/signup" className="p-[10px] px-[40px] sm:p-[12px] sm:px-[48px]">Join Us</Button>
+          <Button link="/joinus" className="p-[10px] px-[40px] sm:p-[12px] sm:px-[48px]">Join Us</Button>
         </li>
       </ul>
 
@@ -324,7 +324,7 @@ const Navbar = () => {
         <hr className="border-t border-darkBlue-300 w-9/10 self-center py-3 " />
 
         <div className="ml-auto p-[10px] px-[30px] mr-[30px] border border-solid border-darkBlue bg-darkBlue rounded-4xl text-white font-[600] text-lg sm:p-[16px] sm:px-[32px] sm:text-xl hover:bg-white hover:text-darkBlue">
-          <Link href="/signin">Sign In</Link>
+          <Link href="/payment">Membership Payment</Link>
         </div>
       </div>
     </nav>

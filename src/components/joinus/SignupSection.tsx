@@ -45,8 +45,7 @@ const SignupSection = () => {
       </div>
 
       <div className="flex justify-center gap-2">
-        <Button link="/signup" defaultSize>Sign Up</Button>
-        <Button link="/login" defaultSize>Log In</Button>
+        <Button link="/payment" defaultSize>Membership Payment</Button>
       </div>
     </div>
   );

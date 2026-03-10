@@ -102,7 +102,7 @@ const EventLanding = () => {
             <Button link="/about" variant="secondary">
               About Us
             </Button>
-            <Button link="/login">Join Us</Button>
+            <Button link="/joinus">Join Us</Button>
           </div>
         </div>
       </div>

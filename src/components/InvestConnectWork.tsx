@@ -27,7 +27,7 @@ const InvestConnectWork = () => {
                 flex justify-center lg:pt-[40px]
             "
       >
-        <Button link="/signup" defaultSize={true}>Join Us</Button>
+        <Button link="/joinus" defaultSize={true}>Join Us</Button>
       </div>
     </div>
   );
