@@ -45,6 +45,15 @@ Finally, run the project:
 pnpm dev
 ```
 
+## Linting & Formatting
+
+```bash
+pnpm lint          # check for ESLint issues
+pnpm lint:fix      # auto-fix ESLint issues
+pnpm format        # format all files with Prettier
+pnpm format:check  # check formatting without writing
+```
+
 ## Contributors - Team 2025
 
 | Role                 | Member                  |
