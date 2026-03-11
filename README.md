@@ -54,6 +54,8 @@ pnpm format        # format all files with Prettier
 pnpm format:check  # check formatting without writing
 ```
 
+Prettier (including Tailwind class sorting) and ESLint run automatically on staged files before every `git commit` via [Lefthook](https://lefthook.dev). The hooks are installed automatically when you run `pnpm install`. To skip in an emergency: `git commit --no-verify`.
+
 ## Contributors - Team 2025
 
 | Role                 | Member                  |
