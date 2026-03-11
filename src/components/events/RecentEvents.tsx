@@ -61,95 +61,37 @@ const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
   });
 
   if (events.length === 0) {
-    return <div className="text-center text-gray-500 py-10">No recent events to display.</div>;
+    return <div className="py-10 text-center text-gray-500">No recent events to display.</div>;
   }
 
   return (
-    <div
-      className="
-      text-center mt-[20px] 
-      text-black
-      w-full
-      lg:mt-[0px]
-    "
-    >
-      <div
-        className="
-        px-[16px]
-        lg:px-0
-      "
-      >
-        <div
-          className="
-          flex flex-col items-stretch gap-[26px] 
-          text-left h-[35em] lg:h-[38em] overflow-y-auto
-        "
-        >
+    <div className="mt-[20px] w-full text-center text-black lg:mt-[0px]">
+      <div className="px-[16px] lg:px-0">
+        <div className="flex h-[35em] flex-col items-stretch gap-[26px] overflow-y-auto text-left lg:h-[38em]">
           {events.map((event: Event) => (
             <div
               key={event.id}
-              className="
-                flex-shrink-0
-                lg:flex lg:flex-row lg:gap-[20px] lg:h-[180px]
-            "
+              className="flex-shrink-0 lg:flex lg:h-[180px] lg:flex-row lg:gap-[20px]"
             >
-              <div
-                className="
-                hidden 
-                lg:block lg:w-1/7 lg:h-full flex-shrink-0
-              "
-              >
+              <div className="hidden flex-shrink-0 lg:block lg:h-full lg:w-1/7">
                 <Image
                   src={event.photo}
                   alt={`${event.title} photo`}
-                  className="w-full h-full object-contain rounded-3xl"
+                  className="h-full w-full rounded-3xl object-contain"
                   width={220}
                   height={220}
                 />
               </div>
 
-              <div
-                className="
-                  bg-white                  
-                  border-2 border-grey-100 rounded-[25px]
-                  w-full 
-                  lg:w-auto
-                  lg:flex-grow
-              "
-              >
-                <div
-                  className="
-                  px-6
-                  mt-6
-                  lg:px-8   
-                  lg:flex lg:divide-x lg:divide-grey-100     
-                "
-                >
-                  <div className="lg:w-0 lg:flex-grow lg:pr-8 min-w-0">
-                    <div
-                      className="
-                      inline-flex 
-                      border-2 border-grey-100 rounded-[16px] 
-                      divide-x py-[2px] divide-grey-100
-                      text-[10px]
-                      lg:text-[14px] lg:py[3px]        
-                    "
-                    >
-                      <div
-                        className="
-                        px-2
-                        flex items-center gap-[6px]
-                      "
-                      >
+              <div className="border-grey-100 w-full rounded-[25px] border-2 bg-white lg:w-auto lg:flex-grow">
+                <div className="lg:divide-grey-100 mt-6 px-6 lg:flex lg:divide-x lg:px-8">
+                  <div className="min-w-0 lg:w-0 lg:flex-grow lg:pr-8">
+                    <div className="border-grey-100 divide-grey-100 lg:py[3px] inline-flex divide-x rounded-[16px] border-2 py-[2px] text-[10px] lg:text-[14px]">
+                      <div className="flex items-center gap-[6px] px-2">
                         <IoCalendar className="h-[15px] lg:h-[18px]" />
                         {event.date}
                       </div>
-                      <div
-                        className="
-                        px-2
-                        flex items-center gap-[6px] 
-                      "
-                      >
+                      <div className="flex items-center gap-[6px] px-2">
                         <LuClock9 className="h-[15px] lg:h-[18px]" />
                         {event.time}
                       </div>
@@ -157,50 +99,21 @@ const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
 
                     <div className="lg:w-full lg:overflow-hidden">
                       <div className="lg:overflow-x-auto">
-                        <h1
-                          className="
-                          py-[6px] 
-                          font-bold text-[15px]
-                          lg:text-[30px]
-                          lg:inline-block
-                          lg:whitespace-nowrap
-                          lg:min-w-0
-                        "
-                        >
+                        <h1 className="py-[6px] text-[15px] font-bold lg:inline-block lg:min-w-0 lg:text-[30px] lg:whitespace-nowrap">
                           {event.title}
                         </h1>
                       </div>
                     </div>
 
-                    <div
-                      className="
-                      flex gap-[4px]
-                      text-[10px]
-                      lg:text-[18px]
-                    "
-                    >
+                    <div className="flex gap-[4px] text-[10px] lg:text-[18px]">
                       <TiLocation className="h-[12px] lg:h-[25px]" />
                       {event.location}
                     </div>
                   </div>
-                  <div className="lg:w-auto lg:pl-8 lg:flex lg:items-center">
+                  <div className="lg:flex lg:w-auto lg:items-center lg:pl-8">
                     <button
                       onClick={() => setSelectedEvent(event)}
-                      className="
-                        mt-[14px] mb-6 px-2 py-[2px] 
-                        w-full
-                        min-w-0
-
-                        text-center text-[var(--darkBlue)] text-[10px]
-                        border-2 rounded-[20px] 
-                        
-                        transition duration-500 ease-in-out
-
-                        hover:text-white hover:bg-[var(--darkBlue)]  
-                        transform hover:scale-102 hover:cursor-pointer
-                        cursor-pointer
-                        lg:text-[15px] lg:w-[140px] lg:px-4
-                      "
+                      className="mt-[14px] mb-6 w-full min-w-0 transform cursor-pointer rounded-[20px] border-2 px-2 py-[2px] text-center text-[10px] text-[var(--darkBlue)] transition duration-500 ease-in-out hover:scale-102 hover:cursor-pointer hover:bg-[var(--darkBlue)] hover:text-white lg:w-[140px] lg:px-4 lg:text-[15px]"
                     >
                       Learn More
                     </button>
@@ -212,119 +125,51 @@ const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
         </div>
 
         {selectedEvent && (
-          <div
-            className="
-              fixed inset-0 z-50 
-              bg-black/20 backdrop-blur-md 
-              flex justify-center items-center 
-              px-4
-              cursor-pointer
-            "
-          >
-            <div
-              className="
-                bg-white rounded-[25px]
-                p-6  w-full max-w-[600px] text-left relative
-              "
-            >
+          <div className="fixed inset-0 z-50 flex cursor-pointer items-center justify-center bg-black/20 px-4 backdrop-blur-md">
+            <div className="relative w-full max-w-[600px] rounded-[25px] bg-white p-6 text-left">
               <div className="lg:flex">
                 <div>
-                  <div
-                    className="
-                      inline-flex 
-                      border-2 border-grey-100 rounded-[16px] 
-                      divide-x py-[2px] divide-grey-100
-                      text-[10px]
-                    "
-                  >
-                    <div
-                      className="
-                        px-2
-                        flex items-center gap-[6px]
-                      "
-                    >
+                  <div className="border-grey-100 divide-grey-100 inline-flex divide-x rounded-[16px] border-2 py-[2px] text-[10px]">
+                    <div className="flex items-center gap-[6px] px-2">
                       <IoCalendar className="h-[15px]" />
                       {selectedEvent.date}
                     </div>
-                    <div
-                      className="
-                        px-2
-                        flex items-center gap-[6px] 
-                      "
-                    >
+                    <div className="flex items-center gap-[6px] px-2">
                       <LuClock9 className="h-[15px]" />
                       {selectedEvent.time}
                     </div>
                   </div>
-                  <h2
-                    className="
-                      text-lg font-semibold my-[5px]
-                    "
-                  >
-                    {selectedEvent.title}
-                  </h2>
-                  <div
-                    className="
-                        flex items-center 
-                    "
-                  >
-                    <div
-                      className="
-                        flex gap-[4px]
-                        text-[14px]
-                      "
-                    >
+                  <h2 className="my-[5px] text-lg font-semibold">{selectedEvent.title}</h2>
+                  <div className="flex items-center">
+                    <div className="flex gap-[4px] text-[14px]">
                       <TiLocation className="h-[16px]" />
                       {selectedEvent.location}
                     </div>
                     <div className="pl-[4px]">
-                      <span
-                        className="
-                          text-center text-[var(--darkBlue)] text-[12px]
-                          border-3 border-[var(--darkBlue)] rounded-[20px] 
-                          px-3 inline-block
-                          ml-3
-                        "
-                      >
+                      <span className="ml-3 inline-block rounded-[20px] border-3 border-[var(--darkBlue)] px-3 text-center text-[12px] text-[var(--darkBlue)]">
                         <strong>{selectedEvent.type}</strong>
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <div className="lg:mr-10 ">
+                <div className="lg:mr-10">
                   <Image
                     src={selectedEvent.photo}
                     alt={`${selectedEvent.title} photo`}
-                    className="
-                        w-full h-[140px] object-contain rounded-3xl my-4
-                        lg:mx-6 
-                      "
+                    className="my-4 h-[140px] w-full rounded-3xl object-contain lg:mx-6"
                     width={140}
                     height={140}
                   />
                 </div>
               </div>
 
-              <p
-                className="
-                  max-h-[120px] overflow-y-auto
-                  text-[12px]
-                "
-              >
+              <p className="max-h-[120px] overflow-y-auto text-[12px]">
                 {selectedEvent.description}
               </p>
               <button
                 onClick={() => setSelectedEvent(null)}
-                className="
-                    absolute top-2 right-3
-                    w-8 h-8 flex items-center justify-center
-                    text-[20px] font-bold text-gray-600
-                    transition duration-300 ease-in-out
-                    rounded-md hover:rounded-full
-                    hover:text-white hover:bg-[var(--darkBlue)]
-                    cursor-pointer
-                  "
+                className="absolute top-2 right-3 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-[20px] font-bold text-gray-600 transition duration-300 ease-in-out hover:rounded-full hover:bg-[var(--darkBlue)] hover:text-white"
                 aria-label="Close"
               >
                 ×

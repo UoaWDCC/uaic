@@ -18,34 +18,14 @@ const Dropdown: React.FC<DropdownProps> = ({ options }) => {
   };
 
   return (
-    <div
-      className="
-    relative block w-full 
-    text-darkBlue font-light
-    
-    text-sm 
-    
-    lg:text-base"
-    >
+    <div className="text-darkBlue relative block w-full text-sm font-light lg:text-base">
       {/* Expanding container */}
       <div
-        className={`
-          overflow-hidden 
-          bg-white rounded-2xl
-          transition-[max-height] duration-500 ease-in-out
-          ${isOpen ? "shadow-sm" : "shadow-none"}
-          ${isOpen ? "max-h-[500px]" : "max-h-[44px] lg:max-h-[56px]"}
-        `}
+        className={`overflow-hidden rounded-2xl bg-white transition-[max-height] duration-500 ease-in-out ${isOpen ? "shadow-sm" : "shadow-none"} ${isOpen ? "max-h-[500px]" : "max-h-[44px] lg:max-h-[56px]"} `}
       >
         {/* Header */}
         <div
-          className="
-          flex justify-between items-center 
-          cursor-pointer 
-
-          px-4 py-1 rounded-xl 
-          
-          lg:px-4 lg:py-2 lg:rounded-2xl"
+          className="flex cursor-pointer items-center justify-between rounded-xl px-4 py-1 lg:rounded-2xl lg:px-4 lg:py-2"
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <span>{selected}</span>
@@ -61,9 +41,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options }) => {
               <div
                 key={option + i}
                 onClick={() => handleSelect(option)}
-                className={`px-4 py-2 cursor-pointer hover:bg-lightBlue 
-                ${option === selected ? "text-gray-400 cursor-default" : ""}
-                `}
+                className={`hover:bg-lightBlue cursor-pointer px-4 py-2 ${option === selected ? "cursor-default text-gray-400" : ""} `}
               >
                 {option}
               </div>

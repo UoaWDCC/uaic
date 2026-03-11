@@ -6,7 +6,7 @@ export default async function FAQ() {
   const faqs = await getFAQs();
 
   return (
-    <div className="mt-[10em] md:mt-[12em] min-h-[90vh]">
+    <div className="mt-[10em] min-h-[90vh] md:mt-[12em]">
       <FAQPage faqs={faqs} />
       <InvestConnectWork />
     </div>

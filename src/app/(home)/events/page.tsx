@@ -11,57 +11,19 @@ const page = async () => {
   const recentEvents = await getRecentEvents();
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="flex w-full flex-col items-center">
       <div className="w-full">
         <EventLanding />
       </div>
-      <div className="bg-white w-full">
-        <div
-          className="
-                bg-[linear-gradient(transparent,rgba(20,92,169,0.4)_50%,transparent)]
-                flex flex-col items-center gap-[20px]
-                w-full pb-[100px] px-[16px]
-                cursor-pointer
-
-                lg:bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)]
-                lg:gap-[70px] lg:px-[120px]
-            "
-        >
-          <h1
-            className="
-                    text-darkBlue 
-                    font-bold 
-                    text-title
-                    cursor-pointer
-                "
-          >
-            Upcoming Events
-          </h1>
+      <div className="w-full bg-white">
+        <div className="flex w-full cursor-pointer flex-col items-center gap-[20px] bg-[linear-gradient(transparent,rgba(20,92,169,0.4)_50%,transparent)] px-[16px] pb-[100px] lg:gap-[70px] lg:bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)] lg:px-[120px]">
+          <h1 className="text-darkBlue text-title cursor-pointer font-bold">Upcoming Events</h1>
 
           <UpcomingEvents events={upcomingEvents} />
         </div>
 
-        <div
-          className="
-                bg-[linear-gradient(transparent,rgba(20,92,169,0.4)_50%,transparent)]
-                flex flex-col items-center gap-[20px]
-                w-full pt-[100px] pb-[100px] mt-5 mb-20 px-[16px]
-                cursor-pointer
-
-                lg:bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)]
-                lg:gap-[70px] lg:px-[120px]
-            "
-        >
-          <h1
-            className="
-                    text-darkBlue 
-                    font-bold 
-                    text-title
-                    cursor-pointer
-                "
-          >
-            Recent Events
-          </h1>
+        <div className="mt-5 mb-20 flex w-full cursor-pointer flex-col items-center gap-[20px] bg-[linear-gradient(transparent,rgba(20,92,169,0.4)_50%,transparent)] px-[16px] pt-[100px] pb-[100px] lg:gap-[70px] lg:bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)] lg:px-[120px]">
+          <h1 className="text-darkBlue text-title cursor-pointer font-bold">Recent Events</h1>
 
           <RecentEvents events={recentEvents} />
         </div>

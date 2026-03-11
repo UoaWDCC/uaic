@@ -16,9 +16,9 @@ export default function Payment() {
   const amount = 11.58;
 
   return (
-    <div className="max-w-6xl mx-auto p-10 text-white text-center border rounded-md bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)]">
+    <div className="mx-auto max-w-6xl rounded-md border bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)] p-10 text-center text-white">
       <div className="mb-10">
-        <h1 className="text-4xl font-extrabold mb-5">Payment Amount:</h1>
+        <h1 className="mb-5 text-4xl font-extrabold">Payment Amount:</h1>
         <h2 className="text-4xl font-extrabold">${amount}</h2>
       </div>
       <Elements

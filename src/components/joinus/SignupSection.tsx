@@ -4,20 +4,13 @@ import Button from "../Button";
 
 const SignupSection = () => {
   return (
-    <div
-      className="
-    bg-[radial-gradient(70%_60%_at_50%_55%,rgba(20,92,169,0.2)_60%,rgba(255,255,255,0.2)_80%)]
-    lg:bg-[radial-gradient(70%_60%_at_50%_55%,rgba(20,92,169,0.4)_0%,rgba(255,255,255,0.2)_80%)]
-    
-    pl-3 pr-3 py-10
-    sm:pl-10 sm:pr-10 sm:py-0"
-    >
-      <h1 className="mt-6 md:pl-10 text-darkBlue font-bold px-4 text-header">
+    <div className="bg-[radial-gradient(70%_60%_at_50%_55%,rgba(20,92,169,0.2)_60%,rgba(255,255,255,0.2)_80%)] py-10 pr-3 pl-3 sm:py-0 sm:pr-10 sm:pl-10 lg:bg-[radial-gradient(70%_60%_at_50%_55%,rgba(20,92,169,0.4)_0%,rgba(255,255,255,0.2)_80%)]">
+      <h1 className="text-darkBlue text-header mt-6 px-4 font-bold md:pl-10">
         Sign Up to Join Competitions
       </h1>
-      <hr className="border-t border-grey-200 w-[95%] mx-auto" />
+      <hr className="border-grey-200 mx-auto w-[95%] border-t" />
 
-      <div className="mt-6 md:pl-10 px-4 text-darkBlue leading-relaxed text-body font-normal self-center">
+      <div className="text-darkBlue text-body mt-6 self-center px-4 leading-relaxed font-normal md:pl-10">
         <p>
           Sign up to register competitions Lorem ipsum dolor sit amet, consectetur adipiscing elit,
           sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -36,7 +29,7 @@ const SignupSection = () => {
             alt="UAIC Membership Display Image"
             width={300}
             height={400}
-            className="transition ease-linear hover:brightness-75 pt-5"
+            className="pt-5 transition ease-linear hover:brightness-75"
           />
         </button>
       </div>

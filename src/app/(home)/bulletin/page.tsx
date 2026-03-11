@@ -7,16 +7,16 @@ import ArticleList from "@/components/home/ArticleList";
 
 const page = () => {
   return (
-    <div className="w-full flex flex-col items-center">
-      <div className="order-1 lg:order-1 w-full">
+    <div className="flex w-full flex-col items-center">
+      <div className="order-1 w-full lg:order-1">
         <BulletinHeroSection />
       </div>
 
-      <div className="order-5 lg:order-2 w-full">
+      <div className="order-5 w-full lg:order-2">
         <BulletinInfosection />
       </div>
 
-      <div className="order-2 lg:order-3 w-full">
+      <div className="order-2 w-full lg:order-3">
         <LatestArticle
           issueNumber={79}
           imageSrc="/assets/bulletins/bulletin_cover.webp"
@@ -26,11 +26,11 @@ const page = () => {
         />
       </div>
 
-      <div className="order-3 lg:order-4 w-full">
+      <div className="order-3 w-full lg:order-4">
         <Bulletin />
       </div>
 
-      <div className="order-4 lg:order-5 w-full">
+      <div className="order-4 w-full lg:order-5">
         <ArticleList />
       </div>
     </div>

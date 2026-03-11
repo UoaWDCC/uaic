@@ -211,15 +211,15 @@ const ExecutiveCommittee = () => {
   };
 
   return (
-    <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">
+    <div className="mx-auto w-full rounded-lg bg-white p-4 lg:px-10">
       <div>
-        <span className="font-bold text-header text-darkBlue">Executive Committees</span>
+        <span className="text-header text-darkBlue font-bold">Executive Committees</span>
 
-        <div className="text-sm text-darkBlue mt-[1em]">
+        <div className="text-darkBlue mt-[1em] text-sm">
           <p className="mb-4 pl-4">
             The Executive Committee is responsible for running the club, including:
           </p>
-          <ul className="list-disc list-inside mb-4 pl-6">
+          <ul className="mb-4 list-inside list-disc pl-6">
             <li>
               Running competitions, educational events, social events and club-wide initiatives
             </li>
@@ -232,9 +232,9 @@ const ExecutiveCommittee = () => {
             <div key={team} className="mt-[0.5rem]">
               <button
                 onClick={() => toggleSubteam(team)}
-                className="w-full flex justify-between items-center text-left text-darkBlue font-medium py-2 hover:cursor-pointer"
+                className="text-darkBlue flex w-full items-center justify-between py-2 text-left font-medium hover:cursor-pointer"
               >
-                <span className="font-bold text-header w-[22rem] md:w-[30rem]">{team}</span>
+                <span className="text-header w-[22rem] font-bold md:w-[30rem]">{team}</span>
                 {openSubteams.includes(team) ? (
                   <IoIosArrowUp size={30} />
                 ) : (
@@ -244,9 +244,9 @@ const ExecutiveCommittee = () => {
 
               {/* Show subteam details using ProfileCard.tsx*/}
               {openSubteams.includes(team) && (
-                <div className="pl-4 py-1 text-sm text-darkBlue">
+                <div className="text-darkBlue py-1 pl-4 text-sm">
                   {teamProfiles[team] && (
-                    <div className="flex flex-wrap gap-4 justify-start">
+                    <div className="flex flex-wrap justify-start gap-4">
                       {teamProfiles[team].map((member) => (
                         <div key={member.name} className="text-body">
                           <ProfileCard
@@ -266,7 +266,7 @@ const ExecutiveCommittee = () => {
         </div>
       </div>
 
-      <hr className="border-t border-grey-200 w-9/10 md:w-full self-center my-6" />
+      <hr className="border-grey-200 my-6 w-9/10 self-center border-t md:w-full" />
     </div>
   );
 };

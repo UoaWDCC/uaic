@@ -6,21 +6,7 @@ import { IoIosPeople } from "react-icons/io";
 
 const PerksGrid = () => {
   return (
-    <div
-      className="
-      
-      w-full 
-      text-darkBlue
-      grid justify-between 
-      
-      gap-[50px]
-      pl-10 pr-10 pt-10 pb-20
-      
-      lg:pl-30 lg:pr-30 lg:pb-20 lg:pt-10
-      lg:grid-cols-3 
-      lg:gap-[100px]
-    "
-    >
+    <div className="text-darkBlue grid w-full justify-between gap-[50px] pt-10 pr-10 pb-20 pl-10 lg:grid-cols-3 lg:gap-[100px] lg:pt-10 lg:pr-30 lg:pb-20 lg:pl-30">
       <PerksGridFormat
         title="Membership Sign-Up Fee"
         icon={<FaMoneyCheckAlt />}

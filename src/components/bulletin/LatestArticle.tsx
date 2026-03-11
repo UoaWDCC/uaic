@@ -24,33 +24,25 @@ export default async function LatestArticle() {
   const pdfUrl = latest.bulletinPDF?.url || "#";
 
   return (
-    <div
-      className="
-        w-full
-        flex flex-col items-center gap-[47px]
-        p-20
-        bg-[radial-gradient(70%_70%_at_50%_55%,rgba(20,92,169,0.2)_60%,rgba(255,255,255,0.2)_80%)]
-        lg:bg-[radial-gradient(70%_60%_at_50%_55%,rgba(20,92,169,0.4)_0%,rgba(255,255,255,0.2)_80%)]
-      "
-    >
-      <h1 className="text-darkBlue font-bold hidden text-title lg:block lg:text-2xl">
+    <div className="flex w-full flex-col items-center gap-[47px] bg-[radial-gradient(70%_70%_at_50%_55%,rgba(20,92,169,0.2)_60%,rgba(255,255,255,0.2)_80%)] p-20 lg:bg-[radial-gradient(70%_60%_at_50%_55%,rgba(20,92,169,0.4)_0%,rgba(255,255,255,0.2)_80%)]">
+      <h1 className="text-darkBlue text-title hidden font-bold lg:block lg:text-2xl">
         Latest Article
       </h1>
 
-      <div className="bg-white rounded-4xl w-[330px] lg:w-[805px] h-auto lg:h-[423px] overflow-hidden">
+      <div className="h-auto w-[330px] overflow-hidden rounded-4xl bg-white lg:h-[423px] lg:w-[805px]">
         {/* Desktop layout */}
-        <div className="hidden lg:flex lg:flex-row gap-[75px] p-7 text-darkBlue">
+        <div className="text-darkBlue hidden gap-[75px] p-7 lg:flex lg:flex-row">
           {/* Image Container */}
-          <div className="relative w-[259px] h-[366px] rounded-3xl overflow-hidden">
+          <div className="relative h-[366px] w-[259px] overflow-hidden rounded-3xl">
             <Image src={imageSrc} alt={latest.title} fill className="object-cover" />
           </div>
 
           {/* Text */}
           <div className="flex-1 pt-6 pr-4">
-            <h2 className="text-sm mb-2 font-light">Issue #{latest.issueNumber}</h2>
-            <h1 className="text-xl font-bold mb-4 leading-tight">{truncatedTitle}</h1>
-            <p className="mb-6 text-darkBlue font-light">{truncatedDescription}</p>
-            <div className="w-[224px] h-[35px]">
+            <h2 className="mb-2 text-sm font-light">Issue #{latest.issueNumber}</h2>
+            <h1 className="mb-4 text-xl leading-tight font-bold">{truncatedTitle}</h1>
+            <p className="text-darkBlue mb-6 font-light">{truncatedDescription}</p>
+            <div className="h-[35px] w-[224px]">
               <Button link={pdfUrl} className="text-body">
                 Read More
               </Button>
@@ -59,21 +51,21 @@ export default async function LatestArticle() {
         </div>
 
         {/* Mobile layout */}
-        <div className="flex flex-col lg:hidden relative w-[330px] h-[561px] rounded-3xl overflow-hidden bg-white items-center gap-[14px]">
-          <h1 className="text-darkBlue text-xl font-bold lg:text-2xl mt-6">Latest Article</h1>
+        <div className="relative flex h-[561px] w-[330px] flex-col items-center gap-[14px] overflow-hidden rounded-3xl bg-white lg:hidden">
+          <h1 className="text-darkBlue mt-6 text-xl font-bold lg:text-2xl">Latest Article</h1>
 
           <div
-            className="relative w-[295px] h-[417px] flex flex-col gap-[9px] p-6 bg-cover bg-center text-white justify-end rounded-3xl"
+            className="relative flex h-[417px] w-[295px] flex-col justify-end gap-[9px] rounded-3xl bg-cover bg-center p-6 text-white"
             style={{
               backgroundImage: `linear-gradient(to top, rgba(20,92,169,1) 0%, rgba(20,92,169,1) 50%, rgba(255,255,255,0) 75%), url('${imageSrc}')`,
             }}
           >
             <h2 className="text-xs font-light">Issue #{latest.issueNumber}</h2>
-            <h1 className="font-bold text-sm leading-tight">{truncatedTitle}</h1>
-            <p className="font-light text-xs">{truncatedDescription}</p>
+            <h1 className="text-sm leading-tight font-bold">{truncatedTitle}</h1>
+            <p className="text-xs font-light">{truncatedDescription}</p>
           </div>
 
-          <div className="w-[295px] h-[37px]">
+          <div className="h-[37px] w-[295px]">
             <Button link={pdfUrl}>Read More</Button>
           </div>
         </div>

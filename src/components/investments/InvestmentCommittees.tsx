@@ -11,9 +11,9 @@ export default async function InvestmentCommittee() {
   }
 
   return (
-    <div className="w-full mx-auto p-4 lg:px-80 bg-background rounded-lg">
+    <div className="bg-background mx-auto w-full rounded-lg p-4 lg:px-80">
       <div>
-        <h1 className="text-title font-bold text-darkBlue mb-8 pb-2">Investment Committees</h1>
+        <h1 className="text-title text-darkBlue mb-8 pb-2 font-bold">Investment Committees</h1>
 
         <div className="text-body text-darkBlue">
           <p className="mb-4 font-bold">
@@ -42,7 +42,7 @@ export default async function InvestmentCommittee() {
             following a three-step process:
           </p>
 
-          <ol className="list-decimal list-inside mb-10">
+          <ol className="mb-10 list-inside list-decimal">
             <li>
               A qualitative pitch is delivered to the Committee, which is subsequently voted on
             </li>
@@ -57,13 +57,13 @@ export default async function InvestmentCommittee() {
             The Investment Committee is responsible for managing the club's fund, including:
           </p>
 
-          <ul className="list-disc list-inside mb-10">
+          <ul className="mb-10 list-inside list-disc">
             <li>Ensuring all investments are in line with the fund's value investing thesis</li>
             <li>Regularly pitching and analysing potential stock investments</li>
             <li>Voting to decide whether an investment passes to the next stage of approval</li>
           </ul>
 
-          <div className="w-full h-[300px] flex items-center justify-center overflow-hidden rounded-lg mb-4">
+          <div className="mb-4 flex h-[300px] w-full items-center justify-center overflow-hidden rounded-lg">
             {imageUrl ? (
               <Image
                 src={imageUrl}
@@ -73,13 +73,13 @@ export default async function InvestmentCommittee() {
                 className="object-cover"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-grey-100">
+              <div className="bg-grey-100 flex h-full w-full items-center justify-center">
                 <span>Image not available</span>
               </div>
             )}
           </div>
 
-          <div className="text-center text-body">
+          <div className="text-body text-center">
             <p className="mb-2">
               <strong>Back row: </strong>Max Wilson, Sam Gowen, Caden Van De Laak
             </p>
