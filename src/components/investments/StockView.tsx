@@ -18,8 +18,7 @@ const StockView: React.FC<StockViewProps> = ({ symbol, title, height = 300 }) =>
     container.innerHTML = "";
 
     const script = document.createElement("script");
-    script.src =
-      "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
     script.type = "text/javascript";
     script.async = true;
     script.innerHTML = JSON.stringify({

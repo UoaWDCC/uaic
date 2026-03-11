@@ -14,7 +14,7 @@ export const Portfolio: CollectionConfig = {
     },
     {
       name: "description",
-      type: "textarea", 
+      type: "textarea",
       required: true,
     },
     {

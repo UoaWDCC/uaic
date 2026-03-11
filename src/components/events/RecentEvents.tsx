@@ -22,30 +22,32 @@ interface RecentEventsProps {
 
 const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
   const [selectedEvent, setSelectedEvent] = useState<null | Event>(null);
-  
+
   // Transform database events to component format
   const events: Event[] = rawEvents.map((dbEvent) => {
     const startDate = new Date(dbEvent.startDate);
     const endDate = new Date(dbEvent.endDate);
-    
-    const formattedDate = startDate.toLocaleDateString('en-NZ', { 
-      day: '2-digit', 
-      month: 'short', 
-      year: 'numeric' 
-    }).replace(',', '');
-    
-    const startTime = startDate.toLocaleTimeString('en-NZ', { 
-      hour: '2-digit', 
-      minute: '2-digit',
-      hour12: true 
+
+    const formattedDate = startDate
+      .toLocaleDateString("en-NZ", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .replace(",", "");
+
+    const startTime = startDate.toLocaleTimeString("en-NZ", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
     });
-    
-    const endTime = endDate.toLocaleTimeString('en-NZ', { 
-      hour: '2-digit', 
-      minute: '2-digit',
-      hour12: true 
+
+    const endTime = endDate.toLocaleTimeString("en-NZ", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
     });
-    
+
     return {
       id: dbEvent.id,
       date: formattedDate,
@@ -53,17 +55,13 @@ const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
       title: dbEvent.event,
       location: dbEvent.location,
       type: "Event",
-      photo: dbEvent.image?.url || '/assets/logos/uaic.webp',
+      photo: dbEvent.image?.url || "/assets/logos/uaic.webp",
       description: dbEvent.description,
     };
   });
 
   if (events.length === 0) {
-    return (
-      <div className="text-center text-gray-500 py-10">
-        No recent events to display.
-      </div>
-    );
+    return <div className="text-center text-gray-500 py-10">No recent events to display.</div>;
   }
 
   return (

@@ -1,45 +1,28 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import nextTypescript from "eslint-config-next/typescript";
 import prettierPlugin from "eslint-plugin-prettier";
 import prettierConfig from "eslint-config-prettier";
-import tsPlugin from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
 
 const eslintConfig = [
   // Next.js recommended rules (includes React, React Hooks, and TypeScript)
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  // eslint-config-next 16.x exports flat config arrays directly
+  ...nextCoreWebVitals,
+  ...nextTypescript,
 
-  // TypeScript parser + plugin for ts/tsx files
+  // Custom TypeScript rules layered on top of next/typescript
   {
     files: ["**/*.ts", "**/*.tsx"],
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        project: true,
-        tsconfigRootDir: __dirname,
-      },
-    },
-    plugins: {
-      "@typescript-eslint": tsPlugin,
-    },
     rules: {
-      // Prefer explicit return types on exported functions
-      "@typescript-eslint/explicit-module-boundary-types": "off",
-      // Allow `any` with a warning rather than an error during migration
+      // Allow `any` with a warning rather than a hard error during migration
       "@typescript-eslint/no-explicit-any": "warn",
-      // Unused vars: error on everything except vars prefixed with `_`
+      // Unused vars: error, but ignore names prefixed with `_`
       "@typescript-eslint/no-unused-vars": [
         "error",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
+      // React content sites have lots of English prose with apostrophes;
+      // escaping them to &apos; everywhere hurts readability.
+      "react/no-unescaped-entities": "off",
     },
   },
 

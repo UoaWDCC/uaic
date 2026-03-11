@@ -1,43 +1,43 @@
 import type { CollectionConfig } from "payload";
 
 export const LandingPageImages: CollectionConfig = {
-  slug: 'landing-page-images',
+  slug: "landing-page-images",
   labels: {
-    singular: 'Landing Page Image',
-    plural: 'Landing Page Images',
+    singular: "Landing Page Image",
+    plural: "Landing Page Images",
   },
   admin: {
-    useAsTitle: 'tag',
+    useAsTitle: "tag",
     description:
-      'Upload and manage up to three landing images — one each for the homepage, events, and bulletin.',
+      "Upload and manage up to three landing images — one each for the homepage, events, and bulletin.",
   },
   fields: [
     {
-      name: 'image',
-      type: 'upload',
-      label: 'Image',
-      relationTo: 'media',
+      name: "image",
+      type: "upload",
+      label: "Image",
+      relationTo: "media",
       required: true,
       admin: {
         style: {
-          cursor: 'pointer',
+          cursor: "pointer",
         },
       },
     },
     {
-      name: 'tag',
-      type: 'select',
-      label: 'Tag',
+      name: "tag",
+      type: "select",
+      label: "Tag",
       required: true,
       options: [
-        { label: 'Homepage', value: 'homepage' },
-        { label: 'Events', value: 'events' },
-        { label: 'Bulletin', value: 'bulletin' },
+        { label: "Homepage", value: "homepage" },
+        { label: "Events", value: "events" },
+        { label: "Bulletin", value: "bulletin" },
       ],
-      unique: true, 
+      unique: true,
       admin: {
         style: {
-          cursor: 'pointer',
+          cursor: "pointer",
         },
       },
     },

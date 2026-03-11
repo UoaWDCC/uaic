@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Image from "next/image";
 import PerksGrid from "./PerksGrid";
 
@@ -31,14 +31,17 @@ const MembershipSection = () => {
         "
       >
         <p>
-          Memberships for 2025 will be active from the sign-up date to the end of the year. To become a member of UAIC for 2025, click the image below and fill in the form!
+          Memberships for 2025 will be active from the sign-up date to the end of the year. To
+          become a member of UAIC for 2025, click the image below and fill in the form!
         </p>
 
         {/* uaic 2025 Membership Image Button */}
         <div className="flex justify-center">
           <button
             onClick={() =>
-              alert("The hardest thing to learn in life is which bridge to cross and which to burn.")
+              alert(
+                "The hardest thing to learn in life is which bridge to cross and which to burn.",
+              )
             }
           >
             <Image

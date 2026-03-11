@@ -49,11 +49,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options }) => {
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <span>{selected}</span>
-          <span
-            className={`ml-2 transition-transform duration-200 ${
-              isOpen ? "rotate-180" : ""
-            }`}
-          >
+          <span className={`ml-2 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}>
             ▼
           </span>
         </div>

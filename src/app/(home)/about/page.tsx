@@ -19,8 +19,8 @@ export default function about() {
       </div>
       <ExecutiveCommittee />
       <BulletinCommittee />
-      <InvestmentCommittee/>
-      <BlueGradient/>
+      <InvestmentCommittee />
+      <BlueGradient />
     </div>
   );
 }

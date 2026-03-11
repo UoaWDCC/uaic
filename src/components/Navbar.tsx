@@ -24,8 +24,7 @@ const Navbar = () => {
     const createWidget = (container: HTMLDivElement | null) => {
       if (!container) return;
       const script = document.createElement("script");
-      script.src =
-        "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
+      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
       script.async = true;
       script.innerHTML = JSON.stringify({
         symbols: [
@@ -54,10 +53,7 @@ const Navbar = () => {
     <nav className="w-full">
       {/* Mobile Widget */}
       <div className="tradingview-widget-container lg:hidden shadow-xl/10">
-        <div
-          className="tradingview-widget-container__widget"
-          ref={mobileRef}
-        ></div>
+        <div className="tradingview-widget-container__widget" ref={mobileRef}></div>
       </div>
 
       {/* Top Bar */}
@@ -69,16 +65,12 @@ const Navbar = () => {
       >
         {/* Hamburger Menu */}
         <button
-          className={`lg:hidden p-4 bg-white rounded-4xl shadow-xl/10 z-50 transition-transform duration-300 cursor-pointer ${isOpen ? "invisible" : "visible"
-            }`}
+          className={`lg:hidden p-4 bg-white rounded-4xl shadow-xl/10 z-50 transition-transform duration-300 cursor-pointer ${
+            isOpen ? "invisible" : "visible"
+          }`}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <svg
-            className="w-10 h-10"
-            fill="none"
-            stroke="var(--darkBlue)"
-            viewBox="0 0 24 24"
-          >
+          <svg className="w-10 h-10" fill="none" stroke="var(--darkBlue)" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -102,10 +94,7 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <ul className="hidden lg:flex gap-3 xl:gap-10 2xl:gap-15 text-xl font-[300]">
           <li>
-            <Link
-              href="/"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px] cursor-pointer"
-            >
+            <Link href="/" className="hover:text-darkBlue hover:rounded-xl p-[4px] cursor-pointer">
               Home
             </Link>
           </li>
@@ -114,17 +103,14 @@ const Navbar = () => {
             onMouseEnter={() => setIsAboutDropdownOpen(true)}
             onMouseLeave={() => setIsAboutDropdownOpen(false)}
           >
-            <Link
-              href="/about"
-              className=" hover:rounded-xl p-[4px] font-[300] cursor-pointer"
-            >
+            <Link href="/about" className=" hover:rounded-xl p-[4px] font-[300] cursor-pointer">
               About
             </Link>
             {/* Dropdown Menu */}
             {isAboutDropdownOpen && (
               <div
                 className="absolute top-full left-0 bg-darkBlue text-white shadow-lg rounded-lg z-50 overflow-hidden"
-                style={{ width: '220px', height: '80px' }}
+                style={{ width: "220px", height: "80px" }}
               >
                 <div className="flex flex-col h-full">
                   <Link
@@ -178,17 +164,15 @@ const Navbar = () => {
         </ul>
 
         <div className="hidden lg:block">
-          <Button link="/joinus" defaultSize className="cursor-pointer">Join Us</Button>
+          <Button link="/joinus" defaultSize className="cursor-pointer">
+            Join Us
+          </Button>
         </div>
-
       </div>
 
       {/* Desktop Widget */}
       <div className="tradingview-widget-container hidden lg:block">
-        <div
-          className="tradingview-widget-container__widget"
-          ref={desktopRef}
-        ></div>
+        <div className="tradingview-widget-container__widget" ref={desktopRef}></div>
       </div>
 
       {/* Mobile Menu */}
@@ -204,22 +188,12 @@ const Navbar = () => {
       `}
       >
         <div className="flex justify-between items-center px-6 py-6 ">
-          <Image
-            src="/assets/logos/uaic.webp"
-            alt="Logo"
-            width={150}
-            height={150}
-          />
+          <Image src="/assets/logos/uaic.webp" alt="Logo" width={150} height={150} />
           <button
             className="p-3 bg-white rounded-full cursor-pointer"
             onClick={() => setIsOpen(false)}
           >
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="#145CA9"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-8 h-8" fill="none" stroke="#145CA9" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -233,7 +207,10 @@ const Navbar = () => {
         <hr className="border-t border-darkBlue-300 w-9/10 self-center" />
 
         <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
-          <TiHome size={24} /> <Link href="/" onClick={handleLinkClick}>Home</Link>
+          <TiHome size={24} />{" "}
+          <Link href="/" onClick={handleLinkClick}>
+            Home
+          </Link>
         </li>
         <li
           className="p-6 pl-14 border-b border-white flex items-center justify-between text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer"
@@ -248,22 +225,36 @@ const Navbar = () => {
           <IoIosArrowForward size={20} />
         </li>
         <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
-          <PiCalendarStarFill size={24} /> <Link href="/events" onClick={handleLinkClick}>Events</Link>
+          <PiCalendarStarFill size={24} />{" "}
+          <Link href="/events" onClick={handleLinkClick}>
+            Events
+          </Link>
         </li>
         <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
-          <LuChartNoAxesCombined size={24} /> <Link href="/investmentportfolio" onClick={handleLinkClick}>Investments</Link>
+          <LuChartNoAxesCombined size={24} />{" "}
+          <Link href="/investmentportfolio" onClick={handleLinkClick}>
+            Investments
+          </Link>
         </li>
         <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
-          <TiDocumentText size={24} /> <Link href="/bulletin" onClick={handleLinkClick}>Bulletin</Link>
+          <TiDocumentText size={24} />{" "}
+          <Link href="/bulletin" onClick={handleLinkClick}>
+            Bulletin
+          </Link>
         </li>
         <li className="p-6 pl-14 pb-6 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
-          <RiContactsLine size={24} /> <Link href="/contact" onClick={handleLinkClick}>Contact</Link>
+          <RiContactsLine size={24} />{" "}
+          <Link href="/contact" onClick={handleLinkClick}>
+            Contact
+          </Link>
         </li>
 
         <hr className="border-t border-darkBlue-300 w-9/10 self-center py-3" />
 
         <li className="ml-auto mr-[30px] font-[600] text-lg sm:text-xl">
-          <Button link="/joinus" className="p-[10px] px-[40px] sm:p-[12px] sm:px-[48px]">Join Us</Button>
+          <Button link="/joinus" className="p-[10px] px-[40px] sm:p-[12px] sm:px-[48px]">
+            Join Us
+          </Button>
         </li>
       </ul>
 

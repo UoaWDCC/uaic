@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Button from "./Button";
 
 const InvestConnectWork = () => {
@@ -27,7 +26,9 @@ const InvestConnectWork = () => {
                 flex justify-center lg:pt-[40px]
             "
       >
-        <Button link="/joinus" defaultSize={true}>Join Us</Button>
+        <Button link="/joinus" defaultSize={true}>
+          Join Us
+        </Button>
       </div>
     </div>
   );

@@ -13,29 +13,18 @@ export default async function InvestmentCommittee() {
   return (
     <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">
       <div>
-        <span className="font-bold text-header text-darkBlue">
-          Investment Committee
-        </span>
+        <span className="font-bold text-header text-darkBlue">Investment Committee</span>
 
         <div className="text-sm text-darkBlue flex flex-col items-center">
           <div className="w-9/10 flex flex-col items-center text-body">
             <p className="my-4">
-              The Investment Committee is responsible for managing the club's
-              fund, including:
+              The Investment Committee is responsible for managing the club's fund, including:
             </p>
 
             <ul className="list-disc list-inside mb-4 text-left">
-              <li>
-                Ensuring all investments are in line with the fund's value
-                investing thesis
-              </li>
-              <li>
-                Regularly pitching and analysing potential stock investments
-              </li>
-              <li>
-                Voting to decide whether an investment passes to the next
-                stage of approval
-              </li>
+              <li>Ensuring all investments are in line with the fund's value investing thesis</li>
+              <li>Regularly pitching and analysing potential stock investments</li>
+              <li>Voting to decide whether an investment passes to the next stage of approval</li>
             </ul>
 
             <div className="w-full h-[300px] flex items-center justify-center overflow-hidden rounded-lg">
@@ -57,16 +46,15 @@ export default async function InvestmentCommittee() {
 
           <div className="items-center text-center mt-4 text-body">
             <p className="p-2">
-              <strong>Back Row: </strong>Max Wilson, Sam Gowen, Caden Van De
-              Laak
+              <strong>Back Row: </strong>Max Wilson, Sam Gowen, Caden Van De Laak
             </p>
             <p className="p-2">
-              <strong>Middle Row: </strong>Sophia Walker, Caleb Manson, Matt
-              Powell, Tom Maclean, Shivam Shanker
+              <strong>Middle Row: </strong>Sophia Walker, Caleb Manson, Matt Powell, Tom Maclean,
+              Shivam Shanker
             </p>
             <p className="p-2">
-              <strong>Front Row: </strong>Amelia Cave, Abbey Patten, Rohit
-              Guthpe, Aimee Ng, Cullen Tran, Lilly Crawford
+              <strong>Front Row: </strong>Amelia Cave, Abbey Patten, Rohit Guthpe, Aimee Ng, Cullen
+              Tran, Lilly Crawford
             </p>
             <p className="p-2">
               <strong>Absent: </strong>Isabella Boswell, Andrew Griffiths

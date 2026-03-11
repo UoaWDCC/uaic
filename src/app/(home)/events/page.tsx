@@ -12,11 +12,12 @@ const page = async () => {
 
   return (
     <div className="w-full flex flex-col items-center">
-        <div className="w-full">
-            <EventLanding />
-        </div>
-        <div className="bg-white w-full">
-            <div className="
+      <div className="w-full">
+        <EventLanding />
+      </div>
+      <div className="bg-white w-full">
+        <div
+          className="
                 bg-[linear-gradient(transparent,rgba(20,92,169,0.4)_50%,transparent)]
                 flex flex-col items-center gap-[20px]
                 w-full pb-[100px] px-[16px]
@@ -24,20 +25,24 @@ const page = async () => {
 
                 lg:bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)]
                 lg:gap-[70px] lg:px-[120px]
-            ">
-                <h1 className="
+            "
+        >
+          <h1
+            className="
                     text-darkBlue 
                     font-bold 
                     text-title
                     cursor-pointer
-                ">
-                    Upcoming Events
-                </h1>
+                "
+          >
+            Upcoming Events
+          </h1>
 
-                <UpcomingEvents events={upcomingEvents} />
-            </div>
+          <UpcomingEvents events={upcomingEvents} />
+        </div>
 
-            <div className="
+        <div
+          className="
                 bg-[linear-gradient(transparent,rgba(20,92,169,0.4)_50%,transparent)]
                 flex flex-col items-center gap-[20px]
                 w-full pt-[100px] pb-[100px] mt-5 mb-20 px-[16px]
@@ -45,20 +50,23 @@ const page = async () => {
 
                 lg:bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)]
                 lg:gap-[70px] lg:px-[120px]
-            ">
-                <h1 className="
+            "
+        >
+          <h1
+            className="
                     text-darkBlue 
                     font-bold 
                     text-title
                     cursor-pointer
-                ">
-                    Recent Events
-                </h1>
+                "
+          >
+            Recent Events
+          </h1>
 
-                <RecentEvents events={recentEvents} />
-            </div>
-            <BlueGradient/>
+          <RecentEvents events={recentEvents} />
         </div>
+        <BlueGradient />
+      </div>
     </div>
   );
 };

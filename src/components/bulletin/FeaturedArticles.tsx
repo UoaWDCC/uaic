@@ -49,12 +49,8 @@ const FeaturedArticles = () => {
                 className="object-cover w-full h-full"
               />
               <div className="absolute inset-0 bg-opacity-40 flex flex-col justify-center px-3 hover:bg-opacity-60 transition-colors duration-300">
-                <p className="text-xs text-white pb-2">
-                  Issue #{article.issue}
-                </p>
-                <p className="text-sm font-semibold text-white leading-tight">
-                  {article.title}
-                </p>
+                <p className="text-xs text-white pb-2">Issue #{article.issue}</p>
+                <p className="text-sm font-semibold text-white leading-tight">{article.title}</p>
               </div>
               <div className="absolute bottom-2 right-2 text-white text-xl">
                 <GoBook size={25} />
@@ -74,15 +70,9 @@ const FeaturedArticles = () => {
       <div className="hidden lg:flex lg:gap-6">
         {/* Sidebar */}
         <div className="w-1/3 bg-[var(--background)] shadow-lg rounded-[2rem] p-6 flex flex-col items-start">
-          <h2 className="text-3xl font-semibold text-[var(--darkBlue)] mt-15">
-            Featured
-          </h2>
-          <h2 className="text-3xl font-semibold text-[var(--darkBlue)] mb-6">
-            Articles
-          </h2>
-          <p className="text-sm text-[var(--darkBlue)] mb-6">
-            Want to see more?
-          </p>
+          <h2 className="text-3xl font-semibold text-[var(--darkBlue)] mt-15">Featured</h2>
+          <h2 className="text-3xl font-semibold text-[var(--darkBlue)] mb-6">Articles</h2>
+          <p className="text-sm text-[var(--darkBlue)] mb-6">Want to see more?</p>
           <button className="bg-[var(--darkBlue)] text-white font-semibold rounded-full py-2 px-6 transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg hover:scale-105">
             View All
           </button>
@@ -106,9 +96,7 @@ const FeaturedArticles = () => {
                 />
                 <div className="absolute inset-0 bg-opacity-40 flex flex-col justify-center px-4 rounded-xl hover:bg-opacity-60 transition-colors duration-300">
                   <div className="w-[90%]">
-                    <p className="text-sm lg:text-base text-white pb-2">
-                      Issue #{article.issue}
-                    </p>
+                    <p className="text-sm lg:text-base text-white pb-2">Issue #{article.issue}</p>
                     <p className="text-base lg:text-lg font-semibold text-white leading-tight">
                       {article.title}
                     </p>
@@ -122,10 +110,7 @@ const FeaturedArticles = () => {
               {/* Read More Button */}
               <div className="w-28 aspect-square flex items-center justify-center bg-[var(--darkBlue)] text-white text-base lg:text-lg font-semibold rounded-xl p-2 relative hover:bg-opacity-80 transition-colors duration-300">
                 <span>Read More</span>
-                <LuExternalLink
-                  className="w-6 h-6 absolute bottom-2 right-2"
-                  size={25}
-                />
+                <LuExternalLink className="w-6 h-6 absolute bottom-2 right-2" size={25} />
               </div>
             </div>
           ))}

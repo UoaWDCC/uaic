@@ -53,8 +53,7 @@ const OurInvestments = () => {
           <div
             className="absolute top-0 left-0 h-full w-1/2 bg-background rounded-full transition-transform duration-300"
             style={{
-              transform:
-                activeTab === "current" ? "translateX(0%)" : "translateX(100%)",
+              transform: activeTab === "current" ? "translateX(0%)" : "translateX(100%)",
             }}
           />
           <button
@@ -86,9 +85,7 @@ const OurInvestments = () => {
             <h2 className="text-darkBlue font-bold text-lg lg:text-header mb-2 lg:mb-3">
               {inv.name}
             </h2>
-            <p className="text-foreground text-sm lg:text-body mb-3 lg:mb-4">
-              {inv.description}
-            </p>
+            <p className="text-foreground text-sm lg:text-body mb-3 lg:mb-4">{inv.description}</p>
 
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 text-sm lg:text-body text-foreground">
               <div>

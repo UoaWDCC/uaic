@@ -6,11 +6,7 @@ type SignupPerksFormatProps = {
   text: string;
 };
 
-const PerksGridFormat: React.FC<SignupPerksFormatProps> = ({
-  title,
-  icon,
-  text,
-}) => {
+const PerksGridFormat: React.FC<SignupPerksFormatProps> = ({ title, icon, text }) => {
   return (
     <div
       className="

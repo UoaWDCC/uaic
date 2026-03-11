@@ -1,20 +1,20 @@
-'use client'
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { getLandingPageImage } from "@/features/users/data/getLandingPageImage";
 import Button from "../Button";
 
 const EventLanding = () => {
-    const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
-  
-    useEffect(() => {
-      const fetchImage = async () => {
-        const imageUrl = await getLandingPageImage("events");
-        setBackgroundImage(imageUrl || "/assets/home/bull-cow-bg.webp"); // Fallback image
-      };
-  
-      fetchImage();
-    }, []);
+  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      const imageUrl = await getLandingPageImage("events");
+      setBackgroundImage(imageUrl || "/assets/home/bull-cow-bg.webp"); // Fallback image
+    };
+
+    fetchImage();
+  }, []);
   return (
     <>
       {/* This is to hide disable the scrolling horizontally of the background */}
@@ -95,7 +95,8 @@ const EventLanding = () => {
               lg:text-[24.3px] lg:leading-[32.39px] lg:mx-0
             "
           >
-            Workshops, guest speakers, and networking - Stay tuned for what's coming up here at UAIC!
+            Workshops, guest speakers, and networking - Stay tuned for what's coming up here at
+            UAIC!
           </h3>
 
           <div className="flex gap-[8px] w-[320px] h-[53px]">

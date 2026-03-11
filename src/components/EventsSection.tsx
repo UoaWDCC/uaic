@@ -29,11 +29,7 @@ const EventsSection = ({ upcomingEvents, recentEvents }: EventsSectionProps) => 
             rounded-full 
             transition-all duration-600 
             font-medium hover:cursor-pointer
-            ${
-              selected === "upcoming"
-                ? "bg-[var(--darkBlue)] text-white"
-                : "text-black bg-white"
-            }
+            ${selected === "upcoming" ? "bg-[var(--darkBlue)] text-white" : "text-black bg-white"}
           `}
         >
           Upcoming Events
@@ -45,11 +41,7 @@ const EventsSection = ({ upcomingEvents, recentEvents }: EventsSectionProps) => 
             rounded-full 
             transition-all duration-600 
             font-medium hover:cursor-pointer
-            ${
-              selected === "recent"
-                ? "bg-[var(--darkBlue)] text-white"
-                : "text-black bg-white"
-            }`}
+            ${selected === "recent" ? "bg-[var(--darkBlue)] text-white" : "text-black bg-white"}`}
         >
           Recent Events
         </button>

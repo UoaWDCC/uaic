@@ -1,8 +1,7 @@
-'use client'
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { getLandingPageImage } from "@/features/users/data/getLandingPageImage";
-import Link from "next/link";
 import Button from "../Button";
 
 const HomePage = () => {
@@ -93,8 +92,8 @@ const HomePage = () => {
                     font-[300] tracking-[0px] text-[16px] leading-[17.84px] mx-[20px]
                     lg:text-[24.3px] lg:leading-[32.39px] lg:mx-0"
           >
-            We welcome members from all academic backgrounds and stages at the
-            University of Auckland.
+            We welcome members from all academic backgrounds and stages at the University of
+            Auckland.
           </h3>
 
           <div className="flex gap-[8px] w-[320px] h-[53px]">

@@ -25,11 +25,7 @@ const monthNames = [
   "Dec",
 ];
 
-const ArticleListItem: React.FC<ArticleListItemProps> = ({
-  issueNumber,
-  date,
-  link,
-}) => {
+const ArticleListItem: React.FC<ArticleListItemProps> = ({ issueNumber, date, link }) => {
   return (
     <Link href={link} target="_blank">
       <div

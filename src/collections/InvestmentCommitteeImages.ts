@@ -1,32 +1,32 @@
 import { CollectionConfig } from "payload";
 
 export const InvestmentCommitteeImages: CollectionConfig = {
-  slug: 'investment-committee-images',
+  slug: "investment-committee-images",
   labels: {
-    singular: 'Investment Committee Image',
-    plural: 'Investment Committee Images',
+    singular: "Investment Committee Image",
+    plural: "Investment Committee Images",
   },
   admin: {
-    useAsTitle: 'alt',
-    description: 'Image for the Investment Committee section',
+    useAsTitle: "alt",
+    description: "Image for the Investment Committee section",
   },
   upload: {
     imageSizes: [
       {
-        name: 'thumbnail',
+        name: "thumbnail",
         width: 400,
         height: 300,
-        position: 'centre',
+        position: "centre",
       },
     ],
-    adminThumbnail: 'thumbnail',
-    mimeTypes: ['image/*'],
+    adminThumbnail: "thumbnail",
+    mimeTypes: ["image/*"],
   },
   fields: [
     {
-      name: 'alt',
-      type: 'text',
-      label: 'Alt Text',
+      name: "alt",
+      type: "text",
+      label: "Alt Text",
       required: true,
     },
   ],

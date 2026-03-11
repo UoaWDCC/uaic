@@ -19,19 +19,16 @@ const SignupSection = () => {
 
       <div className="mt-6 md:pl-10 px-4 text-darkBlue leading-relaxed text-body font-normal self-center">
         <p>
-          Sign up to register competitions Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          Sign up to register competitions Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
       </div>
 
       <div className="flex justify-center py-5">
         <button
           onClick={() =>
-            alert(
-              "The hardest thing to learn in life is which bridge to cross and which to burn."
-            )
+            alert("The hardest thing to learn in life is which bridge to cross and which to burn.")
           }
         >
           <Image
@@ -45,7 +42,9 @@ const SignupSection = () => {
       </div>
 
       <div className="flex justify-center gap-2">
-        <Button link="/payment" defaultSize>Membership Payment</Button>
+        <Button link="/payment" defaultSize>
+          Membership Payment
+        </Button>
       </div>
     </div>
   );

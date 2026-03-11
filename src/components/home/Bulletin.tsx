@@ -39,15 +39,13 @@ const Bulletin = () => {
         <div className="h-full ml-4 mt-2 flex flex-col justify-start font-semibold">
           <h2 className="text-xl">Issue #79</h2>
           <p className="text-[28px] mt-2 leading-[1.2]">
-            Isn't There Something Wrong with a World Where Everything is For
-            Sale?
+            Isn't There Something Wrong with a World Where Everything is For Sale?
           </p>
           <p className="text-m font-normal max-w-[85%] mt-4">
-            A collection of thought-provoking articles and opinion pieces
-            exploring the ethics of commodification, the sale of IC's Spark, the
-            value of fine art as an investment, and Rivian's dramatic industry
-            shift. Includes a partner column from Forsyth Barr on tackling New
-            Zealand's water quality challenges.
+            A collection of thought-provoking articles and opinion pieces exploring the ethics of
+            commodification, the sale of IC's Spark, the value of fine art as an investment, and
+            Rivian's dramatic industry shift. Includes a partner column from Forsyth Barr on
+            tackling New Zealand's water quality challenges.
           </p>
         </div>
 
@@ -64,15 +62,10 @@ const Bulletin = () => {
       >
         <div className="max-w-[85%] h-full ml-4 flex flex-col justify-center font-semibold">
           <p className="text-xl">Issue #78</p>
-          <p className="text-3xl mt-2">
-            Measuring Up? New Zealand's Standardised Testing Debate
-          </p>
+          <p className="text-3xl mt-2">Measuring Up? New Zealand's Standardised Testing Debate</p>
         </div>
 
-        <GoBook
-          className="w-10 absolute bottom-6 right-6 text-white"
-          size={25}
-        />
+        <GoBook className="w-10 absolute bottom-6 right-6 text-white" size={25} />
       </div>
 
       {/* MINI 2 */}
@@ -85,15 +78,10 @@ const Bulletin = () => {
       >
         <div className="max-w-[85%] h-full ml-4 flex flex-col justify-center font-semibold">
           <p className="text-xl">Issue #77</p>
-          <p className="text-3xl mt-2">
-            A House of Cards: The History of Fletcher Building
-          </p>
+          <p className="text-3xl mt-2">A House of Cards: The History of Fletcher Building</p>
         </div>
 
-        <GoBook
-          className="w-10 absolute bottom-6 right-6 text-white"
-          size={25}
-        />
+        <GoBook className="w-10 absolute bottom-6 right-6 text-white" size={25} />
       </div>
 
       {/* Want to see more */}

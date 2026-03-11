@@ -1,10 +1,5 @@
 import { MdEmail } from "react-icons/md";
-import {
-  FaInstagram,
-  FaLinkedin,
-  FaFacebook,
-  FaPhoneAlt,
-} from "react-icons/fa";
+import { FaInstagram, FaLinkedin, FaFacebook, FaPhoneAlt } from "react-icons/fa";
 import { TiLocation } from "react-icons/ti";
 import Link from "next/link";
 import Image from "next/image";
@@ -39,12 +34,24 @@ const Footer = () => {
               lg:text-[16px]
             "
             >
-              <Link href="/" className="hover:cursor-pointer">Home</Link>
-              <Link href="/about" className="hover:cursor-pointer">About</Link>
-              <Link href="/events" className="hover:cursor-pointer">Events</Link>
-              <Link href="/investmentportfolio" className="hover:cursor-pointer">Investments</Link>
-              <Link href="/bulletin" className="hover:cursor-pointer">Articles</Link>
-              <Link href="/contact" className="hover:cursor-pointer">Contact</Link>
+              <Link href="/" className="hover:cursor-pointer">
+                Home
+              </Link>
+              <Link href="/about" className="hover:cursor-pointer">
+                About
+              </Link>
+              <Link href="/events" className="hover:cursor-pointer">
+                Events
+              </Link>
+              <Link href="/investmentportfolio" className="hover:cursor-pointer">
+                Investments
+              </Link>
+              <Link href="/bulletin" className="hover:cursor-pointer">
+                Articles
+              </Link>
+              <Link href="/contact" className="hover:cursor-pointer">
+                Contact
+              </Link>
             </div>
           </div>
         </div>

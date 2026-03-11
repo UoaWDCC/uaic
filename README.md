@@ -1,4 +1,5 @@
 # UAIC Project
+
 Welcome to the UAIC Project!
 
 # Getting Started
@@ -46,15 +47,15 @@ pnpm dev
 
 ## Contributors - Team 2025
 
-| Role             | Member                      |
-| ---------------- | --------------------------- |
-| Project Manager  | Ezekiel Ko                  |
-| Technical Lead   | Jerry Nguyen                |
-| Designer / Developer| Andre Camerino           |
-| Designer / Developer| Angelica Huang           
-| Developer        | Evan Au                     |
-| Developer        | Nicholas Garcia-Scholtz |
-| Developer        | Paige Phan |
-| Developer        | Sam Richell-Smith           |
-| Developer        | Nathan Turley               |
-| Developer        | Jesse Wanghan |
+| Role                 | Member                  |
+| -------------------- | ----------------------- |
+| Project Manager      | Ezekiel Ko              |
+| Technical Lead       | Jerry Nguyen            |
+| Designer / Developer | Andre Camerino          |
+| Designer / Developer | Angelica Huang          |
+| Developer            | Evan Au                 |
+| Developer            | Nicholas Garcia-Scholtz |
+| Developer            | Paige Phan              |
+| Developer            | Sam Richell-Smith       |
+| Developer            | Nathan Turley           |
+| Developer            | Jesse Wanghan           |

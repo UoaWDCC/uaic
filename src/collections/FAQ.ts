@@ -1,19 +1,19 @@
-import { CollectionConfig } from 'payload';
+import { CollectionConfig } from "payload";
 
 const FAQ: CollectionConfig = {
-  slug: 'FAQ',
+  slug: "FAQ",
   admin: {
-    useAsTitle: 'question',
+    useAsTitle: "question",
   },
   fields: [
     {
-      name: 'question',
-      type: 'text',
+      name: "question",
+      type: "text",
       required: true,
     },
     {
-      name: 'answer',
-      type: 'textarea',
+      name: "answer",
+      type: "textarea",
       required: true,
     },
   ],

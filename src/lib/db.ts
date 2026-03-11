@@ -12,7 +12,6 @@ let clientPromise: Promise<MongoClient>;
 
 declare global {
   // allow global caching in dev
-  // eslint-disable-next-line no-var
   var _mongoClientPromise: Promise<MongoClient>;
 }
 

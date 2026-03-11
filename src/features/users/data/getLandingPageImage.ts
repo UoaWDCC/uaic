@@ -1,13 +1,13 @@
-'use server'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+"use server";
+import { getPayload } from "payload";
+import config from "@payload-config";
 
 export const getLandingPageImage = async (tag: string): Promise<string | null> => {
   const payload = await getPayload({ config });
 
   try {
     const result = await payload.find({
-      collection: 'landing-page-images',
+      collection: "landing-page-images",
       where: {
         tag: {
           equals: tag,

@@ -1,27 +1,27 @@
-import Image from "next/image"
-import Button from "../Button"
+import Image from "next/image";
+import Button from "../Button";
 import { getLatestBulletin } from "@/features/bulletins/data/getBulletins";
 
 export default async function LatestArticle() {
-  const latest = await getLatestBulletin()
+  const latest = await getLatestBulletin();
 
-  if (!latest) return null
+  if (!latest) return null;
 
-  const maxDescriptionLength = 380
+  const maxDescriptionLength = 380;
   const truncatedDescription =
     latest.description && latest.description.length > maxDescriptionLength
       ? latest.description.slice(0, maxDescriptionLength) + "..."
-      : latest.description || ""
+      : latest.description || "";
 
-  const maxTitleLength = 70
+  const maxTitleLength = 70;
   const truncatedTitle =
     latest.title.length > maxTitleLength
       ? latest.title.slice(0, maxTitleLength) + "..."
-      : latest.title
+      : latest.title;
 
   // create a placeholder cover page and add here
-  const imageSrc = latest.bulletinCover?.url || "/assets/bulletins/placeholder-bulletin-cover.png"
-  const pdfUrl = latest.bulletinPDF?.url || "#"
+  const imageSrc = latest.bulletinCover?.url || "/assets/bulletins/placeholder-bulletin-cover.png";
+  const pdfUrl = latest.bulletinPDF?.url || "#";
 
   return (
     <div
@@ -51,7 +51,9 @@ export default async function LatestArticle() {
             <h1 className="text-xl font-bold mb-4 leading-tight">{truncatedTitle}</h1>
             <p className="mb-6 text-darkBlue font-light">{truncatedDescription}</p>
             <div className="w-[224px] h-[35px]">
-              <Button link={pdfUrl} className="text-body">Read More</Button>
+              <Button link={pdfUrl} className="text-body">
+                Read More
+              </Button>
             </div>
           </div>
         </div>
@@ -77,5 +79,5 @@ export default async function LatestArticle() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -13,9 +13,7 @@ const ContactPage = () => {
 
           {/* Email Inquiries */}
           <div className="mb-8">
-            <h2 className="text-header font-bold text-darkBlue mb-4">
-              Email Inquiries
-            </h2>
+            <h2 className="text-header font-bold text-darkBlue mb-4">Email Inquiries</h2>
             <div className="space-y-3">
               <div>
                 <h3 className="font-bold text-darkBlue text-body">General Inquiries</h3>
@@ -36,9 +34,7 @@ const ContactPage = () => {
                 </Link>
               </div>
               <div>
-                <h3 className="font-bold text-darkBlue text-body">
-                  Competitions Inquiries
-                </h3>
+                <h3 className="font-bold text-darkBlue text-body">Competitions Inquiries</h3>
                 <Link
                   href="mailto:competitions@uaic.co.nz"
                   className="text-darkBlue underline text-body"
@@ -109,9 +105,7 @@ const ContactPage = () => {
 
           {/* Address */}
           <div className="mb-8">
-            <h2 className="text-header font-semibold text-darkBlue mb-4">
-              Address
-            </h2>
+            <h2 className="text-header font-semibold text-darkBlue mb-4">Address</h2>
             <div className="text-darkBlue font-bold text-body">
               <p>University of Auckland Investment Club</p>
               <p>Level 1, Owen G. Glenn Building</p>

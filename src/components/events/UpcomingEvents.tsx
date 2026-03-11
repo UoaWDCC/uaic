@@ -24,30 +24,32 @@ interface UpcomingEventsProps {
 
 const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
   const [selectedEvent, setSelectedEvent] = useState<null | Event>(null);
-  
+
   // Transform database events to component format
   const events: Event[] = rawEvents.map((dbEvent) => {
     const startDate = new Date(dbEvent.startDate);
     const endDate = new Date(dbEvent.endDate);
-    
-    const formattedDate = startDate.toLocaleDateString('en-NZ', { 
-      day: '2-digit', 
-      month: 'short', 
-      year: 'numeric' 
-    }).replace(',', '');
-    
-    const startTime = startDate.toLocaleTimeString('en-NZ', { 
-      hour: '2-digit', 
-      minute: '2-digit',
-      hour12: true 
+
+    const formattedDate = startDate
+      .toLocaleDateString("en-NZ", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .replace(",", "");
+
+    const startTime = startDate.toLocaleTimeString("en-NZ", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
     });
-    
-    const endTime = endDate.toLocaleTimeString('en-NZ', { 
-      hour: '2-digit', 
-      minute: '2-digit',
-      hour12: true 
+
+    const endTime = endDate.toLocaleTimeString("en-NZ", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
     });
-    
+
     return {
       id: dbEvent.id,
       date: formattedDate,
@@ -55,18 +57,14 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
       title: dbEvent.event,
       location: dbEvent.location,
       type: "Event",
-      photo: dbEvent.image?.url || '/assets/logos/uaic.webp',
+      photo: dbEvent.image?.url || "/assets/logos/uaic.webp",
       description: dbEvent.description,
       application_link: `/events/${dbEvent.id}`,
     };
   });
 
   if (events.length === 0) {
-    return (
-      <div className="text-center text-gray-500 py-10">
-        No upcoming events at this time.
-      </div>
-    );
+    return <div className="text-center text-gray-500 py-10">No upcoming events at this time.</div>;
   }
 
   return (

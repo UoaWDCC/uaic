@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 type BulletinInfoCardProps = {
   title: string;
@@ -7,11 +6,7 @@ type BulletinInfoCardProps = {
   text: string;
 };
 
-const BulletinInfoCard: React.FC<BulletinInfoCardProps> = ({
-  title,
-  icon,
-  text,
-}) => {
+const BulletinInfoCard: React.FC<BulletinInfoCardProps> = ({ title, icon, text }) => {
   return (
     <div
       className="

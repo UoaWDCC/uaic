@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { getLandingPageImage } from "@/features/users/data/getLandingPageImage";
@@ -90,8 +90,8 @@ const BulletinHeroSection = () => {
                     font-[300] tracking-[0px] text-[16px] leading-[17.84px] mx-[20px]
                     lg:text-[24.3px] lg:leading-[32.39px] lg:mx-0"
           >
-            The Bulletin Team is a team of dedicated student writers and editors
-            that actively publish the recurring news bulletin
+            The Bulletin Team is a team of dedicated student writers and editors that actively
+            publish the recurring news bulletin
           </h3>
 
           <div className="flex gap-[8px] w-[320px] h-[53px]">

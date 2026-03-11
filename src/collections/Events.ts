@@ -1,104 +1,103 @@
-import type { CollectionConfig, CollectionSlug} from "payload";
-
+import type { CollectionConfig, CollectionSlug } from "payload";
 
 export const Events: CollectionConfig = {
-  slug: 'events',
+  slug: "events",
   labels: {
-    singular: 'Event',
-    plural: 'Events'
+    singular: "Event",
+    plural: "Events",
   },
   admin: {
-    useAsTitle: 'event',
+    useAsTitle: "event",
   },
   fields: [
     {
-      name: 'event', 
-      type: 'text', 
-      label: 'Event Name',
+      name: "event",
+      type: "text",
+      label: "Event Name",
       required: true,
       admin: {
         style: {
-          cursor: 'pointer',
+          cursor: "pointer",
         },
       },
     },
     {
-      name: 'startDate',
-      type: 'date',
-      label: 'Start Date & Time',
-      required: true,
-      admin: {
-        date: {
-          pickerAppearance: 'dayAndTime',
-          displayFormat: 'yyyy-MM-dd HH:mm',
-        },
-        style: {
-          cursor: 'pointer',
-        },
-      },
-    },
-    {
-      name: 'endDate',
-      type: 'date',
-      label: 'End Date & Time',
+      name: "startDate",
+      type: "date",
+      label: "Start Date & Time",
       required: true,
       admin: {
         date: {
-          pickerAppearance: 'dayAndTime',
-          displayFormat: 'yyyy-MM-dd HH:mm',
+          pickerAppearance: "dayAndTime",
+          displayFormat: "yyyy-MM-dd HH:mm",
         },
         style: {
-          cursor: 'pointer',
+          cursor: "pointer",
         },
       },
     },
     {
-      name: 'location',
-      type: 'text',
-      label: 'Location',
+      name: "endDate",
+      type: "date",
+      label: "End Date & Time",
+      required: true,
+      admin: {
+        date: {
+          pickerAppearance: "dayAndTime",
+          displayFormat: "yyyy-MM-dd HH:mm",
+        },
+        style: {
+          cursor: "pointer",
+        },
+      },
+    },
+    {
+      name: "location",
+      type: "text",
+      label: "Location",
       required: true,
       admin: {
         style: {
-          cursor: 'pointer',
+          cursor: "pointer",
         },
       },
     },
     {
-      name: 'description',
-      type: 'text',
-      label: 'Description',
+      name: "description",
+      type: "text",
+      label: "Description",
       required: true,
       admin: {
         style: {
-          cursor: 'pointer',
+          cursor: "pointer",
         },
       },
     },
     {
-      name: 'image',
-      type: 'upload',
-      label: 'Image',
-      relationTo: 'media',
+      name: "image",
+      type: "upload",
+      label: "Image",
+      relationTo: "media",
       admin: {
         style: {
-          cursor: 'pointer',
+          cursor: "pointer",
         },
       },
     },
     {
-      name: 'attendees',
-      type: 'relationship',
-      label: 'Attendees',
-      relationTo: 'member' as CollectionSlug,
+      name: "attendees",
+      type: "relationship",
+      label: "Attendees",
+      relationTo: "member" as CollectionSlug,
       hasMany: true,
       admin: {
         style: {
-          cursor: 'pointer',
+          cursor: "pointer",
         },
       },
-    }
+    },
   ],
   access: {
     read: () => true,
   },
-}
+};
