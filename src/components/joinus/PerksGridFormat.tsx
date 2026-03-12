@@ -6,33 +6,12 @@ type SignupPerksFormatProps = {
   text: string;
 };
 
-const PerksGridFormat: React.FC<SignupPerksFormatProps> = ({
-  title,
-  icon,
-  text,
-}) => {
+const PerksGridFormat: React.FC<SignupPerksFormatProps> = ({ title, icon, text }) => {
   return (
-    <div
-      className="
-    flex flex-col gap-[7px]
-    "
-    >
+    <div className="flex flex-col gap-[7px]">
       <div className="text-3xl">{icon}</div>
-      <h2
-        className="
-        font-bold
-        text-header
-      "
-      >
-        {title}
-      </h2>
-      <p
-        className="
-        font-light text-body
-      "
-      >
-        {text}
-      </p>
+      <h2 className="text-header font-bold">{title}</h2>
+      <p className="text-body font-light">{text}</p>
     </div>
   );
 };

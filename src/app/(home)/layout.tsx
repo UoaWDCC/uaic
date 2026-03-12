@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {/* Visible Navbar */}
-        <div className="fixed top-0 left-0 w-full z-50">
+        <div className="fixed top-0 left-0 z-50 w-full">
           <Navbar />
         </div>
 

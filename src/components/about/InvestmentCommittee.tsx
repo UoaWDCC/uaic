@@ -11,34 +11,23 @@ export default async function InvestmentCommittee() {
   }
 
   return (
-    <div className="w-full mx-auto p-4 lg:px-10 bg-white rounded-lg">
+    <div className="mx-auto w-full rounded-lg bg-white p-4 lg:px-10">
       <div>
-        <span className="font-bold text-header text-darkBlue">
-          Investment Committee
-        </span>
+        <span className="text-header text-darkBlue font-bold">Investment Committee</span>
 
-        <div className="text-sm text-darkBlue flex flex-col items-center">
-          <div className="w-9/10 flex flex-col items-center text-body">
+        <div className="text-darkBlue flex flex-col items-center text-sm">
+          <div className="text-body flex w-9/10 flex-col items-center">
             <p className="my-4">
-              The Investment Committee is responsible for managing the club's
-              fund, including:
+              The Investment Committee is responsible for managing the club's fund, including:
             </p>
 
-            <ul className="list-disc list-inside mb-4 text-left">
-              <li>
-                Ensuring all investments are in line with the fund's value
-                investing thesis
-              </li>
-              <li>
-                Regularly pitching and analysing potential stock investments
-              </li>
-              <li>
-                Voting to decide whether an investment passes to the next
-                stage of approval
-              </li>
+            <ul className="mb-4 list-inside list-disc text-left">
+              <li>Ensuring all investments are in line with the fund's value investing thesis</li>
+              <li>Regularly pitching and analysing potential stock investments</li>
+              <li>Voting to decide whether an investment passes to the next stage of approval</li>
             </ul>
 
-            <div className="w-full h-[300px] flex items-center justify-center overflow-hidden rounded-lg">
+            <div className="flex h-[300px] w-full items-center justify-center overflow-hidden rounded-lg">
               {imageUrl ? (
                 <Image
                   src={imageUrl}
@@ -48,25 +37,24 @@ export default async function InvestmentCommittee() {
                   className="object-cover"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                <div className="flex h-full w-full items-center justify-center bg-gray-100">
                   <span>Image not available</span>
                 </div>
               )}
             </div>
           </div>
 
-          <div className="items-center text-center mt-4 text-body">
+          <div className="text-body mt-4 items-center text-center">
             <p className="p-2">
-              <strong>Back Row: </strong>Max Wilson, Sam Gowen, Caden Van De
-              Laak
+              <strong>Back Row: </strong>Max Wilson, Sam Gowen, Caden Van De Laak
             </p>
             <p className="p-2">
-              <strong>Middle Row: </strong>Sophia Walker, Caleb Manson, Matt
-              Powell, Tom Maclean, Shivam Shanker
+              <strong>Middle Row: </strong>Sophia Walker, Caleb Manson, Matt Powell, Tom Maclean,
+              Shivam Shanker
             </p>
             <p className="p-2">
-              <strong>Front Row: </strong>Amelia Cave, Abbey Patten, Rohit
-              Guthpe, Aimee Ng, Cullen Tran, Lilly Crawford
+              <strong>Front Row: </strong>Amelia Cave, Abbey Patten, Rohit Guthpe, Aimee Ng, Cullen
+              Tran, Lilly Crawford
             </p>
             <p className="p-2">
               <strong>Absent: </strong>Isabella Boswell, Andrew Griffiths
@@ -75,7 +63,7 @@ export default async function InvestmentCommittee() {
         </div>
       </div>
 
-      <hr className="border-t border-grey-200 w-9/10 md:w-full self-center my-6" />
+      <hr className="border-grey-200 my-6 w-9/10 self-center border-t md:w-full" />
     </div>
   );
 }

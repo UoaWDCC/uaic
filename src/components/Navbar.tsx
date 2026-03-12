@@ -24,8 +24,7 @@ const Navbar = () => {
     const createWidget = (container: HTMLDivElement | null) => {
       if (!container) return;
       const script = document.createElement("script");
-      script.src =
-        "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
+      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
       script.async = true;
       script.innerHTML = JSON.stringify({
         symbols: [
@@ -53,32 +52,20 @@ const Navbar = () => {
   return (
     <nav className="w-full">
       {/* Mobile Widget */}
-      <div className="tradingview-widget-container lg:hidden shadow-xl/10">
-        <div
-          className="tradingview-widget-container__widget"
-          ref={mobileRef}
-        ></div>
+      <div className="tradingview-widget-container shadow-xl/10 lg:hidden">
+        <div className="tradingview-widget-container__widget" ref={mobileRef}></div>
       </div>
 
       {/* Top Bar */}
-      <div
-        className="
-    bg-transparent text-[#172741] px-6 py-2 flex items-center justify-between
-    lg:bg-whiteHover lg:px-7 lg:p-0
-  "
-      >
+      <div className="lg:bg-whiteHover flex items-center justify-between bg-transparent px-6 py-2 text-[#172741] lg:p-0 lg:px-7">
         {/* Hamburger Menu */}
         <button
-          className={`lg:hidden p-4 bg-white rounded-4xl shadow-xl/10 z-50 transition-transform duration-300 cursor-pointer ${isOpen ? "invisible" : "visible"
-            }`}
+          className={`z-50 cursor-pointer rounded-4xl bg-white p-4 shadow-xl/10 transition-transform duration-300 lg:hidden ${
+            isOpen ? "invisible" : "visible"
+          }`}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <svg
-            className="w-10 h-10"
-            fill="none"
-            stroke="var(--darkBlue)"
-            viewBox="0 0 24 24"
-          >
+          <svg className="h-10 w-10" fill="none" stroke="var(--darkBlue)" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -100,12 +87,9 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Nav */}
-        <ul className="hidden lg:flex gap-3 xl:gap-10 2xl:gap-15 text-xl font-[300]">
+        <ul className="hidden gap-3 text-xl font-[300] lg:flex xl:gap-10 2xl:gap-15">
           <li>
-            <Link
-              href="/"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px] cursor-pointer"
-            >
+            <Link href="/" className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl">
               Home
             </Link>
           </li>
@@ -114,28 +98,25 @@ const Navbar = () => {
             onMouseEnter={() => setIsAboutDropdownOpen(true)}
             onMouseLeave={() => setIsAboutDropdownOpen(false)}
           >
-            <Link
-              href="/about"
-              className=" hover:rounded-xl p-[4px] font-[300] cursor-pointer"
-            >
+            <Link href="/about" className="cursor-pointer p-[4px] font-[300] hover:rounded-xl">
               About
             </Link>
             {/* Dropdown Menu */}
             {isAboutDropdownOpen && (
               <div
-                className="absolute top-full left-0 bg-darkBlue text-white shadow-lg rounded-lg z-50 overflow-hidden"
-                style={{ width: '220px', height: '80px' }}
+                className="bg-darkBlue absolute top-full left-0 z-50 overflow-hidden rounded-lg text-white shadow-lg"
+                style={{ width: "220px", height: "80px" }}
               >
-                <div className="flex flex-col h-full">
+                <div className="flex h-full flex-col">
                   <Link
                     href="/about"
-                    className="flex-1 px-4 py-2 text-sm hover:bg-blue-700 flex items-center cursor-pointer rounded-t-lg font-[300]"
+                    className="flex flex-1 cursor-pointer items-center rounded-t-lg px-4 py-2 text-sm font-[300] hover:bg-blue-700"
                   >
                     The Committees
                   </Link>
                   <Link
                     href="/FAQ"
-                    className="flex-1 px-4 py-2 text-sm hover:bg-blue-700 flex items-center cursor-pointer rounded-b-lg font-[300]"
+                    className="flex flex-1 cursor-pointer items-center rounded-b-lg px-4 py-2 text-sm font-[300] hover:bg-blue-700"
                   >
                     FAQ
                   </Link>
@@ -146,7 +127,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/events"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px] cursor-pointer"
+              className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl"
             >
               Events
             </Link>
@@ -154,7 +135,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/investmentportfolio"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px] cursor-pointer"
+              className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl"
             >
               Investment Portfolio
             </Link>
@@ -162,7 +143,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/bulletin"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px] cursor-pointer"
+              className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl"
             >
               Bulletin
             </Link>
@@ -170,7 +151,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/contact"
-              className="hover:text-darkBlue hover:rounded-xl p-[4px] cursor-pointer"
+              className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl"
             >
               Contact
             </Link>
@@ -178,48 +159,28 @@ const Navbar = () => {
         </ul>
 
         <div className="hidden lg:block">
-          <Button link="/joinus" defaultSize className="cursor-pointer">Join Us</Button>
+          <Button link="/joinus" defaultSize className="cursor-pointer">
+            Join Us
+          </Button>
         </div>
-
       </div>
 
       {/* Desktop Widget */}
       <div className="tradingview-widget-container hidden lg:block">
-        <div
-          className="tradingview-widget-container__widget"
-          ref={desktopRef}
-        ></div>
+        <div className="tradingview-widget-container__widget" ref={desktopRef}></div>
       </div>
 
       {/* Mobile Menu */}
       <ul
-        className={`
-        fixed top-[10%] bottom-[10%] sm:bottom-[16%] left-0 w-[90vw] max-w-[350px]
-        bg-white shadow-xl/20 rounded-3xl text-darkBlue
-        flex flex-col overflow-y-auto z-40
-        transform transition-transform duration-300 ease-in-out
-        lg:hidden
-        text-lg
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}
-      `}
+        className={`text-darkBlue fixed top-[10%] bottom-[10%] left-0 z-40 flex w-[90vw] max-w-[350px] transform flex-col overflow-y-auto rounded-3xl bg-white text-lg shadow-xl/20 transition-transform duration-300 ease-in-out sm:bottom-[16%] lg:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"} `}
       >
-        <div className="flex justify-between items-center px-6 py-6 ">
-          <Image
-            src="/assets/logos/uaic.webp"
-            alt="Logo"
-            width={150}
-            height={150}
-          />
+        <div className="flex items-center justify-between px-6 py-6">
+          <Image src="/assets/logos/uaic.webp" alt="Logo" width={150} height={150} />
           <button
-            className="p-3 bg-white rounded-full cursor-pointer"
+            className="cursor-pointer rounded-full bg-white p-3"
             onClick={() => setIsOpen(false)}
           >
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="#145CA9"
-              viewBox="0 0 24 24"
-            >
+            <svg className="h-8 w-8" fill="none" stroke="#145CA9" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -230,13 +191,16 @@ const Navbar = () => {
           </button>
         </div>
 
-        <hr className="border-t border-darkBlue-300 w-9/10 self-center" />
+        <hr className="border-darkBlue-300 w-9/10 self-center border-t" />
 
-        <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
-          <TiHome size={24} /> <Link href="/" onClick={handleLinkClick}>Home</Link>
+        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
+          <TiHome size={24} />{" "}
+          <Link href="/" onClick={handleLinkClick}>
+            Home
+          </Link>
         </li>
         <li
-          className="p-6 pl-14 border-b border-white flex items-center justify-between text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer"
+          className="hover:bg-whiteHover flex cursor-pointer items-center justify-between rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl"
           onClick={() => {
             setShowAboutSubpage(true);
             handleLinkClick();
@@ -247,54 +211,60 @@ const Navbar = () => {
           </div>
           <IoIosArrowForward size={20} />
         </li>
-        <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
-          <PiCalendarStarFill size={24} /> <Link href="/events" onClick={handleLinkClick}>Events</Link>
+        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
+          <PiCalendarStarFill size={24} />{" "}
+          <Link href="/events" onClick={handleLinkClick}>
+            Events
+          </Link>
         </li>
-        <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
-          <LuChartNoAxesCombined size={24} /> <Link href="/investmentportfolio" onClick={handleLinkClick}>Investments</Link>
+        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
+          <LuChartNoAxesCombined size={24} />{" "}
+          <Link href="/investmentportfolio" onClick={handleLinkClick}>
+            Investments
+          </Link>
         </li>
-        <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
-          <TiDocumentText size={24} /> <Link href="/bulletin" onClick={handleLinkClick}>Bulletin</Link>
+        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
+          <TiDocumentText size={24} />{" "}
+          <Link href="/bulletin" onClick={handleLinkClick}>
+            Bulletin
+          </Link>
         </li>
-        <li className="p-6 pl-14 pb-6 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
-          <RiContactsLine size={24} /> <Link href="/contact" onClick={handleLinkClick}>Contact</Link>
+        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pb-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
+          <RiContactsLine size={24} />{" "}
+          <Link href="/contact" onClick={handleLinkClick}>
+            Contact
+          </Link>
         </li>
 
-        <hr className="border-t border-darkBlue-300 w-9/10 self-center py-3" />
+        <hr className="border-darkBlue-300 w-9/10 self-center border-t py-3" />
 
-        <li className="ml-auto mr-[30px] font-[600] text-lg sm:text-xl">
-          <Button link="/joinus" className="p-[10px] px-[40px] sm:p-[12px] sm:px-[48px]">Join Us</Button>
+        <li className="mr-[30px] ml-auto text-lg font-[600] sm:text-xl">
+          <Button link="/joinus" className="p-[10px] px-[40px] sm:p-[12px] sm:px-[48px]">
+            Join Us
+          </Button>
         </li>
       </ul>
 
       {/* About Sub-page */}
       <div
-        className={`
-        pb-9
-        fixed top-[10%] bottom-[10%] sm:bottom-[16%] left-0 w-[90vw] max-w-[350px]
-        bg-white shadow-xl/20 rounded-3xl text-darkBlue
-        flex flex-col overflow-y-auto z-50
-        transform transition-transform duration-300 ease-in-out
-        lg:hidden
-        ${showAboutSubpage ? "translate-x-0" : "-translate-x-full"}
-      `}
+        className={`text-darkBlue fixed top-[10%] bottom-[10%] left-0 z-50 flex w-[90vw] max-w-[350px] transform flex-col overflow-y-auto rounded-3xl bg-white pb-9 shadow-xl/20 transition-transform duration-300 ease-in-out sm:bottom-[16%] lg:hidden ${showAboutSubpage ? "translate-x-0" : "-translate-x-full"} `}
       >
         {/* Header with Back Button */}
-        <div className="flex items-center px-6 py-6 border-b border-gray-200">
+        <div className="flex items-center border-b border-gray-200 px-6 py-6">
           <button
             onClick={() => setShowAboutSubpage(false)}
-            className="flex items-center gap-2 text-darkBlue hover:text-blue-700"
+            className="text-darkBlue flex items-center gap-2 hover:text-blue-700"
           >
             <IoIosArrowBack size={20} />
             <span className="text-[22px] font-semibold">Back</span>
           </button>
         </div>
 
-        <hr className="border-t border-darkBlue-300 w-9/10 self-center" />
+        <hr className="border-darkBlue-300 w-9/10 self-center border-t" />
 
         {/* Sub-menu Items */}
         <div className="flex-1">
-          <li className="p-6 pl-14 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl rounded-full hover:bg-whiteHover hover:font-semibold rounded-full  cursor-pointer">
+          <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
             <LuInfo size={24} />
             <Link
               href="/about"
@@ -307,7 +277,7 @@ const Navbar = () => {
             </Link>
           </li>
 
-          <li className="p-6 pl-14 pb-6 border-b border-white flex items-center gap-5 text-lg sm:p-8 sm:pl-16 sm:text-xl hover:bg-whiteHover hover:font-semibold rounded-full cursor-pointer">
+          <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pb-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
             <PiQuestion size={30} />
             <Link
               href="/FAQ"
@@ -321,9 +291,9 @@ const Navbar = () => {
           </li>
         </div>
 
-        <hr className="border-t border-darkBlue-300 w-9/10 self-center py-3 " />
+        <hr className="border-darkBlue-300 w-9/10 self-center border-t py-3" />
 
-        <div className="ml-auto p-[10px] px-[30px] mr-[30px] border border-solid border-darkBlue bg-darkBlue rounded-4xl text-white font-[600] text-lg sm:p-[16px] sm:px-[32px] sm:text-xl hover:bg-white hover:text-darkBlue">
+        <div className="border-darkBlue bg-darkBlue hover:text-darkBlue mr-[30px] ml-auto rounded-4xl border border-solid p-[10px] px-[30px] text-lg font-[600] text-white hover:bg-white sm:p-[16px] sm:px-[32px] sm:text-xl">
           <Link href="/payment">Membership Payment</Link>
         </div>
       </div>

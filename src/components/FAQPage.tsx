@@ -32,9 +32,7 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
 
   return (
     <div className="lg:px-16">
-      <div className="px-8 py-4 text-title font-bold text-darkBlue lg:pt-0">
-        FAQ
-      </div>
+      <div className="text-title text-darkBlue px-8 py-4 font-bold lg:pt-0">FAQ</div>
 
       <hr className="mb-2 w-screen border-t border-gray-300 lg:mx-4 lg:w-auto" />
 
@@ -45,11 +43,9 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
         >
           <button
             onClick={() => toggleFaq(faq.id)}
-            className="flex w-full items-center justify-between text-left text-darkBlue hover:cursor-pointer"
+            className="text-darkBlue flex w-full items-center justify-between text-left hover:cursor-pointer"
           >
-            <span className="text-header font-bold">
-              {faq.question}
-            </span>
+            <span className="text-header font-bold">{faq.question}</span>
             {openFaqs[faq.id] ? (
               <IoIosArrowDown className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
             ) : (
@@ -57,11 +53,9 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
             )}
           </button>
           {openFaqs[faq.id] && (
-            <div className="text-sm text-darkBlue hover:cursor-pointer">
+            <div className="text-darkBlue text-sm hover:cursor-pointer">
               <div className="w-full">
-                <p className="mt-4 text-body font-normal">
-                  {faq.answer}
-                </p>
+                <p className="text-body mt-4 font-normal">{faq.answer}</p>
               </div>
             </div>
           )}

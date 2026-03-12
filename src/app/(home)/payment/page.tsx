@@ -5,7 +5,6 @@ const PaymentPage = () => {
     <div className="min-h-screen pt-10">
       <Payment />
     </div>
-
   );
 };
 

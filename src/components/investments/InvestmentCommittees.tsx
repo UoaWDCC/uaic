@@ -11,76 +11,59 @@ export default async function InvestmentCommittee() {
   }
 
   return (
-    <div className="w-full mx-auto p-4 lg:px-80 bg-background rounded-lg">
+    <div className="bg-background mx-auto w-full rounded-lg p-4 lg:px-80">
       <div>
-        <h1 className="text-title font-bold text-darkBlue mb-8 pb-2">
-          Investment Committees
-        </h1>
+        <h1 className="text-title text-darkBlue mb-8 pb-2 font-bold">Investment Committees</h1>
 
         <div className="text-body text-darkBlue">
           <p className="mb-4 font-bold">
-            The Investment Committee is a team of student analysts who actively
-            manage the Club's Investment Fund.
+            The Investment Committee is a team of student analysts who actively manage the Club's
+            Investment Fund.
           </p>
 
           <p className="mb-4">
-            We were formed in 2009 and now have approximately $38,000 in assets
-            under management, making us one of New Zealand's oldest and largest
-            student-managed funds.
+            We were formed in 2009 and now have approximately $38,000 in assets under management,
+            making us one of New Zealand's oldest and largest student-managed funds.
           </p>
 
           <p className="mb-4">
-            Investing is for everyone - our analysts study a range of degrees
-            beyond just finance, and we are bound by our collective interest in
-            the financial markets.
+            Investing is for everyone - our analysts study a range of degrees beyond just finance,
+            and we are bound by our collective interest in the financial markets.
           </p>
 
           <p className="mb-10">
-            Education is one of our core values - all our analysts are supported
-            in their roles through regular workshops and ongoing mentorship,
-            assisting our team in making the best decisions when directly
-            interacting with the market.
+            Education is one of our core values - all our analysts are supported in their roles
+            through regular workshops and ongoing mentorship, assisting our team in making the best
+            decisions when directly interacting with the market.
           </p>
 
           <p className="mb-4 font-bold">
-            We practise value investing and ensure all our investments align with
-            this philosophy by following a three-step process:
+            We practise value investing and ensure all our investments align with this philosophy by
+            following a three-step process:
           </p>
 
-          <ol className="list-decimal list-inside mb-10">
+          <ol className="mb-10 list-inside list-decimal">
             <li>
-              A qualitative pitch is delivered to the Committee, which is
-              subsequently voted on
+              A qualitative pitch is delivered to the Committee, which is subsequently voted on
             </li>
+            <li>Valuations are performed to assess the fair value of the investment</li>
             <li>
-              Valuations are performed to assess the fair value of the investment
-            </li>
-            <li>
-              Investments are pitched back to the wider Club, requiring a majority
-              vote before being added to the Fund
+              Investments are pitched back to the wider Club, requiring a majority vote before being
+              added to the Fund
             </li>
           </ol>
 
           <p className="mb-4 font-bold">
-            The Investment Committee is responsible for managing the club's fund,
-            including:
+            The Investment Committee is responsible for managing the club's fund, including:
           </p>
 
-          <ul className="list-disc list-inside mb-10">
-            <li>
-              Ensuring all investments are in line with the fund's value investing
-              thesis
-            </li>
-            <li>
-              Regularly pitching and analysing potential stock investments
-            </li>
-            <li>
-              Voting to decide whether an investment passes to the next stage of
-              approval
-            </li>
+          <ul className="mb-10 list-inside list-disc">
+            <li>Ensuring all investments are in line with the fund's value investing thesis</li>
+            <li>Regularly pitching and analysing potential stock investments</li>
+            <li>Voting to decide whether an investment passes to the next stage of approval</li>
           </ul>
 
-          <div className="w-full h-[300px] flex items-center justify-center overflow-hidden rounded-lg mb-4">
+          <div className="mb-4 flex h-[300px] w-full items-center justify-center overflow-hidden rounded-lg">
             {imageUrl ? (
               <Image
                 src={imageUrl}
@@ -90,23 +73,23 @@ export default async function InvestmentCommittee() {
                 className="object-cover"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-grey-100">
+              <div className="bg-grey-100 flex h-full w-full items-center justify-center">
                 <span>Image not available</span>
               </div>
             )}
           </div>
 
-          <div className="text-center text-body">
+          <div className="text-body text-center">
             <p className="mb-2">
               <strong>Back row: </strong>Max Wilson, Sam Gowen, Caden Van De Laak
             </p>
             <p className="mb-2">
-              <strong>Middle row: </strong>Sophia Walker, Caleb Manson, Matt
-              Powell, Tom Maclean, Shivam Shanker
+              <strong>Middle row: </strong>Sophia Walker, Caleb Manson, Matt Powell, Tom Maclean,
+              Shivam Shanker
             </p>
             <p className="mb-2">
-              <strong>Front row: </strong>Amelia Cave, Abbey Patten, Rohit Guthpe,
-              Aimee Ng, Cullen Tran, Lilly Crawford
+              <strong>Front row: </strong>Amelia Cave, Abbey Patten, Rohit Guthpe, Aimee Ng, Cullen
+              Tran, Lilly Crawford
             </p>
             <p className="mb-2">
               <strong>Absent: </strong>Isabella Boswell, Andrew Griffiths

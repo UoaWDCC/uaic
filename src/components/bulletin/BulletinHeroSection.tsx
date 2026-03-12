@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { getLandingPageImage } from "@/features/users/data/getLandingPageImage";
@@ -18,83 +18,33 @@ const BulletinHeroSection = () => {
 
   return (
     <>
-      <div
-        className="
-            relative w-full 
-            overflow-x-hidden 
-            overflow-y-hidden 
-            min-h-[500px]
-            lg:min-h-[749px]
-            "
-      >
+      <div className="relative min-h-[500px] w-full overflow-x-hidden overflow-y-hidden lg:min-h-[749px]">
         {/* Background */}
         <div
-          className="
-    absolute top-0 left-0 
-    w-screen min-h-[610px]
-    bg-center bg-no-repeat bg-cover
-    lg:min-h-screen 
-    z-[-2]
-  "
+          className="absolute top-0 left-0 z-[-2] min-h-[610px] w-screen bg-cover bg-center bg-no-repeat lg:min-h-screen"
           style={{
             backgroundImage: `url('${backgroundImage || "/assets/home/bull-cow-bg.webp"}')`,
           }}
         />
 
         {/* Transparent Overlay */}
-        <div
-          className="
-    absolute top-0 left-0
-    w-full h-screen
-    bg-white/50
-    lg:bg-[transparent]
-    lg:bg-gradient-to-r from-white/10 to-white/0
-    z-[-1]
-  "
-        />
+        <div className="absolute top-0 left-0 z-[-1] h-screen w-full bg-white/50 from-white/10 to-white/0 lg:bg-[transparent] lg:bg-gradient-to-r" />
 
         {/* Vertical gradient overlay (bottom → top) */}
-        <div
-          className="
-    absolute w-full h-screen
-         bg-[linear-gradient(to_top,white_40%,transparent_100%)]
-         lg:bg-[linear-gradient(to_top,white_0%,white_25%,transparent_100%)]
-         z-[-1]"
-        />
+        <div className="absolute z-[-1] h-screen w-full bg-[linear-gradient(to_top,white_40%,transparent_100%)] lg:bg-[linear-gradient(to_top,white_0%,white_25%,transparent_100%)]" />
 
         {/* Foreground content */}
-        <div
-          className="
-                relative 
-                w-[305px] h-[324] mt-[80px] gap-[70px]
-                flex flex-col 
-                mx-auto 
-                text-center
-                lg:text-left 
-                lg:w-[494px] lg:h-[384] lg:mt-[118px] lg:ml-[112px]
-                lg:gap-[45px]
-                "
-        >
-          <h1
-            className="
-                    font-[900] tracking-[0px]
-                    bg-gradient-to-r from-[#145CA9] to-[#5FB4FF] bg-clip-text text-transparent
-                    text-[41.65px] leading-[45px] mx-[20px]
-                    lg:text-[75.65px] lg:leading-[85px] lg:mx-0"
-          >
+        <div className="relative mx-auto mt-[80px] flex h-[324] w-[305px] flex-col gap-[70px] text-center lg:mt-[118px] lg:ml-[112px] lg:h-[384] lg:w-[494px] lg:gap-[45px] lg:text-left">
+          <h1 className="mx-[20px] bg-gradient-to-r from-[#145CA9] to-[#5FB4FF] bg-clip-text text-[41.65px] leading-[45px] font-[900] tracking-[0px] text-transparent lg:mx-0 lg:text-[75.65px] lg:leading-[85px]">
             Bulletin
           </h1>
 
-          <h3
-            className="
-                    font-[300] tracking-[0px] text-[16px] leading-[17.84px] mx-[20px]
-                    lg:text-[24.3px] lg:leading-[32.39px] lg:mx-0"
-          >
-            The Bulletin Team is a team of dedicated student writers and editors
-            that actively publish the recurring news bulletin
+          <h3 className="mx-[20px] text-[16px] leading-[17.84px] font-[300] tracking-[0px] lg:mx-0 lg:text-[24.3px] lg:leading-[32.39px]">
+            The Bulletin Team is a team of dedicated student writers and editors that actively
+            publish the recurring news bulletin
           </h3>
 
-          <div className="flex gap-[8px] w-[320px] h-[53px]">
+          <div className="flex h-[53px] w-[320px] gap-[8px]">
             <Button link="/about" variant="secondary">
               About Us
             </Button>

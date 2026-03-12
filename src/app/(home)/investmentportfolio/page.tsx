@@ -8,7 +8,7 @@ const InvestmentPortfolio = () => {
       <div className="px-6 py-10">
         {/* Top section heading */}
         <div className="lg:px-80">
-          <h1 className="text-2xl font-bold text-darkBlue mb-8 border-b border-gray-200 pb-2">
+          <h1 className="text-darkBlue mb-8 border-b border-gray-200 pb-2 text-2xl font-bold">
             Our Portfolio
           </h1>
         </div>

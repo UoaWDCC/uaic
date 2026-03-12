@@ -2,17 +2,17 @@ const JoinUsDescription = () => {
   return (
     <>
       {/* Join Us container */}
-      <div className="pl-3 pr-3 sm:pl-10 sm:pr-10">
-        <h1 className="mt-2 px-4 md:pl-10 text-header font-bold text-darkBlue">
-          Join Us
-        </h1>
-        <hr className="mx-auto w-[95%] border-t border-grey-200" />
+      <div className="pr-3 pl-3 sm:pr-10 sm:pl-10">
+        <h1 className="text-header text-darkBlue mt-2 px-4 font-bold md:pl-10">Join Us</h1>
+        <hr className="border-grey-200 mx-auto w-[95%] border-t" />
 
         {/* Join Us Description */}
-        <div className="mt-6 px-4 md:pl-10 self-center text-body font-normal leading-relaxed text-darkBlue">
+        <div className="text-body text-darkBlue mt-6 self-center px-4 leading-relaxed font-normal md:pl-10">
           <p>
-            The University of Auckland Investment Club is one of the largest Business School clubs based in Auckland, New Zealand.
-            We welcome members from all academic backgrounds and stages to commit to our mission that 'Investing is for Everyone' by running competitions, events, and workshops sponsored by leading industry partners.
+            The University of Auckland Investment Club is one of the largest Business School clubs
+            based in Auckland, New Zealand. We welcome members from all academic backgrounds and
+            stages to commit to our mission that 'Investing is for Everyone' by running
+            competitions, events, and workshops sponsored by leading industry partners.
           </p>
         </div>
       </div>

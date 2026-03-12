@@ -1,33 +1,33 @@
-'use server'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+"use server";
+import { getPayload } from "payload";
+import config from "@payload-config";
 
 export interface Bulletin {
-  id: string
-  title: string
-  issueNumber: number
-  publishDate: string
-  description?: string
+  id: string;
+  title: string;
+  issueNumber: number;
+  publishDate: string;
+  description?: string;
   bulletinCover: {
-    url: string
-    alt?: string
-  }
+    url: string;
+    alt?: string;
+  };
   bulletinPDF: {
-    url: string
-    alt?: string
-  }
+    url: string;
+    alt?: string;
+  };
 }
 
 export const getBulletins = async (): Promise<Bulletin[]> => {
-  const payload = await getPayload({ config })
+  const payload = await getPayload({ config });
 
   try {
     const result = await payload.find({
-      collection: 'bulletin',
+      collection: "bulletin",
       limit: 100,
-      sort: ['-issueNumber', '-publishDate'], 
+      sort: ["-issueNumber", "-publishDate"],
       depth: 1,
-    })
+    });
 
     return result.docs.map((doc: any) => ({
       id: doc.id,
@@ -47,15 +47,15 @@ export const getBulletins = async (): Promise<Bulletin[]> => {
             alt: doc.bulletinPDF.alt || doc.title,
           }
         : undefined,
-    }))
+    }));
   } catch (error) {
-    console.error('Error fetching bulletins:', error)
-    return []
+    console.error("Error fetching bulletins:", error);
+    return [];
   }
-}
+};
 
 export const getLatestBulletin = async (): Promise<Bulletin | null> => {
-  const bulletins = await getBulletins()
-  if (bulletins.length === 0) return null
-  return bulletins[0]
-}
+  const bulletins = await getBulletins();
+  if (bulletins.length === 0) return null;
+  return bulletins[0];
+};

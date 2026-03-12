@@ -18,8 +18,7 @@ const StockView: React.FC<StockViewProps> = ({ symbol, title, height = 300 }) =>
     container.innerHTML = "";
 
     const script = document.createElement("script");
-    script.src =
-      "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
     script.type = "text/javascript";
     script.async = true;
     script.innerHTML = JSON.stringify({
@@ -56,12 +55,12 @@ const StockView: React.FC<StockViewProps> = ({ symbol, title, height = 300 }) =>
   return (
     <div className="text-center">
       {/* Chart heading */}
-      <h2 className="text-header font-semibold text-darkBlue mb-4 hover:cursor-pointer">{title}</h2>
+      <h2 className="text-header text-darkBlue mb-4 font-semibold hover:cursor-pointer">{title}</h2>
 
       {/* Chart container */}
       <div
         ref={widgetRef}
-        className="tradingview-widget-container mx-auto w-full max-w-3xl rounded-lg overflow-hidden shadow-md bg-background hover:cursor-pointer"
+        className="tradingview-widget-container bg-background mx-auto w-full max-w-3xl overflow-hidden rounded-lg shadow-md hover:cursor-pointer"
         style={{ height }}
       >
         <div

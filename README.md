@@ -1,4 +1,5 @@
 # UAIC Project
+
 Welcome to the UAIC Project!
 
 # Getting Started
@@ -44,17 +45,28 @@ Finally, run the project:
 pnpm dev
 ```
 
+## Linting & Formatting
+
+```bash
+pnpm lint          # check for ESLint issues
+pnpm lint:fix      # auto-fix ESLint issues
+pnpm format        # format all files with Prettier
+pnpm format:check  # check formatting without writing
+```
+
+Prettier (including Tailwind class sorting) and ESLint run automatically on staged files before every `git commit` via [Lefthook](https://lefthook.dev). The hooks are installed automatically when you run `pnpm install`. To skip in an emergency: `git commit --no-verify`.
+
 ## Contributors - Team 2025
 
-| Role             | Member                      |
-| ---------------- | --------------------------- |
-| Project Manager  | Ezekiel Ko                  |
-| Technical Lead   | Jerry Nguyen                |
-| Designer / Developer| Andre Camerino           |
-| Designer / Developer| Angelica Huang           
-| Developer        | Evan Au                     |
-| Developer        | Nicholas Garcia-Scholtz |
-| Developer        | Paige Phan |
-| Developer        | Sam Richell-Smith           |
-| Developer        | Nathan Turley               |
-| Developer        | Jesse Wanghan |
+| Role                 | Member                  |
+| -------------------- | ----------------------- |
+| Project Manager      | Ezekiel Ko              |
+| Technical Lead       | Jerry Nguyen            |
+| Designer / Developer | Andre Camerino          |
+| Designer / Developer | Angelica Huang          |
+| Developer            | Evan Au                 |
+| Developer            | Nicholas Garcia-Scholtz |
+| Developer            | Paige Phan              |
+| Developer            | Sam Richell-Smith       |
+| Developer            | Nathan Turley           |
+| Developer            | Jesse Wanghan           |

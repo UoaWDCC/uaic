@@ -1,0 +1,15 @@
+# Build outputs
+.next/
+dist/
+build/
+
+# Package manager
+node_modules/
+pnpm-lock.yaml
+
+# Generated files
+payload-types.ts
+src/app/(payload)/admin/importMap.js
+
+# Public assets
+public/

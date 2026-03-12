@@ -6,20 +6,7 @@ import { LuAlarmClockCheck } from "react-icons/lu";
 
 const BulletinInfosection = () => {
   return (
-    <div
-      className="
-      w-full 
-      text-darkBlue
-      grid justify-between 
-      
-      gap-[60px]
-      pl-20 pr-20 pb-10
-      
-      lg:pl-30 lg:pr-30 lg:pb-20
-      lg:grid-cols-3 
-      lg:gap-[100px]
-    "
-    >
+    <div className="text-darkBlue grid w-full justify-between gap-[60px] pr-20 pb-10 pl-20 lg:grid-cols-3 lg:gap-[100px] lg:pr-30 lg:pb-20 lg:pl-30">
       <BulletinInfoCard
         title="Investing is for Everyone"
         icon={<MdGroups />}

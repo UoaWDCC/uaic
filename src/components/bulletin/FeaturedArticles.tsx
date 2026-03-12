@@ -30,33 +30,29 @@ const articles: Article[] = [
 
 const FeaturedArticles = () => {
   return (
-    <div className="bg-[var(--background)] shadow-lg lg:shadow-none rounded-[2rem] p-4 max-w-[70%] lg:max-w-[1000px] sm:max-w-md mx-auto mt-40 mb-10">
+    <div className="mx-auto mt-40 mb-10 max-w-[70%] rounded-[2rem] bg-[var(--background)] p-4 shadow-lg sm:max-w-md lg:max-w-[1000px] lg:shadow-none">
       {/* Mobile View */}
       <div className="block lg:hidden">
-        <h2 className="text-center text-lg font-semibold text-[var(--darkBlue)] my-2">
+        <h2 className="my-2 text-center text-lg font-semibold text-[var(--darkBlue)]">
           Featured Articles
         </h2>
 
-        <div className="space-y-3 my-4">
+        <div className="my-4 space-y-3">
           {articles.map((article) => (
             <div
               key={article.issue}
-              className="relative rounded-xl overflow-hidden h-25 hover:scale-105 transition-transform duration-300"
+              className="relative h-25 overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105"
             >
               <Image
                 src={article.image}
                 alt={article.title}
-                className="object-cover w-full h-full"
+                className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-opacity-40 flex flex-col justify-center px-3 hover:bg-opacity-60 transition-colors duration-300">
-                <p className="text-xs text-white pb-2">
-                  Issue #{article.issue}
-                </p>
-                <p className="text-sm font-semibold text-white leading-tight">
-                  {article.title}
-                </p>
+              <div className="bg-opacity-40 hover:bg-opacity-60 absolute inset-0 flex flex-col justify-center px-3 transition-colors duration-300">
+                <p className="pb-2 text-xs text-white">Issue #{article.issue}</p>
+                <p className="text-sm leading-tight font-semibold text-white">{article.title}</p>
               </div>
-              <div className="absolute bottom-2 right-2 text-white text-xl">
+              <div className="absolute right-2 bottom-2 text-xl text-white">
                 <GoBook size={25} />
               </div>
             </div>
@@ -64,7 +60,7 @@ const FeaturedArticles = () => {
         </div>
 
         <div className="mt-4 flex justify-center">
-          <button className="w-[80%] bg-[var(--darkBlue)] text-white font-semibold rounded-full my-1 py-2 text-center transition-all duration-300 hover:bg-opacity-90 hover:shadow-md hover:scale-105">
+          <button className="hover:bg-opacity-90 my-1 w-[80%] rounded-full bg-[var(--darkBlue)] py-2 text-center font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-md">
             View All
           </button>
         </div>
@@ -73,59 +69,48 @@ const FeaturedArticles = () => {
       {/* Desktop View */}
       <div className="hidden lg:flex lg:gap-6">
         {/* Sidebar */}
-        <div className="w-1/3 bg-[var(--background)] shadow-lg rounded-[2rem] p-6 flex flex-col items-start">
-          <h2 className="text-3xl font-semibold text-[var(--darkBlue)] mt-15">
-            Featured
-          </h2>
-          <h2 className="text-3xl font-semibold text-[var(--darkBlue)] mb-6">
-            Articles
-          </h2>
-          <p className="text-sm text-[var(--darkBlue)] mb-6">
-            Want to see more?
-          </p>
-          <button className="bg-[var(--darkBlue)] text-white font-semibold rounded-full py-2 px-6 transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg hover:scale-105">
+        <div className="flex w-1/3 flex-col items-start rounded-[2rem] bg-[var(--background)] p-6 shadow-lg">
+          <h2 className="mt-15 text-3xl font-semibold text-[var(--darkBlue)]">Featured</h2>
+          <h2 className="mb-6 text-3xl font-semibold text-[var(--darkBlue)]">Articles</h2>
+          <p className="mb-6 text-sm text-[var(--darkBlue)]">Want to see more?</p>
+          <button className="hover:bg-opacity-90 rounded-full bg-[var(--darkBlue)] px-6 py-2 font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg">
             View All
           </button>
         </div>
 
         {/* Article Previews */}
-        <div className="w-2/3 flex flex-col gap-6">
+        <div className="flex w-2/3 flex-col gap-6">
           {articles.map((article, index) => (
             <div
               key={index}
-              className={`flex h-30 bg-[var(--lightBlue)] overflow-hidden gap-x-4 ${
+              className={`flex h-30 gap-x-4 overflow-hidden bg-[var(--lightBlue)] ${
                 index === 1 ? "flex-row-reverse" : ""
-              } hover:scale-105 transition-transform duration-300`}
+              } transition-transform duration-300 hover:scale-105`}
             >
               {/* Article Image and Text */}
               <div className="relative flex-[2]">
                 <Image
                   src={article.image}
                   alt={article.title}
-                  className="object-cover w-full h-full rounded-xl"
+                  className="h-full w-full rounded-xl object-cover"
                 />
-                <div className="absolute inset-0 bg-opacity-40 flex flex-col justify-center px-4 rounded-xl hover:bg-opacity-60 transition-colors duration-300">
+                <div className="bg-opacity-40 hover:bg-opacity-60 absolute inset-0 flex flex-col justify-center rounded-xl px-4 transition-colors duration-300">
                   <div className="w-[90%]">
-                    <p className="text-sm lg:text-base text-white pb-2">
-                      Issue #{article.issue}
-                    </p>
-                    <p className="text-base lg:text-lg font-semibold text-white leading-tight">
+                    <p className="pb-2 text-sm text-white lg:text-base">Issue #{article.issue}</p>
+                    <p className="text-base leading-tight font-semibold text-white lg:text-lg">
                       {article.title}
                     </p>
                   </div>
-                  <div className="absolute bottom-2 right-2 text-white text-xl">
+                  <div className="absolute right-2 bottom-2 text-xl text-white">
                     <GoBook size={25} />
                   </div>
                 </div>
               </div>
 
               {/* Read More Button */}
-              <div className="w-28 aspect-square flex items-center justify-center bg-[var(--darkBlue)] text-white text-base lg:text-lg font-semibold rounded-xl p-2 relative hover:bg-opacity-80 transition-colors duration-300">
+              <div className="hover:bg-opacity-80 relative flex aspect-square w-28 items-center justify-center rounded-xl bg-[var(--darkBlue)] p-2 text-base font-semibold text-white transition-colors duration-300 lg:text-lg">
                 <span>Read More</span>
-                <LuExternalLink
-                  className="w-6 h-6 absolute bottom-2 right-2"
-                  size={25}
-                />
+                <LuExternalLink className="absolute right-2 bottom-2 h-6 w-6" size={25} />
               </div>
             </div>
           ))}
