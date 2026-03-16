@@ -1,7 +1,11 @@
 import Link from "next/link";
 
-export default function PaymentSuccessPage({ searchParams }: { searchParams: { amount: string } }) {
-  const { amount } = searchParams;
+export default async function PaymentSuccessPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ amount: string }>;
+}) {
+  const { amount } = await searchParams;
 
   return (
     <div className="pt-2">
