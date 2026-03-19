@@ -13,7 +13,7 @@ if (!stripePublicKey) {
 const stripePromise = loadStripe(stripePublicKey);
 
 export default function Payment() {
-  const amount = 11.58;
+  const amount = 21.58;
 
   return (
     <div className="mx-auto max-w-6xl rounded-md border bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)] p-10 text-center text-white">
