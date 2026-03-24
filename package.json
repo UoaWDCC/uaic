@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "prepare": "lefthook install",
+    "prepare": "node -e \"require('fs').existsSync('.git') && require('child_process').execSync('lefthook install', {stdio:'inherit'})\"",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier --write .",
