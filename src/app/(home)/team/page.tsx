@@ -1,0 +1,23 @@
+import BlueGradient from "@/components/BlueGradient";
+import KyleRaynerCard from "@/components/team/KyleRaynerCard";
+
+// Import your card here, e.g. AliceCard from "@/components/team/AliceCard";
+
+export default function TeamPage() {
+  return (
+    <div className="mt-[10em] md:mt-[11.5em]">
+      <div>
+        <h1 className="text-darkBlue text-header px-4 pb-4 font-bold md:pl-10">Meet the Team</h1>
+        <hr className="border-grey-200 my-6 w-full self-center border-t" />
+      </div>
+      <div className="mx-auto w-full rounded-lg bg-white p-4 lg:px-10">
+        <div className="flex flex-wrap justify-center gap-8 py-8">
+          {/* Example card */}
+          <KyleRaynerCard />
+          {/* Add your card component here, e.g.: <AliceCard /> */}
+        </div>
+      </div>
+      <BlueGradient />
+    </div>
+  );
+}
