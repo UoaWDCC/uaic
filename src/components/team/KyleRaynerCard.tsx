@@ -21,29 +21,31 @@
 
 import Image from "next/image";
 
-export default function KyleRaynerCard() {
+const KyleRaynerCard = () => {
   return (
-    <div className="flex max-w-[200px] flex-col items-center text-center">
+    <div className="flex w-full max-w-[160px] flex-col items-center text-center sm:max-w-[200px]">
       {/* Profile photo */}
       <Image
         src="/assets/team/KyleRayner.jpg"
         alt="Kyle Rayner Image"
         width={128}
         height={128}
-        className="mb-2 h-32 w-32 rounded-full object-cover"
+        className="mb-2 h-24 w-24 rounded-full object-cover sm:h-32 sm:w-32"
       />
       {/* Display name */}
-      <p className="text-darkBlue font-bold">Kyle Rayner</p>
+      <p className="text-darkBlue sm:text-body text-sm font-bold">Kyle Rayner</p>
       {/* Role */}
-      <p className="text-darkBlue text-sm">Freelance Graphic Artist</p>
+      <p className="text-darkBlue sm:text-body text-xs">Freelance Graphic Artist</p>
       {/* Short bio */}
-      <p className="mt-1 text-sm">
+      <p className="sm:text-body mt-1 text-xs">
         Loves drawing & painting, turning his imagination into reality through art & willpower.
       </p>
       {/* Personal quote */}
-      <p className="mt-2 text-sm text-gray-500 italic">
+      <p className="sm:text-body mt-2 text-xs text-gray-500 italic">
         &ldquo;In brightest day, in blackest night, no evil shall escape my sight.&rdquo;
       </p>
     </div>
   );
-}
+};
+
+export default KyleRaynerCard;

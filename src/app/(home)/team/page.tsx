@@ -3,7 +3,7 @@ import KyleRaynerCard from "@/components/team/KyleRaynerCard";
 
 // Import your card here, e.g. AliceCard from "@/components/team/AliceCard";
 
-export default function TeamPage() {
+const TeamPage = () => {
   return (
     <div className="mt-[10em] md:mt-[11.5em]">
       <div>
@@ -14,10 +14,14 @@ export default function TeamPage() {
         <div className="flex flex-wrap justify-center gap-8 py-8">
           {/* Example card */}
           <KyleRaynerCard />
+          <KyleRaynerCard />
+          <KyleRaynerCard />
           {/* Add your card component here, e.g.: <AliceCard /> */}
         </div>
       </div>
       <BlueGradient />
     </div>
   );
-}
+};
+
+export default TeamPage;
