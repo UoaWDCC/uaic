@@ -71,10 +71,14 @@ Prettier (including Tailwind class sorting) and ESLint run automatically on stag
 
 ## Contributors - Team 2026
 
-| Role            | Member         |
-| --------------- | -------------- |
-| Project Manager | Andre Camerino |
-| Technical Lead  | Evan Au        |
+| Role            | Member          |
+| --------------- | --------------- |
+| Project Manager | Andre Camerino  |
+| Technical Lead  | Evan Au         |
+| Developer       | Nathan Dalpatan |
+| Developer       | Stanley Wang   |
+| Dev / Designer  | Aeryn Lao      |
+| Developer       | Sahil Kirpalani |
 | Developer       | Mary Marikit   |
 
 ## Contributors - Team 2025
