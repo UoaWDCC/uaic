@@ -24,18 +24,15 @@ import Image from "next/image";
 const AerynCard = () => {
   return (
     <>
-      <style>
-        {" "}
-        {`
+      <style>{`
         @font-face {
-        font-family: "KeepOnTruckin";
-        src:url("/assets/team/fonts/KeeponTruckin.ttf") format("ttf");
-        font-weight: 400; 
-        font-style:normal;
-        font-display: swap;
+          font-family: "KeepOnTruckin";
+          src: url("/assets/team/fonts/KeeponTruckin.ttf") format("truetype");
+          font-weight: 400;
+          font-style: normal;
+          font-display: swap;
         }
-      `}
-      </style>
+      `}</style>
       <div className="flex w-full max-w-[160px] flex-col items-center text-center sm:max-w-[200px]">
         {/* Profile photo */}
         <Image
