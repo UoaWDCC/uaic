@@ -33,7 +33,7 @@ const AerynCard = () => {
           font-display: swap;
         }
       `}</style>
-      <div className="flex w-full max-w-[160px] flex-col items-center text-center sm:max-w-[200px]">
+      <div className="flex w-full max-w-[160px] flex-col items-center text-center sm:max-w-[245px]">
         {/* Profile photo */}
         <Image
           src="/assets/team/IMG_5994.jpeg"
@@ -44,13 +44,13 @@ const AerynCard = () => {
         />
         {/* Display name */}
         <p
-          style={{ fontFamily: "KeepOnTruckin" }}
-          className="text-darkBlue sm:text-body text-sm font-bold"
+          style={{ fontFamily: "KeepOnTruckin", fontSize: "26px" }}
+          className="sm:text-body text-sm font-bold text-[#457472]"
         >
           Aeryn Elizabeth Lao
         </p>
         {/* Role */}
-        <p className="text-darkBlue sm:text-body text-xs">Developer / Designer</p>
+        <p className="sm:text-body text-xs font-bold text-[#739991]">Developer / Designer</p>
         {/* Short bio */}
         <p className="sm:text-body mt-1 text-xs">
           Professional crashout, degen gamer, SKULLPANDA addict and artist on the side, Aeryn can be
@@ -58,7 +58,7 @@ const AerynCard = () => {
           squinting at a computer screen.
         </p>
         {/* Personal quote */}
-        <p className="sm:text-body mt-2 text-xs text-gray-500 italic">
+        <p className="sm:text-body mt-2 text-xs text-[#90b7ae] italic">
           &ldquo;A flower in a world of ash is proof that life endures.&rdquo; — Samantha Shannon, A
           Day of Fallen Night
         </p>
