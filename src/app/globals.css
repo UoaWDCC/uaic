@@ -66,3 +66,37 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.nameContainer {
+  box-shadow:
+    0 0 5px #3ed1f6,
+    0 0 8px #3ed1f6,
+    0 0 9px #3ed1f6;
+}
+
+.nameContainer:hover {
+  box-shadow:
+    0 0 5px #3ed1f6,
+    0 0 10px #3ed1f6,
+    0 0 20px #3ed1f6;
+}
+
+.modifiedText {
+  color: rgb(247, 247, 247);
+}
+
+.profileFrame {
+  width: 140px;
+  height: 140px;
+  background: linear-gradient(
+    135deg,
+    rgba(42, 123, 155, 1) 0%,
+    /* Deep Blue */ rgb(212, 248, 248) 50%,
+    /* Bright Cyan Glow */ rgba(193, 230, 230, 1) 100% /* Icy White */
+  );
+  border-radius: 50%;
+  box-shadow:
+    0 0 5px #30d6e5,
+    0 0 7px #30d6e5,
+    0 0 9px #30d6e5;
+}
