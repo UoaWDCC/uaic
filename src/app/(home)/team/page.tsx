@@ -17,8 +17,8 @@ const TeamPage = () => {
           <KyleRaynerCard />
           <KyleRaynerCard />
           <KyleRaynerCard />
-          <StanleyWangCard />
           {/* Add your card component here, e.g.: <AliceCard /> */}
+          <StanleyWangCard />
         </div>
       </div>
       <BlueGradient />

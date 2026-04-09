@@ -4,7 +4,7 @@ const myCard = () => {
   return (
     <a
       className="nameContainer flex w-full max-w-[160px] flex-col items-center rounded-2xl bg-[url(/assets/team/background.jpg)] bg-contain bg-cover bg-center bg-no-repeat pt-3 text-center outline-blue-400 outline-solid sm:max-w-[200px]"
-      href="https://www.youtube.com/watch?v=Aq5WXmQQooo"
+      /*href="https://www.youtube.com/watch?v=Aq5WXmQQooo"*/
     >
       {/* Profile photo */}
       <div className="profileFrame ps-1.5 pt-1">
