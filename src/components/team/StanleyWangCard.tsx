@@ -1,18 +1,24 @@
 import Image from "next/image";
+import { FaFlask } from "react-icons/fa";
+import { FaDatabase } from "react-icons/fa";
+import { FaBootstrap } from "react-icons/fa";
+import { LiaDrumSolid } from "react-icons/lia";
+import { FaGamepad } from "react-icons/fa";
+import { FaTableTennis } from "react-icons/fa";
 
-const myCard = () => {
+const StanleyWangCard = () => {
   return (
     <a
-      className="nameContainer flex w-full max-w-[160px] flex-col items-center rounded-2xl bg-[url(/assets/team/background.jpg)] bg-contain bg-cover bg-center bg-no-repeat pt-3 text-center outline-blue-400 outline-solid sm:max-w-[200px]"
+      className="nameContainer flex w-full max-w-[160px] flex-col items-center rounded-2xl bg-[url(/assets/team/StanleyWangBackground.jpg)] bg-contain bg-cover bg-center bg-no-repeat pt-3 text-center shadow-[0_0_15px_rgba(36,235,242,1)] outline-blue-400 outline-solid sm:max-w-[200px]"
       href="https://www.youtube.com/watch?v=Aq5WXmQQooo"
     >
       {/* Profile photo */}
-      <div className="outer-frame1 ps-1 pt-1">
-        <div className="outer-frame2 ps-0.5 pt-0.5">
-          <div className="outer-frame3">
-            <div className="profileFrame ps-1.5 pt-1">
+      <div className="h-38 w-38 rounded-full bg-cyan-300 ps-0.5 pt-0.5 drop-shadow-[0_0_10px_rgba(3,232,252,1)]">
+        <div className="bg-grey-100 h-37 w-37 rounded-full ps-0.5 pt-0.5 drop-shadow-[0_0_10px_rgba(255,235,255,1)]">
+          <div className="h-36 w-36 rounded-full bg-blue-400 ps-0.5 pt-0.5">
+            <div className="h-35 w-35 rounded-full bg-black ps-1.5 pt-1">
               <Image
-                src="/assets/team/profilePic.jpg"
+                src="/assets/team/StanleyWangProfilePic.jpg"
                 alt=""
                 width={128}
                 height={128}
@@ -27,36 +33,51 @@ const myCard = () => {
       {/* Role */}
       <p className="sm:text-body text-xs text-blue-900">Developer</p>
       {/* Short bio */}
-      <div className="profile-grids grid grid-flow-col pt-3">
+      <div className="profile-grids grid grid-flow-col pt-3 text-indigo-900 text-shadow-[0_0_10px_rgba(255,255,255,1)]">
         <div className="row-span-1 ps-4 pe-5">
-          <i className="fa-solid fa-flask flask"></i>
-          <p className="text-xs">Flask</p>
+          <div className="ps-0.5">
+            <FaFlask className="size-5 fill-pink-500 drop-shadow-[0_0_5px_rgba(249,168,212,1)]" />
+          </div>
+
+          <p className="pt-1 text-xs">Flask</p>
         </div>
 
         <div className="row-span-1 pe-4">
-          <i class="fa-solid fa-database database"></i>
-          <p className="text-xs">SQL</p>
+          <FaDatabase className="size-5 fill-cyan-600 drop-shadow-[0_0_5px_rgba(36,235,242,1)]" />
+          <p className="pt-1 text-xs">SQL</p>
         </div>
 
         <div className="row-span-1">
-          <i class="fa-brands fa-bootstrap bootstrap"></i>
-          <p className="text-xs">Boostrap</p>
+          <div className="ps-2">
+            <FaBootstrap className="size-6 fill-green-800 drop-shadow-[0_0_5px_rgba(36,242,87,1)]" />
+          </div>
+
+          <p className="text-center text-xs">Boostrap</p>
         </div>
       </div>
 
-      <div className="profile-grids grid grid-flow-col">
-        <div className="drums row-span-1 ps-1 pe-3">
-          <i class="fa-solid fa-drum"></i>
+      <div className="profile-grids grid grid-flow-col ps-0.5 pt-2 text-indigo-900">
+        <div className="drums row-span-1 ps-2 pe-3">
+          <div className="ps-1">
+            <LiaDrumSolid className="size-6" />
+          </div>
+
           <p className="text-xs">Drums</p>
         </div>
 
-        <div className="row-span-1 pe-4 pt-1.5">
-          <i class="fa-solid fa-gamepad games"></i>
+        <div className="row-span-1 ps-0.5 pe-3.5">
+          <div className="ps-1">
+            <FaGamepad className="size-6" />
+          </div>
+
           <p className="text-xs">Games</p>
         </div>
 
-        <div className="row-span-1 pt-1.5">
-          <i class="fa-solid fa-table-tennis-paddle-ball sports"></i>
+        <div className="row-span-1 pt-1">
+          <div className="ps-1">
+            <FaTableTennis className="size-5" />
+          </div>
+
           <p className="text-xs">Sports</p>
         </div>
       </div>
@@ -68,4 +89,4 @@ const myCard = () => {
   );
 };
 
-export default myCard;
+export default StanleyWangCard;
