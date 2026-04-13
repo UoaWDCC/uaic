@@ -24,15 +24,6 @@ import Image from "next/image";
 const AerynCard = () => {
   return (
     <>
-      <style>{`
-        @font-face {
-          font-family: "KeepOnTruckin";
-          src: url("/assets/team/fonts/KeeponTruckin.ttf") format("truetype");
-          font-weight: 400;
-          font-style: normal;
-          font-display: swap;
-        }
-      `}</style>
       <div className="flex w-full max-w-[160px] flex-col items-center text-center sm:max-w-[245px]">
         {/* Profile photo */}
         <Image
@@ -43,12 +34,7 @@ const AerynCard = () => {
           className="mb-2 h-24 w-24 rounded-full object-cover sm:h-32 sm:w-32"
         />
         {/* Display name */}
-        <p
-          style={{ fontFamily: "KeepOnTruckin", fontSize: "26px" }}
-          className="sm:text-body text-sm font-bold text-[#457472]"
-        >
-          Aeryn Elizabeth Lao
-        </p>
+        <p className="font-custom text-[26px] font-bold text-[#457472]">Aeryn Elizabeth Lao</p>
         {/* Role */}
         <p className="sm:text-body text-xs font-bold text-[#739991]">Developer / Designer</p>
         {/* Short bio */}
