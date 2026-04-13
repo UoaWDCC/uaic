@@ -88,7 +88,14 @@ body {
 .profileFrame {
   width: 140px;
   height: 140px;
-  background: linear-gradient(
+  background: rgb(59, 59, 59);
+  border-radius: 50%;
+}
+
+.outer-frame1 {
+  width: 157px;
+  height: 157px;
+  border-color: linear-gradient(
     135deg,
     rgba(42, 123, 155, 1) 0%,
     /* Deep Blue */ rgb(212, 248, 248) 50%,
@@ -99,4 +106,63 @@ body {
     0 0 5px #30d6e5,
     0 0 7px #30d6e5,
     0 0 9px #30d6e5;
+}
+
+.outer-frame2 {
+  width: 149px;
+  height: 149px;
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 5px #e0e3e6,
+    0 0 7px #e0e3e6,
+    0 0 9px #e0e3e6;
+
+  /*border-color: rgba(255, 255, 255, 0.818);
+  border-width: 2px;*/
+}
+
+.outer-frame3 {
+  width: 145px;
+  height: 145px;
+  border-color: rgb(26, 149, 198);
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 3px;
+}
+
+.flask {
+  color: cyan;
+  text-shadow: 0 0 5px #68fafa;
+  font-size: 20px;
+}
+
+.database {
+  color: rgb(255, 0, 251);
+  text-shadow: 0 0 5px #f568fa;
+  font-size: 20px;
+}
+
+.bootstrap {
+  color: rgb(99, 230, 190);
+  font-size: 20px;
+}
+
+.drums {
+  font-size: 20px;
+  color: darkblue;
+}
+
+.games {
+  font-size: 20px;
+  color: darkblue;
+}
+
+.sports {
+  font-size: 20px;
+  color: darkblue;
+}
+
+.profile-grids {
+  color: darkblue;
 }
