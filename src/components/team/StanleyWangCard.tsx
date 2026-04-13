@@ -29,7 +29,7 @@ const StanleyWangCard = () => {
         </div>
       </div>
       {/* Display name */}
-      <p className="modifiedText pt-4 font-serif text-xl font-bold">Stanley Wang</p>
+      <p className="pt-4 font-serif text-xl font-bold text-white">Stanley Wang</p>
       {/* Role */}
       <p className="sm:text-body text-xs text-blue-900">Developer</p>
       {/* Short bio */}
