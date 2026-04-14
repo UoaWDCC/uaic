@@ -1,14 +1,12 @@
 import BlueGradient from "@/components/BlueGradient";
 import KyleRaynerCard from "@/components/team/KyleRaynerCard";
 import StanleyWangCard from "@/components/team/StanleyWangCard";
-import Script from "next/script";
-
+import NathanDalpatanCard from "@/components/team/NathanDalpatanCard";
 // Import your card here, e.g. AliceCard from "@/components/team/AliceCard";
 
 const TeamPage = () => {
   return (
     <div className="mt-[10em] md:mt-[11.5em]">
-      <Script src="https://kit.fontawesome.com/befad6a7f8.js" crossOrigin="anonymous"></Script>
       <div>
         <h1 className="text-darkBlue text-header px-4 pb-4 font-bold md:pl-10">Meet the Team</h1>
         <hr className="border-grey-200 my-6 w-full self-center border-t" />
@@ -18,7 +16,7 @@ const TeamPage = () => {
           {/* Example card */}
           <KyleRaynerCard />
           <KyleRaynerCard />
-          <KyleRaynerCard />
+          <NathanDalpatanCard />
           {/* Add your card component here, e.g.: <AliceCard /> */}
           <StanleyWangCard />
         </div>
