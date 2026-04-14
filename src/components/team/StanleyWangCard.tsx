@@ -13,16 +13,16 @@ const StanleyWangCard = () => {
       href="https://www.youtube.com/watch?v=Aq5WXmQQooo"
     >
       {/* Profile photo */}
-      <div className="h-38 w-38 rounded-full bg-cyan-300 ps-0.5 pt-0.5 drop-shadow-[0_0_10px_rgba(3,232,252,1)]">
-        <div className="bg-grey-100 h-37 w-37 rounded-full ps-0.5 pt-0.5 drop-shadow-[0_0_10px_rgba(255,235,255,1)]">
-          <div className="h-36 w-36 rounded-full bg-blue-400 ps-0.5 pt-0.5">
-            <div className="h-35 w-35 rounded-full bg-black ps-1.5 pt-1">
+      <div className="h-30.5 w-31 rounded-full bg-cyan-300 ps-0.5 pt-0.5 drop-shadow-[0_0_10px_rgba(3,232,252,1)] sm:h-38 sm:w-38">
+        <div className="bg-grey-100 h-29.5 w-30 rounded-full ps-0.5 pt-0.5 drop-shadow-[0_0_10px_rgba(255,235,255,1)] sm:h-37 sm:w-37 sm:ps-0.5 sm:pt-0.5">
+          <div className="h-28.5 w-29 rounded-full bg-blue-400 ps-1 pt-0.5 sm:h-36 sm:w-36 sm:ps-0.5 sm:pt-0.5">
+            <div className="h-27 w-27 rounded-full bg-black ps-1 pt-0.5 sm:h-35 sm:w-35 sm:ps-1.5 sm:pt-1">
               <Image
                 src="/assets/team/StanleyWangProfilePic.jpg"
                 alt=""
                 width={128}
                 height={128}
-                className="mb-2 h-24 w-24 rounded-full object-cover pt-1 sm:h-32 sm:w-32"
+                className="mb-2 h-25 w-25 rounded-full object-cover pt-1 sm:h-32 sm:w-32"
               />
             </div>
           </div>
