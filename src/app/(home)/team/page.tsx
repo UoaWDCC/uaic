@@ -1,5 +1,6 @@
 import BlueGradient from "@/components/BlueGradient";
 import KyleRaynerCard from "@/components/team/KyleRaynerCard";
+import NathanDalpatanCard from "@/components/team/NathanDalpatanCard";
 import AerynCard from "@/components/team/AerynCard";
 
 // Import your card here, e.g. AliceCard from "@/components/team/AliceCard";
@@ -14,6 +15,8 @@ const TeamPage = () => {
       <div className="mx-auto w-full rounded-lg bg-white p-4 lg:px-10">
         <div className="flex flex-wrap justify-center gap-8 py-8">
           {/* Example card */}
+          <KyleRaynerCard />
+          <NathanDalpatanCard />
           <AerynCard />
           {/* Add your card component here, e.g.: <AliceCard /> */}
         </div>
