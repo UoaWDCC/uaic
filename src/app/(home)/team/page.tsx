@@ -1,5 +1,6 @@
 import BlueGradient from "@/components/BlueGradient";
 import KyleRaynerCard from "@/components/team/KyleRaynerCard";
+import KelvinCard from "@/components/team/KelvinCard";
 import StanleyWangCard from "@/components/team/StanleyWangCard";
 import NathanDalpatanCard from "@/components/team/NathanDalpatanCard";
 import AerynCard from "@/components/team/AerynCard";
@@ -17,6 +18,9 @@ const TeamPage = () => {
         <div className="flex flex-wrap justify-center gap-8 py-8">
           {/* Example card */}
           <KyleRaynerCard />
+          <KyleRaynerCard />
+          <KyleRaynerCard />
+          <KelvinCard />
           <NathanDalpatanCard />
           <AerynCard />
           {/* Add your card component here, e.g.: <AliceCard /> */}
