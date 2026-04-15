@@ -32,6 +32,7 @@ Create a `.env` file at the root directory with the following attributes:
 DATABASE_URI=
 PAYLOAD_SECRET=
 
+
 # S3
 S3_BUCKET=
 S3_ACCESS_KEY_ID=
@@ -52,9 +53,35 @@ pnpm lint          # check for ESLint issues
 pnpm lint:fix      # auto-fix ESLint issues
 pnpm format        # format all files with Prettier
 pnpm format:check  # check formatting without writing
+
+
+# Lint a single file
+pnpm exec eslint path/to/your/file.tsx
+
+
+# Format a single file with Prettier
+pnpm exec prettier --write path/to/your/file.tsx
+
+
+# Check formatting (without writing changes)
+pnpm exec prettier --check path/to/your/file.tsx
 ```
 
 Prettier (including Tailwind class sorting) and ESLint run automatically on staged files before every `git commit` via [Lefthook](https://lefthook.dev). The hooks are installed automatically when you run `pnpm install`. To skip in an emergency: `git commit --no-verify`.
+
+## Contributors - Team 2026
+
+| Role            | Member          |
+| --------------- | --------------- |
+| Project Manager | Andre Camerino  |
+| Technical Lead  | Evan Au         |
+| Developer       | Nathan Dalpatan |
+| Developer       | Stanley Wang    |
+| Dev / Designer  | Aeryn Lao       |
+| Developer       | Sahil Kirpalani |
+| Developer       | Mary Marikit    |
+| Developer       | Luca Devoti     |
+| Developer       | Kelvin Mensah   |
 
 ## Contributors - Team 2025
 
