@@ -1,5 +1,6 @@
 import BlueGradient from "@/components/BlueGradient";
 import KyleRaynerCard from "@/components/team/KyleRaynerCard";
+import KelvinCard from "@/components/team/KelvinCard";
 
 // Import your card here, e.g. AliceCard from "@/components/team/AliceCard";
 
@@ -16,6 +17,7 @@ const TeamPage = () => {
           <KyleRaynerCard />
           <KyleRaynerCard />
           <KyleRaynerCard />
+          <KelvinCard />
           {/* Add your card component here, e.g.: <AliceCard /> */}
         </div>
       </div>
