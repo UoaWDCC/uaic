@@ -18,8 +18,6 @@ const TeamPage = () => {
         <div className="flex flex-wrap justify-center gap-8 py-8">
           {/* Example card */}
           <KyleRaynerCard />
-          <KyleRaynerCard />
-          <KyleRaynerCard />
           <KelvinCard />
           <NathanDalpatanCard />
           <AerynCard />
