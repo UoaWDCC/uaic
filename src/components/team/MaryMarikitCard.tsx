@@ -40,7 +40,7 @@ const MaryMarikitCard = () => {
           alt="Jax Sticker Image"
           width={64}
           height={64}
-          className="absolute right-0 bottom-0 h-17 w-12 object-cover sm:h-21 sm:w-16"
+          className="absolute right-2 bottom-0 h-17 w-12 object-cover sm:h-21 sm:w-16"
         />
       </div>
 
