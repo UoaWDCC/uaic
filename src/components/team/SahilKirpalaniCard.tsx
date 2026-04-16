@@ -23,7 +23,7 @@ import Image from "next/image";
 
 const SahilKirpalaniCard = () => {
   return (
-    <div className="flex w-full max-w-[160px] flex-col items-center text-center sm:max-w-[200px]">
+    <div className="flex w-full max-w-[180px] flex-col items-center text-center sm:max-w-[220px]">
       {/* Profile photo */}
       <Image
         src="/assets/team/sahilkirpalani.jpg"
@@ -39,8 +39,12 @@ const SahilKirpalaniCard = () => {
       {/* Short bio */}
       {/* Clapboard bio */}
       {/* clapboard */}
-      <div className="relative mt-4 w-[92%]">
-        <img src="/assets/team/clapboard.png" alt="clapboard" className="w-full object-cover" />
+      <div className="relative mt-4 w-full">
+        <img
+          src="/assets/team/clapboard.png"
+          alt="clapboard"
+          className="max-h-52 w-full object-cover"
+        />
 
         {/* Bio text */}
         <div className="absolute bottom-6 left-1/2 w-[70%] -translate-x-1/2">
