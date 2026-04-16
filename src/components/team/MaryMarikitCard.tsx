@@ -26,11 +26,19 @@ const MaryMarikitCard = () => {
     <div className="flex w-full max-w-[160px] flex-col items-center text-center sm:max-w-[200px]">
       {/* Profile photo */}
       <Image
-        src="/assets/team/MaryMarikit2.jpg"
+        src="/assets/team/MaryMarikit.png"
         alt="Kyle Rayner Image"
         width={128}
         height={128}
         className="mb-2 h-24 w-24 rounded-full object-cover sm:h-32 sm:w-32"
+      />
+
+      <Image
+        src="/assets/team/JaxSticker.png"
+        alt="Jax Sticker Image"
+        width={64}
+        height={64}
+        className="absolute mt-15 ml-35 object-cover sm:h-21 sm:w-16"
       />
 
       {/* Display name */}
@@ -44,13 +52,6 @@ const MaryMarikitCard = () => {
       </p>
       {/* Personal quote */}
       <p className="sm:text-body mt-2 text-xs text-gray-500 italic"> &ldquo;papoi&rdquo; </p>
-      <Image
-        src="/assets/team/JaxMarikit.jpg"
-        alt="Jax Marikit Image"
-        width={64}
-        height={64}
-        className="mb-2"
-      />
     </div>
   );
 };
