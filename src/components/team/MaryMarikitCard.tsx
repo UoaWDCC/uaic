@@ -44,7 +44,7 @@ const MaryMarikitCard = () => {
       {/* Display name */}
       <p className="text-darkBlue sm:text-body text-sm font-bold">Mary Marikit</p>
       {/* Role */}
-      <p className="text-darkBlue sm:text-body text-sm">Developer</p>
+      <p className="text-darkBlue sm:text-body text-xs">Developer</p>
       {/* Short bio */}
       <p className="sm:text-body mt-1 text-xs">
         Loves going on hikes and taking pictures, filling her SD cards with lush trees, nice views,
