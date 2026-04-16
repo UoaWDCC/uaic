@@ -25,21 +25,24 @@ const MaryMarikitCard = () => {
   return (
     <div className="flex w-full max-w-[160px] flex-col items-center text-center sm:max-w-[200px]">
       {/* Profile photo */}
-      <Image
-        src="/assets/team/MaryMarikit.png"
-        alt="Kyle Rayner Image"
-        width={128}
-        height={128}
-        className="mb-2 h-24 w-24 rounded-full object-cover sm:h-32 sm:w-32"
-      />
 
-      <Image
-        src="/assets/team/JaxSticker.png"
-        alt="Jax Sticker Image"
-        width={64}
-        height={64}
-        className="absolute mt-15 ml-35 object-cover sm:h-21 sm:w-16"
-      />
+      <div className="relative flex w-full max-w-[160px] flex-col items-center text-center sm:max-w-[200px]">
+        <Image
+          src="/assets/team/MaryMarikit.png"
+          alt="Mary Marikit Image"
+          width={128}
+          height={128}
+          className="mb-2 h-24 w-24 rounded-full object-cover sm:h-32 sm:w-32"
+        />
+
+        <Image
+          src="/assets/team/JaxSticker.png"
+          alt="Jax Sticker Image"
+          width={64}
+          height={64}
+          className="absolute right-0 bottom-0 h-17 w-12 object-cover sm:h-21 sm:w-16"
+        />
+      </div>
 
       {/* Display name */}
       <p className="text-darkBlue sm:text-body text-sm font-bold">Mary Marikit</p>
