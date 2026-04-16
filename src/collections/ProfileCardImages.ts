@@ -9,8 +9,9 @@ export const ProfileCardImages: CollectionConfig = {
     {
       name: "name",
       type: "text",
-      label: "Image Name",
+      label: "Full Name",
       required: true,
+      unique: true,
     },
     {
       name: "image",

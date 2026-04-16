@@ -1,12 +1,15 @@
 import Image from "next/image";
+import { getProfileCardImage } from "@/features/users/data/getProfileCardImage";
 
-const NathanDalpatanCard = () => {
+const NathanDalpatanCard = async () => {
+  const profileUrl =
+    (await getProfileCardImage("69df46a631b7311506e58087")) || "/assets/team/KyleRayner.jpg";
   return (
     <div className="flex w-full max-w-[160px] flex-col items-center text-center sm:max-w-[200px]">
       {/* Profile photo */}
       <div className="relative mb-2 h-24 w-24 sm:h-32 sm:w-32">
         <Image
-          src="/assets/team/NathanDalpatan.jpg"
+          src={profileUrl}
           alt="Nathan Dalpatan Image"
           width={128}
           height={128}
