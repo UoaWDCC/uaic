@@ -90,4 +90,4 @@ Prettier (including Tailwind class sorting) and ESLint run automatically on stag
 | --------------- | -------------- |
 | Project Manager | Andre Camerino |
 | Technical Lead  | Evan Au        |
-| Kade            | Fry            |
+| Designer        | Kade Fry       |
