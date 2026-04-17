@@ -1,6 +1,12 @@
 import BlueGradient from "@/components/BlueGradient";
 import KyleRaynerCard from "@/components/team/KyleRaynerCard";
 import LucaDevotiCard from "@/components/team/LucaDevotiCard";
+import SahilKirpalaniCard from "@/components/team/SahilKirpalaniCard";
+import MaryMarikitCard from "@/components/team/MaryMarikitCard";
+import KelvinCard from "@/components/team/KelvinCard";
+import StanleyWangCard from "@/components/team/StanleyWangCard";
+import NathanDalpatanCard from "@/components/team/NathanDalpatanCard";
+import AerynCard from "@/components/team/AerynCard";
 
 // Import your card here, e.g. AliceCard from "@/components/team/AliceCard";
 
@@ -15,10 +21,14 @@ const TeamPage = () => {
         <div className="flex flex-wrap justify-center gap-8 py-8">
           {/* Example card */}
           <KyleRaynerCard />
-          <KyleRaynerCard />
-          <KyleRaynerCard />
+          <MaryMarikitCard />
+          <KelvinCard />
+          <NathanDalpatanCard />
+          <AerynCard />
           {/* Add your card component here, e.g.: <AliceCard /> */}
           <LucaDevotiCard />
+          <SahilKirpalaniCard />
+          <StanleyWangCard />
         </div>
       </div>
       <BlueGradient />
