@@ -69,6 +69,21 @@ pnpm exec prettier --check path/to/your/file.tsx
 
 Prettier (including Tailwind class sorting) and ESLint run automatically on staged files before every `git commit` via [Lefthook](https://lefthook.dev). The hooks are installed automatically when you run `pnpm install`. To skip in an emergency: `git commit --no-verify`.
 
+## Contributors - Team 2026
+
+| Role            | Member          |
+| --------------- | --------------- |
+| Project Manager | Andre Camerino  |
+| Technical Lead  | Evan Au         |
+| Developer       | Nathan Dalpatan |
+| Developer       | Stanley Wang    |
+| Dev / Designer  | Aeryn Lao       |
+| Developer       | Sahil Kirpalani |
+| Developer       | Mary Marikit    |
+| Developer       | Luca Devoti     |
+| Developer       | Kelvin Mensah   |
+| Designer        | Kade Fry        |
+
 ## Contributors - Team 2025
 
 | Role                 | Member                  |
@@ -84,10 +99,3 @@ Prettier (including Tailwind class sorting) and ESLint run automatically on stag
 | Developer            | Nathan Turley           |
 | Developer            | Jesse Wanghan           |
 
-## Contributors - Team 2026
-
-| Role            | Member         |
-| --------------- | -------------- |
-| Project Manager | Andre Camerino |
-| Technical Lead  | Evan Au        |
-| Designer        | Kade Fry       |
