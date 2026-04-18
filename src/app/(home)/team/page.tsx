@@ -8,6 +8,7 @@ import StanleyWangCard from "@/components/team/StanleyWangCard";
 import NathanDalpatanCard from "@/components/team/NathanDalpatanCard";
 import AerynCard from "@/components/team/AerynCard";
 import EvanAuCard from "@/components/team/EvanAuCard";
+import KadeCard from "@/components/team/KadeCard";
 
 // Import your card here, e.g. AliceCard from "@/components/team/AliceCard";
 
@@ -26,6 +27,7 @@ const TeamPage = () => {
           <KelvinCard />
           <NathanDalpatanCard />
           <AerynCard />
+          <KadeCard />
           {/* Add your card component here, e.g.: <AliceCard /> */}
           <LucaDevotiCard />
           <SahilKirpalaniCard />
