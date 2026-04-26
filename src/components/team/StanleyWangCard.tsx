@@ -5,8 +5,11 @@ import { FaBootstrap } from "react-icons/fa";
 import { LiaDrumSolid } from "react-icons/lia";
 import { FaGamepad } from "react-icons/fa";
 import { FaTableTennis } from "react-icons/fa";
+import { getProfileCardImage } from "@/features/users/data/getProfileCardImage";
 
-const StanleyWangCard = () => {
+const StanleyWangCard = async () => {
+  const profileUrl =
+    (await getProfileCardImage("69ed6a953bb8a28e22c24fd0")) || "/assets/team/KyleRayner.jpg";
   return (
     <a
       className="nameContainer flex w-full max-w-[160px] flex-col items-center rounded-2xl bg-[url(/assets/team/StanleyWangBackground.jpg)] bg-contain bg-cover bg-center bg-no-repeat pt-3 text-center shadow-[0_0_15px_rgba(36,235,242,1)] outline-blue-400 outline-solid sm:max-w-[200px]"
@@ -18,7 +21,7 @@ const StanleyWangCard = () => {
           <div className="h-28.5 w-29 rounded-full bg-blue-400 ps-1 pt-0.5 sm:h-36 sm:w-36 sm:ps-0.5 sm:pt-0.5">
             <div className="h-27 w-27 rounded-full bg-black ps-1 pt-0.5 sm:h-35 sm:w-35 sm:ps-1.5 sm:pt-1">
               <Image
-                src="/assets/team/StanleyWangProfilePic.jpg"
+                src={profileUrl}
                 alt=""
                 width={128}
                 height={128}
