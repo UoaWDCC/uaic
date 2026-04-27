@@ -8,8 +8,20 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Baberry";
+  src: url("/assets/team/fonts/Baberry.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 .font-custom {
   font-family: "KeepOnTruckin", sans-serif;
+}
+
+.font-luca {
+  font-family: "Baberry", sans-serif;
 }
 
 :root {
