@@ -1,17 +1,5 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "KeepOnTruckin";
-  src: url("/assets/team/fonts/KeeponTruckin.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-.font-custom {
-  font-family: "KeepOnTruckin", sans-serif;
-}
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -22,7 +10,6 @@
   --lightBlue: #ebf7fe;
   --grey-100: #d9d9d9;
   --grey-200: #cbc6c6;
-  --muave: #79697b;
 
   /* Hover */
   --whiteHover: #f0f8ff;
@@ -72,9 +59,6 @@
   --text-title: 2rem;
   --text-header: 1.3rem;
   --text-body: 1rem;
-
-  /* Custom Font */
-  --font-custom: "KeepOnTruckin", sans-serif;
 }
 
 body {
