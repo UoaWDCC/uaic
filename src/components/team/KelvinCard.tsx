@@ -12,17 +12,15 @@ const KelvinCard = async () => {
         <Image
           src={profileUrl}
           alt="Kelvin Mensah Image"
-          width={128}
-          height={128}
-          className="mb-2 h-24 w-24 rounded-full object-cover sm:h-32 sm:w-32"
+          fill
+          className="rounded-full object-cover"
         />
 
         <Image
           src="/assets/cap_shield.png"
           alt="Captain America Shield Image"
-          width={128}
-          height={128}
-          className="absolute top-55 left-15"
+          fill
+          className="pointer-events-none absolute translate-x-10 translate-y-42 sm:translate-x-14 sm:translate-y-52"
         />
       </div>
 
