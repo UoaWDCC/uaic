@@ -25,7 +25,7 @@ import { getProfileCardImage } from "@/features/users/data/getProfileCardImage";
 const MaryMarikitCard = async () => {
   const profileURL =
     (await getProfileCardImage("69f00f279477a05a6fdc961f")) || "/assets/team/KyleRayner.jpg";
-  const stickerURL = await getProfileCardImage("69f00f589477a05a6fdc966f");
+  const stickerURL = "/assets/team/JaxSticker.png";
   return (
     <div className="flex w-full max-w-[160px] flex-col items-center text-center sm:max-w-[200px]">
       {/* Profile photo */}
