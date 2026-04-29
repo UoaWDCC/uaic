@@ -20,13 +20,16 @@
  */
 
 import Image from "next/image";
+import { getProfileCardImage } from "@/features/users/data/getProfileCardImage";
 
-const SahilKirpalaniCard = () => {
+const SahilKirpalaniCard = async () => {
+  const profileUrl =
+    (await getProfileCardImage("69f0942e2d0d5bf121c86485")) || "/assets/team/sahilkirpalani.jpg";
   return (
     <div className="flex w-full max-w-[180px] flex-col items-center text-center sm:max-w-[220px]">
       {/* Profile photo */}
       <Image
-        src="/assets/team/sahilkirpalani.jpg"
+        src={profileUrl}
         alt="Sahil Kirpalani Image"
         width={128}
         height={128}
@@ -40,7 +43,7 @@ const SahilKirpalaniCard = () => {
       {/* Clapboard bio */}
       {/* clapboard */}
       <div className="relative mt-4 w-full">
-        <img
+        <Image
           src="/assets/team/clapboard.png"
           alt="clapboard"
           className="max-h-52 w-full object-cover"
