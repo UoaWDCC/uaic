@@ -20,15 +20,18 @@
  */
 
 import Image from "next/image";
+import { getProfileCardImage } from "@/features/users/data/getProfileCardImage";
 
-const AerynCard = () => {
+const AerynCard = async () => {
+  const profileUrl =
+    (await getProfileCardImage("69f1e3f5c50e95850ba598ce")) || "/assets/team/AerynLao.jpg";
   return (
     <>
       <div className="flex w-full max-w-[160px] flex-col items-center text-center sm:max-w-[245px]">
         {/* Profile photo */}
         <Image
-          src="/assets/team/IMG_5994.jpeg"
-          alt="Aeryn Lao Image"
+          src={profileUrl}
+          alt="Aeryn Lao Profile Picture"
           width={128}
           height={128}
           className="mb-2 h-24 w-24 rounded-full object-cover sm:h-32 sm:w-32"
