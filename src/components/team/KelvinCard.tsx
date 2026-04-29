@@ -7,7 +7,6 @@ const KelvinCard = async () => {
   return (
     <div className="flex w-full max-w-[160px] flex-col items-center rounded-lg text-center sm:max-w-[200px]">
       {/* Profile photo */}
-
       <div className="relative mb-2 h-24 w-24 sm:h-32 sm:w-32">
         <Image
           src={profileUrl}
@@ -15,25 +14,26 @@ const KelvinCard = async () => {
           fill
           className="rounded-full object-cover"
         />
-
-        <Image
-          src="/assets/cap_shield.png"
-          alt="Captain America Shield Image"
-          fill
-          className="pointer-events-none absolute translate-x-10 translate-y-42 sm:translate-x-14 sm:translate-y-52"
-        />
       </div>
 
-      {/* Display name */}
-      <p className="text-darkBlue sm:text-body text-sm font-bold">Kelvin Mensah</p>
-      {/* Role */}
-      <p className="text-darkBlue sm:text-body text-xs">Developer</p>
-      {/* Short bio */}
-      <p className="sm:text-body mt-1 text-xs">
-        ...love editing, coding and subway. Always up for a challenge.
-      </p>
-      {/* Personal quote */}
-      <p className="sm:text-body mt-2 text-xs text-gray-500 italic">&ldquo;Lock in!&rdquo;</p>
+      {/* Name, role, bio, quote + shield side by side */}
+      <div className="w-full">
+        <p className="text-darkBlue sm:text-body text-sm font-bold">Kelvin Mensah</p>
+        <p className="text-darkBlue sm:text-body text-xs">Developer</p>
+        <p className="sm:text-body mt-1 text-xs">
+          ...love editing, coding and subway. Always up for a challenge.
+        </p>
+        <p className="sm:text-body mt-2 text-xs text-gray-500 italic">&ldquo;Lock in!&rdquo;</p>
+
+        <div className="-mt-5 flex justify-end pl-30">
+          <Image
+            src="/assets/cap_shield.png"
+            alt="Captain America Shield Image"
+            width={128}
+            height={64}
+          />
+        </div>
+      </div>
     </div>
   );
 };
