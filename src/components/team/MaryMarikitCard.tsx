@@ -20,15 +20,19 @@
  */
 
 import Image from "next/image";
+import { getProfileCardImage } from "@/features/users/data/getProfileCardImage";
 
-const MaryMarikitCard = () => {
+const MaryMarikitCard = async () => {
+  const profileURL =
+    (await getProfileCardImage("69f00f279477a05a6fdc961f")) || "/assets/team/KyleRayner.jpg";
+  const stickerURL = "/assets/team/JaxSticker.png";
   return (
     <div className="flex w-full max-w-[160px] flex-col items-center text-center sm:max-w-[200px]">
       {/* Profile photo */}
 
       <div className="relative flex w-full max-w-[160px] flex-col items-center text-center sm:max-w-[200px]">
         <Image
-          src="/assets/team/MaryMarikit.png"
+          src={profileURL}
           alt="Mary Marikit Image"
           width={128}
           height={128}
@@ -36,7 +40,7 @@ const MaryMarikitCard = () => {
         />
 
         <Image
-          src="/assets/team/JaxSticker.png"
+          src={stickerURL}
           alt="Jax Sticker Image"
           width={64}
           height={64}
