@@ -43,7 +43,7 @@ const SahilKirpalaniCard = async () => {
       {/* Clapboard bio */}
       {/* clapboard */}
       <div className="relative mt-4 w-full">
-        <img
+        <Image
           src="/assets/team/clapboard.png"
           alt="clapboard"
           className="max-h-52 w-full object-cover"
