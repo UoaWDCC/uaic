@@ -82,6 +82,7 @@ Prettier (including Tailwind class sorting) and ESLint run automatically on stag
 | Developer       | Mary Marikit    |
 | Developer       | Luca Devoti     |
 | Developer       | Kelvin Mensah   |
+| Designer        | Kade Fry        |
 
 ## Contributors - Team 2025
 
@@ -97,3 +98,4 @@ Prettier (including Tailwind class sorting) and ESLint run automatically on stag
 | Developer            | Sam Richell-Smith       |
 | Developer            | Nathan Turley           |
 | Developer            | Jesse Wanghan           |
+
