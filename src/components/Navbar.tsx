@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { LuChartNoAxesCombined, LuInfo } from "react-icons/lu";
@@ -8,53 +8,21 @@ import { TiDocumentText, TiHome } from "react-icons/ti";
 import { PiCalendarStarFill, PiQuestion } from "react-icons/pi";
 import Button from "./Button";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import StockTicker from "./StockTicker";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const [showAboutSubpage, setShowAboutSubpage] = useState(false);
-  const mobileRef = useRef<HTMLDivElement>(null);
-  const desktopRef = useRef<HTMLDivElement>(null);
 
   const handleLinkClick = () => {
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    const createWidget = (container: HTMLDivElement | null) => {
-      if (!container) return;
-      const script = document.createElement("script");
-      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
-      script.async = true;
-      script.innerHTML = JSON.stringify({
-        symbols: [
-          { proName: "FOREXCOM:SPXUSD", title: "S&P 500 Index" },
-          { proName: "FOREXCOM:NSXUSD", title: "US 100 Cash CFD" },
-          { proName: "FX_IDC:EURUSD", title: "EUR to USD" },
-          { proName: "BITSTAMP:BTCUSD", title: "Bitcoin" },
-          { proName: "BITSTAMP:ETHUSD", title: "Ethereum" },
-        ],
-        showSymbolLogo: true,
-        isTransparent: false,
-        displayMode: "regular",
-        colorTheme: "light",
-        locale: "en",
-      });
-
-      container.innerHTML = "";
-      container.appendChild(script);
-    };
-
-    createWidget(mobileRef.current);
-    createWidget(desktopRef.current);
-  }, []);
-
   return (
     <nav className="w-full">
-      {/* Mobile Widget */}
-      <div className="tradingview-widget-container shadow-xl/10 lg:hidden">
-        <div className="tradingview-widget-container__widget" ref={mobileRef}></div>
-      </div>
+      {/* Stock Ticker - Mobile */}
+      <StockTicker className="shadow-xl/10 lg:hidden" />
 
       {/* Top Bar */}
       <div className="lg:bg-whiteHover flex items-center justify-between bg-transparent px-6 py-2 text-[#172741] lg:p-0 lg:px-7">
@@ -165,10 +133,8 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Desktop Widget */}
-      <div className="tradingview-widget-container hidden lg:block">
-        <div className="tradingview-widget-container__widget" ref={desktopRef}></div>
-      </div>
+      {/* Stock Ticker - Desktop */}
+      <StockTicker className="hidden lg:block" />
 
       {/* Mobile Menu */}
       <ul
