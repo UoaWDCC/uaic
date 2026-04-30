@@ -5,7 +5,7 @@ const KelvinCard = async () => {
   const profileUrl =
     (await getProfileCardImage("69f0707d8372c16f99240669")) || "/assets/team/KyleRayner.jpg";
   return (
-    <div className="flex w-full max-w-[160px] flex-col items-center rounded-lg text-center sm:max-w-[200px]">
+    <div className="mb-10 flex w-full max-w-[160px] flex-col items-center rounded-lg text-center sm:max-w-[200px]">
       {/* Profile photo */}
       <div className="relative mb-2 h-24 w-24 sm:h-32 sm:w-32">
         <Image
