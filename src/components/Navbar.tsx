@@ -49,6 +49,18 @@ const Navbar = () => {
     createWidget(desktopRef.current);
   }, []);
 
+  const [beyondHero, setBeyondHero] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      const scrolled = window.scrollY;
+
+      if (scrolled > 30) {
+        setBeyondHero(true);
+      }
+    });
+  }, []);
+
   return (
     <nav className="w-full">
       {/* Mobile Widget */}
@@ -57,7 +69,9 @@ const Navbar = () => {
       </div>
 
       {/* Top Bar */}
-      <div className="lg:bg-whiteHover flex items-center justify-between bg-transparent px-6 py-2 text-[#172741] lg:p-0 lg:px-7">
+      <div
+        className={`topbar flex items-center justify-between ${beyondHero ? "bg-white" : "bg-transparent"} lg:px-7" px-6 py-2 text-[#172741] lg:bg-transparent lg:p-0`}
+      >
         {/* Hamburger Menu */}
         <button
           className={`z-50 cursor-pointer rounded-4xl bg-white p-4 shadow-xl/10 transition-transform duration-300 lg:hidden ${
