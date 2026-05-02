@@ -61,6 +61,14 @@
   --text-body: 1rem;
 }
 
+@font-face {
+  font-family: "Figtree";
+  src: url("/fonts/Figtree-VariableFont_wght.ttf") format("truetype");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
