@@ -52,13 +52,23 @@ const Navbar = () => {
   const [beyondHero, setBeyondHero] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      const scrolled = window.scrollY;
+    const scrollHero = () => {
+      const hero = document.querySelector(
+        ".relative.min-h-\\[500px\\].w-full.overflow-x-hidden.overflow-y-hidden.lg\\:min-h-\\[749px\\]",
+      );
 
-      if (scrolled > 30) {
-        setBeyondHero(true);
-      }
-    });
+      if (!hero) return;
+
+      const heroBottom = hero.getBoundingClientRect().bottom;
+
+      setBeyondHero(heroBottom <= 0);
+    };
+
+    window.addEventListener("scroll", scrollHero);
+
+    return () => {
+      window.removeEventListener("scroll", scrollHero);
+    };
   }, []);
 
   return (
@@ -70,16 +80,21 @@ const Navbar = () => {
 
       {/* Top Bar */}
       <div
-        className={`topbar flex items-center justify-between ${beyondHero ? "bg-white" : "bg-transparent"} lg:px-7" px-6 py-2 text-[#172741] lg:bg-transparent lg:p-0`}
+        className={`topbar flex items-center justify-between ${beyondHero ? "bg-white" : "bg-transparent"} px-6 py-0 text-[#172741] lg:p-0 lg:px-6`}
       >
         {/* Hamburger Menu */}
         <button
-          className={`z-50 cursor-pointer rounded-4xl bg-white p-4 shadow-xl/10 transition-transform duration-300 lg:hidden ${
+          className={`z-50 cursor-pointer rounded-4xl transition-transform duration-300 lg:hidden ${
             isOpen ? "invisible" : "visible"
-          }`}
+          } `}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <svg className="h-10 w-10" fill="none" stroke="var(--darkBlue)" viewBox="0 0 24 24">
+          <svg
+            className="h-10 w-10"
+            fill="none"
+            stroke={`${beyondHero ? "#00529B" : "white"}`}
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -91,19 +106,18 @@ const Navbar = () => {
 
         {/* Logo */}
         <Link href="/">
-          <Image
-            src="/assets/logos/uaic.webp"
-            alt="Logo"
-            width={220}
-            height={220}
-            className="p-4"
+          <div
+            className={`m-0 h-[70px] w-[140px] bg-[#00529B] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat lg:ml-45 lg:h-[100px] lg:w-[180px] ${beyondHero ? "" : "brightness-0 invert"}`}
           />
         </Link>
 
         {/* Desktop Nav */}
-        <ul className="hidden gap-3 text-xl font-[300] lg:flex xl:gap-10 2xl:gap-15">
+        <ul className="hidden gap-3 text-xl font-[300] lg:ml-225 lg:flex xl:gap-10 2xl:gap-12">
           <li>
-            <Link href="/" className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl">
+            <Link
+              href="/"
+              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+            >
               Home
             </Link>
           </li>
@@ -112,7 +126,10 @@ const Navbar = () => {
             onMouseEnter={() => setIsAboutDropdownOpen(true)}
             onMouseLeave={() => setIsAboutDropdownOpen(false)}
           >
-            <Link href="/about" className="cursor-pointer p-[4px] font-[300] hover:rounded-xl">
+            <Link
+              href="/about"
+              className={`cursor-pointer p-[4px] font-[300] hover:rounded-xl ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+            >
               About
             </Link>
             {/* Dropdown Menu */}
@@ -141,7 +158,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/events"
-              className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl"
+              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               Events
             </Link>
@@ -149,7 +166,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/investmentportfolio"
-              className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl"
+              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               Investment Portfolio
             </Link>
@@ -157,7 +174,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/bulletin"
-              className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl"
+              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               Bulletin
             </Link>
@@ -165,14 +182,14 @@ const Navbar = () => {
           <li>
             <Link
               href="/contact"
-              className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl"
+              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               Contact
             </Link>
           </li>
         </ul>
 
-        <div className="hidden lg:block">
+        <div className="hidden lg:block lg:pe-60">
           <Button link="/joinus" defaultSize className="cursor-pointer">
             Join Us
           </Button>
