@@ -82,6 +82,13 @@ const Navbar = () => {
       <div
         className={`topbar flex items-center justify-between ${beyondHero ? "bg-white" : "bg-transparent"} px-6 py-0 text-[#172741] lg:p-0 lg:px-6`}
       >
+        {/* Logo */}
+        <Link href="/">
+          <div
+            className={`m-0 h-[70px] w-[140px] bg-[#00529B] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat lg:ml-45 lg:h-[100px] lg:w-[180px] ${beyondHero ? "" : "brightness-0 invert"}`}
+          />
+        </Link>
+
         {/* Hamburger Menu */}
         <button
           className={`z-50 cursor-pointer rounded-4xl transition-transform duration-300 lg:hidden ${
@@ -103,13 +110,6 @@ const Navbar = () => {
             />
           </svg>
         </button>
-
-        {/* Logo */}
-        <Link href="/">
-          <div
-            className={`m-0 h-[70px] w-[140px] bg-[#00529B] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat lg:ml-45 lg:h-[100px] lg:w-[180px] ${beyondHero ? "" : "brightness-0 invert"}`}
-          />
-        </Link>
 
         {/* Desktop Nav */}
         <ul className="hidden gap-3 text-xl font-[300] lg:ml-225 lg:flex xl:gap-10 2xl:gap-12">
@@ -269,7 +269,7 @@ const Navbar = () => {
 
         <hr className="border-darkBlue-300 w-9/10 self-center border-t py-3" />
 
-        <li className="mr-[30px] ml-auto text-lg font-[600] sm:text-xl">
+        <li className="ml-auto text-lg font-[600] sm:text-xl lg:mr-[30px]">
           <Button link="/joinus" className="p-[10px] px-[40px] sm:p-[12px] sm:px-[48px]">
             Join Us
           </Button>
