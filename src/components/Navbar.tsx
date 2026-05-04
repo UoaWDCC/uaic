@@ -74,11 +74,6 @@ const Navbar = () => {
 
   return (
     <nav className="w-full">
-      {/* Mobile Widget */}
-      <div className="tradingview-widget-container shadow-xl/10 lg:hidden">
-        <div className="tradingview-widget-container__widget" ref={mobileRef}></div>
-      </div>
-
       {/* Top Bar */}
       <div
         className={`topbar flex items-center justify-between ${beyondHero ? "bg-white" : "bg-transparent"} px-6 py-0 text-[#172741] lg:p-0 lg:px-6`}
@@ -86,7 +81,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link href="/">
           <div
-            className={`m-0 h-[70px] w-[140px] bg-[#00529B] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat lg:ml-10 lg:h-[100px] lg:w-[140px] ${beyondHero ? "" : "brightness-0 invert"}`}
+            className={`m-0 h-[86px] w-[140px] bg-[#00529B] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat lg:ml-10 lg:h-[100px] lg:w-[140px] ${beyondHero ? "" : "brightness-0 invert"}`}
           />
         </Link>
 
@@ -200,6 +195,11 @@ const Navbar = () => {
       {/* Desktop Widget */}
       <div className="tradingview-widget-container hidden lg:block">
         <div className="tradingview-widget-container__widget" ref={desktopRef}></div>
+      </div>
+
+      {/* Mobile Widget */}
+      <div className="tradingview-widget-container shadow-xl/10 lg:hidden">
+        <div className="tradingview-widget-container__widget" ref={mobileRef}></div>
       </div>
 
       {/* Mobile Menu */}
