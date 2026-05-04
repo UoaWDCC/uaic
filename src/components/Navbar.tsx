@@ -49,19 +49,20 @@ const Navbar = () => {
     createWidget(desktopRef.current);
   }, []);
 
-  const [beyondHero, setBeyondHero] = useState(false);
+  const [beyondHero, setBeyondHero] = useState(false); //variable beyondHero is set false, initially. beyondHero can be set true or false by doing setBeyondHero(True/False).
 
   useEffect(() => {
     const scrollHero = () => {
       const hero = document.querySelector(
+        //selects the hero class
         ".relative.min-h-\\[500px\\].w-full.overflow-x-hidden.overflow-y-hidden.lg\\:min-h-\\[749px\\]",
       );
 
-      if (!hero) return;
+      if (!hero) return; //if selected class doesn't exist then end effect
 
-      const heroBottom = hero.getBoundingClientRect().bottom;
+      const heroBottom = hero.getBoundingClientRect().bottom; //hero.getBoundingCLientRect().bottom gets the position of the bottom edge of the hero section relative to the top of the browser's viewport. If the top of the browser viewport goes pass the hero's bottom line, then the position becomes <=0.
 
-      setBeyondHero(heroBottom <= 0);
+      setBeyondHero(heroBottom <= 0); //heroBottom<=0 indicating we have scrolled pass the bottom line of the selected hero element.
     };
 
     window.addEventListener("scroll", scrollHero);
