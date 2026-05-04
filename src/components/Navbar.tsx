@@ -86,7 +86,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link href="/">
           <div
-            className={`m-0 h-[70px] w-[140px] bg-[#00529B] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat lg:ml-45 lg:h-[100px] lg:w-[180px] ${beyondHero ? "" : "brightness-0 invert"}`}
+            className={`m-0 h-[70px] w-[140px] bg-[#00529B] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat lg:ml-10 lg:h-[100px] lg:w-[140px] ${beyondHero ? "" : "brightness-0 invert"}`}
           />
         </Link>
 
@@ -113,11 +113,11 @@ const Navbar = () => {
         </button>
 
         {/* Desktop Nav */}
-        <ul className="hidden gap-3 text-xl font-[300] lg:ml-225 lg:flex xl:gap-10 2xl:gap-12">
+        <ul className="hidden text-xl font-[300] lg:ml-auto lg:flex lg:gap-3.5">
           <li>
             <Link
               href="/"
-              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               Home
             </Link>
@@ -129,7 +129,7 @@ const Navbar = () => {
           >
             <Link
               href="/about"
-              className={`cursor-pointer p-[4px] font-[300] hover:rounded-xl ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] font-[300] hover:rounded-xl lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               About
             </Link>
@@ -159,7 +159,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/events"
-              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               Events
             </Link>
@@ -167,7 +167,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/investmentportfolio"
-              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               Investment Portfolio
             </Link>
@@ -175,7 +175,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/bulletin"
-              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               Bulletin
             </Link>
@@ -183,15 +183,15 @@ const Navbar = () => {
           <li>
             <Link
               href="/contact"
-              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               Contact
             </Link>
           </li>
         </ul>
 
-        <div className="hidden lg:block lg:pe-60">
-          <Button link="/joinus" defaultSize className="cursor-pointer">
+        <div className="hidden lg:block lg:ps-2 lg:pe-15">
+          <Button link="/joinus" className="cursor-pointer py-1.5">
             Join Us
           </Button>
         </div>
