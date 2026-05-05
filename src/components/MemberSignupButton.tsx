@@ -10,18 +10,14 @@ const MemberSignupButton = () => {
     pr-4.5 pl-3.5 text-sm text-white sm:text-base
     transition-colors duration-200
     hover:bg-white hover:bg-none hover:text-[#005eaf]
-  `
-    .trim()
-    .replace(/\s+/g, " ");
+  `;
 
   return (
     <Link href="/joinus" className={buttonClasses}>
       <span className="relative flex size-5 items-center justify-center">
         <GoArrowUpRight className="absolute size-7 transition-transform duration-200 group-hover:rotate-45" />
       </span>
-      <span className="[font-family:'Figtree',Arial,Helvetica,sans-serif] font-semibold">
-        Become A Member
-      </span>
+      <span className="font-semibold">Become A Member</span>
     </Link>
   );
 };
