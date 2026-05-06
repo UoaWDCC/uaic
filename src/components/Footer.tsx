@@ -18,7 +18,7 @@ const Footer = () => {
             </h1>
           </div>
           {/* Col 1 */}
-          <div className="order-1 flex flex-col items-start lg:order-0">
+          <div className="order-3 flex flex-col items-start lg:order-2">
             <div className="flex flex-col items-start gap-1.5 text-left lg:gap-4">
               <h1 className="flex text-[1.25rem] font-bold whitespace-nowrap lg:block lg:text-[16px]">
                 PAGES
@@ -49,7 +49,7 @@ const Footer = () => {
           </div>
 
           {/* Col 2 */}
-          <div className="order-3 flex flex-col items-start lg:order-1">
+          <div className="order-2 flex flex-col items-start lg:order-1">
             <div className="flex flex-col items-start gap-2.5 text-left lg:gap-4">
               <h1 className="flex text-[1.25rem] font-bold whitespace-nowrap lg:block lg:text-[16px]">
                 CONTACT
@@ -86,7 +86,7 @@ const Footer = () => {
 
           {/* Col 3 */}
 
-          <div className="order-2 flex flex-col items-start lg:order-2">
+          <div className="order-2 flex flex-col items-start lg:order-3">
             <div className="flex flex-col items-start gap-2.5 text-left lg:gap-4">
               <h1 className="flex text-[1.25rem] font-bold whitespace-nowrap lg:block lg:text-[16px]">
                 SOCIALS
