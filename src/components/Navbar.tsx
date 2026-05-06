@@ -108,11 +108,11 @@ const Navbar = () => {
         </button>
 
         {/* Desktop Nav */}
-        <ul className="hidden text-xl font-[300] lg:ml-auto lg:flex lg:gap-3.5">
+        <ul className="hidden text-xl font-[300] lg:ml-auto lg:flex lg:gap-9">
           <li>
             <Link
               href="/"
-              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               Home
             </Link>
@@ -124,7 +124,7 @@ const Navbar = () => {
           >
             <Link
               href="/about"
-              className={`cursor-pointer p-[4px] font-[300] hover:rounded-xl lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] font-[300] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               About
             </Link>
@@ -154,41 +154,36 @@ const Navbar = () => {
           <li>
             <Link
               href="/events"
-              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               Events
             </Link>
           </li>
           <li>
             <Link
-              href="/investmentportfolio"
-              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
-            >
-              Investment Portfolio
-            </Link>
-          </li>
-          <li>
-            <Link
               href="/bulletin"
-              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               Bulletin
             </Link>
           </li>
           <li>
             <Link
-              href="/contact"
-              className={`hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              href="/investmentportfolio"
+              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
-              Contact
+              Investments
             </Link>
           </li>
         </ul>
 
-        <div className="hidden lg:block lg:ps-2 lg:pe-15">
-          <Button link="/joinus" className="cursor-pointer py-1.5">
+        <div className="hidden lg:block lg:ps-8 lg:pe-15">
+          <Link
+            href="/joinus"
+            className="cursor-pointer rounded-full bg-gradient-to-r from-[#44a6fc] to-sky-600 p-4 py-1.5 text-lg text-white hover:bg-gradient-to-r hover:from-[#8bc7fc] hover:to-sky-400"
+          >
             Join Us
-          </Button>
+          </Link>
         </div>
       </div>
 
