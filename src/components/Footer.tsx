@@ -3,10 +3,12 @@ import { FaInstagram, FaLinkedin, FaFacebook, FaPhoneAlt } from "react-icons/fa"
 import { TiLocation } from "react-icons/ti";
 import Link from "next/link";
 import Image from "next/image";
+import InvestConnectWork from "./InvestConnectWork";
 
 const Footer = () => {
   return (
     <footer className="bg-darkBlue flex w-full flex-col items-center justify-center gap-4 px-4 pt-4 pb-4 text-white sm:px-6 md:px-10 lg:p-10 lg:pb-5">
+      <InvestConnectWork />
       <div className="grid w-full grid-cols-2 items-start gap-x-8 gap-y-6 px-4 pb-4 text-center sm:gap-x-12 sm:px-8 md:gap-x-16 md:px-12 lg:grid-cols-3">
         {/* Col 1 */}
         <div className="order-1 flex flex-col items-center lg:order-0">
