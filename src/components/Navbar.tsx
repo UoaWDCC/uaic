@@ -19,7 +19,6 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-
   const [beyondHero, setBeyondHero] = useState(false); //variable beyondHero is set false, initially. beyondHero can be set true or false by doing setBeyondHero(True/False).
 
   useEffect(() => {
@@ -45,9 +44,6 @@ const Navbar = () => {
 
   return (
     <nav className="w-full">
-      {/* Stock Ticker - Mobile */}
-      <StockTicker className="shadow-xl/10 lg:hidden" />
-
       {/* Top Bar */}
       <div
         className={`topbar flex items-center justify-between ${beyondHero ? "bg-white" : "bg-transparent"} px-6 py-0 text-[#172741] lg:p-0 lg:px-6`}
@@ -152,12 +148,9 @@ const Navbar = () => {
         </ul>
 
         <div className="hidden lg:block lg:ps-8 lg:pe-15">
-          <Link
-            href="/joinus"
-            className="cursor-pointer rounded-full bg-gradient-to-r from-[#44a6fc] to-sky-600 p-4 py-1.5 text-lg text-white hover:bg-gradient-to-r hover:from-[#8bc7fc] hover:to-sky-400"
-          >
+          <Button link="/joinus" className="cursor-pointer p-4 py-1.5 text-lg text-white">
             Join Us
-          </Link>
+          </Button>
         </div>
       </div>
 
@@ -237,6 +230,9 @@ const Navbar = () => {
           </Button>
         </li>
       </ul>
+
+      {/* Stock Ticker - Mobile */}
+      <StockTicker className="shadow-xl/10 lg:hidden" />
 
       {/* About Sub-page */}
       <div
