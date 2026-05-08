@@ -11,7 +11,7 @@ export default async function Home() {
   const recentEvents = await getRecentEvents();
 
   return (
-    <div>
+    <div id="hero">
       {/* Build Homepage Here */}
       <HomePage />
       <SponsorsBanner />

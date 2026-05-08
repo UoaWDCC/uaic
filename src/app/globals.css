@@ -39,6 +39,17 @@
   min-height: 40px; /* optional: ensures thumb is always a reasonable size */
 }
 
+.stockticker-widget.transparent {
+  background: transparent;
+}
+
+.stockticker-widget.solid {
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
