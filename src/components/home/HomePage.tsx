@@ -6,15 +6,15 @@ import HeroCarousel from "./HeroCarousel";
 import HeroSlideIndicator from "./HeroSlideIndicator";
 import useSwipe from "./useSwipe";
 
-const HomePage = () => {
-  // Hardcoded local hero images for now. Later this can be replaced with Payload data.
-  const images = [
-    "/assets/home/heropic1.jpg",
-    "/assets/home/heropic2.jpg",
-    "/assets/home/heropic3.jpg",
-  ];
+interface HomePageProps {
+  images: string[];
+}
+
+const HomePage: React.FC<HomePageProps> = ({ images }) => {
+  const fallbackImage = "/assets/home/bull-cow-bg.webp";
+  const safeImages = images.length > 0 ? images : [fallbackImage];
   const [current, setCurrent] = useState(0);
-  const totalSlides = images.length;
+  const totalSlides = safeImages.length;
 
   useEffect(() => {
     const t = setInterval(() => setCurrent((c) => (c + 1) % totalSlides), 5000);
@@ -33,7 +33,7 @@ const HomePage = () => {
         className="relative -mt-[132px] min-h-[610px] w-full overflow-x-hidden lg:-mt-[131.75px] lg:min-h-[676px]"
         {...swipeHandlers}
       >
-        <HeroCarousel images={images} current={current} />
+        <HeroCarousel images={safeImages} current={current} />
 
         <div className="relative mx-auto mt-[130px] flex w-full flex-col items-center gap-[20px] text-center lg:mt-[150px] lg:ml-[100px] lg:w-[1200px] lg:items-start lg:gap-[35px] lg:text-left">
           <h1 className="mx-[30px] text-[30px] leading-[34px] font-[700] tracking-[0px] text-white lg:mx-0 lg:text-[100px] lg:leading-[120px]">

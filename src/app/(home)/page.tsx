@@ -5,15 +5,18 @@ import HomePage from "@/components/home/HomePage";
 import SponsorsBanner from "@/components/home/SponsorsBanner";
 import EventsSection from "@/components/EventsSection";
 import { getUpcomingEvents, getRecentEvents } from "@/features/users/data/getEvents";
+import { getHeroSectionCarousel } from "@/features/home/data/getHeroSectionCarousel";
 
 export default async function Home() {
   const upcomingEvents = await getUpcomingEvents();
   const recentEvents = await getRecentEvents();
+  const heroSlides = await getHeroSectionCarousel();
+  const heroImages = heroSlides.map((slide) => slide.imageUrl);
 
   return (
     <div>
       {/* Build Homepage Here */}
-      <HomePage />
+      <HomePage images={heroImages} />
       <SponsorsBanner />
       <EventsSection upcomingEvents={upcomingEvents} recentEvents={recentEvents} />
       <ArticleList />
