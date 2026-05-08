@@ -7,9 +7,9 @@ import InvestConnectWork from "./InvestConnectWork";
 
 const Footer = () => {
   return (
-    <footer className="bg-darkBlue flex w-full flex-col items-center justify-center gap-4 px-4 pt-4 pb-4 text-white sm:px-6 md:px-10 lg:p-10 lg:pb-5">
+    <footer className="bg-darkBlue flex w-full flex-col items-center justify-center gap-5 px-4 pt-4 pb-4 text-white sm:px-6 md:px-10 lg:p-10 lg:pb-5">
       <InvestConnectWork />
-      <div className="grid w-full grid-cols-2 items-start gap-x-8 gap-y-6 px-4 pb-4 text-center sm:gap-x-12 sm:px-8 md:gap-x-16 md:px-12 lg:grid-cols-3">
+      <div className="flex grid w-full grid-cols-2 items-start gap-x-8 gap-y-6 px-4 pb-4 text-center sm:gap-x-12 sm:px-8 md:gap-x-16 md:px-12 lg:grid-cols-3">
         {/* Col 1 */}
         <div className="order-1 flex flex-col items-center lg:order-0">
           <div className="flex flex-col items-start gap-1.5 text-left lg:gap-4">

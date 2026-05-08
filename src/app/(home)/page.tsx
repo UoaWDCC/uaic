@@ -1,5 +1,4 @@
 import ArticleList from "@/components/home/ArticleList";
-import InvestConnectWork from "@/components/InvestConnectWork";
 import UpdatedBulletin from "@/components/home/Bulletin";
 import HomePage from "@/components/home/HomePage";
 import SponsorsBanner from "@/components/home/SponsorsBanner";
@@ -18,7 +17,6 @@ export default async function Home() {
       <EventsSection upcomingEvents={upcomingEvents} recentEvents={recentEvents} />
       <ArticleList />
       <UpdatedBulletin />
-      <InvestConnectWork />
     </div>
   );
 }

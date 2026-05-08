@@ -1,4 +1,3 @@
-import InvestConnectWork from "@/components/InvestConnectWork";
 import Image from "next/image";
 import { FaInstagram, FaFacebook, FaLinkedin, FaTiktok } from "react-icons/fa";
 import Link from "next/link";
@@ -130,7 +129,6 @@ const ContactPage = () => {
           </div>
         </div>
       </div>
-      <InvestConnectWork />
     </div>
   );
 };
