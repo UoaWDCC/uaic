@@ -18,7 +18,10 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="relative min-h-[500px] w-full overflow-x-hidden overflow-y-hidden lg:mt-[142px] lg:min-h-[749px]">
+      <div
+        id="hero"
+        className="relative min-h-[500px] w-full overflow-x-hidden overflow-y-hidden lg:mt-[142px] lg:min-h-[749px]"
+      >
         {/* Background */}
         <div
           className="absolute top-0 left-0 z-[-2] min-h-[610px] w-screen bg-cover bg-center bg-no-repeat lg:min-h-screen"
