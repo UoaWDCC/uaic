@@ -7,7 +7,23 @@ import React, { useState, useEffect, useRef } from "react";
 const StockTicker = ({ className = "" }: { className?: string }) => {
   const mobileRef = useRef<HTMLDivElement>(null);
   // Boolean to keep track of if stock ticker should be solid.
-  const [isSolid, setIsSolid] = useState<boolean>(false);
+  const [isSolid, setIsSolid] = useState(false);
+
+  // Observe when hero section scrolls past
+  useEffect(() => {
+    const HERO_THRESHOLD = 676;
+    const changeBackground = () => {
+      if (window.scrollY > HERO_THRESHOLD && isSolid != true) {
+        setIsSolid(true);
+      } else {
+        setIsSolid(false);
+      }
+    };
+
+    changeBackground();
+    window.addEventListener("scroll", changeBackground); // Updates on scroll
+    return () => window.removeEventListener("scroll", changeBackground);
+  }, []);
 
   // Loads the trading view widget
   useEffect(() => {
@@ -29,29 +45,53 @@ const StockTicker = ({ className = "" }: { className?: string }) => {
       colorTheme: "light",
       locale: "en",
     });
-    mobileRef.current.innerHTML = "";
+    mobileRef.current.innerHTML = '<div class="tradingview-widget-container__widget"></div>';
+    mobileRef.current.style.backgroundColor = "transparent";
     mobileRef.current.appendChild(script);
+
+    // Inject a style rule to ensure transparent background when not solid
+    if (!isSolid) {
+      const styleId = "stockticker-transparent-style";
+      if (!document.getElementById(styleId)) {
+        const style = document.createElement("style");
+        style.id = styleId;
+        style.textContent = `
+          .tradingview-widget-container { background: transparent !important; background-color: transparent !important; }
+          .tradingview-widget-container * { background: transparent !important; background-color: transparent !important; }
+        `;
+        document.head.appendChild(style);
+      }
+    }
+
+    // To fix the stockticker loading as transparent.
+    const forceTransparent = () => {
+      if (!mobileRef.current || isSolid) return;
+
+      mobileRef.current.style.backgroundColor = "transparent";
+      const elements = mobileRef.current.querySelectorAll<HTMLElement>("*");
+      elements.forEach((el) => {
+        el.style.setProperty("background", "transparent", "important");
+        el.style.setProperty("background-color", "transparent", "important");
+      });
+    };
+
+    forceTransparent();
+    const observer = new MutationObserver(() => {
+      forceTransparent();
+      setTimeout(forceTransparent, 100);
+    });
+    observer.observe(mobileRef.current, { childList: true, subtree: true, attributes: true });
+
+    return () => observer.disconnect();
   }, [isSolid]);
 
-  // Observe when hero section scrolls past
-  useEffect(() => {
-    const heroElement = document.getElementById("hero");
-    if (!heroElement) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsSolid(!entry.isIntersecting);
-      },
-      { threshold: 0 },
-    );
-
-    observer.observe(heroElement);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div className={`stockticker-widget ${className} ${isSolid ? "solid" : "transparent"}`}>
-      <div className="stockticker-widget" ref={mobileRef}></div>
+    <div className={className}>
+      <div
+        ref={mobileRef}
+        className="tradingview-widget-container"
+        style={{ backgroundColor: "transparent" }}
+      ></div>
     </div>
   );
 };
