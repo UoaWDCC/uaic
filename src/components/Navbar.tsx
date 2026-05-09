@@ -19,24 +19,17 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-  const [beyondHero, setBeyondHero] = useState(false); //variable beyondHero is set false, initially. beyondHero can be set true or false by doing setBeyondHero(True/False).
+  const [beyondHero, setBeyondHero] = useState(false);
 
   useEffect(() => {
     const scrollHero = () => {
-      const hero = document.querySelector(
-        //selects the hero class
-        ".relative.min-h-\\[500px\\].w-full.overflow-x-hidden.overflow-y-hidden.lg\\:min-h-\\[749px\\]",
-      );
-
-      if (!hero) return; //if selected class doesn't exist then end effect
-
-      const heroBottom = hero.getBoundingClientRect().bottom; //hero.getBoundingCLientRect().bottom gets the position of the bottom edge of the hero section relative to the top of the browser's viewport. If the top of the browser viewport goes pass the hero's bottom line, then the position becomes <=0.
-
-      setBeyondHero(heroBottom <= 0); //heroBottom<=0 indicating we have scrolled pass the bottom line of the selected hero element.
+      const hero = document.getElementById("hero");
+      if (!hero) return;
+      const heroBottom = hero.getBoundingClientRect().bottom;
+      setBeyondHero(heroBottom < 0);
     };
-
+    scrollHero();
     window.addEventListener("scroll", scrollHero);
-
     return () => {
       window.removeEventListener("scroll", scrollHero);
     };
@@ -155,7 +148,7 @@ const Navbar = () => {
       </div>
 
       {/* Stock Ticker - Desktop */}
-      <StockTicker className="hidden lg:block" />
+      <StockTicker className="hidden lg:block" isTransparent={!beyondHero} />
       {/* Mobile Menu */}
       <ul
         className={`text-darkBlue fixed top-[10%] bottom-[10%] left-0 z-40 flex w-[90vw] max-w-[350px] transform flex-col overflow-y-auto rounded-3xl bg-white text-lg shadow-xl/20 transition-transform duration-300 ease-in-out sm:bottom-[16%] lg:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"} `}
@@ -232,7 +225,7 @@ const Navbar = () => {
       </ul>
 
       {/* Stock Ticker - Mobile */}
-      <StockTicker className="shadow-xl/10 lg:hidden" />
+      <StockTicker className="shadow-xl/10 lg:hidden" isTransparent={!beyondHero} />
 
       {/* About Sub-page */}
       <div
