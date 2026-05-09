@@ -1,28 +1,13 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-// In current state:
-// Stock ticker doesn't show up on mobile view (is it supposed to? looks like it...)
-// Just completely solid white regardless of where on page it is.
+import React, { useEffect, useRef } from "react";
 
-const StockTicker = ({ className = "" }: { className?: string }) => {
+interface StockTickerProps {
+  className?: string;
+  isTransparent?: boolean;
+}
+
+const StockTicker = ({ className = "", isTransparent = false }: StockTickerProps) => {
   const mobileRef = useRef<HTMLDivElement>(null);
-  const [isSolid, setIsSolid] = useState(false);
-
-  // Observe when hero section scrolls past
-  useEffect(() => {
-    const HERO_THRESHOLD = 338;
-    const changeBackground = () => {
-      if (window.scrollY > HERO_THRESHOLD) {
-        setIsSolid(true);
-      } else {
-        setIsSolid(false);
-      }
-    };
-
-    changeBackground();
-    window.addEventListener("scroll", changeBackground); // Updates on scroll
-    return () => window.removeEventListener("scroll", changeBackground);
-  }, []);
 
   useEffect(() => {
     if (!mobileRef.current) return;
@@ -38,22 +23,18 @@ const StockTicker = ({ className = "" }: { className?: string }) => {
         { proName: "BITSTAMP:ETHUSD", title: "Ethereum" },
       ],
       showSymbolLogo: true,
-      isTransparent: !isSolid,
+      isTransparent,
       displayMode: "regular",
       colorTheme: "light",
       locale: "en",
     });
     mobileRef.current.innerHTML = "";
     mobileRef.current.appendChild(script);
-  }, [isSolid]);
+  }, [isTransparent]);
 
   return (
     <div className={`tradingview-widget-container ${className}`}>
-      <div
-        key={isSolid ? "solid" : "transparent"}
-        className="tradingview-widget-container__widget"
-        ref={mobileRef}
-      />
+      <div className="tradingview-widget-container__widget" ref={mobileRef}></div>
     </div>
   );
 };
