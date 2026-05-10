@@ -32,7 +32,7 @@ const HomePage: React.FC<HomePageProps> = ({ images }) => {
         onSlideChange={setCurrent}
         swiperRef={swiperRef}
       />
-
+      
       <div className="pointer-events-none relative z-10 mx-auto mt-[130px] flex w-full flex-col items-center gap-[20px] text-center lg:mt-[150px] lg:ml-[100px] lg:w-[1200px] lg:items-start lg:gap-[35px] lg:text-left">
         <h1 className="mx-[30px] text-[30px] leading-[34px] font-[700] tracking-[0px] text-white lg:mx-0 lg:text-[100px] lg:leading-[120px]">
           University Of Auckland

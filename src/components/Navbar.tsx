@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { LuChartNoAxesCombined, LuInfo } from "react-icons/lu";
@@ -19,21 +19,48 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
+  const [beyondHero, setBeyondHero] = useState(false);
+
+  useEffect(() => {
+    const scrollHero = () => {
+      const hero = document.getElementById("hero");
+      if (!hero) return;
+      const heroBottom = hero.getBoundingClientRect().bottom;
+      setBeyondHero(heroBottom < 0);
+    };
+    scrollHero();
+    window.addEventListener("scroll", scrollHero);
+    return () => {
+      window.removeEventListener("scroll", scrollHero);
+    };
+  }, []);
+
   return (
     <nav className="w-full">
-      {/* Stock Ticker - Mobile */}
-      <StockTicker className="shadow-xl/10 lg:hidden" />
-
       {/* Top Bar */}
-      <div className="lg:bg-whiteHover flex items-center justify-between bg-transparent px-6 py-2 text-[#172741] lg:p-0 lg:px-7">
+      <div
+        className={`topbar flex items-center justify-between ${beyondHero ? "bg-white" : "bg-transparent"} px-6 py-0 text-[#172741] lg:p-0 lg:px-6`}
+      >
+        {/* Logo */}
+        <Link href="/">
+          <div
+            className={`m-0 h-[86px] w-[140px] bg-[#00529B] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat lg:ml-10 lg:h-[100px] lg:w-[140px] ${beyondHero ? "" : "brightness-0 invert"}`}
+          />
+        </Link>
+
         {/* Hamburger Menu */}
         <button
-          className={`z-50 cursor-pointer rounded-4xl bg-white p-4 shadow-xl/10 transition-transform duration-300 lg:hidden ${
+          className={`z-50 cursor-pointer rounded-4xl transition-transform duration-300 lg:hidden ${
             isOpen ? "invisible" : "visible"
-          }`}
+          } `}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <svg className="h-10 w-10" fill="none" stroke="var(--darkBlue)" viewBox="0 0 24 24">
+          <svg
+            className="h-10 w-10"
+            fill="none"
+            stroke={`${beyondHero ? "#00529B" : "white"}`}
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -43,21 +70,13 @@ const Navbar = () => {
           </svg>
         </button>
 
-        {/* Logo */}
-        <Link href="/">
-          <Image
-            src="/assets/logos/uaic.webp"
-            alt="Logo"
-            width={220}
-            height={220}
-            className="p-4"
-          />
-        </Link>
-
         {/* Desktop Nav */}
-        <ul className="hidden gap-3 text-xl font-[300] lg:flex xl:gap-10 2xl:gap-15">
+        <ul className="hidden text-xl font-[300] lg:ml-auto lg:flex lg:gap-9">
           <li>
-            <Link href="/" className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl">
+            <Link
+              href="/"
+              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+            >
               Home
             </Link>
           </li>
@@ -66,7 +85,10 @@ const Navbar = () => {
             onMouseEnter={() => setIsAboutDropdownOpen(true)}
             onMouseLeave={() => setIsAboutDropdownOpen(false)}
           >
-            <Link href="/about" className="cursor-pointer p-[4px] font-[300] hover:rounded-xl">
+            <Link
+              href="/about"
+              className={`cursor-pointer p-[4px] font-[300] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+            >
               About
             </Link>
             {/* Dropdown Menu */}
@@ -95,47 +117,38 @@ const Navbar = () => {
           <li>
             <Link
               href="/events"
-              className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl"
+              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               Events
             </Link>
           </li>
           <li>
             <Link
-              href="/investmentportfolio"
-              className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl"
-            >
-              Investment Portfolio
-            </Link>
-          </li>
-          <li>
-            <Link
               href="/bulletin"
-              className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl"
+              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
               Bulletin
             </Link>
           </li>
           <li>
             <Link
-              href="/contact"
-              className="hover:text-darkBlue cursor-pointer p-[4px] hover:rounded-xl"
+              href="/investmentportfolio"
+              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
             >
-              Contact
+              Investments
             </Link>
           </li>
         </ul>
 
-        <div className="hidden lg:block">
-          <Button link="/joinus" defaultSize className="cursor-pointer">
+        <div className="hidden lg:block lg:ps-8 lg:pe-15">
+          <Button link="/joinus" className="cursor-pointer p-4 py-1.5 text-lg text-white">
             Join Us
           </Button>
         </div>
       </div>
 
       {/* Stock Ticker - Desktop */}
-      <StockTicker className="hidden lg:block" />
-
+      <StockTicker className="hidden lg:block" isTransparent={!beyondHero} />
       {/* Mobile Menu */}
       <ul
         className={`text-darkBlue fixed top-[10%] bottom-[10%] left-0 z-40 flex w-[90vw] max-w-[350px] transform flex-col overflow-y-auto rounded-3xl bg-white text-lg shadow-xl/20 transition-transform duration-300 ease-in-out sm:bottom-[16%] lg:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"} `}
@@ -204,12 +217,15 @@ const Navbar = () => {
 
         <hr className="border-darkBlue-300 w-9/10 self-center border-t py-3" />
 
-        <li className="mr-[30px] ml-auto text-lg font-[600] sm:text-xl">
+        <li className="ml-auto text-lg font-[600] sm:text-xl lg:mr-[30px]">
           <Button link="/joinus" className="p-[10px] px-[40px] sm:p-[12px] sm:px-[48px]">
             Join Us
           </Button>
         </li>
       </ul>
+
+      {/* Stock Ticker - Mobile */}
+      <StockTicker className="shadow-xl/10 lg:hidden" isTransparent={!beyondHero} />
 
       {/* About Sub-page */}
       <div
