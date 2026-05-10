@@ -33,8 +33,7 @@ const HomePage: React.FC<HomePageProps> = ({ images }) => {
         swiperRef={swiperRef}
       />
 
-      {/* Foreground: overlay content, z-10, on top of Swiper */}
-      <div className="relative z-10 mx-auto mt-[130px] flex w-full flex-col items-center gap-[20px] text-center lg:mt-[150px] lg:ml-[100px] lg:w-[1200px] lg:items-start lg:gap-[35px] lg:text-left">
+      <div className="pointer-events-none relative z-10 mx-auto mt-[130px] flex w-full flex-col items-center gap-[20px] text-center lg:mt-[150px] lg:ml-[100px] lg:w-[1200px] lg:items-start lg:gap-[35px] lg:text-left">
         <h1 className="mx-[30px] text-[30px] leading-[34px] font-[700] tracking-[0px] text-white lg:mx-0 lg:text-[100px] lg:leading-[120px]">
           University Of Auckland
           <br />
@@ -47,13 +46,13 @@ const HomePage: React.FC<HomePageProps> = ({ images }) => {
             and stages at the University of Auckland.
           </h3>
 
-          <div className="mx-auto h-[50px] w-[240px] lg:mx-0 lg:w-[320px]">
+          <div className="pointer-events-auto mx-auto h-[50px] w-[240px] lg:mx-0 lg:w-[320px]">
             <MemberSignupButton />
           </div>
         </div>
 
         <HeroSlideIndicator
-          className="mt-14 w-full px-6 lg:mt-28 lg:px-0"
+          className="pointer-events-auto mt-14 w-full px-6 lg:mt-28 lg:px-0"
           current={current}
           total={totalSlides}
           onSelect={handleSelect}

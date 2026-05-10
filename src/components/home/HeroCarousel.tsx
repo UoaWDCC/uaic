@@ -2,9 +2,10 @@
 
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, EffectFade } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
+import "swiper/css/effect-fade";
 
 interface HeroCarouselProps {
   images: string[];
@@ -20,9 +21,12 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ images, onSlideChange, swip
   return (
     <div className="absolute inset-0 z-0">
       <Swiper
-        modules={[Autoplay]}
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        modules={[Autoplay, EffectFade]}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop
+        speed={700}
+        effect="fade"
+        fadeEffect={{ crossFade: true }}
         className="h-full w-full"
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
