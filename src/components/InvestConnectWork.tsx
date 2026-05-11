@@ -2,8 +2,8 @@ import MemberSignupButton from "./MemberSignupButton";
 
 const InvestConnectWork = () => {
   return (
-    <div className="mx-auto mt-10 w-full max-w-[1236px] shrink lg:mt-20 lg:mb-20">
-      <div className="mx-auto flex flex-col items-center justify-center rounded-xl bg-white shadow-md md:p-11 lg:p-14">
+    <div className="mx-20 my-12 mt-10 w-full max-w-[1236px] px-4 md:mx-auto md:px-0 lg:my-20">
+      <div className="mx-auto flex flex-col items-center justify-center rounded-xl bg-white p-5 shadow-md md:p-11 lg:p-14">
         <h1 className="p-5 text-center text-[clamp(1rem,5.7vw,8rem)] leading-snug font-[700] text-[#145BA7]">
           Invest, Connect And Work With Us.
         </h1>
