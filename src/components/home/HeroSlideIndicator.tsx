@@ -19,26 +19,24 @@ const HeroSlideIndicator: React.FC<HeroSlideIndicatorProps> = ({
 
   return (
     <div className={className}>
-      <div className="relative">
-        <div className="absolute top-1/2 right-6 left-6 hidden -translate-y-1/2 border-t border-white sm:block" />
+      <div className="relative flex items-center justify-center gap-4 lg:justify-between lg:gap-2">
+        <div className="hidden text-sm font-medium text-white/50 lg:block 2xl:text-xl">
+          {String(current + 1).padStart(2, "0")}
+        </div>
 
-        <div className="relative flex items-center justify-center sm:justify-between">
-          <div className="hidden text-sm font-medium text-white/50 sm:block">
-            {String(current + 1).padStart(2, "0")}
-          </div>
+        <div className="hidden flex-1 border-t border-white lg:block" />
 
-          <div className="flex items-center gap-1">
-            {slides.map((i) => (
-              <button
-                key={i}
-                onClick={() => onSelect(i)}
-                aria-label={`Go to slide ${i + 1}`}
-                className={`h-1 w-1 rounded-full transition-transform duration-150 ${
-                  current === i ? "scale-150 bg-white" : "bg-white/40"
-                }`}
-              />
-            ))}
-          </div>
+        <div className="flex items-center gap-1">
+          {slides.map((i) => (
+            <button
+              key={i}
+              onClick={() => onSelect(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`h-1 w-1 rounded-full transition-transform duration-150 2xl:h-1.5 2xl:w-1.5 ${
+                current === i ? "scale-150 bg-white" : "bg-white/40"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </div>
