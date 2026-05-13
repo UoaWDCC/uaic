@@ -1,0 +1,56 @@
+import React from "react";
+//import Image from "next/image";
+import Marquee from "react-fast-marquee";
+import LogoTint from "./LogoTint";
+
+const logos = [
+  "/assets/logos/Blackbull.svg",
+  "/assets/logos/CFA_society.svg",
+  "/assets/logos/Crescent_Capital _partners.svg",
+  "/assets/logos/Denning.svg",
+  "/assets/logos/Forsyth_Barr.svg",
+  "/assets/logos/Goldman_Sachs.svg",
+  "/assets/logos/macquarie.svg",
+  "/assets/logos/Murray&CO.svg",
+];
+
+const logos_2 = [
+  "/assets/logos/National_Business_Review.svg",
+  "/assets/logos/Node.svg",
+  "/assets/logos/NZSuperFund.svg",
+  "/assets/logos/Optiver.svg",
+  "/assets/logos/Redbull.svg",
+  "/assets/logos/Sharesies.svg",
+  "/assets/logos/UBS.svg",
+  "/assets/logos/UOA_BUSINESS_SCHOOL.svg",
+];
+
+const SponsorsBanner = () => {
+  return (
+    <div className="relative h-full overflow-hidden bg-white lg:h-full">
+      <h3 className="text-darkBlue mt-[0px] text-center text-[19.04px] leading-[19.04px] font-[300] lg:mt-[40px] lg:text-[28px] lg:leading-[22px]">
+        Our 2026 Sponsors and Partners
+      </h3>
+      <Marquee speed={110} autoFill>
+        <div className="mt-10 flex items-center justify-evenly gap-6 lg:gap-10">
+          {logos.map((src, index) => (
+            <div key={index} className="relative flex h-20 w-32 items-center">
+              <LogoTint src={src} colorClass="bg-[#145ca9]" className="h-full w-full" />
+            </div>
+          ))}
+        </div>
+      </Marquee>
+      <Marquee speed={120} autoFill>
+        <div className="mt-10 flex items-center justify-evenly gap-6 lg:gap-10">
+          {logos_2.map((src, index) => (
+            <div key={index} className="relative flex h-20 w-32 items-center">
+              <LogoTint src={src} colorClass="bg-[#145ca9]" className="h-full w-full" />
+            </div>
+          ))}
+        </div>
+      </Marquee>
+    </div>
+  );
+};
+
+export default SponsorsBanner;
