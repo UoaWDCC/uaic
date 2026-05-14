@@ -1,15 +1,17 @@
-import Button from "./Button";
+import MemberSignupButton from "./MemberSignupButton";
 
 const InvestConnectWork = () => {
   return (
-    <div className="flex flex-col pt-[4em] md:pt-[9em]">
-      <h1 className="from-darkBlue to-babyBlue mx-auto w-[10em] bg-gradient-to-r bg-clip-text text-center text-[35px] leading-12 font-black text-transparent md:text-[50px] md:leading-15">
-        Invest, Connect and Work with us
-      </h1>
-      <div className="flex h-[250px] w-full justify-center bg-[linear-gradient(to_top,_var(--darkBlue)_0%,_#89ADD4_50%,_white_100%)] bg-top bg-no-repeat md:h-[400px] lg:pt-[40px]">
-        <Button link="/joinus" defaultSize={true}>
-          Join Us
-        </Button>
+    <div className="my-10 w-full max-w-[1250px] px-4 md:mx-auto md:px-0 lg:my-20">
+      <div className="mx-auto flex flex-col items-center justify-center rounded-xl bg-white p-5 shadow-md md:p-11 lg:p-14">
+        <h1 className="p-5 text-center text-[clamp(1rem,5.7vw,8rem)] leading-snug font-[700] text-[#145BA7]">
+          Invest, Connect And Work With Us.
+        </h1>
+        <div className="flex w-full justify-center pb-5">
+          <MemberSignupButton link="/joinus" defaultSize={true}>
+            Join Us
+          </MemberSignupButton>
+        </div>
       </div>
     </div>
   );
