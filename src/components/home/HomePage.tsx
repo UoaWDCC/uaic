@@ -25,15 +25,15 @@ const HomePage: React.FC<HomePageProps> = ({ images }) => {
   };
 
   return (
-    <div className="relative -mt-[132px] min-h-[610px] w-full overflow-x-hidden transition-all duration-300 lg:-mt-[131.75px] lg:min-h-[676px] 2xl:min-h-[1200px]">
+    <div className="relative -mt-[132px] min-h-[610px] w-full overflow-x-hidden transition-all duration-300 lg:-mt-[131.75px] lg:min-h-[676px] 2xl:min-h-[1280px]">
       <HeroCarousel
         images={safeImages}
         current={current}
         onSlideChange={setCurrent}
         swiperRef={swiperRef}
       />
-      <div className="pointer-events-none relative z-10 mx-auto mt-[130px] flex w-full flex-col items-center gap-[20px] px-[40px] text-center transition-all duration-300 lg:mt-[150px] lg:items-start lg:gap-[35px] lg:px-[100px] lg:text-left 2xl:mt-[190px] 2xl:gap-[100px]">
-        <h1 className="mx-[30px] text-[30px] leading-[34px] font-[700] tracking-[0px] text-white transition-all duration-300 lg:mx-0 lg:text-[100px] lg:leading-[120px] 2xl:text-[178px] 2xl:leading-[178px]">
+      <div className="pointer-events-none absolute z-10 mx-auto mt-[130px] flex w-full flex-col items-center gap-[20px] px-[40px] text-center transition-all duration-300 lg:mt-[150px] lg:items-start lg:gap-[35px] lg:px-[100px] lg:text-left 2xl:mt-[180px] 2xl:gap-[70px] 2xl:px-[200px]">
+        <h1 className="mx-[30px] text-[30px] leading-[34px] font-[700] tracking-[0px] text-white transition-all duration-300 lg:mx-0 lg:text-[100px] lg:leading-[120px] 2xl:text-[178px] 2xl:leading-[210px]">
           University Of Auckland
           <br />
           Investment Club
@@ -51,7 +51,7 @@ const HomePage: React.FC<HomePageProps> = ({ images }) => {
         </div>
 
         <HeroSlideIndicator
-          className="pointer-events-auto mt-14 mb-10 w-full transition-all duration-300 lg:mt-28 lg:mb-12 2xl:mt-80 2xl:mb-24"
+          className="pointer-events-auto mt-14 mb-10 w-full transition-all duration-300 lg:mt-28 lg:mb-12 2xl:mt-55 2xl:mb-24"
           current={current}
           total={totalSlides}
           onSelect={handleSelect}
