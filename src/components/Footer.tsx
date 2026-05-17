@@ -9,7 +9,7 @@ const Footer = () => {
     <div>
       {/* CTA Container */}
       <div className="w-full"></div>
-      <footer className="bg-darkBlue flex w-full flex-col items-center gap-4 px-4 pt-32 pb-16 text-white sm:px-6 md:px-10 lg:p-10 lg:pb-5">
+      <footer className="bg-footer-gradient flex w-full flex-col items-center gap-4 px-4 pt-32 pb-16 text-white sm:px-6 md:px-10 lg:p-10 lg:pb-5">
         <div className="grid w-full grid-cols-1 items-start gap-x-4 gap-y-8 px-4 pb-8 text-left sm:px-8 md:gap-x-6 md:px-12 lg:grid-cols-[2fr_1.2fr_1fr_1fr] lg:gap-x-16">
           {/* Footer slogan */}
           <div className="w-full text-left lg:col-span-1 lg:min-w-[300px]">
@@ -25,23 +25,23 @@ const Footer = () => {
               </h1>
 
               {/* TODO add routes to other pages from footer */}
-              <div className="flex flex-col gap-[2px] text-[1rem] font-light whitespace-nowrap underline lg:flex lg:text-[16px]">
-                <Link href="/" className="hover:cursor-pointer">
+              <div className="flex flex-col gap-[2px] text-[1rem] font-light whitespace-nowrap lg:flex lg:text-[16px]">
+                <Link href="/" className="hover:cursor-pointer hover:underline">
                   Home
                 </Link>
-                <Link href="/about" className="hover:cursor-pointer">
+                <Link href="/about" className="hover:cursor-pointer hover:underline">
                   About
                 </Link>
-                <Link href="/events" className="hover:cursor-pointer">
+                <Link href="/events" className="hover:cursor-pointer hover:underline">
                   Events
                 </Link>
-                <Link href="/investmentportfolio" className="hover:cursor-pointer">
+                <Link href="/investmentportfolio" className="hover:cursor-pointer hover:underline">
                   Investments
                 </Link>
-                <Link href="/bulletin" className="hover:cursor-pointer">
+                <Link href="/bulletin" className="hover:cursor-pointer hover:underline">
                   Articles
                 </Link>
-                <Link href="/contact" className="hover:cursor-pointer">
+                <Link href="/contact" className="hover:cursor-pointer hover:underline">
                   Contact
                 </Link>
               </div>
@@ -103,9 +103,14 @@ const Footer = () => {
                   >
                     <FaInstagram className="text-3xl lg:text-[1.3rem]" />
                   </Link>
-                  <div className="lg:text-[16px]">
-                    <h2>@officialuaic</h2>
-                  </div>
+                  <Link
+                    href="https://www.instagram.com/officialuaic/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="lg:text-[16px]"
+                  >
+                    @officialuaic
+                  </Link>
                 </div>
                 <div className="flex flex-row gap-2 lg:gap-8">
                   <Link
@@ -117,10 +122,14 @@ const Footer = () => {
                   >
                     <FaFacebook className="text-3xl lg:text-[1.3rem]" />
                   </Link>
-                  <div className="flex flex-row lg:text-[16px]">
-                    <h2>@officialUAIC</h2>
-                    <h2 className="invisible">IIIIIII</h2>
-                  </div>
+                  <Link
+                    href="https://www.facebook.com/officialUAIC"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="lg:text-[16px]"
+                  >
+                    @officialUAIC
+                  </Link>
                 </div>
                 <div className="flex flex-row gap-2 lg:gap-8">
                   <Link
@@ -132,9 +141,14 @@ const Footer = () => {
                   >
                     <FaLinkedin className="text-3xl lg:text-[1.3rem]" />
                   </Link>
-                  <div>
-                    <h2 className="lg:text-[16px]">officialUAIC</h2>
-                  </div>
+                  <Link
+                    href="https://www.linkedin.com/company/officialuaic/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="lg:text-[16px]"
+                  >
+                    officialUAIC
+                  </Link>
                 </div>
               </div>
             </div>
@@ -157,7 +171,7 @@ const Footer = () => {
 
         <div className="flex w-full justify-center px-4 pt-0 sm:px-8 md:px-12 lg:justify-between">
           <h1 className="flex items-center text-center text-[0.75rem] sm:text-[0.85rem] lg:text-[16px]">
-            © Copyright 2025 University of Auckland Investment Club
+            © 2026 University of Auckland Investment Club
           </h1>
           <div className="hidden max-w-[8rem] justify-self-center lg:flex">
             <Image
