@@ -13,6 +13,7 @@ import { Events } from "./collections/Events";
 import { Executive } from "./collections/Executive";
 import { Portfolio } from "./collections/Portfolio";
 import { LandingPageImages } from "./collections/LandingPageImages";
+import { HeroSectionCarousel } from "./collections/HeroSectionCarousel";
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -23,6 +24,7 @@ export default buildConfig({
     Media,
     InvestmentCommitteeImages,
     LandingPageImages,
+    HeroSectionCarousel,
     Bulletins,
     Member,
     Executive,

@@ -3,12 +3,15 @@ import { FaInstagram, FaLinkedin, FaFacebook, FaPhoneAlt } from "react-icons/fa"
 import { TiLocation } from "react-icons/ti";
 import Link from "next/link";
 import Image from "next/image";
+import InvestConnectWork from "./InvestConnectWork";
 
 const Footer = () => {
   return (
     <div>
       {/* CTA Container */}
-      <div className="w-full"></div>
+      <div className="w-full">
+        <InvestConnectWork />
+      </div>
       <footer className="bg-footer-gradient flex w-full flex-col items-center gap-4 px-4 pt-32 pb-16 text-white sm:px-6 md:px-10 lg:p-10 lg:pb-5">
         <div className="grid w-full grid-cols-1 items-start gap-x-4 gap-y-8 px-4 pb-8 text-left sm:px-8 md:gap-x-6 md:px-12 lg:grid-cols-[2fr_1.2fr_1fr_1fr] lg:gap-x-16">
           {/* Footer slogan */}

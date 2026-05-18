@@ -29,8 +29,8 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const variantClasses = {
     primary: `
-      bg-darkBlue text-white border-2 border-transparent
-      hover:bg-white hover:text-darkBlue hover:border-darkBlue
+      bg-gradient-to-r from-[#44a6fc] to-sky-600 text-white
+      hover:bg-gradient-to-r hover:from-[#8bc7fc] hover:to-sky-400
     `,
     secondary: `
       bg-white text-darkBlue border-2 border-darkBlue
@@ -39,11 +39,13 @@ const Button: React.FC<ButtonProps> = ({
   };
 
   // Size classes switch based on defaultSize prop
-  const sizeClasses = defaultSize ? "lg:w-[180px] h-[50px]" : "w-full h-full";
+  const sizeClasses = defaultSize
+    ? "lg:w-[180px] h-[50px]"
+    : "w-full h-full lg:w-[100px] lg:h-[35px]";
 
   const baseClasses = `
-    inline-flex ${sizeClasses} px-8 rounded-3xl
-    items-center justify-center text-xl select-none
+    inline-flex ${sizeClasses} rounded-full
+    items-center justify-center text-lg select-none
     cursor-pointer transition-colors duration-200
     ${variantClasses[variant]}
     ${disabled ? "opacity-50 cursor-not-allowed" : ""}

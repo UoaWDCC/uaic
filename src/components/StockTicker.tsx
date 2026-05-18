@@ -1,7 +1,12 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 
-const StockTicker = ({ className = "" }: { className?: string }) => {
+interface StockTickerProps {
+  className?: string;
+  isTransparent?: boolean;
+}
+
+const StockTicker = ({ className = "", isTransparent = false }: StockTickerProps) => {
   const mobileRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,14 +23,14 @@ const StockTicker = ({ className = "" }: { className?: string }) => {
         { proName: "BITSTAMP:ETHUSD", title: "Ethereum" },
       ],
       showSymbolLogo: true,
-      isTransparent: false,
+      isTransparent,
       displayMode: "regular",
       colorTheme: "light",
       locale: "en",
     });
     mobileRef.current.innerHTML = "";
     mobileRef.current.appendChild(script);
-  }, []);
+  }, [isTransparent]);
 
   return (
     <div className={`tradingview-widget-container ${className}`}>
