@@ -1,6 +1,9 @@
+"use client";
+
 import { GoArrowRight, GoArrowLeft, GoArrowUpRight } from "react-icons/go";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 type FeaturedArticle = {
   image: string;
@@ -15,7 +18,7 @@ type FeaturedArticle = {
 const featuredArticles: FeaturedArticle[] = [
   {
     image: "/assets/bulletins/temparticlecard.png",
-    category: "Category Name",
+    category: "Category Name 1",
     title: "Exploring DCT Investing",
     description:
       "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations.",
@@ -25,7 +28,7 @@ const featuredArticles: FeaturedArticle[] = [
   },
   {
     image: "/assets/bulletins/temparticlecard.png",
-    category: "Category Name ",
+    category: "Category Name 2",
     title: "Exploring DCT Investing",
     description:
       "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations.",
@@ -35,7 +38,7 @@ const featuredArticles: FeaturedArticle[] = [
   },
   {
     image: "/assets/bulletins/temparticlecard.png",
-    category: "Category Name",
+    category: "Category Name 3",
     title: "Exploring DCT Investing",
     description:
       "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations. ",
@@ -45,15 +48,37 @@ const featuredArticles: FeaturedArticle[] = [
   },
   {
     image: "/assets/bulletins/temparticlecard.png",
-    category: "Category Name",
+    category: "Category Name 4",
     title: "Exploring DCT Investing",
     description:
       "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations. ",
     date: "Nov 24",
     readTime: "4 Min read",
-    link: "/about",
+    link: "/bulletin",
+  },
+  {
+    image: "/assets/bulletins/temparticlecard.png",
+    category: "Category Name 5",
+    title: "Exploring DCT Investing",
+    description:
+      "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations. ",
+    date: "Nov 24",
+    readTime: "4 Min read",
+    link: "/bulletin",
+  },
+  {
+    image: "/assets/bulletins/temparticlecard.png",
+    category: "Category Name 6",
+    title: "Exploring DCT Investing",
+    description:
+      "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations. ",
+    date: "Nov 24",
+    readTime: "4 Min read",
+    link: "/bulletin",
   },
 ];
+
+const articlesPerPage = 3;
 
 const ArticleCard = ({ contentToDisplay }: { contentToDisplay: FeaturedArticle }) => {
   return (
@@ -67,7 +92,7 @@ const ArticleCard = ({ contentToDisplay }: { contentToDisplay: FeaturedArticle }
           alt="Article Image"
           width={400}
           height={161}
-          className="h-full w-full scale-120 object-cover transition-transform duration-300 group-hover:scale-100"
+          className="h-full w-full scale-110 object-cover transition-transform duration-300 group-hover:scale-100"
         />
       </div>
       <div className="flex flex-col gap-[2cqw] p-[6cqw]">
@@ -96,6 +121,24 @@ const ArticleCard = ({ contentToDisplay }: { contentToDisplay: FeaturedArticle }
 };
 
 const FeaturedArticlesCarousel = () => {
+  const [startIndex, setStartIndex] = useState(0);
+
+  const visibleArticles = Array.from({ length: articlesPerPage }, (_, index) => {
+    const articleIndex = (startIndex + index) % featuredArticles.length;
+    return featuredArticles[articleIndex];
+  });
+
+  const showPreviousArticles = () => {
+    setStartIndex(
+      (currentIndex) =>
+        (currentIndex - articlesPerPage + featuredArticles.length) % featuredArticles.length,
+    );
+  };
+
+  const showNextArticles = () => {
+    setStartIndex((currentIndex) => (currentIndex + articlesPerPage) % featuredArticles.length);
+  };
+
   return (
     // Main container for articles with Kades padding
     <div className="flex flex-col gap-[24px] border-2 p-10 min-[1025px]:p-[58px]">
@@ -117,10 +160,10 @@ const FeaturedArticlesCarousel = () => {
 
           {/* Header Arrows */}
           <div className="flex flex-row gap-[2cqw] sm:justify-center">
-            <button className="cursor-pointer">
+            <button className="cursor-pointer" type="button" onClick={showPreviousArticles}>
               <GoArrowLeft className="h-[max(34px,8cqw)] w-[max(34px,8cqw)] text-[#005EAF] min-[1025px]:h-[max(40px,4.25cqw)] min-[1025px]:w-[max(40px,4.25cqw)]" />
             </button>
-            <button className="cursor-pointer">
+            <button className="cursor-pointer" type="button" onClick={showNextArticles}>
               <GoArrowRight className="h-[max(34px,8cqw)] w-[max(34px,8cqw)] text-[#005EAF] min-[1025px]:h-[max(40px,4.25cqw)] min-[1025px]:w-[max(40px,4.25cqw)]" />
             </button>
           </div>
@@ -128,8 +171,8 @@ const FeaturedArticlesCarousel = () => {
 
         {/* Components container */}
         <div className="grid grid-cols-1 gap-[24px] min-[1025px]:grid-cols-3">
-          {featuredArticles.slice(0, 3).map((item, index) => (
-            <ArticleCard key={index} contentToDisplay={item} />
+          {visibleArticles.map((item, index) => (
+            <ArticleCard key={`${startIndex}-${index}`} contentToDisplay={item} />
           ))}
         </div>
       </div>
