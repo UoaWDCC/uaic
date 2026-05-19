@@ -21,7 +21,7 @@ const featuredArticles: FeaturedArticle[] = [
     category: "Category Name 1",
     title: "Exploring DCT Investing",
     description:
-      "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations.",
+      "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations.  ",
     date: "Nov 24",
     readTime: "4 Min read",
     link: "/joinus",
@@ -78,8 +78,6 @@ const featuredArticles: FeaturedArticle[] = [
   },
 ];
 
-const articlesPerPage = 3;
-
 const ArticleCard = ({ contentToDisplay }: { contentToDisplay: FeaturedArticle }) => {
   return (
     <Link
@@ -120,6 +118,8 @@ const ArticleCard = ({ contentToDisplay }: { contentToDisplay: FeaturedArticle }
   );
 };
 
+const articlesPerPage = 3;
+
 const FeaturedArticlesCarousel = () => {
   const [startIndex, setStartIndex] = useState(0);
 
@@ -141,10 +141,10 @@ const FeaturedArticlesCarousel = () => {
 
   return (
     // Main container for articles with Kades padding
-    <div className="flex flex-col gap-[24px] border-2 p-10 min-[1025px]:p-[58px]">
-      {/* Aeryns Board */}
+    <div className="flex flex-col gap-[24px] border-2 p-20 min-[1025px]:p-[96px]">
+      {/* Newest Articles Board */}
       <div className="border-1">
-        <p>Aeryn</p>
+        <p>Newest Articles</p>
       </div>
 
       {/* Lucas board*/}
