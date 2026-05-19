@@ -6,9 +6,11 @@ import { LuChartNoAxesCombined, LuInfo } from "react-icons/lu";
 import { RiContactsLine } from "react-icons/ri";
 import { TiDocumentText, TiHome } from "react-icons/ti";
 import { PiCalendarStarFill, PiQuestion } from "react-icons/pi";
-import Button from "./Button";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import MemberSignupButton from "./MemberSignupButton";
+import { IoIosArrowBack } from "react-icons/io"; //IoIosArrowForward
 import StockTicker from "./StockTicker";
+import { GoArrowUpRight } from "react-icons/go";
+import Button from "./Button";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -151,7 +153,7 @@ const Navbar = () => {
       <StockTicker className="hidden lg:block" isTransparent={!beyondHero} />
       {/* Mobile Menu */}
       <ul
-        className={`text-darkBlue fixed top-[10%] bottom-[10%] left-0 z-40 flex w-[90vw] max-w-[350px] transform flex-col overflow-y-auto rounded-3xl bg-white text-lg shadow-xl/20 transition-transform duration-300 ease-in-out sm:bottom-[16%] lg:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"} `}
+        className={`text-darkBlue fixed top-0 z-40 flex w-[100vw] max-w-full transform flex-col overflow-y-hidden rounded-b-3xl bg-white text-lg shadow-xl/20 transition-transform transition-discrete duration-300 ease-in-out sm:bottom-[16%] lg:hidden ${isOpen ? "translate-y-0" : "-translate-y-full"} `}
       >
         <div className="flex items-center justify-between px-6 py-6">
           <Image src="/assets/logos/uaic.webp" alt="Logo" width={150} height={150} />
@@ -179,16 +181,20 @@ const Navbar = () => {
           </Link>
         </li>
         <li
-          className="hover:bg-whiteHover flex cursor-pointer items-center justify-between rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl"
+          className={`hover:bg-whiteHover flex cursor-pointer items-center justify-between rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl`}
           onClick={() => {
             setShowAboutSubpage(true);
-            handleLinkClick();
+            //handleLinkClick();
           }}
         >
           <div className="flex items-center gap-5">
             <LuInfo size={24} /> <span>About</span>
           </div>
-          <IoIosArrowForward size={20} />
+          <GoArrowUpRight
+            size={24}
+            className="absolute right-10 transition-transform duration-200"
+            onClick={() => setShowAboutSubpage(true)}
+          />
         </li>
         <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
           <PiCalendarStarFill size={24} />{" "}
@@ -215,12 +221,12 @@ const Navbar = () => {
           </Link>
         </li>
 
-        <hr className="border-darkBlue-300 w-9/10 self-center border-t py-3" />
+        <hr className="border-darkBlue-300 w-9/10 self-center border-t" />
 
-        <li className="ml-auto text-lg font-[600] sm:text-xl lg:mr-[30px]">
-          <Button link="/joinus" className="p-[10px] px-[40px] sm:p-[12px] sm:px-[48px]">
+        <li className="mx-auto my-auto flex justify-center p-5 text-lg font-[600] sm:text-xl lg:mr-[30px]">
+          <MemberSignupButton link="/joinus" defaultsize={false} className="width=5/6">
             Join Us
-          </Button>
+          </MemberSignupButton>
         </li>
       </ul>
 
