@@ -38,6 +38,7 @@ S3_BUCKET=
 S3_ACCESS_KEY_ID=
 S3_SECRET_ACCESS_KEY=
 S3_REGION=
+RESEND_API_KEY=
 ```
 
 Finally, run the project:
@@ -98,4 +99,3 @@ Prettier (including Tailwind class sorting) and ESLint run automatically on stag
 | Developer            | Sam Richell-Smith       |
 | Developer            | Nathan Turley           |
 | Developer            | Jesse Wanghan           |
-

@@ -29,6 +29,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
+    "resend": "^6.12.3",
     "sharp": "^0.34.1",
     "stripe": "^18.5.0",
     "swiper": "^12.1.4"
