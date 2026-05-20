@@ -1,6 +1,6 @@
 "use client";
 
-import { GoArrowRight, GoArrowLeft, GoArrowUpRight } from "react-icons/go";
+import { GoArrowRight, GoArrowUpRight } from "react-icons/go";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -119,24 +119,21 @@ const ArticleCard = ({ contentToDisplay }: { contentToDisplay: FeaturedArticle }
 };
 
 const articlesPerPage = 3;
+const articlePages = Array.from(
+  { length: Math.ceil(featuredArticles.length / articlesPerPage) },
+  (_, pageIndex) =>
+    featuredArticles.slice(pageIndex * articlesPerPage, (pageIndex + 1) * articlesPerPage),
+);
 
 const FeaturedArticlesCarousel = () => {
-  const [startIndex, setStartIndex] = useState(0);
+  const [activePageIndex, setActivePageIndex] = useState(0);
+  const isFirstPage = activePageIndex === 0;
+  const pageGapPx = 24;
 
-  const visibleArticles = Array.from({ length: articlesPerPage }, (_, index) => {
-    const articleIndex = (startIndex + index) % featuredArticles.length;
-    return featuredArticles[articleIndex];
-  });
-
-  const showPreviousArticles = () => {
-    setStartIndex(
-      (currentIndex) =>
-        (currentIndex - articlesPerPage + featuredArticles.length) % featuredArticles.length,
+  const changeArticles = () => {
+    setActivePageIndex((currentPageIndex) =>
+      currentPageIndex === 0 ? Math.min(1, articlePages.length - 1) : currentPageIndex - 1,
     );
-  };
-
-  const showNextArticles = () => {
-    setStartIndex((currentIndex) => (currentIndex + articlesPerPage) % featuredArticles.length);
   };
 
   return (
@@ -160,20 +157,40 @@ const FeaturedArticlesCarousel = () => {
 
           {/* Header Arrows */}
           <div className="flex flex-row gap-[2cqw] sm:justify-center">
-            <button className="cursor-pointer" type="button" onClick={showPreviousArticles}>
-              <GoArrowLeft className="h-[max(34px,8cqw)] w-[max(34px,8cqw)] text-[#005EAF] min-[1025px]:h-[max(40px,4.25cqw)] min-[1025px]:w-[max(40px,4.25cqw)]" />
-            </button>
-            <button className="cursor-pointer" type="button" onClick={showNextArticles}>
-              <GoArrowRight className="h-[max(34px,8cqw)] w-[max(34px,8cqw)] text-[#005EAF] min-[1025px]:h-[max(40px,4.25cqw)] min-[1025px]:w-[max(40px,4.25cqw)]" />
+            <button className="cursor-pointer" type="button" onClick={changeArticles}>
+              <GoArrowRight
+                className={`h-[max(34px,8cqw)] w-[max(34px,8cqw)] text-[#005EAF] transition-transform duration-500 min-[1025px]:h-[max(40px,4.25cqw)] min-[1025px]:w-[max(40px,4.25cqw)] ${
+                  isFirstPage ? "rotate-0" : "rotate-180"
+                }`}
+              />
             </button>
           </div>
         </div>
 
         {/* Components container */}
-        <div className="grid grid-cols-1 gap-[24px] min-[1025px]:grid-cols-3">
-          {visibleArticles.map((item, index) => (
-            <ArticleCard key={`${startIndex}-${index}`} contentToDisplay={item} />
-          ))}
+        <div className="overflow-hidden">
+          <div
+            className="flex w-full gap-[24px] transition-transform duration-500 ease-in-out"
+            style={{
+              transform: `translateX(calc(-${activePageIndex * 100}% - ${
+                activePageIndex * pageGapPx
+              }px))`,
+            }}
+          >
+            {articlePages.map((articlePage, pageIndex) => (
+              <div
+                className="grid w-full shrink-0 grid-cols-1 gap-[24px] min-[1025px]:grid-cols-3"
+                key={`featured-articles-page-${pageIndex}`}
+              >
+                {articlePage.map((item, index) => (
+                  <ArticleCard
+                    key={`${item.category}-${item.link}-${index}`}
+                    contentToDisplay={item}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
