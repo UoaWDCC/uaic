@@ -29,17 +29,17 @@ const featuredArticles: FeaturedArticle[] = [
   {
     image: "/assets/bulletins/temparticlecard.png",
     category: "Category Name 2",
-    title: "Exploring DCT Investing",
+    title: "Exploring DCT Investing 2",
     description:
       "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations.",
     date: "Nov 24",
-    readTime: "4 Min read",
+    readTime: "10 Min read",
     link: "/joinus",
   },
   {
     image: "/assets/bulletins/temparticlecard.png",
     category: "Category Name 3",
-    title: "Exploring DCT Investing",
+    title: "Exploring DCT Investing 3",
     description:
       "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations. ",
     date: "Nov 24",
@@ -49,17 +49,17 @@ const featuredArticles: FeaturedArticle[] = [
   {
     image: "/assets/bulletins/temparticlecard.png",
     category: "Category Name 4",
-    title: "Exploring DCT Investing",
+    title: "Exploring DCT Investing 4",
     description:
       "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations. ",
     date: "Nov 24",
-    readTime: "4 Min read",
+    readTime: "14 Min read",
     link: "/bulletin",
   },
   {
     image: "/assets/bulletins/temparticlecard.png",
     category: "Category Name 5",
-    title: "Exploring DCT Investing",
+    title: "Exploring DCT Investing 5",
     description:
       "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations. ",
     date: "Nov 24",
@@ -69,11 +69,11 @@ const featuredArticles: FeaturedArticle[] = [
   {
     image: "/assets/bulletins/temparticlecard.png",
     category: "Category Name 6",
-    title: "Exploring DCT Investing",
+    title: "Exploring DCT Investing 6",
     description:
       "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations. ",
     date: "Nov 24",
-    readTime: "4 Min read",
+    readTime: "54 Min read",
     link: "/bulletin",
   },
 ];
@@ -82,7 +82,7 @@ const ArticleCard = ({ contentToDisplay }: { contentToDisplay: FeaturedArticle }
   return (
     <Link
       href={contentToDisplay.link}
-      className="group [container-type:inline-size] block w-full overflow-hidden rounded-[16px] shadow-[0_10px_22px_rgba(0,0,0,0.25)]"
+      className="group [container-type:inline-size] block w-full overflow-hidden rounded-[16px] shadow-[0_2.5px_10px_rgba(0,0,0,0.25)]"
     >
       <div className="aspect-[400/161] w-full overflow-hidden">
         <Image
@@ -111,7 +111,7 @@ const ArticleCard = ({ contentToDisplay }: { contentToDisplay: FeaturedArticle }
             <p>•</p>
             <p>{contentToDisplay.readTime}</p>
           </div>
-          <GoArrowUpRight className="h-[7.25cqw] w-[7.25cqw] shrink-0 text-[#145BA7] transition-transform duration-400 group-hover:rotate-45" />
+          <GoArrowUpRight className="h-[7.25cqw] w-[7.25cqw] shrink-0 text-[#145BA7] transition-transform duration-300 group-hover:rotate-45" />
         </div>
       </div>
     </Link>
@@ -137,38 +137,37 @@ const FeaturedArticlesCarousel = () => {
   };
 
   return (
-    // Main container for articles with Kades padding
-    <div className="flex flex-col gap-[24px] border-2 p-20 min-[1025px]:p-[96px]">
-      {/* Newest Articles Board */}
-      <div className="border-1">
-        <p>Newest Articles</p>
-      </div>
-
-      {/* Lucas board*/}
-      <div className="flex flex-col gap-[12px]">
-        {/* Header row container */}
-        <div className="[container-type:inline-size] flex flex-row items-center justify-between gap-[2cqw]">
-          {/* Header Title Container */}
-          <div className="flex w-full sm:w-auto">
-            <p className="text-[max(22px,5cqw)] font-semibold text-[#005EAF] min-[1025px]:text-[max(24px,2.65cqw)]">
-              Featured Articles
-            </p>
-          </div>
-
-          {/* Header Arrows */}
-          <div className="flex flex-row gap-[2cqw] sm:justify-center">
-            <button className="cursor-pointer" type="button" onClick={changeArticles}>
-              <GoArrowRight
-                className={`h-[max(34px,8cqw)] w-[max(34px,8cqw)] text-[#005EAF] transition-transform duration-500 min-[1025px]:h-[max(40px,4.25cqw)] min-[1025px]:w-[max(40px,4.25cqw)] ${
-                  isFirstPage ? "rotate-0" : "rotate-180"
-                }`}
-              />
-            </button>
-          </div>
+    <div className="p-[66px] min-[1025px]:p-[82px]">
+      <div className="flex flex-col gap-[24px] overflow-hidden p-[14px]">
+        {/* Newest Articles Board */}
+        <div className="border-1">
+          <p>Newest Articles Insert Here</p>
         </div>
 
-        {/* Components container */}
-        <div className="overflow-hidden">
+        {/* Lucas board*/}
+        <div className="flex flex-col gap-[12px]">
+          {/* Header row container */}
+          <div className="[container-type:inline-size] flex flex-row items-center justify-between gap-[2cqw]">
+            {/* Header Title Container */}
+            <div className="flex w-full sm:w-auto">
+              <p className="text-[max(22px,5cqw)] font-semibold text-[#005EAF] min-[1025px]:text-[max(24px,2.65cqw)]">
+                Featured Articles
+              </p>
+            </div>
+
+            {/* Header Arrows */}
+            <div className="flex flex-row gap-[2cqw] sm:justify-center">
+              <button className="cursor-pointer" type="button" onClick={changeArticles}>
+                <GoArrowRight
+                  className={`h-[max(34px,8cqw)] w-[max(34px,8cqw)] text-[#005EAF] transition-transform duration-500 min-[1025px]:h-[max(40px,4.25cqw)] min-[1025px]:w-[max(40px,4.25cqw)] ${
+                    isFirstPage ? "rotate-0" : "rotate-180"
+                  }`}
+                />
+              </button>
+            </div>
+          </div>
+
+          {/* Components container */}
           <div
             className="flex w-full gap-[24px] transition-transform duration-500 ease-in-out"
             style={{
