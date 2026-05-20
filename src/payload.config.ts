@@ -14,6 +14,7 @@ import { Executive } from "./collections/Executive";
 import { Portfolio } from "./collections/Portfolio";
 import { LandingPageImages } from "./collections/LandingPageImages";
 import { HeroSectionCarousel } from "./collections/HeroSectionCarousel";
+import { Sponsors } from "./collections/Sponsors";
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -30,6 +31,7 @@ export default buildConfig({
     Executive,
     Events,
     Portfolio,
+    Sponsors,
   ],
 
   secret: process.env.PAYLOAD_SECRET || "",
