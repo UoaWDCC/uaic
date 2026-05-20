@@ -2,20 +2,21 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { LuChartNoAxesCombined, LuInfo } from "react-icons/lu";
-import { RiContactsLine } from "react-icons/ri";
-import { TiDocumentText, TiHome } from "react-icons/ti";
-import { PiCalendarStarFill, PiQuestion } from "react-icons/pi";
+//import { LuChartNoAxesCombined, LuInfo } from "react-icons/lu";
+//import { RiContactsLine } from "react-icons/ri";
+//import { TiDocumentText, TiHome } from "react-icons/ti";
+//import { PiCalendarStarFill, PiQuestion } from "react-icons/pi";
 import MemberSignupButton from "./MemberSignupButton";
-import { IoIosArrowBack } from "react-icons/io"; //IoIosArrowForward
+//import { IoIosArrowBack } from "react-icons/io"; //IoIosArrowForward
 import StockTicker from "./StockTicker";
-import { GoArrowUpRight } from "react-icons/go";
+import { GoArrowUpRight, GoArrowLeft } from "react-icons/go";
 import Button from "./Button";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const [showAboutSubpage, setShowAboutSubpage] = useState(false);
+  const [showCommitteeSubpage, setShowCommitteeSubpage] = useState(false); //new committee subpage
 
   const handleLinkClick = () => {
     setIsOpen(false);
@@ -53,7 +54,7 @@ const Navbar = () => {
         {/* Hamburger Menu */}
         <button
           className={`z-50 cursor-pointer rounded-4xl transition-transform duration-300 lg:hidden ${
-            isOpen ? "invisible" : "visible"
+            isOpen || showCommitteeSubpage ? "invisible" : "visible"
           } `}
           onClick={() => setIsOpen(!isOpen)}
         >
@@ -153,13 +154,13 @@ const Navbar = () => {
       <StockTicker className="hidden lg:block" isTransparent={!beyondHero} />
       {/* Mobile Menu */}
       <ul
-        className={`text-darkBlue fixed top-0 z-40 flex w-[100vw] max-w-full transform flex-col overflow-y-hidden rounded-b-3xl bg-white text-lg shadow-xl/20 transition-transform transition-discrete duration-300 ease-in-out sm:bottom-[16%] lg:hidden ${isOpen ? "translate-y-0" : "-translate-y-full"} `}
+        className={`fixed top-0 z-40 flex w-[100vw] max-w-full transform flex-col overflow-y-hidden rounded-b-3xl bg-white text-lg text-[#005EAF] shadow-xl/20 transition-transform transition-discrete duration-300 ease-in-out sm:bottom-[16%] lg:hidden ${isOpen ? "translate-y-0" : "-translate-y-full"} `}
       >
         <div className="flex items-center justify-between px-6 py-6">
           <Image src="/assets/logos/uaic.webp" alt="Logo" width={150} height={150} />
           <button
             className="cursor-pointer rounded-full bg-white p-3"
-            onClick={() => setIsOpen(false)}
+            onClick={() => setIsOpen(!isOpen)}
           >
             <svg className="h-8 w-8" fill="none" stroke="#145CA9" viewBox="0 0 24 24">
               <path
@@ -172,57 +173,71 @@ const Navbar = () => {
           </button>
         </div>
 
-        <hr className="border-darkBlue-300 w-9/10 self-center border-t" />
-
-        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
-          <TiHome size={24} />{" "}
+        <li className="hover:bg-whiteHover flex cursor-pointer py-2 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
           <Link href="/" onClick={handleLinkClick}>
             Home
           </Link>
         </li>
         <li
-          className={`hover:bg-whiteHover flex cursor-pointer items-center justify-between rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl`}
+          className={`hover:bg-whiteHover flex cursor-pointer items-center justify-between rounded-full border-b border-white pl-14 text-xl font-medium sm:p-8 sm:pl-16 sm:text-xl ${
+            isOpen ? "visible" : "invisible"
+          } `}
           onClick={() => {
-            setShowAboutSubpage(true);
-            //handleLinkClick();
+            setShowAboutSubpage(!showAboutSubpage);
           }}
         >
-          <div className="flex items-center gap-5">
-            <LuInfo size={24} /> <span>About</span>
+          <div className="flex cursor-pointer text-3xl font-medium">
+            <span>About</span>
           </div>
           <GoArrowUpRight
-            size={24}
-            className="absolute right-10 transition-transform duration-200"
-            onClick={() => setShowAboutSubpage(true)}
+            size={30}
+            className={`absolute right-12 transition-transform duration-200 ${showAboutSubpage ? "rotate-45" : ""}`}
+            //onClick={() => {
+            //setShowAboutSubpage(!showAboutSubpage);
+            //setIsAboutDropdownOpen(!isAboutDropdownOpen);
+            //}}
           />
         </li>
-        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
-          <PiCalendarStarFill size={24} />{" "}
+        {/* Sub-menu Items */}
+        {showAboutSubpage && (
+          <li
+            className={`block bg-white transition-transform duration-300 ease-in-out sm:bottom-[16%] lg:hidden`}
+          >
+            <ul>
+              <li className="hover:bg-whiteHover flex cursor-pointer py-2 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
+                <Link
+                  href=""
+                  onClick={() => {
+                    setShowAboutSubpage(!showAboutSubpage);
+                    setIsOpen(false);
+                    setShowCommitteeSubpage(true);
+                  }}
+                >
+                  The Committees
+                </Link>
+              </li>
+              <li className="hover:bg-whiteHover flex cursor-pointer py-2 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
+                FAQ
+              </li>
+            </ul>
+          </li>
+        )}
+        {/* End of Sub-menu Items */}
+        <li className="hover:bg-whiteHover flex cursor-pointer py-2 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
           <Link href="/events" onClick={handleLinkClick}>
             Events
           </Link>
         </li>
-        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
-          <LuChartNoAxesCombined size={24} />{" "}
-          <Link href="/investmentportfolio" onClick={handleLinkClick}>
-            Investments
-          </Link>
-        </li>
-        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
-          <TiDocumentText size={24} />{" "}
+        <li className="hover:bg-whiteHover flex cursor-pointer py-2 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
           <Link href="/bulletin" onClick={handleLinkClick}>
             Bulletin
           </Link>
         </li>
-        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pb-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
-          <RiContactsLine size={24} />{" "}
-          <Link href="/contact" onClick={handleLinkClick}>
-            Contact
+        <li className="hover:bg-whiteHover flex cursor-pointer py-2 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
+          <Link href="/investmentportfolio" onClick={handleLinkClick}>
+            Investments
           </Link>
         </li>
-
-        <hr className="border-darkBlue-300 w-9/10 self-center border-t" />
-
         <li className="mx-auto my-auto flex justify-center p-5 text-lg font-[600] sm:text-xl lg:mr-[30px]">
           <MemberSignupButton link="/joinus" defaultsize={false} className="width=5/6">
             Join Us
@@ -230,61 +245,42 @@ const Navbar = () => {
         </li>
       </ul>
 
+      {/* Committee Menu */}
+      <ul
+        className={`fixed top-0 z-40 flex w-[100vw] max-w-full transform flex-col overflow-y-hidden rounded-b-3xl bg-white text-lg text-[#005EAF] shadow-xl/20 transition-transform transition-discrete duration-300 ease-in-out sm:bottom-[16%] lg:hidden ${showCommitteeSubpage ? "visible" : "invisible"} `}
+      >
+        <div className="flex items-center justify-between px-6 py-6">
+          <Image src="/assets/logos/uaic.webp" alt="Logo" width={150} height={150} />
+          <GoArrowLeft
+            size={30}
+            onClick={() => {
+              setShowCommitteeSubpage(!showCommitteeSubpage);
+              setIsOpen(!isOpen);
+            }}
+          >
+            <svg className="h-8 w-8" fill="none" stroke="#145CA9" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </GoArrowLeft>
+        </div>
+        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white pl-14 text-xl font-medium sm:p-8 sm:pl-16 sm:text-xl">
+          Exec Commitee
+        </li>
+        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white pl-14 text-xl font-medium sm:p-8 sm:pl-16 sm:text-xl">
+          Bulletin Comittee
+        </li>
+        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white pl-14 text-xl font-medium sm:p-8 sm:pl-16 sm:text-xl">
+          Bulletin Comittee
+        </li>
+      </ul>
+
       {/* Stock Ticker - Mobile */}
       <StockTicker className="shadow-xl/10 lg:hidden" isTransparent={!beyondHero} />
-
-      {/* About Sub-page */}
-      <div
-        className={`text-darkBlue fixed top-[10%] bottom-[10%] left-0 z-50 flex w-[90vw] max-w-[350px] transform flex-col overflow-y-auto rounded-3xl bg-white pb-9 shadow-xl/20 transition-transform duration-300 ease-in-out sm:bottom-[16%] lg:hidden ${showAboutSubpage ? "translate-x-0" : "-translate-x-full"} `}
-      >
-        {/* Header with Back Button */}
-        <div className="flex items-center border-b border-gray-200 px-6 py-6">
-          <button
-            onClick={() => setShowAboutSubpage(false)}
-            className="text-darkBlue flex items-center gap-2 hover:text-blue-700"
-          >
-            <IoIosArrowBack size={20} />
-            <span className="text-[22px] font-semibold">Back</span>
-          </button>
-        </div>
-
-        <hr className="border-darkBlue-300 w-9/10 self-center border-t" />
-
-        {/* Sub-menu Items */}
-        <div className="flex-1">
-          <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
-            <LuInfo size={24} />
-            <Link
-              href="/about"
-              onClick={() => {
-                setShowAboutSubpage(false);
-                setIsOpen(false);
-              }}
-            >
-              The Committees
-            </Link>
-          </li>
-
-          <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pb-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
-            <PiQuestion size={30} />
-            <Link
-              href="/FAQ"
-              onClick={() => {
-                setShowAboutSubpage(false);
-                setIsOpen(false);
-              }}
-            >
-              FAQ
-            </Link>
-          </li>
-        </div>
-
-        <hr className="border-darkBlue-300 w-9/10 self-center border-t py-3" />
-
-        <div className="border-darkBlue bg-darkBlue hover:text-darkBlue mr-[30px] ml-auto rounded-4xl border border-solid p-[10px] px-[30px] text-lg font-[600] text-white hover:bg-white sm:p-[16px] sm:px-[32px] sm:text-xl">
-          <Link href="/payment">Membership Payment</Link>
-        </div>
-      </div>
     </nav>
   );
 };
