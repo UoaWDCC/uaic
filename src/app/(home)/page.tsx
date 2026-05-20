@@ -3,6 +3,7 @@ import UpdatedBulletin from "@/components/home/Bulletin";
 import HomePage from "@/components/home/HomePage";
 import SponsorsBanner from "@/components/home/SponsorsBanner";
 import EventsSection from "@/components/EventsSection";
+import NewestArticle from "@/components/NewestArticle";
 import { getUpcomingEvents, getRecentEvents } from "@/features/users/data/getEvents";
 import { getHeroSectionCarousel } from "@/features/home/data/getHeroSectionCarousel";
 
@@ -17,6 +18,7 @@ export default async function Home() {
       {/* Build Homepage Here */}
       <HomePage images={heroImages} />
       <SponsorsBanner />
+      <NewestArticle />
       <EventsSection upcomingEvents={upcomingEvents} recentEvents={recentEvents} />
       <ArticleList />
       <UpdatedBulletin />
