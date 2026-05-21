@@ -29,7 +29,7 @@ const NewestArticle = () => {
             src={"/assets/home/newestArticleSampleImage.jpg"}
             alt={""}
             fill
-            className="z-0 hover:scale-105"
+            className="z-0 scale-110 transition-all duration-500 ease-in-out hover:scale-100"
           ></Image>
           <div className="z-10 mt-auto w-fit rounded-2xl bg-gradient-to-r from-[#44a6fc] to-sky-600 ps-2 pe-2 text-white hover:bg-gradient-to-r">
             Category Name
@@ -41,11 +41,18 @@ const NewestArticle = () => {
         </div>
         <div className="pt-5 lg:col-span-2 lg:pt-0">
           {articles.slice(0, 4).map((articles, index) => (
-            <div className="grid grid-cols-3 gap-1 pb-5 lg:gap-5" key={index}>
-              <div className="h-13 w-auto rounded-2xl bg-[url('/assets/home/sidebarListSampleImage.jpg')] bg-cover bg-center bg-no-repeat lg:h-23 xl:h-30"></div>
+            <div className="group grid grid-cols-7 gap-3 pb-5 lg:grid-cols-3 lg:gap-5" key={index}>
+              <div className="relative col-span-2 h-13 w-full overflow-hidden rounded-2xl lg:col-span-1 lg:h-23 xl:h-30">
+                <Image
+                  src={"/assets/home/sidebarListSampleImage.jpg"}
+                  alt={""}
+                  fill
+                  className="scale-110 object-cover transition-all duration-500 ease-in-out group-hover:scale-100"
+                ></Image>
+              </div>
 
-              <div className="col-span-2">
-                <p className="pb-1 text-[15px] font-semibold text-black hover:text-[#2d67d2] lg:pb-3 lg:text-2xl">
+              <div className="col-span-5 lg:col-span-2">
+                <p className="pb-1 text-[15px] font-semibold text-black group-hover:text-[#2d67d2] lg:pb-3 lg:text-2xl">
                   {articles.title}
                 </p>
                 <p className="text-[9px] text-[#778189] lg:text-base">
