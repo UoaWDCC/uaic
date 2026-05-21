@@ -53,7 +53,7 @@ const Navbar = () => {
 
         {/* Hamburger Menu */}
         <button
-          className={`z-50 cursor-pointer rounded-4xl transition-transform duration-300 lg:hidden ${
+          className={`z-50 cursor-pointer rounded-4xl transition-transform duration-600 lg:hidden ${
             isOpen || showCommitteeSubpage ? "invisible" : "visible"
           } `}
           onClick={() => setIsOpen(!isOpen)}
@@ -154,7 +154,7 @@ const Navbar = () => {
       <StockTicker className="hidden lg:block" isTransparent={!beyondHero} />
       {/* Mobile Menu */}
       <ul
-        className={`fixed top-0 z-40 flex w-[100vw] max-w-full transform flex-col overflow-y-hidden rounded-b-3xl bg-white text-lg text-[#005EAF] shadow-xl/20 transition-transform transition-discrete duration-300 ease-in-out sm:bottom-[16%] lg:hidden ${isOpen ? "translate-y-0" : "-translate-y-full"} `}
+        className={`fixed top-0 z-40 flex w-[100vw] max-w-full transform flex-col overflow-y-hidden rounded-b-3xl bg-white text-lg text-[#005EAF] shadow-xl/20 transition-all duration-600 ease-in-out sm:bottom-[16%] lg:hidden ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}
       >
         <div className="flex items-center justify-between px-6 py-6">
           <Image src="/assets/logos/uaic.webp" alt="Logo" width={150} height={150} />
@@ -173,7 +173,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        <li className="hover:bg-whiteHover flex cursor-pointer py-2 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
+        <li className="hover:bg-whiteHover flex cursor-pointer py-3 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
           <Link href="/" onClick={handleLinkClick}>
             Home
           </Link>
@@ -186,68 +186,62 @@ const Navbar = () => {
             setShowAboutSubpage(!showAboutSubpage);
           }}
         >
-          <div className="flex cursor-pointer text-3xl font-medium">
+          <div className="flex cursor-pointer py-3 text-3xl font-medium">
             <span>About</span>
           </div>
           <GoArrowUpRight
             size={30}
             className={`absolute right-12 transition-transform duration-200 ${showAboutSubpage ? "rotate-45" : ""}`}
-            //onClick={() => {
-            //setShowAboutSubpage(!showAboutSubpage);
-            //setIsAboutDropdownOpen(!isAboutDropdownOpen);
-            //}}
           />
         </li>
         {/* Sub-menu Items */}
         {showAboutSubpage && (
           <li
-            className={`block bg-white transition-transform duration-300 ease-in-out sm:bottom-[16%] lg:hidden`}
+            className={`{showAboutSubpage ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"} block bg-white transition-all duration-600 ease-in-out sm:bottom-[16%] lg:hidden`}
           >
-            <ul>
-              <li className="hover:bg-whiteHover flex cursor-pointer py-2 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
+            <ul className="font-light text-black">
+              <li className="hover:bg-whiteHover flex cursor-pointer pt-3 pb-2 pl-14 text-2xl sm:p-8 sm:pl-16">
                 <Link
                   href=""
                   onClick={() => {
                     setShowAboutSubpage(!showAboutSubpage);
-                    setIsOpen(false);
-                    setShowCommitteeSubpage(true);
+                    //setIsOpen(!isOpen);
+                    setShowCommitteeSubpage(!showCommitteeSubpage);
                   }}
                 >
                   The Committees
                 </Link>
               </li>
-              <li className="hover:bg-whiteHover flex cursor-pointer py-2 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
+              <li className="hover:bg-whiteHover flex cursor-pointer pt-2 pb-2 pl-14 text-2xl sm:p-8 sm:pl-16">
                 FAQ
               </li>
             </ul>
           </li>
         )}
         {/* End of Sub-menu Items */}
-        <li className="hover:bg-whiteHover flex cursor-pointer py-2 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
+        <li className="hover:bg-whiteHover flex cursor-pointer py-3 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
           <Link href="/events" onClick={handleLinkClick}>
             Events
           </Link>
         </li>
-        <li className="hover:bg-whiteHover flex cursor-pointer py-2 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
+        <li className="hover:bg-whiteHover flex cursor-pointer py-3 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
           <Link href="/bulletin" onClick={handleLinkClick}>
             Bulletin
           </Link>
         </li>
-        <li className="hover:bg-whiteHover flex cursor-pointer py-2 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
+        <li className="hover:bg-whiteHover flex cursor-pointer py-3 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
           <Link href="/investmentportfolio" onClick={handleLinkClick}>
             Investments
           </Link>
         </li>
         <li className="mx-auto my-auto flex justify-center p-5 text-lg font-[600] sm:text-xl lg:mr-[30px]">
-          <MemberSignupButton link="/joinus" defaultsize={false} className="width=5/6">
-            Join Us
-          </MemberSignupButton>
+          <MemberSignupButton link="/joinus" defaultsize={false} className="w-9vw" />
         </li>
       </ul>
 
       {/* Committee Menu */}
       <ul
-        className={`fixed top-0 z-40 flex w-[100vw] max-w-full transform flex-col overflow-y-hidden rounded-b-3xl bg-white text-lg text-[#005EAF] shadow-xl/20 transition-transform transition-discrete duration-300 ease-in-out sm:bottom-[16%] lg:hidden ${showCommitteeSubpage ? "visible" : "invisible"} `}
+        className={`pb-2vw fixed top-0 z-40 flex w-[100vw] max-w-full transform flex-col overflow-y-hidden rounded-b-3xl bg-white text-lg text-[#005EAF] shadow-xl/20 transition-all duration-600 ease-in-out sm:bottom-[16%] lg:hidden ${showCommitteeSubpage ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
       >
         <div className="flex items-center justify-between px-6 py-6">
           <Image src="/assets/logos/uaic.webp" alt="Logo" width={150} height={150} />
@@ -255,7 +249,6 @@ const Navbar = () => {
             size={30}
             onClick={() => {
               setShowCommitteeSubpage(!showCommitteeSubpage);
-              setIsOpen(!isOpen);
             }}
           >
             <svg className="h-8 w-8" fill="none" stroke="#145CA9" viewBox="0 0 24 24">
@@ -268,14 +261,17 @@ const Navbar = () => {
             </svg>
           </GoArrowLeft>
         </div>
-        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white pl-14 text-xl font-medium sm:p-8 sm:pl-16 sm:text-xl">
+        <li className="hover:bg-whiteHover flex cursor-pointer py-3 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
           Exec Commitee
         </li>
-        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white pl-14 text-xl font-medium sm:p-8 sm:pl-16 sm:text-xl">
+        <li className="hover:bg-whiteHover flex cursor-pointer py-3 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
           Bulletin Comittee
         </li>
-        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white pl-14 text-xl font-medium sm:p-8 sm:pl-16 sm:text-xl">
+        <li className="hover:bg-whiteHover flex cursor-pointer py-3 pb-5 pl-14 text-3xl font-medium sm:p-8 sm:pl-16">
           Bulletin Comittee
+        </li>
+        <li className="mx-auto my-auto flex justify-center p-5 pt-35 text-lg font-[600] sm:text-xl lg:mr-[30px]">
+          <MemberSignupButton link="/joinus" defaultsize={false} className="w-9vw" />
         </li>
       </ul>
 
