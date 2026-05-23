@@ -9,10 +9,8 @@ const Footer = () => {
   return (
     <div>
       {/* CTA Container */}
-      <div className="w-full">
+      <footer className="bg-footer-gradient flex w-full flex-col items-center gap-4 px-4 pt-0 pb-16 text-white sm:px-6 md:px-10 lg:p-10 lg:pb-5">
         <InvestConnectWork />
-      </div>
-      <footer className="bg-footer-gradient flex w-full flex-col items-center gap-4 px-4 pt-32 pb-16 text-white sm:px-6 md:px-10 lg:p-10 lg:pb-5">
         <div className="grid w-full grid-cols-1 items-start gap-x-4 gap-y-8 px-4 pb-8 text-left sm:px-8 md:gap-x-6 md:px-12 lg:grid-cols-[2fr_1.2fr_1fr_1fr] lg:gap-x-16">
           {/* Footer slogan */}
           <div className="w-full text-left lg:col-span-1 lg:min-w-[300px]">
@@ -170,20 +168,11 @@ const Footer = () => {
           </div>
         </div>
 
-        <hr className="my-0 w-[90%] border-t border-gray-300 lg:w-[100%]" />
-
-        <div className="flex w-full justify-center px-4 pt-0 sm:px-8 md:px-12 lg:justify-between">
-          <h1 className="flex items-center text-center text-[0.75rem] sm:text-[0.85rem] lg:text-[16px]">
+        <div className="flex w-full items-center gap-4 px-4 pt-0 sm:px-8 md:px-12">
+          <h1 className="text-[0.75rem] whitespace-nowrap sm:text-[0.85rem] lg:text-[16px]">
             © 2026 University of Auckland Investment Club
           </h1>
-          <div className="hidden max-w-[8rem] justify-self-center lg:flex">
-            <Image
-              src="/assets/logos/uaic-white.webp"
-              alt="uaic white logo"
-              width={150}
-              height={150}
-            />
-          </div>
+          <hr className="w-full border-t border-gray-300" />
         </div>
       </footer>
     </div>
