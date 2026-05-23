@@ -2,7 +2,6 @@ import { MdEmail } from "react-icons/md";
 import { FaInstagram, FaLinkedin, FaFacebook, FaPhoneAlt } from "react-icons/fa";
 import { TiLocation } from "react-icons/ti";
 import Link from "next/link";
-import Image from "next/image";
 import InvestConnectWork from "./InvestConnectWork";
 
 const Footer = () => {
@@ -14,14 +13,14 @@ const Footer = () => {
         <div className="grid w-full grid-cols-1 items-start gap-x-4 gap-y-8 px-4 pb-8 text-left sm:px-8 md:gap-x-6 md:px-12 lg:grid-cols-[2fr_1.2fr_1fr_1fr] lg:gap-x-16">
           {/* Footer slogan */}
           <div className="w-full text-left lg:col-span-1 lg:min-w-[300px]">
-            <h1 className="text-[1.7rem] leading-tight font-bold whitespace-nowrap text-white lg:max-w-[350px] lg:text-[3.5rem] lg:whitespace-normal">
+            <h1 className="text-center text-[2.1rem] leading-tight font-bold whitespace-nowrap text-white lg:max-w-[350px] lg:text-left lg:text-[3.5rem] lg:whitespace-normal">
               Investing is for anyone.
             </h1>
           </div>
           {/* Col 1 */}
-          <div className="order-3 flex flex-col items-start lg:order-2">
-            <div className="flex flex-col items-start gap-1.5 text-left lg:gap-4">
-              <h1 className="flex text-[1.25rem] font-bold whitespace-nowrap lg:block lg:text-[16px]">
+          <div className="order-1 flex flex-col items-start lg:order-2">
+            <div className="flex w-full flex-row items-start gap-4 text-left lg:flex-col lg:gap-3">
+              <h1 className="flex w-40 shrink-0 text-[1.25rem] font-bold whitespace-nowrap lg:block lg:text-[16px]">
                 PAGES
               </h1>
 
@@ -36,32 +35,29 @@ const Footer = () => {
                 <Link href="/events" className="hover:cursor-pointer hover:underline">
                   Events
                 </Link>
+                <Link href="/bulletin" className="hover:cursor-pointer hover:underline">
+                  Bulletin
+                </Link>
                 <Link href="/investmentportfolio" className="hover:cursor-pointer hover:underline">
                   Investments
-                </Link>
-                <Link href="/bulletin" className="hover:cursor-pointer hover:underline">
-                  Articles
-                </Link>
-                <Link href="/contact" className="hover:cursor-pointer hover:underline">
-                  Contact
                 </Link>
               </div>
             </div>
           </div>
 
           {/* Col 2 */}
-          <div className="order-2 flex flex-col items-start lg:order-1">
-            <div className="flex flex-col items-start gap-2.5 text-left lg:gap-4">
-              <h1 className="flex text-[1.25rem] font-bold whitespace-nowrap lg:block lg:text-[16px]">
+          <div className="order-3 flex flex-col items-start lg:order-1">
+            <div className="flex w-full flex-row items-start gap-4 text-left lg:flex-col lg:gap-3">
+              <h1 className="flex w-40 shrink-0 text-[1.25rem] font-bold whitespace-nowrap lg:block lg:text-[16px]">
                 CONTACT
               </h1>
 
               <div className="flex flex-col gap-1.5 text-[0.95rem] font-light whitespace-nowrap lg:flex lg:gap-5 lg:text-[1.4rem] xl:text-[1.4rem] 2xl:text-[2rem]">
-                <div className="flex flex-row gap-2 lg:gap-8 lg:text-[16px]">
-                  <FaPhoneAlt className="text-[1.25rem] lg:text-[1.3rem]" />
+                <div className="flex flex-row gap-2 lg:gap-3 lg:text-[16px]">
+                  <FaPhoneAlt className="text-[1rem] lg:text-[1.3rem]" />
                   <h2>0800 838 383</h2>
                 </div>
-                <div className="flex flex-row gap-2 lg:gap-8 lg:text-[16px]">
+                <div className="flex flex-row gap-2 lg:gap-3 lg:text-[16px]">
                   <Link
                     className="transition-all duration-250 hover:scale-105 hover:cursor-pointer hover:text-white"
                     href="mailto:president@uaic.co.nz"
@@ -69,12 +65,12 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     aria-label="President's Email"
                   >
-                    <MdEmail className="text-[1.25rem] lg:text-[1.3rem]" />
+                    <MdEmail className="text-[1rem] lg:text-[1.3rem]" />
                   </Link>
                   <h2>president@uaic.co.nz</h2>
                 </div>
-                <div className="flex flex-row gap-2 lg:gap-8 lg:text-[16px]">
-                  <TiLocation className="text-[1.25rem] lg:text-[1.3rem]" />
+                <div className="flex flex-row gap-2 lg:gap-3 lg:text-[16px]">
+                  <TiLocation className="text-[1rem] lg:text-[1.3rem]" />
                   <div>
                     <h2>34 Princess Street</h2>
                     <h2>Auckland Central,</h2>
@@ -88,13 +84,13 @@ const Footer = () => {
           {/* Col 3 */}
 
           <div className="order-2 flex flex-col items-start lg:order-3">
-            <div className="flex flex-col items-start gap-2.5 text-left lg:gap-4">
-              <h1 className="flex text-[1.25rem] font-bold whitespace-nowrap lg:block lg:text-[16px]">
+            <div className="flex w-full flex-row items-start gap-4 text-left lg:flex-col lg:gap-3">
+              <h1 className="flex w-40 shrink-0 text-[1.25rem] font-bold whitespace-nowrap lg:block lg:text-[16px]">
                 SOCIALS
               </h1>
 
               <div className="flex flex-col gap-1.5 text-[0.95rem] font-light whitespace-nowrap lg:flex lg:gap-5 lg:text-[1.4rem] xl:text-[1.4rem] 2xl:text-[2rem]">
-                <div className="flex flex-row gap-2 lg:gap-8">
+                <div className="flex flex-row gap-2 lg:gap-3">
                   <Link
                     className="transition-all duration-250 hover:scale-105 hover:cursor-pointer hover:text-white"
                     href="https://www.instagram.com/officialuaic/"
@@ -102,7 +98,7 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     aria-label="Instagram"
                   >
-                    <FaInstagram className="text-3xl lg:text-[1.3rem]" />
+                    <FaInstagram className="text-xl lg:text-[1.3rem]" />
                   </Link>
                   <Link
                     href="https://www.instagram.com/officialuaic/"
@@ -113,7 +109,7 @@ const Footer = () => {
                     @officialuaic
                   </Link>
                 </div>
-                <div className="flex flex-row gap-2 lg:gap-8">
+                <div className="flex flex-row gap-2 lg:gap-3">
                   <Link
                     className="transition-all duration-250 hover:scale-105 hover:cursor-pointer hover:text-white"
                     href="https://www.facebook.com/officialUAIC"
@@ -121,7 +117,7 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     aria-label="Facebook"
                   >
-                    <FaFacebook className="text-3xl lg:text-[1.3rem]" />
+                    <FaFacebook className="text-xl lg:text-[1.3rem]" />
                   </Link>
                   <Link
                     href="https://www.facebook.com/officialUAIC"
@@ -132,7 +128,7 @@ const Footer = () => {
                     @officialUAIC
                   </Link>
                 </div>
-                <div className="flex flex-row gap-2 lg:gap-8">
+                <div className="flex flex-row gap-2 lg:gap-3">
                   <Link
                     className="transition-all duration-250 hover:scale-105 hover:cursor-pointer hover:text-white"
                     href="https://www.linkedin.com/company/officialuaic/"
@@ -140,7 +136,7 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     aria-label="LinkedIn"
                   >
-                    <FaLinkedin className="text-3xl lg:text-[1.3rem]" />
+                    <FaLinkedin className="text-xl lg:text-[1.3rem]" />
                   </Link>
                   <Link
                     href="https://www.linkedin.com/company/officialuaic/"
@@ -154,25 +150,13 @@ const Footer = () => {
               </div>
             </div>
           </div>
-
-          {/* Mobile Logo */}
-          <div className="order-3 flex h-full w-full flex-col items-center lg:hidden">
-            <div className="flex h-full w-full max-w-[16rem] items-center justify-center">
-              <Image
-                src="/assets/logos/uaic-white.webp"
-                alt="uaic white logo"
-                width={150}
-                height={150}
-              />
-            </div>
-          </div>
         </div>
 
-        <div className="flex w-full items-center gap-4 px-4 pt-0 sm:px-8 md:px-12">
-          <h1 className="text-[0.75rem] whitespace-nowrap sm:text-[0.85rem] lg:text-[16px]">
+        <div className="flex w-full items-center gap-4 px-4 pt-0 opacity-65 sm:px-8 md:px-12">
+          <h1 className="w-full text-center text-[0.75rem] whitespace-nowrap sm:text-[0.85rem] lg:w-auto lg:text-center lg:text-[16px]">
             © 2026 University of Auckland Investment Club
           </h1>
-          <hr className="w-full border-t border-gray-300" />
+          <hr className="hidden w-full border-t border-gray-300 lg:block" />
         </div>
       </footer>
     </div>
