@@ -51,6 +51,7 @@ export default function LoginForm() {
 
   return (
     <div className="flex justify-center">
+      {/* Needs to update responsiveness on x + y padding so always same amount */}
       <div className="flex h-[527px] w-[512px] flex-col gap-[44px] rounded-[16px] border-5 bg-white px-[24px] py-[28px] shadow-md">
         <h2 className="border-1 text-left text-2xl text-[30px] font-bold text-[#145BA7]">Log in</h2>
 
@@ -60,6 +61,7 @@ export default function LoginForm() {
           </div>
         )}
         <div className="flex flex-col gap-[32px] border-2">
+          {/* Top half of form - input fields + login button */}
           <form onSubmit={handleEmailSignIn} className="flex flex-col gap-[44px] border-1">
             <div className="flex flex-col gap-[32px] border-1">
               <div>
@@ -96,6 +98,7 @@ export default function LoginForm() {
             </button>
           </form>
 
+          {/* Do gap and stuff for bottom half - google / register */}
           <div className="border-1">
             <div className="mt-6">
               <div className="relative">
