@@ -50,72 +50,80 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="flex justify-center">
-      {/* Needs to update responsiveness on x + y padding so always same amount */}
-      <div className="flex h-[527px] w-[512px] flex-col gap-[44px] rounded-[16px] border-5 bg-white px-[24px] py-[28px] shadow-md">
-        <h2 className="border-1 text-left text-2xl text-[30px] font-bold text-[#145BA7]">Log in</h2>
+    <div className="w-full">
+      <div className="fixed top-0 left-0 z-50 w-full px-6">
+        <Link href="/" className="inline-block">
+          <div
+            className={`m-0 h-[86px] w-[140px] bg-white mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat`}
+          />
+        </Link>
+      </div>
+      <div className="flex justify-center px-6">
+        <div className="flex min-h-[527px] w-full max-w-[512px] flex-col gap-[44px] rounded-[16px] bg-white px-[24px] py-[28px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
+          <h2 className="text-left text-2xl text-[30px] font-bold text-[#145BA7]">Log in</h2>
 
-        {error && (
-          <div className="mb-4 rounded border border-red-400 bg-red-100 p-3 text-red-700">
-            {error}
-          </div>
-        )}
-        <div className="flex flex-col gap-[32px] border-2">
-          {/* Top half of form - input fields + login button */}
-          <form onSubmit={handleEmailSignIn} className="flex flex-col gap-[44px] border-1">
-            <div className="flex flex-col gap-[32px] border-1">
-              <div>
-                <input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
-                  className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                  required
-                />
-              </div>
-
-              <div>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
-                  className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                  required
-                />
-              </div>
+          {error && (
+            <div className="mb-4 rounded border border-red-400 bg-red-100 p-3 text-red-700">
+              {error}
             </div>
+          )}
+          <div className="flex flex-col gap-[32px]">
+            {/* Input fields, login button */}
+            <form onSubmit={handleEmailSignIn} className="flex flex-col gap-[44px]">
+              <div className="flex flex-col gap-[32px]">
+                <div>
+                  <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                    required
+                  />
+                </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="flex h-[52px] w-full items-center justify-center rounded-[37px] border-[0.5px] border-[#C5CBDE] bg-gradient-to-l from-[#005eaf] to-[#249AFF] px-4 py-2 text-[20px] font-medium text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {loading ? "Logging in..." : "Log In"}
-            </button>
-          </form>
+                <div>
+                  <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                    required
+                  />
+                </div>
+              </div>
 
-          {/* Do gap and stuff for bottom half - google / register */}
-          <div className="border-1">
-            <div className="mt-6">
+              <button
+                type="submit"
+                disabled={loading}
+                className="h-[52px] cursor-pointer items-center rounded-[37px] bg-gradient-to-l from-[#005eaf] to-[#249AFF] text-[20px] font-medium text-white hover:border-[0.5px] hover:border-[#C5CBDE] hover:bg-none hover:text-[#005EAF] disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {loading ? "Logging in..." : "Log In"}
+              </button>
+            </form>
+
+            {/* Continue breakline, google signin, register */}
+            <div className="flex flex-col gap-[20px]">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
+                  <div className="w-full border-t border-black/20" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-white px-2 text-gray-500">Or continue with</span>
+                  <span className="bg-white px-2 text-[16px] font-normal text-black/20">
+                    Or continue with
+                  </span>
                 </div>
               </div>
 
               <button
                 onClick={handleGoogleSignIn}
                 disabled={loading}
-                className="mt-3 flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-[51px] cursor-pointer items-center justify-center gap-[8px] rounded-[37px] border-[0.5px] border-black/25 bg-white py-[15px] font-[Roboto] text-[14px] hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
+                <svg className="h-[20px] w-[20px]" viewBox="0 0 24 24">
                   <path
                     fill="#4285F4"
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -135,14 +143,14 @@ export default function LoginForm() {
                 </svg>
                 Continue with Google
               </button>
-            </div>
 
-            <p className="mt-4 text-center text-sm text-gray-600">
-              Don't have an account?{" "}
-              <Link href="/signup" className="text-blue-600 hover:text-blue-500">
-                Sign up
-              </Link>
-            </p>
+              <div className="flex justify-center gap-[8px]">
+                <p className="text-[16px] font-normal text-[#D9D9D9]">Don't have an account?</p>
+                <Link href="/signup" className="text-[16px] font-normal text-[#005EAF] underline">
+                  Sign up here
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
