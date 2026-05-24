@@ -212,7 +212,9 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="hover:bg-whiteHover flex cursor-pointer pb-2 pl-6 text-xl sm:p-8 sm:pl-16">
-                FAQ
+                <Link href="/FAQ" onClick={handleLinkClick}>
+                  FAQ
+                </Link>
               </li>
             </ul>
           </li>
@@ -256,13 +258,19 @@ const Navbar = () => {
             ></GoArrowLeft>
           </div>
           <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b py-3 text-3xl font-normal sm:p-8 sm:pl-16">
-            Exec Commitee
+            <Link href="/about#ExecutiveCommittee" onClick={handleLinkClick}>
+              Exec Commitee
+            </Link>
           </li>
           <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b py-3 text-3xl font-normal sm:p-8 sm:pl-16">
-            Bulletin Comittee
+            <Link href="/about#BulletinComittee" onClick={handleLinkClick}>
+              Bulletin Comittee
+            </Link>
           </li>
           <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b py-3 text-3xl font-normal sm:p-8 sm:pl-16">
-            Bulletin Comittee
+            <Link href="/about#InvestmentComittee" onClick={handleLinkClick}>
+              Investment Comittee
+            </Link>
           </li>
           <li className="mx-auto my-auto flex justify-center p-5 pt-35 text-lg font-[600] sm:text-xl lg:mr-[30px]">
             <div className="text-3xl [&_a]:px-26 [&_a]:py-4">

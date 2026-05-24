@@ -34,7 +34,7 @@ const BulletinCommittee = () => {
   ];
 
   return (
-    <div className="mx-auto w-full rounded-lg bg-white p-4 lg:px-10">
+    <div id="BulletinComittee" className="mx-auto w-full rounded-lg bg-white p-4 lg:px-10">
       <div>
         <span className="text-header text-darkBlue font-bold">Bulletin Committee</span>
         <div className="text-darkBlue mt-[1em] flex flex-col items-center text-sm">
