@@ -41,7 +41,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link href="/">
           <div
-            className={`sticky z-50 m-0 h-[86px] w-[140px] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat transition-colors duration-500 ease-in-out lg:ml-10 lg:h-[100px] lg:w-[140px] ${isOpen ? "bg-[#00529B]" : beyondHero ? "bg-white" : "bg-white brightness-0 invert"}`}
+            className={`sticky z-50 m-0 h-[86px] w-[140px] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat transition-colors duration-500 ease-in-out lg:ml-10 lg:h-[100px] lg:w-[140px] ${isOpen ? "bg-[#145BA7]" : beyondHero ? "bg-white" : "bg-white brightness-0 invert"}`}
           />
         </Link>
 
