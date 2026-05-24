@@ -265,7 +265,9 @@ const Navbar = () => {
             Bulletin Comittee
           </li>
           <li className="mx-auto my-auto flex justify-center p-5 pt-35 text-lg font-[600] sm:text-xl lg:mr-[30px]">
-            <MemberSignupButton />
+            <div className="text-3xl [&_a]:px-26 [&_a]:py-4">
+              <MemberSignupButton />
+            </div>
           </li>
         </ul>
         <StockTicker className="m-0 block w-full" isTransparent={true} />
