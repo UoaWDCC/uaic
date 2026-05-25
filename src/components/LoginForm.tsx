@@ -54,7 +54,7 @@ export default function LoginForm() {
       <div className="fixed top-0 left-0 z-50 w-full px-6">
         <Link href="/" className="inline-block">
           <div
-            className={`m-0 h-[86px] w-[140px] bg-white mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat`}
+            className={`m-0 h-[86px] w-[140px] bg-white mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat lg:ml-10 lg:h-[100px] lg:w-[140px]`}
           />
         </Link>
       </div>
@@ -101,7 +101,7 @@ export default function LoginForm() {
                 disabled={loading}
                 className="h-[52px] cursor-pointer items-center rounded-[37px] bg-gradient-to-l from-[#005eaf] to-[#249AFF] text-[20px] font-medium text-white hover:border-[0.5px] hover:border-[#C5CBDE] hover:bg-none hover:text-[#005EAF] disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {loading ? "Logging in..." : "Log In"}
+                {loading ? "Logging in..." : "Log in"}
               </button>
             </form>
 
@@ -112,7 +112,7 @@ export default function LoginForm() {
                   <div className="w-full border-t border-black/20" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-white px-2 text-[16px] font-normal text-black/20">
+                  <span className="bg-white px-2 text-[16px] font-light text-black/20">
                     Or continue with
                   </span>
                 </div>
@@ -121,7 +121,7 @@ export default function LoginForm() {
               <button
                 onClick={handleGoogleSignIn}
                 disabled={loading}
-                className="flex h-[51px] cursor-pointer items-center justify-center gap-[8px] rounded-[37px] border-[0.5px] border-black/25 bg-white py-[15px] font-[Roboto] text-[14px] hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-[51px] cursor-pointer items-center justify-center gap-[8px] rounded-[37px] border-[1px] border-black/25 bg-white py-[15px] font-[Roboto] text-[14px] tracking-[0.25px] hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <svg className="h-[20px] w-[20px]" viewBox="0 0 24 24">
                   <path
@@ -145,8 +145,8 @@ export default function LoginForm() {
               </button>
 
               <div className="flex justify-center gap-[8px]">
-                <p className="text-[16px] font-normal text-[#D9D9D9]">Don't have an account?</p>
-                <Link href="/signup" className="text-[16px] font-normal text-[#005EAF] underline">
+                <p className="text-[16px] font-light text-black/25">Don't have an account?</p>
+                <Link href="/signup" className="text-[16px] font-light text-[#005EAF] underline">
                   Sign up here
                 </Link>
               </div>
