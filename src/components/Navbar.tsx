@@ -240,17 +240,25 @@ const Navbar = () => {
             ></GoArrowLeft>
           </div>
           <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b py-3 text-3xl font-normal sm:p-8 sm:pl-16">
-            <Link href="/about#ExecutiveCommittee" onClick={handleLinkClick}>
+            <Link
+              href="/about#ExecutiveCommittee"
+              className="block w-full"
+              onClick={handleLinkClick}
+            >
               Exec Commitee
             </Link>
           </li>
           <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b py-3 text-3xl font-normal sm:p-8 sm:pl-16">
-            <Link href="/about#BulletinComittee" onClick={handleLinkClick}>
+            <Link href="/about#BulletinComittee" className="block w-full" onClick={handleLinkClick}>
               Bulletin Comittee
             </Link>
           </li>
           <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b py-3 text-3xl font-normal sm:p-8 sm:pl-16">
-            <Link href="/about#InvestmentComittee" onClick={handleLinkClick}>
+            <Link
+              href="/about#InvestmentComittee"
+              className="block w-full"
+              onClick={handleLinkClick}
+            >
               Investment Comittee
             </Link>
           </li>
