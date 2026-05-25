@@ -14,6 +14,8 @@ const Navbar = () => {
 
   const handleLinkClick = () => {
     setIsOpen(false);
+    setShowCommitteeSubpage(false);
+    setShowAboutSubpage(false);
   };
 
   const [beyondHero, setBeyondHero] = useState(false);
@@ -45,26 +47,22 @@ const Navbar = () => {
           />
         </Link>
 
-        {/* Hamburger Menu */}
+        {/* Hamburger to X icon */}
         <button
-          className={`z-50 cursor-pointer rounded-4xl transition-transform duration-600 lg:hidden ${
-            isOpen || showCommitteeSubpage ? "invisible" : "visible"
-          } `}
+          className="fixed top-6 right-2 z-50 cursor-pointer rounded-full bg-transparent p-3 lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <svg
-            className="h-10 w-10"
-            fill="none"
-            stroke={`${beyondHero ? "#00529B" : "white"}`}
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
+          <div className="z-50 flex h-10 w-10 flex-col items-center justify-center gap-2">
+            <span
+              className={`ease-[cubic-bezier(0.175, 0.885, 0.32, 1.275)] block h-[0.25rem] w-8 rounded-full transition-all transition-colors duration-300 ${isOpen ? "translate-y-[10px] -rotate-45 bg-[#145CA9]" : "bg-white"}`}
             />
-          </svg>
+            <span
+              className={`ease-[cubic-bezier(0.175, 0.885, 0.32, 1.275)] block h-[0.25rem] w-8 rounded-full transition-all duration-300 ${isOpen ? "scale-x-0 opacity-0" : "bg-white"}`}
+            />
+            <span
+              className={`ease-[cubic-bezier(0.175, 0.885, 0.32, 1.275)] block h-[0.25rem] w-8 rounded-full transition-all duration-300 ${isOpen ? "-translate-y-[14px] rotate-45 bg-[#145CA9]" : "bg-white"}`}
+            />
+          </div>
         </button>
 
         {/* Desktop Nav */}
@@ -155,28 +153,11 @@ const Navbar = () => {
             <div
               className={`bg-[#00529B] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat transition-opacity duration-600 ease-in-out lg:ml-10 lg:h-[100px] lg:w-[140px]`}
             ></div>
-            <button
-              className="cursor-pointer rounded-full bg-white p-4 pt-8"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              <svg
-                className="justify-right h-10 w-10"
-                fill="none"
-                stroke="#145CA9"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
+            <div className="h-15"></div>
           </div>
 
           <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b pt-3 pb-1 text-3xl font-normal sm:p-8 sm:pl-16">
-            <Link href="/" onClick={handleLinkClick}>
+            <Link href="/" className="block w-full" onClick={handleLinkClick}>
               Home
             </Link>
           </li>
@@ -202,6 +183,7 @@ const Navbar = () => {
               <li className="hover:bg-whiteHover flex cursor-pointer pb-2 pl-6 text-xl sm:p-8 sm:pl-16">
                 <Link
                   href=""
+                  className="block w-full"
                   onClick={() => {
                     setShowAboutSubpage(!showAboutSubpage);
                     //setIsOpen(!isOpen);
@@ -212,7 +194,7 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="hover:bg-whiteHover flex cursor-pointer pb-2 pl-6 text-xl sm:p-8 sm:pl-16">
-                <Link href="/FAQ" onClick={handleLinkClick}>
+                <Link href="/FAQ" className="block w-full" onClick={handleLinkClick}>
                   FAQ
                 </Link>
               </li>
@@ -220,17 +202,17 @@ const Navbar = () => {
           </li>
           {/* End of Sub-menu Items */}
           <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-t border-b pt-3 pb-1 text-3xl font-normal sm:p-8 sm:pl-16">
-            <Link href="/events" onClick={handleLinkClick}>
+            <Link href="/events" className="block w-full" onClick={handleLinkClick}>
               Events
             </Link>
           </li>
-          <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b pt-3 pb-1 text-3xl font-normal sm:p-8 sm:pl-16">
-            <Link href="/bulletin" onClick={handleLinkClick}>
+          <li className="group hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b pt-3 pb-1 text-3xl font-normal sm:p-8 sm:pl-16">
+            <Link href="/bulletin" className="block w-full" onClick={handleLinkClick}>
               Bulletin
             </Link>
           </li>
           <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b pt-3 pb-1 text-3xl font-normal sm:p-8 sm:pl-16">
-            <Link href="/investmentportfolio" onClick={handleLinkClick}>
+            <Link href="/investmentportfolio" className="block w-full" onClick={handleLinkClick}>
               Investments
             </Link>
           </li>
