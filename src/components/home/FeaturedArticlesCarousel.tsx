@@ -138,13 +138,8 @@ const FeaturedArticlesCarousel = () => {
 
   return (
     <div className="p-[66px] min-[1025px]:p-[82px]">
-      <div className="flex flex-col gap-[24px] overflow-hidden p-[14px]">
-        {/* Newest Articles Board */}
-        <div className="border-1">
-          <p>Newest Articles Insert Here</p>
-        </div>
-
-        {/* Lucas board*/}
+      {/* Split previous above and below div to fix article card shadow*/}
+      <div className="overflow-hidden p-[14px]">
         <div className="flex flex-col gap-[12px]">
           {/* Header row container */}
           <div className="[container-type:inline-size] flex flex-row items-center justify-between gap-[2cqw]">
