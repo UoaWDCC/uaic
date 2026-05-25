@@ -78,7 +78,7 @@ export default function LoginForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
-                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] placeholder:font-light placeholder:text-[#9AA0B6] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -90,7 +90,7 @@ export default function LoginForm() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
-                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] placeholder:font-light placeholder:text-[#9AA0B6] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -99,7 +99,7 @@ export default function LoginForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="h-[52px] cursor-pointer items-center rounded-[37px] bg-gradient-to-l from-[#005eaf] to-[#249AFF] text-[20px] font-medium text-white hover:border-[0.5px] hover:border-[#C5CBDE] hover:bg-none hover:text-[#005EAF] disabled:cursor-not-allowed disabled:opacity-50"
+                className="h-[52px] cursor-pointer items-center rounded-[37px] bg-gradient-to-l from-[#005eaf] to-[#249AFF] text-[20px] font-medium text-white enabled:hover:border-[0.5px] enabled:hover:border-[#C5CBDE] enabled:hover:bg-none enabled:hover:text-[#005EAF] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {loading ? "Logging in..." : "Log in"}
               </button>
@@ -121,7 +121,7 @@ export default function LoginForm() {
               <button
                 onClick={handleGoogleSignIn}
                 disabled={loading}
-                className="flex h-[51px] cursor-pointer items-center justify-center gap-[8px] rounded-[37px] border-[1px] border-black/25 bg-white py-[15px] font-[Roboto] text-[14px] tracking-[0.25px] hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-[51px] cursor-pointer items-center justify-center gap-[8px] rounded-[37px] border-[1px] border-black/25 bg-white py-[15px] font-[Roboto] text-[14px] tracking-[0.25px] enabled:hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <svg className="h-[20px] w-[20px]" viewBox="0 0 24 24">
                   <path
