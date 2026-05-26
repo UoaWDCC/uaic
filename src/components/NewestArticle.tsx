@@ -24,12 +24,12 @@ const NewestArticle = () => {
     <div className="ps-5 pe-5 lg:ps-30 lg:pe-30">
       <p className="text-darkBlue pb-1 text-3xl font-semibold lg:pb-3">Newest Articles</p>
       <div className="grid grid-rows-2 flex-col gap-2 lg:grid-cols-6 lg:gap-10">
-        <div className="relative flex flex-col overflow-hidden rounded-2xl ps-2 pb-2 lg:col-span-4 lg:min-h-[520px] lg:ps-5 lg:pe-5 lg:pb-5">
+        <div className="relative flex flex-col overflow-hidden rounded-2xl ps-2 pb-2 lg:col-span-4 lg:ps-5 lg:pe-5 lg:pb-5">
           <Image
             src={"/assets/home/newestArticleSampleImage.jpg"}
             alt={""}
             fill
-            className="z-0 scale-110 transition-all duration-500 ease-in-out hover:scale-100"
+            className="z-0 scale-110 object-cover transition-all duration-500 ease-in-out hover:scale-100"
           ></Image>
           <div className="z-10 mt-auto w-fit rounded-2xl bg-gradient-to-r from-[#44a6fc] to-sky-600 ps-2 pe-2 text-white hover:bg-gradient-to-r">
             Category Name
@@ -41,21 +41,21 @@ const NewestArticle = () => {
         </div>
         <div className="pt-5 lg:col-span-2 lg:pt-0">
           {articles.slice(0, 4).map((articles, index) => (
-            <div className="group grid grid-cols-7 gap-3 pb-5 lg:grid-cols-3 lg:gap-5" key={index}>
-              <div className="relative col-span-2 h-13 w-full overflow-hidden rounded-2xl lg:col-span-1 lg:h-23 xl:h-30">
+            <div className="group grid grid-cols-[1fr_3fr] gap-3 pb-3 xl:gap-5" key={index}>
+              <div className="relative aspect-square overflow-hidden rounded-2xl">
                 <Image
                   src={"/assets/home/sidebarListSampleImage.jpg"}
                   alt={""}
                   fill
-                  className="scale-110 object-cover transition-all duration-500 ease-in-out group-hover:scale-100"
+                  className="scale-105 object-cover object-center blur-[0.3px] transition-all duration-500 ease-in-out group-hover:scale-100"
                 ></Image>
               </div>
 
-              <div className="col-span-5 lg:col-span-2">
-                <p className="pb-1 text-[15px] font-semibold text-black group-hover:text-[#2d67d2] lg:pb-3 lg:text-2xl">
+              <div className="">
+                <p className="text-[15px] font-semibold text-black group-hover:text-[#2d67d2] lg:pb-0 lg:text-lg xl:pb-3 xl:text-2xl">
                   {articles.title}
                 </p>
-                <p className="text-[9px] text-[#778189] lg:text-base">
+                <p className="text-[9px] text-[#778189] lg:text-[12px] xl:text-base">
                   {articles.date} · {articles.read} Read
                 </p>
               </div>
