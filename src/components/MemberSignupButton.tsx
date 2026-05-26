@@ -4,10 +4,14 @@ const MemberSignupButton = () => {
   return (
     <Link
       href="/joinus"
-      className="group flex h-[51px] w-[249.36px] items-center justify-center gap-[8px] rounded-[39px] bg-white bg-gradient-to-l from-[#005EAF] to-[#249AFF] pr-[16px] pl-[10px] text-white transition-colors hover:bg-none hover:text-[#005EAF]"
+      className="group relative flex h-[37px] w-fit items-center justify-center gap-3 overflow-hidden rounded-full bg-white py-2.5 pr-4.5 pl-4.5 whitespace-nowrap text-white transition-colors duration-200 hover:text-[#005EAF] sm:h-[51px] sm:w-[249.36px] sm:gap-[8px] sm:py-0 sm:pr-[16px] sm:pl-[10px] 2xl:h-[86px] 2xl:w-[430px] 2xl:gap-5 2xl:pr-8 2xl:pl-6"
     >
-      <GoArrowUpRight className="h-[34.36px] w-[34.36px] transition-transform group-hover:rotate-45" />
-      <span className="text-[20px] font-medium">Become A Member</span>
+      <span className="absolute inset-0 bg-gradient-to-l from-[#005EAF] to-[#249AFF] transition-opacity duration-200 group-hover:opacity-0" />
+
+      <GoArrowUpRight className="relative z-10 hidden h-[34.36px] w-[34.36px] transition-transform duration-200 group-hover:rotate-45 sm:block 2xl:h-[60px] 2xl:w-[60px]" />
+      <span className="relative z-10 text-sm font-medium sm:text-[20px] 2xl:text-[35px]">
+        Become A Member
+      </span>
     </Link>
   );
 };
