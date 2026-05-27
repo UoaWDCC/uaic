@@ -60,13 +60,14 @@ export default function LoginForm() {
       </div>
       <div className="flex justify-center px-6">
         <div className="flex min-h-[527px] w-full max-w-[512px] flex-col gap-[44px] rounded-[16px] bg-white px-[24px] py-[28px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
-          <h2 className="text-left text-2xl text-[30px] font-bold text-[#145BA7]">Log in</h2>
+          <h2 className="text-left text-2xl text-[30px] font-bold text-[#145BA7]">Log In</h2>
 
           {error && (
             <div className="mb-4 rounded border border-red-400 bg-red-100 p-3 text-red-700">
               {error}
             </div>
           )}
+
           <div className="flex flex-col gap-[32px]">
             {/* Input fields, login button */}
             <form onSubmit={handleEmailSignIn} className="flex flex-col gap-[44px]">
@@ -78,7 +79,7 @@ export default function LoginForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
-                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] placeholder:font-light placeholder:text-[#9AA0B6] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] placeholder:font-light placeholder:text-[#9AA0B6] focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -90,7 +91,7 @@ export default function LoginForm() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
-                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] placeholder:font-light placeholder:text-[#9AA0B6] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] placeholder:font-light placeholder:text-[#9AA0B6] focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -99,9 +100,10 @@ export default function LoginForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="h-[52px] cursor-pointer items-center rounded-[37px] bg-gradient-to-l from-[#005eaf] to-[#249AFF] text-[20px] font-medium text-white enabled:hover:border-[0.5px] enabled:hover:border-[#C5CBDE] enabled:hover:bg-none enabled:hover:text-[#005EAF] disabled:cursor-not-allowed disabled:opacity-50"
+                className="group relative flex h-[52px] cursor-pointer items-center justify-center overflow-hidden rounded-[37px] border-[1px] border-transparent bg-white text-[20px] font-medium text-white transition-colors duration-200 enabled:hover:border-black/10 enabled:hover:text-[#005EAF] disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {loading ? "Logging in..." : "Log in"}
+                <span className="absolute inset-0 rounded-[37px] bg-gradient-to-l from-[#005eaf] to-[#249AFF] transition-opacity duration-200 group-enabled:group-hover:opacity-0" />
+                <span className="relative z-10">{loading ? "Logging in..." : "Log in"}</span>
               </button>
             </form>
 
@@ -121,7 +123,7 @@ export default function LoginForm() {
               <button
                 onClick={handleGoogleSignIn}
                 disabled={loading}
-                className="flex h-[51px] cursor-pointer items-center justify-center gap-[8px] rounded-[37px] border-[1px] border-black/25 bg-white py-[15px] font-[Roboto] text-[14px] tracking-[0.25px] enabled:hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-[51px] cursor-pointer items-center justify-center gap-[8px] rounded-[37px] border-[1px] border-black/25 bg-white py-[15px] font-[Roboto] text-[14px] font-medium tracking-[0.25px] enabled:hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <svg className="h-[20px] w-[20px]" viewBox="0 0 24 24">
                   <path
@@ -145,7 +147,7 @@ export default function LoginForm() {
               </button>
 
               <div className="flex justify-center gap-[8px]">
-                <p className="text-[16px] font-light text-black/25">Don't have an account?</p>
+                <p className="text-[16px] font-light text-black/20">Don't have an account?</p>
                 <Link href="/signup" className="text-[16px] font-light text-[#005EAF] underline">
                   Sign up here
                 </Link>
