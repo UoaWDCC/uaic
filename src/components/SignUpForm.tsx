@@ -53,6 +53,7 @@ export default function SignUpForm() {
 
   return (
     <div className="w-full">
+      {/* Navbar */}
       <div className="fixed top-0 left-0 z-50 w-full px-6">
         <Link href="/" className="inline-block">
           <div
@@ -60,6 +61,7 @@ export default function SignUpForm() {
           />
         </Link>
       </div>
+      {/* Sign up form container*/}
       <div className="flex justify-center px-6">
         <div className="flex min-h-[527px] w-full max-w-[512px] flex-col gap-[44px] rounded-[16px] bg-white px-[24px] py-[28px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
           <h2 className="text-left text-2xl text-[30px] font-bold text-[#145BA7]">Sign Up</h2>
@@ -103,10 +105,10 @@ export default function SignUpForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group relative flex h-[52px] cursor-pointer items-center justify-center overflow-hidden rounded-[37px] border-[1px] border-transparent bg-white text-[20px] font-medium text-white transition-colors duration-200 enabled:hover:border-black/10 enabled:hover:text-[#005EAF] disabled:cursor-not-allowed disabled:opacity-50"
+                className="group relative flex h-[52px] cursor-pointer items-center justify-center overflow-hidden rounded-[37px] bg-white text-[20px] font-medium text-white shadow-[inset_0_0_0_1px_transparent] transition-colors duration-200 enabled:hover:text-[#005EAF] enabled:hover:shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <span className="absolute inset-0 rounded-[37px] bg-gradient-to-l from-[#005eaf] to-[#249AFF] transition-opacity duration-200 group-enabled:group-hover:opacity-0" />
-                <span className="relative z-10">{loading ? "Creating account..." : "Sign up"}</span>
+                <span className="relative z-10">{loading ? "Creating account..." : "Sign Up"}</span>
               </button>
             </form>
 
