@@ -211,7 +211,10 @@ const ExecutiveCommittee = () => {
   };
 
   return (
-    <div className="mx-auto w-full rounded-lg bg-white p-4 lg:px-10">
+    <div
+      id="ExecutiveCommittee"
+      className="mx-auto w-full scroll-mt-35 rounded-lg bg-white p-4 lg:px-10"
+    >
       <div>
         <span className="text-header text-darkBlue font-bold">Executive Committees</span>
 
