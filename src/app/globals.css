@@ -10,6 +10,7 @@
   --lightBlue: #ebf7fe;
   --grey-100: #d9d9d9;
   --grey-200: #cbc6c6;
+  --footerGradient: linear-gradient(to bottom, #249aff, #005eaf);
 
   /* Hover */
   --whiteHover: #f0f8ff;
@@ -51,6 +52,7 @@
   --color-lightBlue: var(--lightBlue);
   --color-grey-100: var(--grey-100);
   --color-grey-200: var(--grey-200);
+  --background-image-footer-gradient: var(--footerGradient);
 
   /* Hover */
   --color-whiteHover: var(--whiteHover);
