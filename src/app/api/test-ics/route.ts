@@ -24,7 +24,7 @@ export function GET() {
 
   return new Response(event.value + "\n" + googleCalendarUrl, {
     headers: {
-      "Content-Type": "text/plain",
+      "Content-Type": "text/calendar",
       "Content-Disposition": `attachment; filename="${inputEvent.title}.ics"`,
     },
   });
