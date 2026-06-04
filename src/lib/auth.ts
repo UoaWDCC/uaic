@@ -8,6 +8,15 @@ const db = client.db();
 
 export const auth = betterAuth({
   database: mongodbAdapter(db),
+  advanced: {
+    database: {
+      tablePrefix: "",
+    },
+    generateId: false,
+  },
+  user: {
+    modelName: "members",
+  },
   emailAndPassword: {
     enabled: true,
   },
