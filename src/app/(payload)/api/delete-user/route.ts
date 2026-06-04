@@ -16,8 +16,8 @@ export async function DELETE(request: NextRequest) {
     if (userEmail.split("@")[1] !== "aucklanduni.ac.nz") {
       const db = client.db(); // Uses default database
 
-      // Delete user from the user collection
-      const result = await db.collection("user").deleteOne({
+      // Delete user from the member collection
+      const result = await db.collection("members").deleteOne({
         _id: new ObjectId(userId),
       });
 
