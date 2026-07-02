@@ -25,9 +25,9 @@ export default function Payment() {
 
   return (
     /* Parent layout container: centering elements horizontally and vertically using flex */
-    <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center rounded-md border bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)] p-10">
+    <div className="mx-auto flex h-screen w-screen flex-col items-center justify-center rounded-md border bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)] p-10">
       {/* Centered White wrapper container card */}
-      <div className="mb-10 w-full rounded-2xl bg-white p-4 pb-0 text-black lg:max-w-xl">
+      <div className="mb-10 w-full rounded-2xl bg-white p-4 pb-0 text-black shadow-[0_5px_15px_rgba(0,0,0,0.25)] lg:max-w-xl">
         <div id="regForm">
           {/* Fixed the dynamic variable text color configuration */}
           <h1 className="mb-4 text-2xl font-bold text-[var(--darkBlue)]">
