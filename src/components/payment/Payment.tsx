@@ -4,6 +4,10 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutPage from "./CheckoutPage";
 import { useState } from "react";
+import { IoIosCheckmarkCircle } from "react-icons/io";
+import { CgRadioChecked } from "react-icons/cg";
+import { MdRadioButtonUnchecked } from "react-icons/md";
+import { GoArrowUpRight } from "react-icons/go";
 
 const stripePublicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY;
 
@@ -16,53 +20,145 @@ const stripePromise = loadStripe(stripePublicKey);
 export default function Payment() {
   const amount = 21.58;
 
-  const nextPrev = (step: number) => {
-    console.log("Navigate step:", step);
-  };
-
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [radioValue, setRadio] = useState("Google search");
 
   return (
     /* Parent layout container: centering elements horizontally and vertically using flex */
     <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center rounded-md border bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)] p-10">
       {/* Centered White wrapper container card */}
       <div className="mb-10 w-full rounded-2xl bg-white p-4 pb-0 text-black lg:max-w-xl">
-        <form id="regForm" action="">
+        <div id="regForm">
           {/* Fixed the dynamic variable text color configuration */}
-          <h1 className="mb-4 text-2xl font-bold text-[var(--darkBlue)]">Membership:</h1>
+          <h1 className="mb-4 text-2xl font-bold text-[var(--darkBlue)]">
+            {currentStep < 3 ? "Membership" : "Payment"}
+          </h1>
 
           <div className="mb-6 flex w-full items-center justify-between">
-            <div
-              className={`h-7 w-7 flex-shrink-0 rounded-full border-2 transition-all duration-300 ${currentStep >= 0 ? "border-blue-500 bg-blue-500" : "border-gray-300 bg-white"}`}
-            />
+            <div className="relative h-9 w-9 flex-shrink-0 lg:h-9 lg:w-9">
+              <CgRadioChecked
+                className={`absolute inset-0 text-4xl text-blue-500 transition-all duration-300 lg:text-4xl ${currentStep === 0 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+              />
+
+              <IoIosCheckmarkCircle
+                className={`absolute inset-0 text-4xl text-blue-500 transition-all duration-300 lg:text-4xl ${currentStep > 0 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+              />
+            </div>
 
             <div
-              className={`mx-2 h-px flex-1 transition-all duration-300 ${currentStep >= 0 ? "bg-blue-500" : "bg-gray-300"}`}
+              className={`mx-2 h-px flex-1 transition-colors duration-300 ${currentStep >= 1 ? "bg-blue-500" : "bg-gray-300"}`}
             />
 
-            <div
-              className={`h-7 w-7 flex-shrink-0 rounded-full border-2 transition-all duration-300 ${currentStep >= 1 ? "border-blue-500 bg-blue-500" : "border-gray-300 bg-white"}`}
-            />
+            <div className="relative h-9 w-9 flex-shrink-0 lg:h-9 lg:w-9">
+              <CgRadioChecked
+                className={`absolute inset-0 text-4xl text-blue-500 transition-all duration-300 lg:text-4xl ${currentStep === 1 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+              />
+
+              <IoIosCheckmarkCircle
+                className={`absolute inset-0 text-4xl text-blue-500 transition-all duration-300 lg:text-4xl ${currentStep > 1 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+              />
+
+              <MdRadioButtonUnchecked
+                className={`absolute inset-0 text-4xl text-gray-300 transition-all duration-300 lg:text-4xl ${currentStep < 1 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+              />
+            </div>
 
             <div
-              className={`mx-2 h-px flex-1 transition-all duration-300 ${currentStep >= 1 ? "bg-blue-500" : "bg-gray-300"}`}
+              className={`mx-2 h-px flex-1 transition-colors duration-300 ${currentStep >= 2 ? "bg-blue-500" : "bg-gray-300"}`}
             />
 
-            <div
-              className={`h-7 w-7 flex-shrink-0 rounded-full border-2 transition-all duration-300 ${currentStep >= 2 ? "border-blue-500 bg-blue-500" : "border-gray-300 bg-white"}`}
-            />
+            <div className="relative h-9 w-9 flex-shrink-0 lg:h-9 lg:w-9">
+              <CgRadioChecked
+                className={`absolute inset-0 text-4xl text-blue-500 transition-all duration-300 lg:text-4xl ${currentStep === 2 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+              />
+
+              <IoIosCheckmarkCircle
+                className={`absolute inset-0 text-4xl text-blue-500 transition-all duration-300 lg:text-4xl ${currentStep > 2 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+              />
+
+              <MdRadioButtonUnchecked
+                className={`absolute inset-0 text-4xl text-gray-300 transition-all duration-300 lg:text-4xl ${currentStep < 2 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+              />
+            </div>
 
             <div
-              className={`mx-2 h-px flex-1 transition-all duration-300 ${currentStep >= 2 ? "bg-blue-500" : "bg-gray-300"}`}
+              className={`mx-2 h-px flex-1 transition-all duration-300 ${currentStep >= 3 ? "bg-blue-500" : "bg-gray-300"}`}
             />
 
-            <div
-              className={`h-7 w-7 flex-shrink-0 rounded-full border-2 transition-all duration-300 ${currentStep >= 3 ? "border-blue-500 bg-blue-500" : "border-gray-300 bg-white"}`}
-            />
+            <div className="relative h-9 w-9 flex-shrink-0 lg:h-9 lg:w-9">
+              <CgRadioChecked
+                className={`absolute inset-0 text-4xl text-blue-500 transition-all duration-300 lg:text-4xl ${currentStep === 3 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+              />
+
+              <MdRadioButtonUnchecked
+                className={`absolute inset-0 text-4xl text-gray-300 transition-all duration-300 lg:text-4xl ${currentStep < 3 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+              />
+            </div>
           </div>
 
           {currentStep == 0 && (
             /* 1. Added space-y-4 to space everything out evenly automatically */
+            <div className="tab space-y-4">
+              <div className="font-medium text-blue-500">
+                <p>Student Details</p>
+              </div>
+
+              <div className="flex">
+                <input
+                  type="text"
+                  id="first_name"
+                  className="block w-full rounded-l-full border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                  placeholder="First Name"
+                  required
+                />
+                <input
+                  type="text"
+                  id="last_name"
+                  className="block w-full rounded-r-full border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                  placeholder="Last Name"
+                  required
+                />
+              </div>
+
+              <div>
+                <input
+                  type="text"
+                  id="last_name"
+                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+
+              <div>
+                <input
+                  type="text"
+                  id="last_name"
+                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                  placeholder="API(e.g. abcd123)"
+                  required
+                />
+              </div>
+
+              <div className="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-white transition hover:bg-gray-300"
+                >
+                  Back
+                </button>
+                <button
+                  type="button"
+                  className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
+                  onClick={() => setCurrentStep(1)}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
+
+          {currentStep == 1 && (
             <div className="tab space-y-4">
               <div className="font-medium text-blue-500">
                 <p>Student Details</p>
@@ -78,7 +174,7 @@ export default function Payment() {
                 />
               </div>
 
-              <div>
+              <div className="relative w-full">
                 <input
                   type="text"
                   id="last_name"
@@ -86,9 +182,11 @@ export default function Payment() {
                   placeholder="Choice"
                   required
                 />
+
+                <GoArrowUpRight className="absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700" />
               </div>
 
-              <div>
+              <div className="relative w-full">
                 <input
                   type="text"
                   id="last_name"
@@ -96,9 +194,11 @@ export default function Payment() {
                   placeholder="Choice"
                   required
                 />
+
+                <GoArrowUpRight className="absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700" />
               </div>
 
-              <div>
+              <div className="relative w-full">
                 <input
                   type="text"
                   id="last_name"
@@ -106,9 +206,11 @@ export default function Payment() {
                   placeholder="Choice"
                   required
                 />
+
+                <GoArrowUpRight className="absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700" />
               </div>
 
-              <div>
+              <div className="relative w-full">
                 <input
                   type="text"
                   id="last_name"
@@ -116,19 +218,22 @@ export default function Payment() {
                   placeholder="Choice"
                   required
                 />
+
+                <GoArrowUpRight className="absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700" />
               </div>
 
-              {/* 2. Removed the unnecessary wrapper div and clean layout classes applied */}
               <div className="flex gap-3 pt-2">
                 <button
                   type="button"
-                  className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-gray-700 transition hover:bg-gray-300"
+                  className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-white transition hover:bg-gray-300"
+                  onClick={() => setCurrentStep(0)}
                 >
                   Back
                 </button>
                 <button
                   type="button"
-                  className="w-full rounded-full bg-blue-500 px-4 py-2 font-bold text-white transition hover:bg-blue-600"
+                  className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
+                  onClick={() => setCurrentStep(2)}
                 >
                   Next
                 </button>
@@ -136,7 +241,7 @@ export default function Payment() {
             </div>
           )}
 
-          {currentStep == 1 && (
+          {currentStep == 2 && (
             <div className="tab">
               <div className="pb-3 font-medium text-blue-500">
                 <p>How Did You Hear?</p>
@@ -148,10 +253,11 @@ export default function Payment() {
                   <input
                     id="country-option-1"
                     type="radio"
-                    name="countries"
-                    value="USA"
-                    className="text-neutral-primary border-default-medium bg-neutral-secondary-medium checked:border-brand focus:ring-brand-subtle h-4 w-4 appearance-none rounded-full border border-blue-500 focus:ring-2 focus:outline-none"
-                    checked
+                    name="default-radio"
+                    value="Google search"
+                    className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all checked:border-[5px] checked:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    checked={radioValue === "Google search"}
+                    onChange={(e) => setRadio(e.target.value)}
                   />
                   <label
                     htmlFor="country-option-1"
@@ -166,8 +272,10 @@ export default function Payment() {
                     id="country-option-2"
                     type="radio"
                     name="countries"
-                    value="Germany"
-                    className="text-neutral-primary border-default-medium bg-neutral-secondary-medium checked:border-brand focus:ring-brand-subtle h-4 w-4 appearance-none rounded-full border border-blue-500 focus:ring-2 focus:outline-none"
+                    value="Social media"
+                    className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all checked:border-[5px] checked:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    checked={radioValue === "Social media"}
+                    onChange={(e) => setRadio(e.target.value)}
                   />
                   <label
                     htmlFor="country-option-2"
@@ -182,8 +290,10 @@ export default function Payment() {
                     id="country-option-3"
                     type="radio"
                     name="countries"
-                    value="Spain"
-                    className="text-neutral-primary border-default-medium bg-neutral-secondary-medium checked:border-brand focus:ring-brand-subtle h-4 w-4 appearance-none rounded-full border border-blue-500 focus:ring-2 focus:outline-none"
+                    value="Email newsletters"
+                    className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all checked:border-[5px] checked:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    checked={radioValue === "Email newsletters"}
+                    onChange={(e) => setRadio(e.target.value)}
                   />
                   <label
                     htmlFor="country-option-3"
@@ -198,8 +308,10 @@ export default function Payment() {
                     id="country-option-4"
                     type="radio"
                     name="countries"
-                    value="United Kingdom"
-                    className="text-neutral-primary border-default-medium bg-neutral-secondary-medium checked:border-brand focus:ring-brand-subtle h-4 w-4 appearance-none rounded-full border border-blue-500 focus:ring-2 focus:outline-none"
+                    value="Word of mouth"
+                    className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all checked:border-[5px] checked:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    checked={radioValue === "Word of mouth"}
+                    onChange={(e) => setRadio(e.target.value)}
                   />
                   <label
                     htmlFor="country-option-4"
@@ -214,8 +326,10 @@ export default function Payment() {
                     id="option-disabled"
                     type="radio"
                     name="countries"
-                    value="China"
-                    className="text-neutral-primary border-default-medium bg-neutral-secondary-medium checked:border-brand focus:ring-brand-subtle h-4 w-4 appearance-none rounded-full border border-blue-500 focus:ring-2 focus:outline-none"
+                    value="Other"
+                    className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all checked:border-[5px] checked:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    checked={radioValue === "Other"}
+                    onChange={(e) => setRadio(e.target.value)}
                   />
                   <label
                     htmlFor="option-disabled"
@@ -227,85 +341,34 @@ export default function Payment() {
               </fieldset>
 
               <div className="flex gap-3 pt-10">
-                <button className="w-full rounded rounded-full bg-gray-200 px-4 py-2 font-bold text-white hover:bg-gray-700">
+                <button
+                  className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-white transition hover:bg-gray-300"
+                  onClick={() => setCurrentStep(1)}
+                >
                   Back
                 </button>
-                <button className="w-full rounded rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700">
+                <button
+                  className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
+                  onClick={() => setCurrentStep(3)}
+                >
                   Next
                 </button>
-              </div>
-            </div>
-          )}
-
-          {currentStep == 2 && (
-            <div className="tab">
-              <div className="font-medium text-blue-500">
-                <p>Student Details</p>
-              </div>
-              <div className="">
-                <input
-                  type="text"
-                  id="first_name"
-                  className="bg-neutral-secondary-medium border-default-medium text-heading rounded-base focus:ring-brand focus:border-brand placeholder:text-body block w-full rounded-3xl border-1 border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="John"
-                  required
-                />
-              </div>
-              <div className="">
-                <input
-                  type="text"
-                  id="last_name"
-                  className="bg-neutral-secondary-medium border-default-medium text-heading rounded-base focus:ring-brand focus:border-brand placeholder:text-body block w-full rounded-3xl border-1 border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="Doe"
-                  required
-                />
-              </div>
-
-              <div className="pt-4">
-                <div className="flex gap-3 pt-3">
-                  <button className="w-full rounded rounded-full bg-gray-200 px-4 py-2 font-bold text-white hover:bg-gray-700">
-                    Back
-                  </button>
-                  <button className="w-full rounded rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700">
-                    Next
-                  </button>
-                </div>
               </div>
             </div>
           )}
 
           {currentStep == 3 && (
             <div className="tab">
-              <div className="font-medium text-blue-500">
-                <p>Student Details</p>
-              </div>
-              <div className="">
-                <input
-                  type="text"
-                  id="first_name"
-                  className="bg-neutral-secondary-medium border-default-medium text-heading rounded-base focus:ring-brand focus:border-brand placeholder:text-body block w-full rounded-3xl border-1 border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="John"
-                  required
-                />
-              </div>
-              <div className="pt-3">
-                <input
-                  type="text"
-                  id="last_name"
-                  className="bg-neutral-secondary-medium border-default-medium text-heading rounded-base focus:ring-brand focus:border-brand placeholder:text-body block w-full rounded-3xl border-1 border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="Doe"
-                  required
-                />
-              </div>
-
-              <div className="flex gap-3">
-                <button className="w-full rounded rounded-full bg-gray-200 px-4 py-2 font-bold text-white hover:bg-gray-700">
-                  Back
-                </button>
-                <button className="w-full rounded rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700">
-                  Next
-                </button>
-              </div>
+              <Elements
+                stripe={stripePromise}
+                options={{
+                  mode: "payment",
+                  amount: Math.round(amount * 100),
+                  currency: "nzd",
+                }}
+              >
+                <CheckoutPage amount={amount} />
+              </Elements>
             </div>
           )}
 
@@ -315,7 +378,7 @@ export default function Payment() {
             <span className="step"></span>
             <span className="step"></span>
           </div>
-        </form>
+        </div>
       </div>
 
       {/* Stripe elements wrapper commented out cleanly inside JSX */}
