@@ -11,9 +11,11 @@ import { Bulletins } from "./collections/Bulletins";
 import { Member } from "./collections/Member";
 import { Events } from "./collections/Events";
 import { Executive } from "./collections/Executive";
+import { ExecutiveCommittee } from "./collections/ExecutiveCommittee";
 import { Portfolio } from "./collections/Portfolio";
 import { LandingPageImages } from "./collections/LandingPageImages";
 import { HeroSectionCarousel } from "./collections/HeroSectionCarousel";
+import { Sponsors } from "./collections/Sponsors";
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -28,8 +30,10 @@ export default buildConfig({
     Bulletins,
     Member,
     Executive,
+    ExecutiveCommittee,
     Events,
     Portfolio,
+    Sponsors,
   ],
 
   secret: process.env.PAYLOAD_SECRET || "",
