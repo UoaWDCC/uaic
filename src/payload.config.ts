@@ -16,6 +16,22 @@ import { LandingPageImages } from "./collections/LandingPageImages";
 import { HeroSectionCarousel } from "./collections/HeroSectionCarousel";
 import { Sponsors } from "./collections/Sponsors";
 
+function convertToCSV(rows: any[]) {
+  if (!rows || rows.length === 0) return "";
+
+  const headers = Object.keys(rows[0]);
+  const csvRows = [];
+
+  csvRows.push(headers.join(","));
+
+  for (const row of rows) {
+    const values = headers.map((h) => JSON.stringify(row[h] ?? ""));
+    csvRows.push(values.join(",")); // <-- fixed here
+  }
+
+  return csvRows.join("\n");
+}
+
 export default buildConfig({
   editor: lexicalEditor(),
 
@@ -32,6 +48,23 @@ export default buildConfig({
     Events,
     Portfolio,
     Sponsors,
+  ],
+
+  endpoints: [
+    {
+      path: "/export-members",
+      method: "get",
+      handler: async (req, res) => {
+        const { docs } = await req.payload.find({ collection: "member" });
+        const csvData = convertToCSV(docs);
+
+        res.set({
+          "Content-Type": "text/csv",
+          "Content-Disposition": 'attachment; filename="members.csv"',
+        });
+        res.send(csvData);
+      },
+    },
   ],
 
   secret: process.env.PAYLOAD_SECRET || "",
