@@ -27,4 +27,18 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          const existing = await db.collection("member").findOne({ email: user.email });
+
+          if (existing) {
+            console.log(`[auth] Duplicate member detected for ${user.email} — skipping creation.`);
+            return;
+          }
+        },
+      },
+    },
+  },
 });
