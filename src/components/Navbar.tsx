@@ -1,22 +1,21 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { LuChartNoAxesCombined, LuInfo } from "react-icons/lu";
-import { RiContactsLine } from "react-icons/ri";
-import { TiDocumentText, TiHome } from "react-icons/ti";
-import { PiCalendarStarFill, PiQuestion } from "react-icons/pi";
-import Button from "./Button";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import MemberSignupButton from "./MemberSignupButton";
 import StockTicker from "./StockTicker";
+import { GoArrowUpRight, GoArrowLeft } from "react-icons/go";
+import Button from "./Button";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const [showAboutSubpage, setShowAboutSubpage] = useState(false);
+  const [showCommitteeSubpage, setShowCommitteeSubpage] = useState(false);
 
   const handleLinkClick = () => {
     setIsOpen(false);
+    setShowCommitteeSubpage(false);
+    setShowAboutSubpage(false);
   };
 
   const [beyondHero, setBeyondHero] = useState(false);
@@ -39,35 +38,31 @@ const Navbar = () => {
     <nav className="w-full">
       {/* Top Bar */}
       <div
-        className={`topbar flex items-center justify-between ${beyondHero ? "bg-white" : "bg-transparent"} px-6 py-0 text-[#172741] lg:p-0 lg:px-6`}
+        className={`topbar flex items-center justify-between ${beyondHero ? "bg-white" : "bg-transparent"} px-6 py-2 text-[#172741] lg:p-0 lg:px-6`}
       >
         {/* Logo */}
         <Link href="/">
           <div
-            className={`m-0 h-[86px] w-[140px] bg-[#00529B] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat lg:ml-10 lg:h-[100px] lg:w-[140px] ${beyondHero ? "" : "brightness-0 invert"}`}
+            className={`sticky z-50 m-0 h-[86px] w-[140px] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat transition-colors duration-300 ease-in-out lg:ml-10 lg:h-[100px] lg:w-[140px] ${isOpen ? "bg-[#145BA7]" : beyondHero ? "bg-white" : "bg-white brightness-0 invert"}`}
           />
         </Link>
 
-        {/* Hamburger Menu */}
+        {/* Hamburger to X icon */}
         <button
-          className={`z-50 cursor-pointer rounded-4xl transition-transform duration-300 lg:hidden ${
-            isOpen ? "invisible" : "visible"
-          } `}
+          className={`fixed top-6 right-2 z-50 cursor-pointer rounded-full bg-transparent p-3 transition-all lg:hidden ${showCommitteeSubpage ? "pointer-events-none opacity-0" : "pointer-events-auto opacity-100"}`}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <svg
-            className="h-10 w-10"
-            fill="none"
-            stroke={`${beyondHero ? "#00529B" : "white"}`}
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
+          <div className="z-50 flex h-10 w-10 flex-col items-center justify-center gap-2">
+            <span
+              className={`block h-[0.1875rem] w-8 rounded-full transition-all duration-300 ${isOpen ? "translate-y-[10px] -rotate-45 bg-[#145CA9]" : "bg-white"} ease-[cubic-bezier(0.34,1.56,0.64,1)]`}
             />
-          </svg>
+            <span
+              className={`block h-[0.1875rem] w-8 rounded-full transition-all duration-300 ${isOpen ? "scale-x-0 opacity-0" : "bg-white"} ease-[cubic-bezier(0.23,1,0.32,1)]`}
+            />
+            <span
+              className={`block h-[0.1875rem] w-8 rounded-full transition-all duration-300 ${isOpen ? "-translate-y-[12px] rotate-45 bg-[#145CA9]" : "bg-white"} ease-[cubic-bezier(0.34,1.56,0.64,1)]`}
+            />
+          </div>
         </button>
 
         {/* Desktop Nav */}
@@ -150,135 +145,132 @@ const Navbar = () => {
       {/* Stock Ticker - Desktop */}
       <StockTicker className="hidden lg:block" isTransparent={!beyondHero} />
       {/* Mobile Menu */}
-      <ul
-        className={`text-darkBlue fixed top-[10%] bottom-[10%] left-0 z-40 flex w-[90vw] max-w-[350px] transform flex-col overflow-y-auto rounded-3xl bg-white text-lg shadow-xl/20 transition-transform duration-300 ease-in-out sm:bottom-[16%] lg:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"} `}
+      <div
+        className={`fixed top-0 z-30 w-full overflow-hidden transition-all transition-discrete duration-600 ease-in-out lg:hidden ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}
       >
-        <div className="flex items-center justify-between px-6 py-6">
-          <Image src="/assets/logos/uaic.webp" alt="Logo" width={150} height={150} />
-          <button
-            className="cursor-pointer rounded-full bg-white p-3"
-            onClick={() => setIsOpen(false)}
-          >
-            <svg className="h-8 w-8" fill="none" stroke="#145CA9" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
-
-        <hr className="border-darkBlue-300 w-9/10 self-center border-t" />
-
-        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
-          <TiHome size={24} />{" "}
-          <Link href="/" onClick={handleLinkClick}>
-            Home
-          </Link>
-        </li>
-        <li
-          className="hover:bg-whiteHover flex cursor-pointer items-center justify-between rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl"
-          onClick={() => {
-            setShowAboutSubpage(true);
-            handleLinkClick();
-          }}
-        >
-          <div className="flex items-center gap-5">
-            <LuInfo size={24} /> <span>About</span>
+        <ul className="flex w-full flex-col rounded-b-3xl bg-white pb-5 text-[#005EAF] shadow-xl/20">
+          <div className="flex items-center justify-between pr-2 pb-7 pl-6">
+            <div
+              className={`bg-[#00529B] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat transition-opacity duration-600 ease-in-out lg:ml-10 lg:h-[100px] lg:w-[140px]`}
+            ></div>
+            <div className="h-15"></div>
           </div>
-          <IoIosArrowForward size={20} />
-        </li>
-        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
-          <PiCalendarStarFill size={24} />{" "}
-          <Link href="/events" onClick={handleLinkClick}>
-            Events
-          </Link>
-        </li>
-        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
-          <LuChartNoAxesCombined size={24} />{" "}
-          <Link href="/investmentportfolio" onClick={handleLinkClick}>
-            Investments
-          </Link>
-        </li>
-        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
-          <TiDocumentText size={24} />{" "}
-          <Link href="/bulletin" onClick={handleLinkClick}>
-            Bulletin
-          </Link>
-        </li>
-        <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pb-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
-          <RiContactsLine size={24} />{" "}
-          <Link href="/contact" onClick={handleLinkClick}>
-            Contact
-          </Link>
-        </li>
 
-        <hr className="border-darkBlue-300 w-9/10 self-center border-t py-3" />
+          <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b pt-3 pb-1 text-3xl font-normal sm:p-8 sm:pl-16">
+            <Link href="/" className="block w-full" onClick={handleLinkClick}>
+              Home
+            </Link>
+          </li>
+          <li
+            className={`hover:bg-whiteHover mx-auto flex w-14/16 cursor-pointer items-center justify-between text-xl font-normal transition-all ${isOpen ? "opacity-100" : "opacity-0"} `}
+            onClick={() => {
+              setShowAboutSubpage(!showAboutSubpage);
+            }}
+          >
+            <div className="flex w-[100vw] cursor-pointer justify-between pt-3 pb-1 text-3xl font-normal">
+              <span>About</span>
+              <GoArrowUpRight
+                size={40}
+                className={`right-1 transition-transform duration-200 ${showAboutSubpage ? "rotate-45" : ""}`}
+              />
+            </div>
+          </li>
+          {/* Sub-menu Items */}
+          <li
+            className={`block overflow-hidden bg-white transition-all duration-500 ease-in-out lg:hidden ${showAboutSubpage ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}
+          >
+            <ul className="font-light text-black">
+              <li className="hover:bg-whiteHover flex cursor-pointer pb-2 pl-6 text-xl sm:p-8 sm:pl-16">
+                <Link
+                  href=""
+                  className="block w-full"
+                  onClick={() => {
+                    setShowAboutSubpage(!showAboutSubpage);
+                    setShowCommitteeSubpage(!showCommitteeSubpage);
+                  }}
+                >
+                  The Committees
+                </Link>
+              </li>
+              <li className="hover:bg-whiteHover flex cursor-pointer pb-2 pl-6 text-xl sm:p-8 sm:pl-16">
+                <Link href="/FAQ" className="block w-full" onClick={handleLinkClick}>
+                  FAQ
+                </Link>
+              </li>
+            </ul>
+          </li>
+          {/* End of Sub-menu Items */}
+          <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-t border-b pt-3 pb-1 text-3xl font-normal sm:p-8 sm:pl-16">
+            <Link href="/events" className="block w-full" onClick={handleLinkClick}>
+              Events
+            </Link>
+          </li>
+          <li className="group hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b pt-3 pb-1 text-3xl font-normal sm:p-8 sm:pl-16">
+            <Link href="/bulletin" className="block w-full" onClick={handleLinkClick}>
+              Bulletin
+            </Link>
+          </li>
+          <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b pt-3 pb-1 text-3xl font-normal sm:p-8 sm:pl-16">
+            <Link href="/investmentportfolio" className="block w-full" onClick={handleLinkClick}>
+              Investments
+            </Link>
+          </li>
+          <li className="mx-auto my-auto flex justify-center p-5 pt-8 text-lg font-[600] sm:text-xl lg:mr-[30px]">
+            <div className="text-3xl [&_a]:px-26 [&_a]:py-4">
+              <MemberSignupButton />
+            </div>
+          </li>
+        </ul>
 
-        <li className="ml-auto text-lg font-[600] sm:text-xl lg:mr-[30px]">
-          <Button link="/joinus" className="p-[10px] px-[40px] sm:p-[12px] sm:px-[48px]">
-            Join Us
-          </Button>
-        </li>
-      </ul>
-
+        {/* Committee Menu */}
+        <ul
+          className={`pb-4vw fixed top-0 z-40 flex w-[100vw] max-w-full transform flex-col overflow-y-hidden rounded-b-3xl bg-white text-lg text-[#005EAF] transition-all duration-500 ease-in-out sm:bottom-[16%] lg:hidden ${showCommitteeSubpage ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
+        >
+          <div className="flex items-center justify-between p-4 px-6 pt-8">
+            <div
+              className={`bg-[#00529B] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat transition-opacity duration-600 ease-in-out lg:ml-10 lg:h-[100px] lg:w-[140px]`}
+            ></div>
+            <GoArrowLeft
+              size={40}
+              onClick={() => {
+                setShowCommitteeSubpage(!showCommitteeSubpage);
+                setShowAboutSubpage(true);
+              }}
+            ></GoArrowLeft>
+          </div>
+          <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b py-3 text-3xl font-normal sm:p-8 sm:pl-16">
+            <Link
+              href="/about#ExecutiveCommittee"
+              className="block w-full"
+              onClick={handleLinkClick}
+            >
+              Exec Commitee
+            </Link>
+          </li>
+          <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b py-3 text-3xl font-normal sm:p-8 sm:pl-16">
+            <Link href="/about#BulletinComittee" className="block w-full" onClick={handleLinkClick}>
+              Bulletin Comittee
+            </Link>
+          </li>
+          <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b py-3 text-3xl font-normal sm:p-8 sm:pl-16">
+            <Link
+              href="/about#InvestmentComittee"
+              className="block w-full"
+              onClick={handleLinkClick}
+            >
+              Investment Comittee
+            </Link>
+          </li>
+          <li className="mx-auto my-auto flex justify-center p-5 pt-35 text-lg font-[600] sm:text-xl lg:mr-[30px]">
+            <div className="text-3xl [&_a]:px-26 [&_a]:py-4">
+              <MemberSignupButton />
+            </div>
+          </li>
+        </ul>
+        <StockTicker className="m-0 block w-full" isTransparent={true} />
+      </div>
       {/* Stock Ticker - Mobile */}
       <StockTicker className="shadow-xl/10 lg:hidden" isTransparent={!beyondHero} />
-
-      {/* About Sub-page */}
-      <div
-        className={`text-darkBlue fixed top-[10%] bottom-[10%] left-0 z-50 flex w-[90vw] max-w-[350px] transform flex-col overflow-y-auto rounded-3xl bg-white pb-9 shadow-xl/20 transition-transform duration-300 ease-in-out sm:bottom-[16%] lg:hidden ${showAboutSubpage ? "translate-x-0" : "-translate-x-full"} `}
-      >
-        {/* Header with Back Button */}
-        <div className="flex items-center border-b border-gray-200 px-6 py-6">
-          <button
-            onClick={() => setShowAboutSubpage(false)}
-            className="text-darkBlue flex items-center gap-2 hover:text-blue-700"
-          >
-            <IoIosArrowBack size={20} />
-            <span className="text-[22px] font-semibold">Back</span>
-          </button>
-        </div>
-
-        <hr className="border-darkBlue-300 w-9/10 self-center border-t" />
-
-        {/* Sub-menu Items */}
-        <div className="flex-1">
-          <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
-            <LuInfo size={24} />
-            <Link
-              href="/about"
-              onClick={() => {
-                setShowAboutSubpage(false);
-                setIsOpen(false);
-              }}
-            >
-              The Committees
-            </Link>
-          </li>
-
-          <li className="hover:bg-whiteHover flex cursor-pointer items-center gap-5 rounded-full border-b border-white p-6 pb-6 pl-14 text-lg hover:font-semibold sm:p-8 sm:pl-16 sm:text-xl">
-            <PiQuestion size={30} />
-            <Link
-              href="/FAQ"
-              onClick={() => {
-                setShowAboutSubpage(false);
-                setIsOpen(false);
-              }}
-            >
-              FAQ
-            </Link>
-          </li>
-        </div>
-
-        <hr className="border-darkBlue-300 w-9/10 self-center border-t py-3" />
-
-        <div className="border-darkBlue bg-darkBlue hover:text-darkBlue mr-[30px] ml-auto rounded-4xl border border-solid p-[10px] px-[30px] text-lg font-[600] text-white hover:bg-white sm:p-[16px] sm:px-[32px] sm:text-xl">
-          <Link href="/payment">Membership Payment</Link>
-        </div>
-      </div>
     </nav>
   );
 };
