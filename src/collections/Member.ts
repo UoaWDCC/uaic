@@ -1,10 +1,21 @@
 import type { CollectionConfig } from "payload";
+import { exportMembersHandler } from "./Member/exportHandler";
 
 export const Member: CollectionConfig = {
   slug: "member",
   admin: {
     useAsTitle: "email",
+    components: {
+      beforeListTable: ["/src/components/admin/MemberExportButton#MemberExportButton"],
+    },
   },
+  endpoints: [
+    {
+      path: "/export",
+      method: "get",
+      handler: exportMembersHandler,
+    },
+  ],
   fields: [
     {
       name: "firstName",
