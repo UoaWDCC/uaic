@@ -1,13 +1,9 @@
 import type { CollectionConfig } from "payload";
-import { ExportMembersButton } from "../components/admin/ExportMembersButton";
 
 export const Member: CollectionConfig = {
   slug: "member",
   admin: {
     useAsTitle: "email",
-    components: {
-      beforeListTable: [ExportMembersButton],
-    },
   },
   fields: [
     {
