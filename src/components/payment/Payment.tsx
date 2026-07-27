@@ -21,7 +21,21 @@ export default function Payment() {
   const amount = 21.58;
 
   const [currentStep, setCurrentStep] = useState(0);
-  const [radioValue, setRadio] = useState("Google search");
+  const [dropdown1, setDrop1] = useState(false);
+  const [dropdown2, setDrop2] = useState(false);
+  const [dropdown3, setDrop3] = useState(false);
+  const [dropdown4, setDrop4] = useState(false);
+  const [checkButton1, setCheck1] = useState(false);
+  const [checkButton2, setCheck2] = useState(false);
+  const [checkButton3, setCheck3] = useState(false);
+  const [checkButton4, setCheck4] = useState(false);
+  const [checkButton5, setCheck5] = useState(false);
+
+  const [selected1, setSelected1] = useState("Choice:");
+  const [selected2, setSelected2] = useState("Choice:");
+  const [selected3, setSelected3] = useState("Choice:");
+  const [selected4, setSelected4] = useState("Choice:");
+  const options = ["Email", "Website", "Poster"];
 
   return (
     /* Parent layout container: centering elements horizontally and vertically using flex */
@@ -143,7 +157,7 @@ export default function Payment() {
               <div className="flex gap-3 pt-2">
                 <button
                   type="button"
-                  className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-white transition hover:bg-gray-300"
+                  className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-[#145ca9] transition hover:bg-gray-300"
                 >
                   Back
                 </button>
@@ -175,57 +189,129 @@ export default function Payment() {
               </div>
 
               <div className="relative w-full">
-                <input
-                  type="text"
+                <button
                   id="last_name"
-                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="Choice"
-                  required
-                />
+                  className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
+                  onClick={() => setDrop1(!dropdown1)}
+                >
+                  {selected1}
+                  <GoArrowUpRight
+                    className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown1 ? "rotate-45" : "rotate-0"}`}
+                  />
+                </button>
 
-                <GoArrowUpRight className="absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700" />
+                {dropdown1 && (
+                  <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
+                    {options.map((option) => (
+                      <div
+                        key={option}
+                        onClick={() => {
+                          setSelected1(option);
+                          setDrop1(false);
+                        }}
+                        className="p-2 text-sm hover:bg-blue-100"
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="relative w-full">
-                <input
-                  type="text"
+                <button
                   id="last_name"
-                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="Choice"
-                  required
-                />
+                  className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
+                  onClick={() => setDrop2(!dropdown2)}
+                >
+                  {selected2}
+                  <GoArrowUpRight
+                    className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown2 ? "rotate-45" : "rotate-0"}`}
+                  />
+                </button>
 
-                <GoArrowUpRight className="absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700" />
+                {dropdown2 && (
+                  <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
+                    {options.map((option) => (
+                      <div
+                        key={option}
+                        onClick={() => {
+                          setSelected2(option);
+                          setDrop2(false);
+                        }}
+                        className="p-2 text-sm hover:bg-blue-100"
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="relative w-full">
-                <input
-                  type="text"
+                <button
                   id="last_name"
-                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="Choice"
-                  required
-                />
+                  className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
+                  onClick={() => setDrop3(!dropdown3)}
+                >
+                  {selected3}
+                  <GoArrowUpRight
+                    className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown3 ? "rotate-45" : "rotate-0"}`}
+                  />
+                </button>
 
-                <GoArrowUpRight className="absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700" />
+                {dropdown3 && (
+                  <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
+                    {options.map((option) => (
+                      <div
+                        key={option}
+                        onClick={() => {
+                          setSelected3(option);
+                          setDrop3(false);
+                        }}
+                        className="p-2 text-sm hover:bg-blue-100"
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="relative w-full">
-                <input
-                  type="text"
+                <button
                   id="last_name"
-                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="Choice"
-                  required
-                />
+                  className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
+                  onClick={() => setDrop4(!dropdown4)}
+                >
+                  {selected4}
+                  <GoArrowUpRight
+                    className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown4 ? "rotate-45" : "rotate-0"}`}
+                  />
+                </button>
 
-                <GoArrowUpRight className="absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700" />
+                {dropdown4 && (
+                  <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
+                    {options.map((option) => (
+                      <div
+                        key={option}
+                        onClick={() => {
+                          setSelected4(option);
+                          setDrop4(false);
+                        }}
+                        className="p-2 text-sm hover:bg-blue-100"
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="flex gap-3 pt-2">
                 <button
                   type="button"
-                  className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-white transition hover:bg-gray-300"
+                  className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-[#145ca9] transition hover:bg-gray-300"
                   onClick={() => setCurrentStep(0)}
                 >
                   Back
@@ -250,90 +336,125 @@ export default function Payment() {
                 <legend className="sr-only">Countries</legend>
 
                 <div className="mb-4 flex items-center">
-                  <input
-                    id="country-option-1"
-                    type="radio"
-                    name="default-radio"
-                    value="Google search"
-                    className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all checked:border-[5px] checked:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
-                    checked={radioValue === "Google search"}
-                    onChange={(e) => setRadio(e.target.value)}
-                  />
+                  <div className="relative h-4 w-4">
+                    <input
+                      id="country-option-1"
+                      type="checkbox"
+                      name="default-radio"
+                      value="Google search"
+                      checked={checkButton1}
+                      onClick={() => setCheck1(!checkButton1)}
+                      className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    />
+
+                    <IoIosCheckmarkCircle
+                      className={`pointer-events-none absolute top-0 -left-0.5 size-5 text-blue-500 transition duration-100 ${checkButton1 ? "opacity-100" : "opacity-0"}`}
+                    />
+                  </div>
+
                   <label
                     htmlFor="country-option-1"
-                    className="text-heading ms-2 text-sm font-medium select-none"
+                    className="ms-2 text-sm font-medium select-none"
                   >
                     Google search
                   </label>
                 </div>
 
                 <div className="mb-4 flex items-center">
-                  <input
-                    id="country-option-2"
-                    type="radio"
-                    name="countries"
-                    value="Social media"
-                    className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all checked:border-[5px] checked:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
-                    checked={radioValue === "Social media"}
-                    onChange={(e) => setRadio(e.target.value)}
-                  />
+                  <div className="relative h-4 w-4">
+                    <input
+                      id="country-option-1"
+                      type="checkbox"
+                      name="default-radio"
+                      value="Google search"
+                      checked={checkButton2}
+                      onClick={() => setCheck2(!checkButton2)}
+                      className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    />
+
+                    <IoIosCheckmarkCircle
+                      className={`pointer-events-none absolute top-0 -left-0.5 size-5 text-blue-500 transition duration-100 ${checkButton2 ? "opacity-100" : "opacity-0"}`}
+                    />
+                  </div>
+
                   <label
-                    htmlFor="country-option-2"
-                    className="text-heading ms-2 text-sm font-medium select-none"
+                    htmlFor="country-option-1"
+                    className="ms-2 text-sm font-medium select-none"
                   >
                     Social media
                   </label>
                 </div>
 
                 <div className="mb-4 flex items-center">
-                  <input
-                    id="country-option-3"
-                    type="radio"
-                    name="countries"
-                    value="Email newsletters"
-                    className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all checked:border-[5px] checked:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
-                    checked={radioValue === "Email newsletters"}
-                    onChange={(e) => setRadio(e.target.value)}
-                  />
+                  <div className="relative h-4 w-4">
+                    <input
+                      id="country-option-1"
+                      type="checkbox"
+                      name="default-radio"
+                      value="Google search"
+                      checked={checkButton3}
+                      onClick={() => setCheck3(!checkButton3)}
+                      className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    />
+
+                    <IoIosCheckmarkCircle
+                      className={`pointer-events-none absolute top-0 -left-0.5 size-5 text-blue-500 transition duration-100 ${checkButton3 ? "opacity-100" : "opacity-0"}`}
+                    />
+                  </div>
+
                   <label
-                    htmlFor="country-option-3"
-                    className="text-heading ms-2 text-sm font-medium select-none"
+                    htmlFor="country-option-1"
+                    className="ms-2 text-sm font-medium select-none"
                   >
-                    Email newsletters
+                    Email newslettters
                   </label>
                 </div>
 
                 <div className="mb-4 flex items-center">
-                  <input
-                    id="country-option-4"
-                    type="radio"
-                    name="countries"
-                    value="Word of mouth"
-                    className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all checked:border-[5px] checked:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
-                    checked={radioValue === "Word of mouth"}
-                    onChange={(e) => setRadio(e.target.value)}
-                  />
+                  <div className="relative h-4 w-4">
+                    <input
+                      id="country-option-1"
+                      type="checkbox"
+                      name="default-radio"
+                      value="Google search"
+                      checked={checkButton4}
+                      onClick={() => setCheck4(!checkButton4)}
+                      className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    />
+
+                    <IoIosCheckmarkCircle
+                      className={`pointer-events-none absolute top-0 -left-0.5 size-5 text-blue-500 transition duration-100 ${checkButton4 ? "opacity-100" : "opacity-0"}`}
+                    />
+                  </div>
+
                   <label
-                    htmlFor="country-option-4"
-                    className="text-heading ms-2 text-sm font-medium select-none"
+                    htmlFor="country-option-1"
+                    className="ms-2 text-sm font-medium select-none"
                   >
                     Word of mouth
                   </label>
                 </div>
 
-                <div className="flex items-center">
-                  <input
-                    id="option-disabled"
-                    type="radio"
-                    name="countries"
-                    value="Other"
-                    className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all checked:border-[5px] checked:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
-                    checked={radioValue === "Other"}
-                    onChange={(e) => setRadio(e.target.value)}
-                  />
+                <div className="mb-4 flex items-center">
+                  <div className="relative h-4 w-4">
+                    <input
+                      id="country-option-1"
+                      type="checkbox"
+                      name="default-radio"
+                      value="Google search"
+                      checked={checkButton5}
+                      onClick={() => setCheck5(!checkButton5)}
+                      className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    />
+
+                    <IoIosCheckmarkCircle
+                      className={`pointer-events-none absolute top-0 -left-0.5 size-5 text-blue-500 transition duration-100 ${checkButton5 ? "opacity-100" : "opacity-0"}`}
+                    />
+                  </div>
+
                   <label
-                    htmlFor="option-disabled"
-                    className="text-fg-disabled ms-2 block text-sm font-medium select-none"
+                    htmlFor="country-option-1"
+                    className="ms-2 text-sm font-medium select-none"
                   >
                     Other (Please specify)
                   </label>
@@ -342,7 +463,7 @@ export default function Payment() {
 
               <div className="flex gap-3 pt-10">
                 <button
-                  className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-white transition hover:bg-gray-300"
+                  className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-[#145ca9] transition hover:bg-gray-300"
                   onClick={() => setCurrentStep(1)}
                 >
                   Back

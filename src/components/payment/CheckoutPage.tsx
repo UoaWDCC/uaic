@@ -29,6 +29,14 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
     event.preventDefault();
     setIsLoading(true);
 
+    // DEV ONLY: bypass Stripe
+    const skipPayment = true;
+
+    if (skipPayment) {
+      window.location.href = window.location.origin + `/payment-success?amount=${amount}`;
+      return;
+    }
+
     if (!stripe || !elements) return;
 
     const cardElement = elements.getElement(CardElement);
