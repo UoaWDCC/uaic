@@ -12,18 +12,34 @@ const resend = new Resend(resendApiKey);
 
 const defaultFromAddress = "onboarding@resend.dev";
 
+interface SendEmailAttachment {
+  filename: string;
+  content: string;
+}
+
 interface SendEmailParams {
   recipient: string;
   message: string;
+  subject?: string;
+  html?: string;
+  attachments?: SendEmailAttachment[];
 }
 
-export async function sendEmail({ recipient = emailRecipient!, message }: SendEmailParams) {
-  console.log(`Sender: ${defaultFromAddress}, Recipient: ${emailRecipient}`);
+export async function sendEmail({
+  recipient = emailRecipient!,
+  message,
+  subject = "UAIC message",
+  html,
+  attachments,
+}: SendEmailParams) {
+  console.log(`Sender: ${defaultFromAddress}, Recipient: ${recipient}`);
   const { data, error } = await resend.emails.send({
     from: defaultFromAddress,
     to: recipient,
-    subject: "UAIC message",
+    subject,
     text: message,
+    html,
+    attachments,
   });
 
   if (error) {
