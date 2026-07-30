@@ -343,7 +343,7 @@ export default function Payment() {
                       name="default-radio"
                       value="Google search"
                       checked={checkButton1}
-                      onClick={() => setCheck1(!checkButton1)}
+                      onChange={() => setCheck1(!checkButton1)}
                       className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
                     />
 
@@ -363,12 +363,12 @@ export default function Payment() {
                 <div className="mb-4 flex items-center">
                   <div className="relative h-4 w-4">
                     <input
-                      id="country-option-1"
+                      id="country-option-2"
                       type="checkbox"
                       name="default-radio"
                       value="Google search"
                       checked={checkButton2}
-                      onClick={() => setCheck2(!checkButton2)}
+                      onChange={() => setCheck2(!checkButton2)}
                       className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
                     />
 
@@ -378,7 +378,7 @@ export default function Payment() {
                   </div>
 
                   <label
-                    htmlFor="country-option-1"
+                    htmlFor="country-option-2"
                     className="ms-2 text-sm font-medium select-none"
                   >
                     Social media
@@ -388,12 +388,12 @@ export default function Payment() {
                 <div className="mb-4 flex items-center">
                   <div className="relative h-4 w-4">
                     <input
-                      id="country-option-1"
+                      id="country-option-3"
                       type="checkbox"
                       name="default-radio"
                       value="Google search"
                       checked={checkButton3}
-                      onClick={() => setCheck3(!checkButton3)}
+                      onChange={() => setCheck3(!checkButton3)}
                       className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
                     />
 
@@ -403,7 +403,7 @@ export default function Payment() {
                   </div>
 
                   <label
-                    htmlFor="country-option-1"
+                    htmlFor="country-option-3"
                     className="ms-2 text-sm font-medium select-none"
                   >
                     Email newslettters
@@ -413,12 +413,12 @@ export default function Payment() {
                 <div className="mb-4 flex items-center">
                   <div className="relative h-4 w-4">
                     <input
-                      id="country-option-1"
+                      id="country-option-4"
                       type="checkbox"
                       name="default-radio"
                       value="Google search"
                       checked={checkButton4}
-                      onClick={() => setCheck4(!checkButton4)}
+                      onChange={() => setCheck4(!checkButton4)}
                       className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
                     />
 
@@ -428,7 +428,7 @@ export default function Payment() {
                   </div>
 
                   <label
-                    htmlFor="country-option-1"
+                    htmlFor="country-option-4"
                     className="ms-2 text-sm font-medium select-none"
                   >
                     Word of mouth
@@ -438,12 +438,12 @@ export default function Payment() {
                 <div className="mb-4 flex items-center">
                   <div className="relative h-4 w-4">
                     <input
-                      id="country-option-1"
+                      id="country-option-5"
                       type="checkbox"
                       name="default-radio"
                       value="Google search"
                       checked={checkButton5}
-                      onClick={() => setCheck5(!checkButton5)}
+                      onChange={() => setCheck5(!checkButton5)}
                       className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
                     />
 
@@ -453,7 +453,7 @@ export default function Payment() {
                   </div>
 
                   <label
-                    htmlFor="country-option-1"
+                    htmlFor="country-option-5"
                     className="ms-2 text-sm font-medium select-none"
                   >
                     Other (Please specify)
