@@ -6,7 +6,11 @@ import StockTicker from "./StockTicker";
 import { GoArrowUpRight, GoArrowLeft } from "react-icons/go";
 import Button from "./Button";
 
-const Navbar = () => {
+interface NavbarProps {
+  theme?: "auto" | "blue";
+}
+
+const Navbar = ({ theme = "auto" }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const [showAboutSubpage, setShowAboutSubpage] = useState(false);
@@ -21,6 +25,8 @@ const Navbar = () => {
   const [beyondHero, setBeyondHero] = useState(false);
 
   useEffect(() => {
+    if (theme === "blue") return;
+
     const scrollHero = () => {
       const hero = document.getElementById("hero");
       if (!hero) return;
@@ -32,18 +38,20 @@ const Navbar = () => {
     return () => {
       window.removeEventListener("scroll", scrollHero);
     };
-  }, []);
+  }, [theme]);
+
+  const hasBlueTheme = theme === "blue" || beyondHero;
 
   return (
     <nav className="w-full">
       {/* Top Bar */}
       <div
-        className={`topbar flex items-center justify-between ${beyondHero ? "bg-white" : "bg-transparent"} px-6 py-2 text-[#172741] lg:p-0 lg:px-6`}
+        className={`topbar flex items-center justify-between ${hasBlueTheme ? "bg-white" : "bg-transparent"} px-6 py-2 text-[#172741] lg:p-0 lg:px-6`}
       >
         {/* Logo */}
         <Link href="/">
           <div
-            className={`sticky z-50 m-0 h-[86px] w-[140px] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat transition-colors duration-300 ease-in-out lg:ml-10 lg:h-[100px] lg:w-[140px] ${isOpen ? "bg-[#145BA7]" : beyondHero ? "bg-white" : "bg-white brightness-0 invert"}`}
+            className={`sticky z-50 m-0 h-[86px] w-[140px] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat transition-colors duration-300 ease-in-out lg:ml-10 lg:h-[100px] lg:w-[140px] ${isOpen || hasBlueTheme ? "bg-[#145BA7]" : "bg-white brightness-0 invert"}`}
           />
         </Link>
 
@@ -54,13 +62,13 @@ const Navbar = () => {
         >
           <div className="z-50 flex h-10 w-10 flex-col items-center justify-center gap-2">
             <span
-              className={`block h-[0.1875rem] w-8 rounded-full transition-all duration-300 ${isOpen ? "translate-y-[10px] -rotate-45 bg-[#145CA9]" : "bg-white"} ease-[cubic-bezier(0.34,1.56,0.64,1)]`}
+              className={`block h-[0.1875rem] w-8 rounded-full transition-all duration-300 ${isOpen ? "translate-y-[10px] -rotate-45 bg-[#145CA9]" : hasBlueTheme ? "bg-[#145CA9]" : "bg-white"} ease-[cubic-bezier(0.34,1.56,0.64,1)]`}
             />
             <span
-              className={`block h-[0.1875rem] w-8 rounded-full transition-all duration-300 ${isOpen ? "scale-x-0 opacity-0" : "bg-white"} ease-[cubic-bezier(0.23,1,0.32,1)]`}
+              className={`block h-[0.1875rem] w-8 rounded-full transition-all duration-300 ${isOpen ? "scale-x-0 opacity-0" : hasBlueTheme ? "bg-[#145CA9]" : "bg-white"} ease-[cubic-bezier(0.23,1,0.32,1)]`}
             />
             <span
-              className={`block h-[0.1875rem] w-8 rounded-full transition-all duration-300 ${isOpen ? "-translate-y-[12px] rotate-45 bg-[#145CA9]" : "bg-white"} ease-[cubic-bezier(0.34,1.56,0.64,1)]`}
+              className={`block h-[0.1875rem] w-8 rounded-full transition-all duration-300 ${isOpen ? "-translate-y-[12px] rotate-45 bg-[#145CA9]" : hasBlueTheme ? "bg-[#145CA9]" : "bg-white"} ease-[cubic-bezier(0.34,1.56,0.64,1)]`}
             />
           </div>
         </button>
@@ -70,7 +78,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/"
-              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
             >
               Home
             </Link>
@@ -82,7 +90,7 @@ const Navbar = () => {
           >
             <Link
               href="/about"
-              className={`cursor-pointer p-[4px] font-[300] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] font-[300] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
             >
               About
             </Link>
@@ -112,7 +120,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/events"
-              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
             >
               Events
             </Link>
@@ -120,7 +128,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/bulletin"
-              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
             >
               Bulletin
             </Link>
@@ -128,7 +136,7 @@ const Navbar = () => {
           <li>
             <Link
               href="/investmentportfolio"
-              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${beyondHero ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
             >
               Investments
             </Link>
@@ -143,7 +151,7 @@ const Navbar = () => {
       </div>
 
       {/* Stock Ticker - Desktop */}
-      <StockTicker className="hidden lg:block" isTransparent={!beyondHero} />
+      <StockTicker className="hidden lg:block" isTransparent={!hasBlueTheme} />
       {/* Mobile Menu */}
       <div
         className={`fixed top-0 z-30 w-full overflow-hidden transition-all transition-discrete duration-600 ease-in-out lg:hidden ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}
@@ -270,7 +278,7 @@ const Navbar = () => {
         <StockTicker className="m-0 block w-full" isTransparent={true} />
       </div>
       {/* Stock Ticker - Mobile */}
-      <StockTicker className="shadow-xl/10 lg:hidden" isTransparent={!beyondHero} />
+      <StockTicker className="shadow-xl/10 lg:hidden" isTransparent={!hasBlueTheme} />
     </nav>
   );
 };
