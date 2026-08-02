@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import MemberSignupButton from "./MemberSignupButton";
+import ArrowButton from "./ArrowButton";
 import StockTicker from "./StockTicker";
 import { GoArrowUpRight, GoArrowLeft } from "react-icons/go";
 import Button from "./Button";
@@ -225,7 +225,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           </li>
           <li className="mx-auto my-auto flex justify-center p-5 pt-8 text-lg font-[600] sm:text-xl lg:mr-[30px]">
             <div className="text-3xl [&_a]:px-26 [&_a]:py-4">
-              <MemberSignupButton />
+              <ArrowButton variant="member" />
             </div>
           </li>
         </ul>
@@ -271,7 +271,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           </li>
           <li className="mx-auto my-auto flex justify-center p-5 pt-35 text-lg font-[600] sm:text-xl lg:mr-[30px]">
             <div className="text-3xl [&_a]:px-26 [&_a]:py-4">
-              <MemberSignupButton />
+              <ArrowButton variant="member" />
             </div>
           </li>
         </ul>

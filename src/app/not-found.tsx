@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import MemberSignupButton from "@/components/MemberSignupButton";
+import ArrowButton from "@/components/ArrowButton";
 import "./globals.css";
 
 export default function GlobalNotFound() {
@@ -29,7 +29,7 @@ export default function GlobalNotFound() {
                 </p>
               </div>
 
-              <MemberSignupButton />
+              <ArrowButton variant="home" />
             </div>
 
             <div className="order-first flex w-full max-w-[470px] flex-col items-center justify-center gap-[26px] lg:order-last lg:min-h-[282px]">
