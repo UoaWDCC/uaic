@@ -16,6 +16,7 @@
     "@aws-sdk/client-s3": "^3.782.0",
     "@payloadcms/db-mongodb": "^3.33.0",
     "@payloadcms/next": "^3.33.0",
+    "@payloadcms/plugin-import-export": "3.33.0",
     "@payloadcms/richtext-lexical": "^3.33.0",
     "@payloadcms/storage-s3": "^3.33.0",
     "@payloadcms/ui": "3.33.0",
