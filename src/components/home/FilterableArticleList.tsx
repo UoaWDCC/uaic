@@ -11,6 +11,8 @@ type FilterableArticleListProps = {
 
 type SortOrder = "Latest" | "Oldest";
 
+const ALL_YEARS = "All years";
+
 const getBulletinYear = (publishDate: string) => {
   return new Date(publishDate).getUTCFullYear();
 };
@@ -34,12 +36,16 @@ const FilterableArticleList = ({ bulletins }: FilterableArticleListProps) => {
     [bulletins],
   );
 
-  const [selectedYear, setSelectedYear] = useState(years[0]?.toString() ?? "");
+  const [selectedYear, setSelectedYear] = useState(ALL_YEARS);
   const [sortOrder, setSortOrder] = useState<SortOrder>("Latest");
 
   const visibleBulletins = useMemo(() => {
     return bulletins
-      .filter((bulletin) => getBulletinYear(bulletin.publishDate).toString() === selectedYear)
+      .filter(
+        (bulletin) =>
+          selectedYear === ALL_YEARS ||
+          getBulletinYear(bulletin.publishDate).toString() === selectedYear,
+      )
       .sort((firstBulletin, secondBulletin) => {
         const firstDate = new Date(firstBulletin.publishDate).getTime();
         const secondDate = new Date(secondBulletin.publishDate).getTime();
@@ -56,7 +62,7 @@ const FilterableArticleList = ({ bulletins }: FilterableArticleListProps) => {
     <>
       <div className="relative z-10 grid h-[25px] w-[308px] grid-cols-2 gap-[27px] lg:w-[514px]">
         <Dropdown
-          options={years.map(String)}
+          options={[ALL_YEARS, ...years.map(String)]}
           value={selectedYear}
           onChange={setSelectedYear}
           ariaLabel="Filter articles by year"
@@ -84,7 +90,7 @@ const FilterableArticleList = ({ bulletins }: FilterableArticleListProps) => {
           ))
         ) : (
           <p className="text-darkBlue py-8 text-center">
-            No articles were published in {selectedYear}.
+            No articles were published{selectedYear === ALL_YEARS ? "" : ` in ${selectedYear}`}.
           </p>
         )}
       </div>
