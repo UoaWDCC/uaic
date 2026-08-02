@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@payloadcms/ui";
 
 export const MemberExportButton = () => {
   const [startDate, setStartDate] = useState("");
@@ -69,9 +68,9 @@ export const MemberExportButton = () => {
         Payment date to
         <input type="date" value={endDate} onChange={(event) => setEndDate(event.target.value)} />
       </label>
-      <Button onClick={handleExport} disabled={isExporting}>
+      <button onClick={handleExport} disabled={isExporting}>
         {isExporting ? "Exporting..." : "Export CSV"}
-      </Button>
+      </button>
       {error && <span style={{ color: "var(--theme-error-500, red)" }}>{error}</span>}
     </div>
   );
