@@ -3,11 +3,12 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutPage from "./CheckoutPage";
-import { useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { CgRadioChecked } from "react-icons/cg";
-import { MdRadioButtonUnchecked } from "react-icons/md";
+import { MdError, MdRadioButtonUnchecked } from "react-icons/md";
 import { GoArrowUpRight } from "react-icons/go";
+import { redirect } from "next/navigation";
 
 const stripePublicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY;
 
@@ -22,26 +23,102 @@ export default function Payment() {
 
   const [currentStep, setCurrentStep] = useState(0);
   const [dropdown1, setDrop1] = useState(false);
-  const [dropdown2, setDrop2] = useState(false);
-  const [dropdown3, setDrop3] = useState(false);
-  const [dropdown4, setDrop4] = useState(false);
+
   const [checkButton1, setCheck1] = useState(false);
   const [checkButton2, setCheck2] = useState(false);
   const [checkButton3, setCheck3] = useState(false);
   const [checkButton4, setCheck4] = useState(false);
   const [checkButton5, setCheck5] = useState(false);
 
-  const [selected1, setSelected1] = useState("Choice:");
-  const [selected2, setSelected2] = useState("Choice:");
-  const [selected3, setSelected3] = useState("Choice:");
-  const [selected4, setSelected4] = useState("Choice:");
-  const options = ["Email", "Website", "Poster"];
+  const genderOptions = ["Male", "Female"];
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [API, setAPI] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [errorMsg, setErroMsg] = useState("");
+  const [openErrorPage, setErrorPage] = useState(false);
+
+  const [specifyInput, setSpecifyInput] = useState(false);
+  const [specifyContent, setSpecifyContent] = useState("");
+  const [studentId, setStudentId] = useState(-1);
+
+  const [gender, setGender] = useState("Gender:");
+  const [university, setUniversity] = useState("");
+  const [uniYear, setUniYear] = useState(-1);
+  const [degrees, setDegrees] = useState("");
+  const [major, setMajor] = useState("");
+  const [ethnicity, setEthnicity] = useState("");
+
+  function validateNext(i: SetStateAction<number>) {
+    if (i == 1) {
+      if (firstName != "" && lastName != "" && API != "" && password != "") {
+        setCurrentStep(i);
+        setErrorPage(false);
+      } else {
+        setErroMsg("Error, you must fill all input fields!");
+        setErrorPage(true);
+      }
+    }
+
+    if (i == 2) {
+      if (
+        gender != "Gender:" &&
+        uniYear != -1 &&
+        university != "" &&
+        ethnicity != "" &&
+        degrees != "" &&
+        major != ""
+      ) {
+        setCurrentStep(i);
+        setErrorPage(false);
+      } else {
+        setErroMsg("Error, you must provide all student details!");
+        setErrorPage(true);
+      }
+    }
+
+    if (i == 3) {
+      if (
+        checkButton1 ||
+        checkButton2 ||
+        checkButton3 ||
+        checkButton4 ||
+        (checkButton5 && specifyContent != "")
+      ) {
+        setCurrentStep(i);
+        setErrorPage(false);
+      } else {
+        setErroMsg("Error, you select at least one option!");
+        setErrorPage(true);
+      }
+    }
+  }
+  useEffect(() => {
+    if (!openErrorPage) return;
+
+    const timer = setTimeout(() => {
+      setErrorPage(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [openErrorPage]); //run this useEffect whenever openErrorPage changes.
 
   return (
     /* Parent layout container: centering elements horizontally and vertically using flex */
-    <div className="mx-auto flex h-screen w-screen flex-col items-center justify-center rounded-md border bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)] p-10">
+    <div className="fixed inset-0 z-50 mx-auto flex h-screen w-screen flex-col items-center justify-center rounded-md border bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)] p-10">
       {/* Centered White wrapper container card */}
       <div className="mb-10 w-full rounded-2xl bg-white p-4 pb-0 text-black shadow-[0_5px_15px_rgba(0,0,0,0.25)] lg:max-w-xl">
+        <div
+          className={`fixed top-2 left-1/2 z-70 flex w-1/3 -translate-x-1/2 items-center justify-center gap-2 rounded-xl border-2 border-red-400 bg-white p-2 pt-2 text-center text-xl transition duration-100 lg:h-[50px] ${openErrorPage ? "opacity-100" : "opacity-0"}`}
+        >
+          {" "}
+          {/* left-1/2 puts element's left edge at the middle, and -translate-x-1/2 move element left by half, essentially moving the element to the middle. */}{" "}
+          <MdError className="text-red-500" />
+          {errorMsg}
+        </div>
+
         <div id="regForm">
           {/* Fixed the dynamic variable text color configuration */}
           <h1 className="mb-4 text-2xl font-bold text-[var(--darkBlue)]">
@@ -123,13 +200,17 @@ export default function Payment() {
                   id="first_name"
                   className="block w-full rounded-l-full border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
                   placeholder="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   required
                 />
                 <input
                   type="text"
                   id="last_name"
                   className="block w-full rounded-r-full border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                  value={lastName}
                   placeholder="Last Name"
+                  onChange={(e) => setLastName(e.target.value)}
                   required
                 />
               </div>
@@ -140,6 +221,8 @@ export default function Payment() {
                   id="last_name"
                   className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
                   placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
@@ -150,6 +233,8 @@ export default function Payment() {
                   id="last_name"
                   className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
                   placeholder="API(e.g. abcd123)"
+                  value={API}
+                  onChange={(e) => setAPI(e.target.value)}
                   required
                 />
               </div>
@@ -158,13 +243,14 @@ export default function Payment() {
                 <button
                   type="button"
                   className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-[#145ca9] transition hover:bg-gray-300"
+                  onClick={() => redirect("/")}
                 >
                   Back
                 </button>
                 <button
                   type="button"
                   className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
-                  onClick={() => setCurrentStep(1)}
+                  onClick={() => validateNext(1)}
                 >
                   Next
                 </button>
@@ -178,23 +264,13 @@ export default function Payment() {
                 <p>Student Details</p>
               </div>
 
-              <div>
-                <input
-                  type="text"
-                  id="first_name"
-                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="Student ID"
-                  required
-                />
-              </div>
-
               <div className="relative w-full">
                 <button
-                  id="last_name"
+                  id="gender"
                   className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
                   onClick={() => setDrop1(!dropdown1)}
                 >
-                  {selected1}
+                  {gender}
                   <GoArrowUpRight
                     className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown1 ? "rotate-45" : "rotate-0"}`}
                   />
@@ -202,11 +278,11 @@ export default function Payment() {
 
                 {dropdown1 && (
                   <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
-                    {options.map((option) => (
+                    {genderOptions.map((option) => (
                       <div
                         key={option}
                         onClick={() => {
-                          setSelected1(option);
+                          setGender(option);
                           setDrop1(false);
                         }}
                         className="p-2 text-sm hover:bg-blue-100"
@@ -218,94 +294,70 @@ export default function Payment() {
                 )}
               </div>
 
-              <div className="relative w-full">
-                <button
-                  id="last_name"
-                  className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
-                  onClick={() => setDrop2(!dropdown2)}
-                >
-                  {selected2}
-                  <GoArrowUpRight
-                    className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown2 ? "rotate-45" : "rotate-0"}`}
-                  />
-                </button>
-
-                {dropdown2 && (
-                  <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
-                    {options.map((option) => (
-                      <div
-                        key={option}
-                        onClick={() => {
-                          setSelected2(option);
-                          setDrop2(false);
-                        }}
-                        className="p-2 text-sm hover:bg-blue-100"
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
+              <div>
+                <input
+                  type="number"
+                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                  placeholder="Student ID"
+                  value={studentId === -1 ? "" : studentId}
+                  onChange={(e) => setStudentId(Number(e.target.value))}
+                  required
+                />
               </div>
 
-              <div className="relative w-full">
-                <button
-                  id="last_name"
-                  className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
-                  onClick={() => setDrop3(!dropdown3)}
-                >
-                  {selected3}
-                  <GoArrowUpRight
-                    className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown3 ? "rotate-45" : "rotate-0"}`}
-                  />
-                </button>
-
-                {dropdown3 && (
-                  <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
-                    {options.map((option) => (
-                      <div
-                        key={option}
-                        onClick={() => {
-                          setSelected3(option);
-                          setDrop3(false);
-                        }}
-                        className="p-2 text-sm hover:bg-blue-100"
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
+              <div>
+                <input
+                  type="string"
+                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                  placeholder="University"
+                  value={university}
+                  onChange={(e) => setUniversity(e.target.value)}
+                  required
+                />
               </div>
 
-              <div className="relative w-full">
-                <button
-                  id="last_name"
-                  className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
-                  onClick={() => setDrop4(!dropdown4)}
-                >
-                  {selected4}
-                  <GoArrowUpRight
-                    className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown4 ? "rotate-45" : "rotate-0"}`}
-                  />
-                </button>
+              <div>
+                <input
+                  type="number"
+                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                  placeholder="University Year"
+                  value={uniYear === -1 ? "" : uniYear}
+                  onChange={(e) => setUniYear(Number(e.target.value))}
+                  required
+                />
+              </div>
 
-                {dropdown4 && (
-                  <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
-                    {options.map((option) => (
-                      <div
-                        key={option}
-                        onClick={() => {
-                          setSelected4(option);
-                          setDrop4(false);
-                        }}
-                        className="p-2 text-sm hover:bg-blue-100"
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
+              <div>
+                <input
+                  type="string"
+                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                  placeholder="Degrees"
+                  value={degrees}
+                  onChange={(e) => setDegrees(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div>
+                <input
+                  type="string"
+                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                  placeholder="Major"
+                  value={major}
+                  onChange={(e) => setMajor(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div>
+                <input
+                  type="string"
+                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                  placeholder="Ethnicity"
+                  value={ethnicity}
+                  onChange={(e) => setEthnicity(e.target.value)}
+                  required
+                />
               </div>
 
               <div className="flex gap-3 pt-2">
@@ -319,7 +371,7 @@ export default function Payment() {
                 <button
                   type="button"
                   className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
-                  onClick={() => setCurrentStep(2)}
+                  onClick={() => validateNext(2)}
                 >
                   Next
                 </button>
@@ -435,7 +487,7 @@ export default function Payment() {
                   </label>
                 </div>
 
-                <div className="mb-4 flex items-center">
+                <div className="mb-4 flex flex-wrap items-center">
                   <div className="relative h-4 w-4">
                     <input
                       id="country-option-5"
@@ -443,7 +495,9 @@ export default function Payment() {
                       name="default-radio"
                       value="Google search"
                       checked={checkButton5}
-                      onChange={() => setCheck5(!checkButton5)}
+                      onChange={() => {
+                        (setCheck5(!checkButton5), setSpecifyInput(!checkButton5));
+                      }}
                       className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
                     />
 
@@ -458,6 +512,20 @@ export default function Payment() {
                   >
                     Other (Please specify)
                   </label>
+
+                  {specifyInput && (
+                    <div className="basis-full pt-2">
+                      <input
+                        type="text"
+                        id="specify"
+                        className="w-full rounded-full border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                        placeholder="Specify your option"
+                        value={specifyContent}
+                        onChange={(e) => setSpecifyContent(e.target.value)}
+                        required
+                      />
+                    </div>
+                  )}
                 </div>
               </fieldset>
 
@@ -470,7 +538,7 @@ export default function Payment() {
                 </button>
                 <button
                   className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
-                  onClick={() => setCurrentStep(3)}
+                  onClick={() => validateNext(3)}
                 >
                   Next
                 </button>
