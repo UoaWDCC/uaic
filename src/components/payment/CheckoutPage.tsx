@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
+import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
 
 const CheckoutPage = ({ amount }: { amount: number }) => {
   const stripe = useStripe();
@@ -29,17 +30,10 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
     event.preventDefault();
     setIsLoading(true);
 
-    // DEV ONLY: bypass Stripe
-    const skipPayment = true;
-
-    if (skipPayment) {
-      window.location.href = window.location.origin + `/payment-success?amount=${amount}`;
-      return;
-    }
-
     if (!stripe || !elements) return;
 
-    const cardElement = elements.getElement(CardElement);
+    const cardElement = elements.getElement(CardNumberElement);
+
     if (!cardElement) return;
 
     // Direct token/payment confirmation using CardElement
@@ -86,17 +80,17 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
       <div className="flex flex-col gap-1.5">
         <label className="text-sm font-medium text-gray-700">Card details</label>
         <div className="w-full rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
-          <CardElement
-            options={{
-              style: {
-                base: {
-                  fontSize: "14px",
-                  color: "#374151",
-                  "::placeholder": { color: "#9CA3AF" },
-                },
-              },
-            }}
-          />
+          <CardNumberElement />
+        </div>
+
+        <div className="flex gap-2">
+          <div className="w-full rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
+            <CardExpiryElement />
+          </div>
+
+          <div className="w-full rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
+            <CardCvcElement />
+          </div>
         </div>
       </div>
 

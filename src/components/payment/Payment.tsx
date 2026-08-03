@@ -51,8 +51,8 @@ export default function Payment() {
   const [major, setMajor] = useState("");
   const [ethnicity, setEthnicity] = useState("");
 
-  function validateNext(i: SetStateAction<number>) {
-    if (i == 1) {
+  function validateNext(i: SetStateAction<number>, bypass: boolean) {
+    if (i == 1 && bypass == false) {
       if (firstName != "" && lastName != "" && API != "" && password != "") {
         setCurrentStep(i);
         setErrorPage(false);
@@ -62,7 +62,7 @@ export default function Payment() {
       }
     }
 
-    if (i == 2) {
+    if (i == 2 && bypass == false) {
       if (
         gender != "Gender:" &&
         uniYear != -1 &&
@@ -79,7 +79,7 @@ export default function Payment() {
       }
     }
 
-    if (i == 3) {
+    if (i == 3 && bypass == false) {
       if (
         checkButton1 ||
         checkButton2 ||
@@ -93,6 +93,10 @@ export default function Payment() {
         setErroMsg("Error, you select at least one option!");
         setErrorPage(true);
       }
+    }
+
+    if (bypass == true) {
+      setCurrentStep(i);
     }
   }
   useEffect(() => {
@@ -250,7 +254,7 @@ export default function Payment() {
                 <button
                   type="button"
                   className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
-                  onClick={() => validateNext(1)}
+                  onClick={() => validateNext(1, false)}
                 >
                   Next
                 </button>
@@ -371,7 +375,7 @@ export default function Payment() {
                 <button
                   type="button"
                   className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
-                  onClick={() => validateNext(2)}
+                  onClick={() => validateNext(2, false)}
                 >
                   Next
                 </button>
@@ -538,7 +542,7 @@ export default function Payment() {
                 </button>
                 <button
                   className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
-                  onClick={() => validateNext(3)}
+                  onClick={() => validateNext(3, false)}
                 >
                   Next
                 </button>
@@ -547,18 +551,16 @@ export default function Payment() {
           )}
 
           {currentStep == 3 && (
-            <div className="tab">
-              <Elements
-                stripe={stripePromise}
-                options={{
-                  mode: "payment",
-                  amount: Math.round(amount * 100),
-                  currency: "nzd",
-                }}
-              >
-                <CheckoutPage amount={amount} />
-              </Elements>
-            </div>
+            <Elements
+              stripe={stripePromise}
+              options={{
+                mode: "payment",
+                amount: Math.round(amount * 100),
+                currency: "nzd",
+              }}
+            >
+              <CheckoutPage amount={amount} />
+            </Elements>
           )}
 
           <div style={{ textAlign: "center", marginTop: "40px" }}>
@@ -581,6 +583,21 @@ export default function Payment() {
         >
           <CheckoutPage amount={amount} />
         </Elements>
+
+
+
+        <div className="tab">
+              <Elements
+                stripe={stripePromise}
+                options={{
+                  mode: "payment",
+                  amount: Math.round(amount * 100),
+                  currency: "nzd",
+                }}
+              >
+                <CheckoutPage amount={amount} />
+              </Elements>
+            </div>
       */}
     </div>
   );
