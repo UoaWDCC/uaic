@@ -30,7 +30,7 @@ export default function Payment() {
   const [checkButton4, setCheck4] = useState(false);
   const [checkButton5, setCheck5] = useState(false);
 
-  const genderOptions = ["Male", "Female"];
+  const genderOptions = ["Male", "Female", "Gender Diverse", "Preferred Not To Say"];
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -111,11 +111,11 @@ export default function Payment() {
       {/* Centered White wrapper container card */}
       <div className="mb-10 w-full rounded-2xl bg-white p-4 pb-0 text-black shadow-[0_5px_15px_rgba(0,0,0,0.25)] lg:max-w-xl">
         <div
-          className={`fixed top-2 left-1/2 z-70 flex w-1/3 -translate-x-1/2 items-center justify-center gap-2 rounded-xl border-2 border-red-400 bg-white p-2 pt-2 text-center text-xl transition duration-100 lg:h-[50px] ${openErrorPage ? "opacity-100" : "opacity-0"}`}
+          className={`fixed bottom-10 left-5/7 z-70 flex w-1/3 items-center justify-center gap-2 rounded-xl border-2 border-red-400 bg-white p-1 pt-2 text-center text-xl transition duration-100 lg:h-[150px] lg:max-w-[300px] ${openErrorPage ? "opacity-100" : "opacity-0"}`}
         >
           {" "}
           {/* left-1/2 puts element's left edge at the middle, and -translate-x-1/2 move element left by half, essentially moving the element to the middle. */}{" "}
-          <MdError className="text-red-500" />
+          <MdError className="text-3xl text-red-500" />
           {errorMsg}
         </div>
 
