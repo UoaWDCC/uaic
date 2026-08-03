@@ -136,7 +136,7 @@ const Navbar = () => {
         </ul>
 
         <div className="hidden lg:block lg:ps-8 lg:pe-15">
-          <Button link="/joinus" className="cursor-pointer p-4 py-1.5 text-lg text-white">
+          <Button link="/login" className="cursor-pointer p-4 py-1.5 text-lg text-white">
             Join Us
           </Button>
         </div>
