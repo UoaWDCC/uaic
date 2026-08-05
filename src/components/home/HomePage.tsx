@@ -49,7 +49,7 @@ const HomePage: React.FC<HomePageProps> = ({ images }) => {
           </h3>
 
           <div className="pointer-events-auto mx-auto transition-all duration-300 lg:mx-0 lg:ml-auto">
-            <ArrowButton variant="member" />
+            <ArrowButton text="Become A Member" link="/joinus" />
           </div>
         </div>
 

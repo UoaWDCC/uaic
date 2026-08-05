@@ -29,7 +29,7 @@ export default function GlobalNotFound() {
                 </p>
               </div>
 
-              <ArrowButton variant="home" />
+              <ArrowButton text="Back to Home" link="/" />
             </div>
 
             <div className="order-first flex w-full max-w-[470px] flex-col items-center justify-center gap-[26px] lg:order-last lg:min-h-[282px]">

@@ -225,7 +225,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           </li>
           <li className="mx-auto my-auto flex justify-center p-5 pt-8 text-lg font-[600] sm:text-xl lg:mr-[30px]">
             <div className="text-3xl [&_a]:px-26 [&_a]:py-4 sm:[&_a]:w-[249.36px] sm:[&_svg]:hidden">
-              <ArrowButton variant="member" />
+              <ArrowButton text="Become A Member" link="/joinus" />
             </div>
           </li>
         </ul>
@@ -271,7 +271,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           </li>
           <li className="mx-auto my-auto flex justify-center p-5 pt-35 text-lg font-[600] sm:text-xl lg:mr-[30px]">
             <div className="text-3xl [&_a]:px-26 [&_a]:py-4 sm:[&_a]:w-[249.36px] sm:[&_svg]:hidden">
-              <ArrowButton variant="member" />
+              <ArrowButton text="Become A Member" link="/joinus" />
             </div>
           </li>
         </ul>
