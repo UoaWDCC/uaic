@@ -8,7 +8,7 @@ const InvestConnectWork = () => {
           Invest, Connect And Work With Us.
         </h1>
         <div className="flex w-full justify-center pb-5">
-          <ArrowButton text="Become A Member" link="/joinus" />
+          <ArrowButton text="Become A Member" link="/login" />
         </div>
       </div>
     </div>

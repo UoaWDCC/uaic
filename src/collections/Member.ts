@@ -4,6 +4,9 @@ export const Member: CollectionConfig = {
   slug: "member",
   admin: {
     useAsTitle: "email",
+    components: {
+      Description: "/src/components/admin/MemberExportButton#MemberExportButton",
+    },
   },
   fields: [
     {
