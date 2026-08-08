@@ -1,4 +1,4 @@
-import MemberSignupButton from "./MemberSignupButton";
+import ArrowButton from "./ArrowButton";
 
 const InvestConnectWork = () => {
   return (
@@ -8,9 +8,7 @@ const InvestConnectWork = () => {
           Invest, Connect And Work With Us.
         </h1>
         <div className="flex w-full justify-center pb-5">
-          <MemberSignupButton link="/joinus" defaultSize={true}>
-            Join Us
-          </MemberSignupButton>
+          <ArrowButton text="Become A Member" link="/login" />
         </div>
       </div>
     </div>

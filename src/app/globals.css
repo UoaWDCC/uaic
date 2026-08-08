@@ -46,6 +46,9 @@
   --font-sans: var(--font-figtree);
   --font-mono: var(--font-figtree);
 
+  /* Breakpoints */
+  --breakpoint-3xl: 121rem;
+
   /* Colours */
   --color-darkBlue: var(--darkBlue);
   --color-babyBlue: var(--babyBlue);

@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import type { Swiper as SwiperType } from "swiper";
-import MemberSignupButton from "../MemberSignupButton";
+import ArrowButton from "../ArrowButton";
 import HeroCarousel from "./HeroCarousel";
 import HeroSlideIndicator from "./HeroSlideIndicator";
 
@@ -49,7 +49,7 @@ const HomePage: React.FC<HomePageProps> = ({ images }) => {
           </h3>
 
           <div className="pointer-events-auto mx-auto transition-all duration-300 lg:mx-0 lg:ml-auto">
-            <MemberSignupButton />
+            <ArrowButton text="Become A Member" link="/login" />
           </div>
         </div>
 
