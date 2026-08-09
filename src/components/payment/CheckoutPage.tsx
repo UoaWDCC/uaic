@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
@@ -9,74 +9,105 @@ const CheckoutPage = ({
   upi,
   studentId,
   degree,
+  ethnicity,
+  gender,
+  universityYear,
+  major,
 }: {
   amount: number;
   name: string;
   upi: string;
   studentId: number;
   degree: string;
+  ethnicity: string;
+  gender: string;
+  universityYear: string;
+  major: string;
 }) => {
   const stripe = useStripe();
   const elements = useElements();
 
   const [errMessage, setErrMessage] = useState<string | null>(null);
-  const [clientSecret, setClientSecret] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [cardholderName, setCardholderName] = useState("");
   const [country, setCountry] = useState("US");
   const [zip, setZip] = useState("");
 
-  useEffect(() => {
-    fetch("/api/create-payment-intent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: Math.round(amount * 100), name, upi, studentId, degree }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setClientSecret(data.clientSecret);
-      })
-      .catch((error) => {
-        console.error("Error fetching payment intent:", error);
-      });
-  }, [amount, degree, name, studentId, upi]);
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
 
-    if (!stripe || !elements) return;
+    if (!stripe || !elements) {
+      setIsLoading(false);
+      return;
+    }
 
     const cardElement = elements.getElement(CardNumberElement);
 
-    if (!cardElement) return;
+    if (!cardElement) {
+      setIsLoading(false);
+      return;
+    }
+    try {
+      const response = await fetch("/api/create-payment-intent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: Math.round(amount * 100),
+          name,
+          upi,
+          studentId,
+          degree,
+          ethnicity,
+          gender,
+          universityYear,
+          major,
+          email,
+        }),
+      });
 
-    // Direct token/payment confirmation using CardElement
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: cardElement,
-        billing_details: {
-          name: cardholderName,
-          email: email,
-          address: {
-            country: country,
-            postal_code: zip,
+      const data = await response.json();
+      const clientSecret = data.clientSecret;
+
+      if (!response.ok || !data.clientSecret) {
+        setErrMessage(data.error || "Failed to initialize payment.");
+        return;
+      }
+
+      // Direct token/payment confirmation using CardElement, sends payment confirmation directly to Stripe's server.
+      const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: cardholderName,
+            email: email,
+            address: {
+              country: country,
+              postal_code: zip,
+            },
           },
         },
-      },
-    });
+      });
 
-    if (error) {
-      setErrMessage(error.message || "An unexpected error occurred.");
+      if (error) {
+        setErrMessage(error.message || "An unexpected error occurred.");
+      } else if (paymentIntent?.status === "succeeded") {
+        setErrMessage(null);
+        window.location.href = window.location.origin + `/payment-success?amount=${amount}`;
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setErrMessage(error.message);
+      } else {
+        setErrMessage("An unexpected network error occurred.");
+      }
+    } finally {
       setIsLoading(false);
-    } else if (paymentIntent?.status === "succeeded") {
-      setErrMessage(null);
-      window.location.href = window.location.origin + `/payment-success?amount=${amount}}`;
     }
   };
 
-  if (!clientSecret || !stripe || !elements) {
+  if (!stripe || !elements) {
     return (
       <div className="flex items-center justify-center">
         <span className="text-surface inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent dark:text-white" />
@@ -167,7 +198,10 @@ const CheckoutPage = ({
         />
       </div>
 
-      <button className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white hover:from-blue-700 hover:to-blue-900">
+      <button
+        disabled={isLoading}
+        className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white hover:from-blue-700 hover:to-blue-900"
+      >
         {isLoading ? "Processing..." : "Pay"}
       </button>
 

@@ -9,7 +9,18 @@ if (process.env.STRIPE_SECRET_KEY === undefined) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { amount, name, upi, studentId, degree, email } = await request.json();
+    const {
+      amount,
+      name,
+      upi,
+      studentId,
+      degree,
+      email,
+      ethnicity,
+      gender,
+      universityYear,
+      major,
+    } = await request.json();
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
       currency: "nzd",
@@ -20,6 +31,10 @@ export async function POST(request: NextRequest) {
         studentId: studentId || "",
         degree: degree || "",
         email: email || "",
+        ethnicity: ethnicity || "",
+        gender: gender || "",
+        universityYear: universityYear || "",
+        major: major || "",
       },
     });
     return NextResponse.json({ clientSecret: paymentIntent.client_secret });

@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { getPayload } from "payload";
+import config from "@payload-config";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
+//When something sends a POST request to this Next.js route, run this function.
 export async function POST(request: NextRequest) {
   const body = await request.text();
   const signature = request.headers.get("stripe-signature");
@@ -25,6 +28,26 @@ export async function POST(request: NextRequest) {
       id: paymentIntent.id,
       amount: paymentIntent.amount,
       metadata: paymentIntent.metadata,
+    });
+
+    //TODO:implement payload cms api POST call
+    const payload = await getPayload({ config });
+    const member = await payload.create({
+      collection: "member",
+      data: {
+        email: "",
+        firstName: "",
+        lastName: "",
+        upi: "",
+        studentId: "",
+        gender: "",
+        universityYear: "",
+        memberType: "newMember", //assume new member for now
+        degrees: "",
+        majors: "",
+        ethnicity: "",
+        hasPaid: true,
+      },
     });
   }
 

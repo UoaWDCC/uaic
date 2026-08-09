@@ -23,6 +23,8 @@ export default function Payment() {
 
   const [currentStep, setCurrentStep] = useState(0);
   const [dropdown1, setDrop1] = useState(false);
+  const [dropdown2, setDrop2] = useState(false);
+  const [dropdown3, setDrop3] = useState(false);
 
   const [checkButton1, setCheck1] = useState(false);
   const [checkButton2, setCheck2] = useState(false);
@@ -31,6 +33,8 @@ export default function Payment() {
   const [checkButton5, setCheck5] = useState(false);
 
   const genderOptions = ["Male", "Female", "Gender Diverse", "Preferred Not To Say"];
+  const universityYearOptions = ["year1", "year2", "year3", "year4", "year5plus", "postgraduate"];
+  const ethnicityOptions = ["european", "pacificPeoples", "melaa", "preferNotToSay", "other"];
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -46,10 +50,10 @@ export default function Payment() {
 
   const [gender, setGender] = useState("Gender:");
   const [university, setUniversity] = useState("");
-  const [uniYear, setUniYear] = useState(-1);
+  const [uniYear, setUniYear] = useState("University Year:");
   const [degrees, setDegrees] = useState("");
   const [major, setMajor] = useState("");
-  const [ethnicity, setEthnicity] = useState("");
+  const [ethnicity, setEthnicity] = useState("Ethnicity:");
 
   function validateNext(i: SetStateAction<number>, bypass: boolean) {
     if (i == 1 && bypass == false) {
@@ -65,9 +69,9 @@ export default function Payment() {
     if (i == 2 && bypass == false) {
       if (
         gender != "Gender:" &&
-        uniYear != -1 &&
+        uniYear != "University Year:" &&
         university != "" &&
-        ethnicity != "" &&
+        ethnicity != "Ethnicity:" &&
         degrees != "" &&
         major != ""
       ) {
@@ -320,15 +324,34 @@ export default function Payment() {
                 />
               </div>
 
-              <div>
-                <input
-                  type="number"
-                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="University Year"
-                  value={uniYear === -1 ? "" : uniYear}
-                  onChange={(e) => setUniYear(Number(e.target.value))}
-                  required
-                />
+              <div className="relative w-full">
+                <button
+                  id="uniYear"
+                  className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
+                  onClick={() => setDrop2(!dropdown2)}
+                >
+                  {uniYear}
+                  <GoArrowUpRight
+                    className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown2 ? "rotate-45" : "rotate-0"}`}
+                  />
+                </button>
+
+                {dropdown2 && (
+                  <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
+                    {universityYearOptions.map((option) => (
+                      <div
+                        key={option}
+                        onClick={() => {
+                          setUniYear(option);
+                          setDrop2(false);
+                        }}
+                        className="p-2 text-sm hover:bg-blue-100"
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div>
@@ -353,15 +376,34 @@ export default function Payment() {
                 />
               </div>
 
-              <div>
-                <input
-                  type="string"
-                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="Ethnicity"
-                  value={ethnicity}
-                  onChange={(e) => setEthnicity(e.target.value)}
-                  required
-                />
+              <div className="relative w-full">
+                <button
+                  id="ethnicity"
+                  className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
+                  onClick={() => setDrop3(!dropdown3)}
+                >
+                  {ethnicity}
+                  <GoArrowUpRight
+                    className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown3 ? "rotate-45" : "rotate-0"}`}
+                  />
+                </button>
+
+                {dropdown3 && (
+                  <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
+                    {ethnicityOptions.map((option) => (
+                      <div
+                        key={option}
+                        onClick={() => {
+                          setEthnicity(option);
+                          setDrop3(false);
+                        }}
+                        className="p-2 text-sm hover:bg-blue-100"
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="flex gap-3 pt-2">
@@ -565,6 +607,10 @@ export default function Payment() {
                 upi={UPI}
                 studentId={studentId}
                 degree={degrees}
+                ethnicity={ethnicity}
+                gender={gender}
+                universityYear={uniYear}
+                major={major}
               />
             </Elements>
           )}
@@ -577,34 +623,6 @@ export default function Payment() {
           </div>
         </div>
       </div>
-
-      {/* Stripe elements wrapper commented out cleanly inside JSX */}
-      {/* <Elements
-          stripe={stripePromise}
-          options={{
-            mode: "payment",
-            amount: Math.round(amount * 100),
-            currency: "nzd",
-          }}
-        >
-          <CheckoutPage amount={amount} />
-        </Elements>
-
-
-
-        <div className="tab">
-              <Elements
-                stripe={stripePromise}
-                options={{
-                  mode: "payment",
-                  amount: Math.round(amount * 100),
-                  currency: "nzd",
-                }}
-              >
-                <CheckoutPage amount={amount} />
-              </Elements>
-            </div>
-      */}
     </div>
   );
 }
