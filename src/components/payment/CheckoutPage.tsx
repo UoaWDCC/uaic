@@ -3,19 +3,35 @@ import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
 
-const CheckoutPage = ({ amount }: { amount: number }) => {
+const CheckoutPage = ({
+  amount,
+  name,
+  upi,
+  studentId,
+  degree,
+}: {
+  amount: number;
+  name: string;
+  upi: string;
+  studentId: number;
+  degree: string;
+}) => {
   const stripe = useStripe();
   const elements = useElements();
 
   const [errMessage, setErrMessage] = useState<string | null>(null);
   const [clientSecret, setClientSecret] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [cardholderName, setCardholderName] = useState("");
+  const [country, setCountry] = useState("US");
+  const [zip, setZip] = useState("");
 
   useEffect(() => {
     fetch("/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: Math.round(amount * 100) }),
+      body: JSON.stringify({ amount: Math.round(amount * 100), name, upi, studentId, degree }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -24,7 +40,7 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
       .catch((error) => {
         console.error("Error fetching payment intent:", error);
       });
-  }, [amount]);
+  }, [amount, degree, name, studentId, upi]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -40,6 +56,14 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
     const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: cardElement,
+        billing_details: {
+          name: cardholderName,
+          email: email,
+          address: {
+            country: country,
+            postal_code: zip,
+          },
+        },
       },
     });
 
@@ -48,7 +72,7 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
       setIsLoading(false);
     } else if (paymentIntent?.status === "succeeded") {
       setErrMessage(null);
-      window.location.href = window.location.origin + `/payment-success?amount=${amount}`;
+      window.location.href = window.location.origin + `/payment-success?amount=${amount}}`;
     }
   };
 
@@ -70,6 +94,8 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
         <input
           id="custom-email"
           type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
           className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           required
@@ -100,7 +126,9 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
         </label>
         <input
           id="cardholder-name"
-          type="name"
+          type="text"
+          value={cardholderName}
+          onChange={(e) => setCardholderName(e.target.value)}
           placeholder="full name on card"
           className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           required
@@ -115,20 +143,24 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
           <select
             id="country_region"
             name="countries"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
             className="w-full appearance-none rounded-t-xl border border-gray-200 px-3 py-2.5 text-sm text-[#8a8a8a] outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           >
-            <option value="volvo">United States</option>
-            <option value="saab">United Kingdom</option>
-            <option value="fiat">Australia</option>
-            <option value="audi">New Zealand</option>
+            <option value="US">United States</option>
+            <option value="GB">United Kingdom</option>
+            <option value="AU">Australia</option>
+            <option value="NZ">New Zealand</option>
           </select>
 
           <RiArrowDropDownLine className="absolute top-1/5 right-4 text-4xl text-[#afafaf]" />
         </div>
 
         <input
-          id="country_region"
-          type="name"
+          id="zip_code"
+          type="text"
+          value={zip}
+          onChange={(e) => setZip(e.target.value)}
           placeholder="ZIP"
           className="w-full rounded-b-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           required

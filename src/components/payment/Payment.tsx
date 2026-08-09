@@ -34,7 +34,7 @@ export default function Payment() {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [API, setAPI] = useState("");
+  const [UPI, setUPI] = useState("");
   const [password, setPassword] = useState("");
 
   const [errorMsg, setErroMsg] = useState("");
@@ -53,7 +53,7 @@ export default function Payment() {
 
   function validateNext(i: SetStateAction<number>, bypass: boolean) {
     if (i == 1 && bypass == false) {
-      if (firstName != "" && lastName != "" && API != "" && password != "") {
+      if (firstName != "" && lastName != "" && UPI != "" && password != "") {
         setCurrentStep(i);
         setErrorPage(false);
       } else {
@@ -236,9 +236,9 @@ export default function Payment() {
                   type="text"
                   id="last_name"
                   className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="API(e.g. abcd123)"
-                  value={API}
-                  onChange={(e) => setAPI(e.target.value)}
+                  placeholder="UPI(e.g. abcd123)"
+                  value={UPI}
+                  onChange={(e) => setUPI(e.target.value)}
                   required
                 />
               </div>
@@ -559,7 +559,13 @@ export default function Payment() {
                 currency: "nzd",
               }}
             >
-              <CheckoutPage amount={amount} />
+              <CheckoutPage
+                amount={amount}
+                name={firstName + " " + lastName}
+                upi={UPI}
+                studentId={studentId}
+                degree={degrees}
+              />
             </Elements>
           )}
 
