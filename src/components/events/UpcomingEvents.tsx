@@ -212,21 +212,25 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
                 >
                   <VscClose size={30} aria-hidden="true" />
                 </button>
-                <div className="flex flex-col gap-[42px]">
-                  <div className="flex flex-col gap-[25px]">
+                <div className="flex w-full flex-col gap-[42px] border-1">
+                  <div className="flex flex-col gap-[25px] border-1">
                     <div className="flex flex-col gap-[8px]">
-                      <p className="h-[20px] w-[95px] text-[20px] leading-[20px] font-bold tracking-[0px] text-[#249AFF]">
+                      <p className="h-[20px] w-[95px] text-[20px] leading-[20px] font-bold text-[#249AFF]">
                         Event Info
                       </p>
-                      <h2 className="h-[64px] w-full text-[30px] leading-[32px] font-semibold tracking-[0px] text-[#0B1A2B] lg:w-[512px]">
+                      <h2 className="w-full text-[30px] leading-[32px] font-semibold text-[#0B1A2B] lg:w-[512px]">
                         {selectedEvent.title}
                       </h2>
                     </div>
-                    <p className="h-[158px] w-full overflow-y-auto text-[20px] leading-[22.5px] font-normal tracking-[0px] text-black lg:w-[512px]">
+                    <p className="h-[158px] w-full overflow-y-auto text-[20px] leading-[22.5px] font-normal text-black lg:w-[512px]">
                       {selectedEvent.description}
                     </p>
                   </div>
-                  <ArrowButton text="Complete Registration" link={selectedEvent.application_link} />
+                  <ArrowButton
+                    text="Complete Registration"
+                    link={selectedEvent.application_link}
+                    fullWidth
+                  />
                 </div>
               </div>
             </div>

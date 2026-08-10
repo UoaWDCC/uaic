@@ -4,13 +4,16 @@ import { GoArrowUpRight } from "react-icons/go";
 interface ArrowButtonProps {
   text: string;
   link: string;
+  fullWidth?: boolean;
 }
 
-const ArrowButton = ({ text, link }: ArrowButtonProps) => {
+const ArrowButton = ({ text, link, fullWidth = false }: ArrowButtonProps) => {
   return (
     <Link
       href={link}
-      className="group 3xl:h-[86px] 3xl:gap-5 3xl:px-8 relative flex h-[37px] w-fit items-center justify-center gap-3 overflow-hidden rounded-full bg-white px-4.5 py-2.5 whitespace-nowrap text-white transition-colors duration-200 hover:text-[#005EAF] sm:h-[51px] sm:gap-[8px] sm:px-[16px] sm:py-0"
+      className={`group 3xl:h-[86px] 3xl:gap-5 3xl:px-8 relative flex h-[37px] items-center justify-center gap-3 overflow-hidden rounded-full bg-white px-4.5 py-2.5 whitespace-nowrap text-white transition-colors duration-200 hover:text-[#005EAF] sm:h-[51px] sm:gap-[8px] sm:px-[16px] sm:py-0 ${
+        fullWidth ? "w-full" : "w-fit"
+      }`}
     >
       <span className="absolute inset-0 rounded-full bg-gradient-to-l from-[#005EAF] to-[#249AFF] transition-opacity duration-200 group-hover:opacity-0" />
 
