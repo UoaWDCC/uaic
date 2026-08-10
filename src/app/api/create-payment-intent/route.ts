@@ -14,12 +14,12 @@ export async function POST(request: NextRequest) {
       name,
       upi,
       studentId,
-      degree,
+      degrees,
       email,
       ethnicity,
       gender,
       universityYear,
-      major,
+      majors,
     } = await request.json();
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
@@ -28,13 +28,13 @@ export async function POST(request: NextRequest) {
       metadata: {
         name: name || "",
         upi: upi || "",
-        studentId: studentId || "",
-        degree: degree || "",
+        studentId: studentId ?? "",
+        degrees: degrees || "",
         email: email || "",
         ethnicity: ethnicity || "",
         gender: gender || "",
         universityYear: universityYear || "",
-        major: major || "",
+        majors: majors || "",
       },
     });
     return NextResponse.json({ clientSecret: paymentIntent.client_secret });

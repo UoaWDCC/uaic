@@ -30,25 +30,33 @@ export async function POST(request: NextRequest) {
       metadata: paymentIntent.metadata,
     });
 
-    //TODO:implement payload cms api POST call
+    const [firstName, lastName] = paymentIntent.metadata.name.split("|");
     const payload = await getPayload({ config });
-    const member = await payload.create({
-      collection: "member",
-      data: {
-        email: "",
-        firstName: "",
-        lastName: "",
-        upi: "",
-        studentId: "",
-        gender: "",
-        universityYear: "",
-        memberType: "newMember", //assume new member for now
-        degrees: "",
-        majors: "",
-        ethnicity: "",
-        hasPaid: true,
-      },
-    });
+
+    try {
+      const member = await payload.create({
+        collection: "member",
+        data: {
+          email: paymentIntent.metadata.email,
+          firstName,
+          lastName,
+          upi: paymentIntent.metadata.upi,
+          studentId: paymentIntent.metadata.studentId,
+          gender: paymentIntent.metadata.gender,
+          universityYear: paymentIntent.metadata.universityYear,
+          memberType: "newMember", //assume new member for now
+          degrees: paymentIntent.metadata.degrees,
+          majors: paymentIntent.metadata.majors,
+          ethnicity: paymentIntent.metadata.ethnicity,
+          hasPaid: true,
+        },
+      });
+
+      console.log("Member added successfully");
+    } catch (error) {
+      console.error("Failed to create member: ", error);
+      return NextResponse.json({ error: "Failed to create member" }, { status: 500 });
+    }
   }
 
   return NextResponse.json({ received: true });

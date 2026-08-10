@@ -33,8 +33,16 @@ export default function Payment() {
   const [checkButton5, setCheck5] = useState(false);
 
   const genderOptions = ["Male", "Female", "Gender Diverse", "Preferred Not To Say"];
-  const universityYearOptions = ["year1", "year2", "year3", "year4", "year5plus", "postgraduate"];
-  const ethnicityOptions = ["european", "pacificPeoples", "melaa", "preferNotToSay", "other"];
+  const universityYearOptions = ["year1", "year2", "year3", "year4", "year5Plus", "postgraduate"];
+  const ethnicityOptions = [
+    "european",
+    "pacificPeoples",
+    "melaa",
+    "preferNotToSay",
+    "maori",
+    "asian",
+    "other",
+  ];
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -290,7 +298,16 @@ export default function Payment() {
                       <div
                         key={option}
                         onClick={() => {
-                          setGender(option);
+                          if (option == "Male") {
+                            setGender("male");
+                          } else if (option == "Female") {
+                            setGender("female");
+                          } else if (option == "Gender Diverse") {
+                            setGender("nonBinary");
+                          } else {
+                            setGender("preferNotToSay");
+                          }
+
                           setDrop1(false);
                         }}
                         className="p-2 text-sm hover:bg-blue-100"
@@ -603,14 +620,14 @@ export default function Payment() {
             >
               <CheckoutPage
                 amount={amount}
-                name={firstName + " " + lastName}
+                name={firstName + "|" + lastName}
                 upi={UPI}
                 studentId={studentId}
-                degree={degrees}
+                degrees={degrees}
                 ethnicity={ethnicity}
                 gender={gender}
                 universityYear={uniYear}
-                major={major}
+                majors={major}
               />
             </Elements>
           )}

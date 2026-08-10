@@ -8,21 +8,21 @@ const CheckoutPage = ({
   name,
   upi,
   studentId,
-  degree,
+  degrees,
   ethnicity,
   gender,
   universityYear,
-  major,
+  majors,
 }: {
   amount: number;
   name: string;
   upi: string;
   studentId: number;
-  degree: string;
+  degrees: string;
   ethnicity: string;
   gender: string;
   universityYear: string;
-  major: string;
+  majors: string;
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -58,11 +58,11 @@ const CheckoutPage = ({
           name,
           upi,
           studentId,
-          degree,
+          degrees,
           ethnicity,
           gender,
           universityYear,
-          major,
+          majors,
           email,
         }),
       });
