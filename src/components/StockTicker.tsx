@@ -7,10 +7,10 @@ interface StockTickerProps {
 }
 
 const StockTicker = ({ className = "", isTransparent = false }: StockTickerProps) => {
-  const mobileRef = useRef<HTMLDivElement>(null);
+  const widgetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!mobileRef.current) return;
+    if (!widgetRef.current) return;
     const script = document.createElement("script");
     script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
     script.async = true;
@@ -23,18 +23,22 @@ const StockTicker = ({ className = "", isTransparent = false }: StockTickerProps
         { proName: "BITSTAMP:ETHUSD", title: "Ethereum" },
       ],
       showSymbolLogo: true,
-      isTransparent,
+      // Widget itself is always transparent; the wrapper below controls the
+      // visible background via CSS so toggling it never re-injects the script.
+      isTransparent: true,
       displayMode: "regular",
       colorTheme: "light",
       locale: "en",
     });
-    mobileRef.current.innerHTML = "";
-    mobileRef.current.appendChild(script);
-  }, [isTransparent]);
+    widgetRef.current.innerHTML = "";
+    widgetRef.current.appendChild(script);
+  }, []);
 
   return (
-    <div className={`tradingview-widget-container ${className}`}>
-      <div className="tradingview-widget-container__widget" ref={mobileRef}></div>
+    <div
+      className={`tradingview-widget-container transition-colors duration-300 ease-in-out ${isTransparent ? "bg-transparent" : "bg-white"} ${className}`}
+    >
+      <div className="tradingview-widget-container__widget" ref={widgetRef}></div>
     </div>
   );
 };

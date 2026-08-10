@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import ArrowButton from "./ArrowButton";
 import StockTicker from "./StockTicker";
 import { GoArrowUpRight, GoArrowLeft } from "react-icons/go";
@@ -22,10 +23,15 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
     setShowAboutSubpage(false);
   };
 
+  // Per the Figma designs, the homepage is the only page that starts with a
+  // transparent navbar over its hero; every other page starts solid/blue.
+  const pathname = usePathname();
+  const startsTransparent = theme === "auto" && pathname === "/";
+
   const [beyondHero, setBeyondHero] = useState(false);
 
   useEffect(() => {
-    if (theme === "blue") return;
+    if (!startsTransparent) return;
 
     const scrollHero = () => {
       const hero = document.getElementById("hero");
@@ -38,9 +44,9 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
     return () => {
       window.removeEventListener("scroll", scrollHero);
     };
-  }, [theme]);
+  }, [startsTransparent]);
 
-  const hasBlueTheme = theme === "blue" || beyondHero;
+  const hasBlueTheme = !startsTransparent || beyondHero;
 
   return (
     <nav className="w-full">
