@@ -1,5 +1,3 @@
-import ArticleList from "@/components/home/ArticleList";
-import UpdatedBulletin from "@/components/home/Bulletin";
 import HomePage from "@/components/home/HomePage";
 import EventsSection from "@/components/EventsSection";
 import NewestArticle from "@/components/NewestArticle";
@@ -24,8 +22,6 @@ export default async function Home() {
       <NewestArticle />
       <FeaturedArticlesCarousel />
       <EventsSection upcomingEvents={upcomingEvents} recentEvents={recentEvents} />
-      <ArticleList />
-      <UpdatedBulletin />
     </div>
   );
 }

@@ -234,13 +234,20 @@ export interface Bulletin {
  */
 export interface Member {
   id: string;
-  member: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   upi: string;
-  studentID: string;
-  role: 'member' | 'exec' | 'leadership';
-  executiveInformation?: (string | null) | Executive;
-  degree: string;
-  events?: (string | Event)[] | null;
+  studentId: string;
+  gender: 'male' | 'female' | 'nonBinary' | 'preferNotToSay';
+  universityYear: 'year1' | 'year2' | 'year3' | 'year4' | 'year5Plus' | 'postgraduate';
+  memberType: 'returning' | 'newMember';
+  degrees: string;
+  majors: string;
+  ethnicity: 'european' | 'maori' | 'pacificPeoples' | 'asian' | 'melaa' | 'other' | 'preferNotToSay';
+  howDidYouFindUs?: string | null;
+  hasPaid: boolean;
+  paymentDate?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -467,13 +474,20 @@ export interface BulletinSelect<T extends boolean = true> {
  * via the `definition` "member_select".
  */
 export interface MemberSelect<T extends boolean = true> {
-  member?: T;
+  firstName?: T;
+  lastName?: T;
+  email?: T;
   upi?: T;
-  studentID?: T;
-  role?: T;
-  executiveInformation?: T;
-  degree?: T;
-  events?: T;
+  studentId?: T;
+  gender?: T;
+  universityYear?: T;
+  memberType?: T;
+  degrees?: T;
+  majors?: T;
+  ethnicity?: T;
+  howDidYouFindUs?: T;
+  hasPaid?: T;
+  paymentDate?: T;
   updatedAt?: T;
   createdAt?: T;
 }
