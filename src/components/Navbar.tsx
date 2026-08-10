@@ -46,7 +46,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
     <nav className="w-full">
       {/* Top Bar */}
       <div
-        className={`topbar flex items-center justify-between ${hasBlueTheme ? "bg-white" : "bg-transparent"} px-6 py-2 text-[#172741] lg:p-0 lg:px-6`}
+        className={`topbar flex items-center justify-between ${hasBlueTheme ? "bg-white" : "bg-transparent"} px-6 py-0 text-[#172741] lg:p-0 lg:px-6`}
       >
         {/* Logo */}
         <Link href="/">
@@ -278,7 +278,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
         <StockTicker className="m-0 block w-full" isTransparent={true} />
       </div>
       {/* Stock Ticker - Mobile */}
-      <StockTicker className="shadow-xl/10 lg:hidden" isTransparent={!hasBlueTheme} />
+      <StockTicker className="lg:hidden" isTransparent={!hasBlueTheme} />
     </nav>
   );
 };
