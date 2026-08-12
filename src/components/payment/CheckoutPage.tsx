@@ -94,7 +94,34 @@ const CheckoutPage = ({
         setErrMessage(error.message || "An unexpected error occurred.");
       } else if (paymentIntent?.status === "succeeded") {
         setErrMessage(null);
-        window.location.href = window.location.origin + `/payment-success?amount=${amount}`;
+
+        try {
+          const newMemeber = await fetch("/api/create-member", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name,
+              upi,
+              studentId,
+              degrees,
+              ethnicity,
+              gender,
+              universityYear,
+              majors,
+              email,
+            }),
+          });
+
+          const memberReponse = await newMemeber.json();
+          if (!newMemeber.ok) {
+            setErrMessage(memberReponse.error || "Failed to create member");
+            return;
+          }
+          window.location.href = window.location.origin + `/payment-success?amount=${amount}`;
+        } catch (error) {
+          console.log("Unable to create member:", error);
+          setErrMessage("Payment succeeded, but unable to create member.");
+        }
       }
     } catch (error) {
       if (error instanceof Error) {

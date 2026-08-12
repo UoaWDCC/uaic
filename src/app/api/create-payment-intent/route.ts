@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
       metadata: {
         name: name || "",
         upi: upi || "",
-        studentId: studentId ?? "",
+        studentId: studentId != null ? String(studentId) : "",
         degrees: degrees || "",
         email: email || "",
         ethnicity: ethnicity || "",

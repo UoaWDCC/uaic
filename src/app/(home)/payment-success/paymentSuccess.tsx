@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { ClipLoader } from "react-spinners";
@@ -16,7 +17,13 @@ export default function PaymentSuccess({ amount }: { amount: string }) {
   });
 
   return (
-    <div className="mx-auto flex h-screen w-screen flex-col items-center justify-center rounded-md border bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)] p-10">
+    <div className="fixed inset-0 z-50 mx-auto flex h-screen w-screen flex-col items-center justify-center rounded-md border bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)] p-10">
+      {/* Logo */}
+      <Link href="/">
+        <div
+          className={`absolute top-3 left-3 m-0 h-[86px] w-[140px] bg-white mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat lg:ml-10 lg:h-[100px] lg:w-[140px]`}
+        />
+      </Link>
       {/* Centered White wrapper container card */}
       <div className="mb-10 w-full rounded-2xl bg-white p-4 pb-0 text-center text-black shadow-[0_5px_15px_rgba(0,0,0,0.25)] lg:max-w-xl">
         <p className="text-2xl font-bold">Thank you for your payment.</p>

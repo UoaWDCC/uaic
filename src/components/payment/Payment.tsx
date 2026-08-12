@@ -33,15 +33,15 @@ export default function Payment() {
   const [checkButton5, setCheck5] = useState(false);
 
   const genderOptions = ["Male", "Female", "Gender Diverse", "Preferred Not To Say"];
-  const universityYearOptions = ["year1", "year2", "year3", "year4", "year5Plus", "postgraduate"];
+  const universityYearOptions = ["Year 1", "Year 2", "Year 3", "Year 4", "Year 5+", "Postgraduate"];
   const ethnicityOptions = [
-    "european",
-    "pacificPeoples",
-    "melaa",
-    "preferNotToSay",
-    "maori",
-    "asian",
-    "other",
+    "European",
+    "Pacific",
+    "MELAA",
+    "Māori",
+    "Asian",
+    "Other",
+    "Prefer Not To Say",
   ];
 
   const [firstName, setFirstName] = useState("");
@@ -57,11 +57,14 @@ export default function Payment() {
   const [studentId, setStudentId] = useState(-1);
 
   const [gender, setGender] = useState("Gender:");
+  const [displayedGender, setDisplayedGender] = useState("Gender:");
   const [university, setUniversity] = useState("");
   const [uniYear, setUniYear] = useState("University Year:");
+  const [displayedUniYear, setDisplayedUniYear] = useState("University Year:");
   const [degrees, setDegrees] = useState("");
   const [major, setMajor] = useState("");
   const [ethnicity, setEthnicity] = useState("Ethnicity:");
+  const [displayedEthnicity, setDisplayedEthnicity] = useState("Ethnicity:");
 
   function validateNext(i: SetStateAction<number>, bypass: boolean) {
     if (i == 1 && bypass == false) {
@@ -286,7 +289,7 @@ export default function Payment() {
                   className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
                   onClick={() => setDrop1(!dropdown1)}
                 >
-                  {gender}
+                  {displayedGender}
                   <GoArrowUpRight
                     className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown1 ? "rotate-45" : "rotate-0"}`}
                   />
@@ -307,6 +310,7 @@ export default function Payment() {
                           } else {
                             setGender("preferNotToSay");
                           }
+                          setDisplayedGender(option);
 
                           setDrop1(false);
                         }}
@@ -347,7 +351,7 @@ export default function Payment() {
                   className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
                   onClick={() => setDrop2(!dropdown2)}
                 >
-                  {uniYear}
+                  {displayedUniYear}
                   <GoArrowUpRight
                     className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown2 ? "rotate-45" : "rotate-0"}`}
                   />
@@ -359,7 +363,20 @@ export default function Payment() {
                       <div
                         key={option}
                         onClick={() => {
-                          setUniYear(option);
+                          if (option == "Year 1") {
+                            setUniYear("year1");
+                          } else if (option == "Year 2") {
+                            setUniYear("year2");
+                          } else if (option == "Year 3") {
+                            setUniYear("year3");
+                          } else if (option == "Year 4") {
+                            setUniYear("year4");
+                          } else if (option == "Year 5+") {
+                            setUniYear("year5Plus");
+                          } else {
+                            setUniYear("postgraduate");
+                          }
+                          setDisplayedUniYear(option);
                           setDrop2(false);
                         }}
                         className="p-2 text-sm hover:bg-blue-100"
@@ -399,7 +416,7 @@ export default function Payment() {
                   className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
                   onClick={() => setDrop3(!dropdown3)}
                 >
-                  {ethnicity}
+                  {displayedEthnicity}
                   <GoArrowUpRight
                     className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown3 ? "rotate-45" : "rotate-0"}`}
                   />
@@ -411,7 +428,22 @@ export default function Payment() {
                       <div
                         key={option}
                         onClick={() => {
-                          setEthnicity(option);
+                          if (option == "European") {
+                            setEthnicity("european");
+                          } else if (option == "Asian") {
+                            setEthnicity("asian");
+                          } else if (option == "Māori") {
+                            setEthnicity("maori");
+                          } else if (option == "MELAA") {
+                            setEthnicity("melaa");
+                          } else if (option == "Prefer Not To Say") {
+                            setEthnicity("preferNotToSay");
+                          } else if (option == "Pacific") {
+                            setEthnicity("pacificPeoples");
+                          } else {
+                            setEthnicity("other");
+                          }
+                          setDisplayedEthnicity(option);
                           setDrop3(false);
                         }}
                         className="p-2 text-sm hover:bg-blue-100"
