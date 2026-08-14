@@ -13,6 +13,7 @@ const CheckoutPage = ({
   gender,
   universityYear,
   majors,
+  email,
 }: {
   amount: number;
   name: string;
@@ -23,13 +24,13 @@ const CheckoutPage = ({
   gender: string;
   universityYear: string;
   majors: string;
+  email: string;
 }) => {
   const stripe = useStripe();
   const elements = useElements();
 
   const [errMessage, setErrMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState("");
   const [cardholderName, setCardholderName] = useState("");
   const [country, setCountry] = useState("US");
   const [zip, setZip] = useState("");
@@ -57,7 +58,7 @@ const CheckoutPage = ({
           amount: Math.round(amount * 100),
           name,
           upi,
-          studentId,
+          studentId: String(studentId),
           degrees,
           ethnicity,
           gender,
@@ -96,31 +97,46 @@ const CheckoutPage = ({
         setErrMessage(null);
 
         try {
-          const newMemeber = await fetch("/api/create-member", {
-            method: "POST",
+          const nameParts = name ? name.trim().split("|") : ["", ""];
+          const firstName = nameParts[0];
+          const lastName = nameParts.slice(1).join(" ") || firstName;
+
+          // 2. Build payload object dynamically
+          const payloadData: Record<string, any> = {
+            firstName,
+            lastName,
+            upi,
+            studentId: String(studentId), // Member schema expects string
+            degrees,
+            ethnicity,
+            gender,
+            universityYear,
+            majors,
+            paymentDate: new Date().toISOString(),
+            memberType: "newMember",
+          };
+
+          // Only add email if it's not empty
+          if (email && email.trim() !== "placeholder") {
+            payloadData.email = email;
+          }
+
+          // 3. Make a single fetch request
+          const response = await fetch("/api/update-member", {
+            method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name,
-              upi,
-              studentId,
-              degrees,
-              ethnicity,
-              gender,
-              universityYear,
-              majors,
-              email,
-            }),
+            body: JSON.stringify(payloadData),
           });
 
-          const memberReponse = await newMemeber.json();
-          if (!newMemeber.ok) {
-            setErrMessage(memberReponse.error || "Failed to create member");
+          const memberReponse = await response.json();
+          if (!response.ok) {
+            setErrMessage(memberReponse.error || "Failed to update member");
             return;
           }
           window.location.href = window.location.origin + `/payment-success?amount=${amount}`;
         } catch (error) {
-          console.log("Unable to create member:", error);
-          setErrMessage("Payment succeeded, but unable to create member.");
+          console.log("Unable to update member:", error);
+          setErrMessage("Payment succeeded, but unable to update member.");
         }
       }
     } catch (error) {
@@ -145,20 +161,6 @@ const CheckoutPage = ({
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {/* 1. Native Email Input */}
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="custom-email" className="text-sm font-medium text-gray-700">
-          Email
-        </label>
-        <input
-          id="custom-email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@example.com"
-          className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-          required
-        />
-      </div>
 
       {/* 2. Isolated Card Inputs (Completely bypasses multi-method layouts) */}
       <div className="flex flex-col gap-1.5">

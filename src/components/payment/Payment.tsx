@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession, signOut } from "@/lib/auth-client";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutPage from "./CheckoutPage";
@@ -8,7 +9,8 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 import { CgRadioChecked } from "react-icons/cg";
 import { MdError, MdRadioButtonUnchecked } from "react-icons/md";
 import { GoArrowUpRight } from "react-icons/go";
-import { redirect } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const stripePublicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY;
 
@@ -19,9 +21,9 @@ if (!stripePublicKey) {
 const stripePromise = loadStripe(stripePublicKey);
 
 export default function Payment() {
+  const { data: session, isPending } = useSession();
+  const searchParams = useSearchParams();
   const amount = 21.58;
-
-  const [currentStep, setCurrentStep] = useState(0);
   const [dropdown1, setDrop1] = useState(false);
   const [dropdown2, setDrop2] = useState(false);
   const [dropdown3, setDrop3] = useState(false);
@@ -47,7 +49,6 @@ export default function Payment() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [UPI, setUPI] = useState("");
-  const [password, setPassword] = useState("");
 
   const [errorMsg, setErroMsg] = useState("");
   const [openErrorPage, setErrorPage] = useState(false);
@@ -66,9 +67,14 @@ export default function Payment() {
   const [ethnicity, setEthnicity] = useState("Ethnicity:");
   const [displayedEthnicity, setDisplayedEthnicity] = useState("Ethnicity:");
 
+  const email = searchParams.get("email");
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const router = useRouter();
+
   function validateNext(i: SetStateAction<number>, bypass: boolean) {
     if (i == 1 && bypass == false) {
-      if (firstName != "" && lastName != "" && UPI != "" && password != "") {
+      if (firstName != "" && lastName != "" && UPI != "") {
         setCurrentStep(i);
         setErrorPage(false);
       } else {
@@ -114,6 +120,21 @@ export default function Payment() {
       setCurrentStep(i);
     }
   }
+
+  useEffect(() => {
+    if (!isPending && session?.user?.name) {
+      setFirstName(session?.user?.name?.split(" ")[0] || "");
+      setLastName(session?.user?.name?.split(" ")[1] || "");
+    }
+  }, [isPending, session]);
+
+  useEffect(() => {
+    //if user tries to directly access /payment, redirect to sign up.
+    if (!email && !isPending) {
+      router.push("/signup");
+    }
+  }, [email, router, isPending]);
+
   useEffect(() => {
     if (!openErrorPage) return;
 
@@ -237,19 +258,7 @@ export default function Payment() {
               <div>
                 <input
                   type="text"
-                  id="last_name"
-                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div>
-                <input
-                  type="text"
-                  id="last_name"
+                  id="upi"
                   className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
                   placeholder="UPI(e.g. abcd123)"
                   value={UPI}
@@ -262,7 +271,7 @@ export default function Payment() {
                 <button
                   type="button"
                   className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-[#145ca9] transition hover:bg-gray-300"
-                  onClick={() => redirect("/")}
+                  onClick={() => router.push("/")}
                 >
                   Back
                 </button>
@@ -323,26 +332,49 @@ export default function Payment() {
                 )}
               </div>
 
-              <div>
-                <input
-                  type="number"
-                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="Student ID"
-                  value={studentId === -1 ? "" : studentId}
-                  onChange={(e) => setStudentId(Number(e.target.value))}
-                  required
-                />
-              </div>
+              <div className="relative w-full">
+                <button
+                  id="ethnicity"
+                  className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
+                  onClick={() => setDrop3(!dropdown3)}
+                >
+                  {displayedEthnicity}
+                  <GoArrowUpRight
+                    className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown3 ? "rotate-45" : "rotate-0"}`}
+                  />
+                </button>
 
-              <div>
-                <input
-                  type="string"
-                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="University"
-                  value={university}
-                  onChange={(e) => setUniversity(e.target.value)}
-                  required
-                />
+                {dropdown3 && (
+                  <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
+                    {ethnicityOptions.map((option) => (
+                      <div
+                        key={option}
+                        onClick={() => {
+                          if (option == "European") {
+                            setEthnicity("european");
+                          } else if (option == "Asian") {
+                            setEthnicity("asian");
+                          } else if (option == "Māori") {
+                            setEthnicity("maori");
+                          } else if (option == "MELAA") {
+                            setEthnicity("melaa");
+                          } else if (option == "Prefer Not To Say") {
+                            setEthnicity("preferNotToSay");
+                          } else if (option == "Pacific") {
+                            setEthnicity("pacificPeoples");
+                          } else {
+                            setEthnicity("other");
+                          }
+                          setDisplayedEthnicity(option);
+                          setDrop3(false);
+                        }}
+                        className="p-2 text-sm hover:bg-blue-100"
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="relative w-full">
@@ -390,6 +422,28 @@ export default function Payment() {
 
               <div>
                 <input
+                  type="number"
+                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                  placeholder="Student ID"
+                  value={studentId === -1 ? "" : studentId}
+                  onChange={(e) => setStudentId(Number(e.target.value))}
+                  required
+                />
+              </div>
+
+              <div>
+                <input
+                  type="string"
+                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                  placeholder="University"
+                  value={university}
+                  onChange={(e) => setUniversity(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div>
+                <input
                   type="string"
                   className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
                   placeholder="Degrees"
@@ -408,51 +462,6 @@ export default function Payment() {
                   onChange={(e) => setMajor(e.target.value)}
                   required
                 />
-              </div>
-
-              <div className="relative w-full">
-                <button
-                  id="ethnicity"
-                  className="w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-left text-sm shadow-xs"
-                  onClick={() => setDrop3(!dropdown3)}
-                >
-                  {displayedEthnicity}
-                  <GoArrowUpRight
-                    className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-blue-700 transition duration-100 ${dropdown3 ? "rotate-45" : "rotate-0"}`}
-                  />
-                </button>
-
-                {dropdown3 && (
-                  <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
-                    {ethnicityOptions.map((option) => (
-                      <div
-                        key={option}
-                        onClick={() => {
-                          if (option == "European") {
-                            setEthnicity("european");
-                          } else if (option == "Asian") {
-                            setEthnicity("asian");
-                          } else if (option == "Māori") {
-                            setEthnicity("maori");
-                          } else if (option == "MELAA") {
-                            setEthnicity("melaa");
-                          } else if (option == "Prefer Not To Say") {
-                            setEthnicity("preferNotToSay");
-                          } else if (option == "Pacific") {
-                            setEthnicity("pacificPeoples");
-                          } else {
-                            setEthnicity("other");
-                          }
-                          setDisplayedEthnicity(option);
-                          setDrop3(false);
-                        }}
-                        className="p-2 text-sm hover:bg-blue-100"
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
               </div>
 
               <div className="flex gap-3 pt-2">
@@ -513,7 +522,7 @@ export default function Payment() {
                       id="country-option-2"
                       type="checkbox"
                       name="default-radio"
-                      value="Google search"
+                      value="Social media"
                       checked={checkButton2}
                       onChange={() => setCheck2(!checkButton2)}
                       className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
@@ -538,7 +547,7 @@ export default function Payment() {
                       id="country-option-3"
                       type="checkbox"
                       name="default-radio"
-                      value="Google search"
+                      value="Email newsletters"
                       checked={checkButton3}
                       onChange={() => setCheck3(!checkButton3)}
                       className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
@@ -553,7 +562,7 @@ export default function Payment() {
                     htmlFor="country-option-3"
                     className="ms-2 text-sm font-medium select-none"
                   >
-                    Email newslettters
+                    Email newsletters
                   </label>
                 </div>
 
@@ -563,7 +572,7 @@ export default function Payment() {
                       id="country-option-4"
                       type="checkbox"
                       name="default-radio"
-                      value="Google search"
+                      value="Word of mouth"
                       checked={checkButton4}
                       onChange={() => setCheck4(!checkButton4)}
                       className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
@@ -588,7 +597,7 @@ export default function Payment() {
                       id="country-option-5"
                       type="checkbox"
                       name="default-radio"
-                      value="Google search"
+                      value="Other"
                       checked={checkButton5}
                       onChange={() => {
                         (setCheck5(!checkButton5), setSpecifyInput(!checkButton5));
@@ -660,6 +669,7 @@ export default function Payment() {
                 gender={gender}
                 universityYear={uniYear}
                 majors={major}
+                email={email === "placeholder" ? session?.user?.email || "" : email || ""}
               />
             </Elements>
           )}

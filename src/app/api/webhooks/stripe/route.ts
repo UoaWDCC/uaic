@@ -32,6 +32,7 @@ export async function POST(request: NextRequest) {
     });
 
     const payload = await getPayload({ config });
+
     const existingMember = await payload.find({
       collection: "member",
       where: {
