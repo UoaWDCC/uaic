@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import ArrowButton from "./ArrowButton";
 import StockTicker from "./StockTicker";
 import { GoArrowUpRight, GoArrowLeft } from "react-icons/go";
@@ -9,6 +10,10 @@ import Button from "./Button";
 interface NavbarProps {
   theme?: "auto" | "blue";
 }
+
+// Routes that open on a light background instead of a dark hero — the white
+// navbar would be invisible there, so they get the solid one straight away.
+const SOLID_NAVBAR_ROUTES = ["/bulletin"];
 
 const Navbar = ({ theme = "auto" }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +28,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
   };
 
   const [beyondHero, setBeyondHero] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (theme === "blue") return;
@@ -40,7 +46,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
     };
   }, [theme]);
 
-  const hasBlueTheme = theme === "blue" || beyondHero;
+  const hasBlueTheme = theme === "blue" || beyondHero || SOLID_NAVBAR_ROUTES.includes(pathname);
 
   return (
     <nav className="w-full">
