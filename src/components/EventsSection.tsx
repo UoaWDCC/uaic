@@ -9,7 +9,7 @@ interface EventsSectionProps {
 
 const EventsSection = ({ upcomingEvents }: EventsSectionProps) => {
   return (
-    <div className="mt-[200px] flex flex-col items-center gap-[36px] px-[16px] lg:px-[120px]">
+    <div className="my-[200px] flex flex-col items-center gap-[36px] px-[16px] lg:px-[120px]">
       <div className="flex w-full flex-col gap-[20px]">
         <hr className="h-[2px] w-full border-0 bg-[#DCE6F2]" />
         <div className="flex w-full flex-row items-center justify-between">
