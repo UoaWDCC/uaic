@@ -1,9 +1,10 @@
 import React from "react";
 import UpcomingEvents from "@/components/events/UpcomingEvents";
 import ArrowButton from "./ArrowButton";
+import type { Event } from "../../payload-types";
 
 interface EventsSectionProps {
-  upcomingEvents: any[];
+  upcomingEvents: Event[];
 }
 
 const EventsSection = ({ upcomingEvents }: EventsSectionProps) => {
