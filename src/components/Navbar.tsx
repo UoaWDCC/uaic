@@ -52,7 +52,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
     <nav className="w-full">
       {/* Top Bar */}
       <div
-        className={`topbar flex items-center justify-between ${hasBlueTheme ? "bg-white" : "bg-transparent"} px-6 py-2 text-[#172741] lg:p-0 lg:px-6`}
+        className={`topbar flex items-center justify-between transition-colors duration-300 ease-in-out ${hasBlueTheme ? "bg-white" : "bg-transparent"} px-6 py-2 text-[#172741] lg:p-0 lg:px-6`}
       >
         {/* Logo */}
         <Link href="/">
@@ -84,7 +84,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           <li>
             <Link
               href="/"
-              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] transition-colors duration-300 ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
             >
               Home
             </Link>
@@ -96,7 +96,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           >
             <Link
               href="/about"
-              className={`cursor-pointer p-[4px] font-[300] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] font-[300] transition-colors duration-300 ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
             >
               About
             </Link>
@@ -126,7 +126,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           <li>
             <Link
               href="/events"
-              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] transition-colors duration-300 ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
             >
               Events
             </Link>
@@ -134,7 +134,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           <li>
             <Link
               href="/bulletin"
-              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] transition-colors duration-300 ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
             >
               Bulletin
             </Link>
