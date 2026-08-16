@@ -114,6 +114,7 @@ const CheckoutPage = ({
             majors,
             paymentDate: new Date().toISOString(),
             memberType: "newMember",
+            hasPaid: true,
           };
 
           // Only add email if it's not empty
