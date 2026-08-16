@@ -28,6 +28,7 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
   const [selectedEvent, setSelectedEvent] = useState<null | Event>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const closeTimerRef = useRef<number | null>(null);
+  const eventsListRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!selectedEvent) return;
@@ -37,10 +38,67 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
   }, [selectedEvent]);
 
   useEffect(() => {
+    if (!selectedEvent) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [selectedEvent]);
+
+  useEffect(() => {
     return () => {
       if (closeTimerRef.current !== null) window.clearTimeout(closeTimerRef.current);
     };
   }, []);
+
+  useEffect(() => {
+    const eventsList = eventsListRef.current;
+    if (!eventsList) return;
+
+    let animationFrame: number | null = null;
+
+    const syncStackedListHeight = () => {
+      if (animationFrame !== null) window.cancelAnimationFrame(animationFrame);
+
+      animationFrame = window.requestAnimationFrame(() => {
+        if (window.innerWidth >= 1024) {
+          eventsList.style.removeProperty("--stacked-events-height");
+          return;
+        }
+
+        const visibleCards = Array.from(
+          eventsList.querySelectorAll<HTMLElement>("[data-event-card]"),
+        ).slice(0, 2);
+
+        if (visibleCards.length === 0) return;
+
+        const listStyles = window.getComputedStyle(eventsList);
+        const rowGap = Number.parseFloat(listStyles.rowGap) || 0;
+        const paddingTop = Number.parseFloat(listStyles.paddingTop) || 0;
+        const cardsHeight = visibleCards.reduce((height, card) => height + card.offsetHeight, 0);
+        const totalHeight =
+          cardsHeight + rowGap * Math.max(visibleCards.length - 1, 0) + paddingTop;
+
+        eventsList.style.setProperty("--stacked-events-height", `${Math.ceil(totalHeight)}px`);
+      });
+    };
+
+    const resizeObserver = new ResizeObserver(syncStackedListHeight);
+    eventsList
+      .querySelectorAll<HTMLElement>("[data-event-card]")
+      .forEach((card) => resizeObserver.observe(card));
+    window.addEventListener("resize", syncStackedListHeight);
+    syncStackedListHeight();
+
+    return () => {
+      if (animationFrame !== null) window.cancelAnimationFrame(animationFrame);
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", syncStackedListHeight);
+    };
+  }, [rawEvents.length]);
 
   const openSelectedEvent = (event: Event) => {
     if (closeTimerRef.current !== null) window.clearTimeout(closeTimerRef.current);
@@ -105,23 +163,27 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
   return (
     <div className="mt-[20px] w-full text-center text-black lg:mt-[0px]">
       <div className="px-[16px] lg:px-0">
-        <div className="flex h-[35em] flex-col items-stretch gap-[36px] overflow-y-auto pt-[10px] text-left lg:h-[38em]">
+        <div
+          ref={eventsListRef}
+          className="flex h-[var(--stacked-events-height,916px)] flex-col items-stretch gap-[36px] overflow-y-auto pt-[10px] text-left lg:h-[38em]"
+        >
           {events.map((event: Event) => (
             <article
               key={event.id}
-              className="group/card mx-auto flex w-full max-w-[1444.56px] flex-shrink-0 flex-col gap-[20px] rounded-[24px] border border-[#DCE6F2] bg-white p-[8px] shadow-[0_1px_4px_0_rgba(12,12,13,0.05),0_1px_4px_0_rgba(12,12,13,0.10)] transition-transform duration-200 ease-in-out hover:-translate-y-[5px] lg:h-[260px] lg:flex-row lg:gap-[39px]"
+              data-event-card
+              className="group/card mx-auto flex w-full max-w-[1444.56px] flex-shrink-0 flex-col gap-[20px] rounded-[24px] border border-[#DCE6F2] bg-white p-[8px] shadow-[0_1px_4px_0_rgba(12,12,13,0.05),0_1px_4px_0_rgba(12,12,13,0.10)] transition-transform duration-200 ease-in-out hover:-translate-y-[5px] lg:h-[clamp(226px,calc(20vw+21px),260px)] lg:flex-row lg:gap-[clamp(24px,calc(10vw-78px),39px)]"
             >
-              <div className="flex h-[190px] w-full flex-shrink-0 flex-row gap-[8px] lg:h-[244px] lg:w-[495.56px]">
-                <div className="flex h-full min-w-0 flex-1 flex-col items-center justify-center rounded-[16px] bg-[#EFF4FA] py-[24px] text-center text-[#145BA7] lg:h-[244px] lg:w-[244px] lg:flex-none lg:py-[37.54px]">
-                  <span className="text-[52px] leading-[90%] font-extrabold tracking-[0px] lg:text-[93.85px] lg:leading-[84.46px]">
+              <div className="flex h-[190px] w-full flex-shrink-0 flex-row gap-[8px] lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:w-[clamp(428px,calc(40vw+18px),496px)]">
+                <div className="flex h-full min-w-0 flex-1 flex-col items-center justify-center rounded-[16px] bg-[#EFF4FA] py-[24px] text-center text-[#145BA7] lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:w-[clamp(210px,calc(20vw+5px),244px)] lg:flex-none lg:py-0">
+                  <span className="text-[52px] leading-[90%] font-extrabold tracking-[0px] lg:text-[clamp(80.85px,calc(7.7vw+1.925px),93.85px)] lg:leading-[90%]">
                     {event.day}
                   </span>
-                  <span className="text-[34px] leading-[100%] font-bold tracking-[1.2px] uppercase lg:text-[65.69px] lg:leading-[73.9px] lg:tracking-[1.97px]">
+                  <span className="text-[34px] leading-[100%] font-bold tracking-[1.2px] uppercase lg:text-[clamp(56.5px,calc(5.38vw+1.4px),65.69px)] lg:leading-[112.5%] lg:tracking-[1.97px]">
                     {event.month}
                   </span>
                 </div>
 
-                <div className="relative min-w-0 flex-1 overflow-hidden rounded-[16px]">
+                <div className="relative min-w-0 flex-1 overflow-hidden rounded-[16px] lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:w-[clamp(210px,calc(20vw+5px),244px)] lg:flex-none">
                   <Image
                     src={event.photo}
                     alt={`${event.title} photo`}
@@ -137,7 +199,7 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
                 aria-hidden="true"
               />
 
-              <div className="flex min-w-0 flex-1 flex-col gap-[20px] px-[8px] pb-[8px] lg:h-[213px] lg:max-w-[635px] lg:self-center lg:px-0 lg:pb-0">
+              <div className="flex min-w-0 flex-1 flex-col gap-[20px] px-[8px] pb-[8px] lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:self-center lg:px-0 lg:pt-[clamp(0px,calc(8.5vw-87px),15px)] lg:pb-[clamp(0px,calc(8.5vw-87px),15px)]">
                 <div className="min-w-0">
                   <h2 className="text-[24px] leading-[32px] font-semibold tracking-[0px] text-[#0B1A2B] lg:text-[30px]">
                     {event.title}
@@ -157,7 +219,7 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
                     className="group relative flex h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden rounded-[100px] border border-transparent bg-[#EFF4FA] px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-white transition-colors duration-200 hover:border-[#DCE6F2] hover:text-[#005EAF]"
                   >
                     <span className="absolute inset-0 rounded-[100px] bg-gradient-to-r from-[#249AFF] to-[#005EAF] transition-opacity duration-200 group-hover:opacity-0" />
-                    <span className="relative z-10 font-[500]">Register Now</span>
+                    <span className="relative z-10 font-[500] whitespace-nowrap">Register Now</span>
                   </Link>
                   <button
                     type="button"
@@ -165,7 +227,7 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
                     className="group relative flex h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden rounded-[100px] border border-[#DCE6F2] bg-gradient-to-r from-[#249AFF] to-[#005EAF] px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-[#005EAF] transition-colors duration-200 hover:cursor-pointer hover:border-transparent hover:text-white"
                   >
                     <span className="absolute inset-0 rounded-[100px] bg-[#EFF4FA] transition-opacity duration-200 group-hover:opacity-0" />
-                    <span className="relative z-10 font-[500]">Learn More</span>
+                    <span className="relative z-10 font-[500] whitespace-nowrap">Learn More</span>
                   </button>
                 </div>
               </div>
@@ -181,56 +243,67 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
             onClick={(event) => {
               if (event.target === event.currentTarget) closeSelectedEvent();
             }}
-            className={`fixed inset-0 z-50 flex items-center justify-center px-4 transition-[opacity,background-color,backdrop-filter] duration-200 ease-in-out ${
+            className={`fixed inset-0 z-50 flex items-center justify-center overflow-hidden p-[clamp(24px,6vw,64px)] transition-[opacity,background-color,backdrop-filter] duration-200 ease-in-out lg:p-[clamp(32px,4vw,64px)] ${
               isModalVisible
                 ? "bg-black/20 opacity-100 backdrop-blur-md"
                 : "bg-black/0 opacity-0 backdrop-blur-none"
             }`}
           >
-            <div className="relative flex max-h-[calc(100vh-32px)] w-full max-w-[1244px] flex-col justify-between gap-[24px] overflow-y-auto rounded-[24px] border border-[#DCE6F2] bg-white pt-[8px] pr-[24px] pb-[8px] pl-[8px] text-left shadow-[0_1px_4px_0_rgba(12,12,13,0.05)] lg:h-[527.56px] lg:flex-row lg:items-center lg:gap-0 lg:overflow-hidden">
-              <div className="relative aspect-square w-full flex-shrink-0 overflow-hidden rounded-[16px] lg:h-[511.56px] lg:w-[511.56px]">
-                <Image
-                  src={selectedEvent.photo}
-                  alt={`${selectedEvent.title} photo`}
-                  fill
-                  sizes="(min-width: 1024px) 512px, calc(100vw - 32px)"
-                  className="object-cover"
-                />
-              </div>
+            <div
+              className="relative flex max-h-[calc(100dvh-clamp(48px,12vw,128px))] w-full max-w-[clamp(320px,calc(100dvh-360px),640px)] overflow-hidden rounded-[24px] border border-[#DCE6F2] bg-white p-[8px] text-left shadow-[0_1px_4px_0_rgba(12,12,13,0.05)] lg:h-auto lg:max-h-[calc(100dvh-clamp(64px,8vw,128px))] lg:min-h-[calc(var(--modal-media-size)+16px)] lg:max-w-[1244px]"
+              style={
+                {
+                  "--modal-media-size":
+                    "clamp(280px, min(40vw, calc(100dvh - clamp(96px, 12vw, 176px))), 511.56px)",
+                } as React.CSSProperties
+              }
+            >
+              <button
+                type="button"
+                onClick={closeSelectedEvent}
+                className="absolute top-[clamp(14px,2vw,24px)] right-[clamp(14px,2vw,24px)] z-20 flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-full bg-white/85 p-0 text-[#6B7A8D] transition-[transform,color] duration-200 ease-in-out hover:scale-[1.0667] hover:text-[#005EAF]"
+                aria-label="Close"
+              >
+                <VscClose size={30} aria-hidden="true" />
+              </button>
 
-              <div
-                className="h-[8px] w-full flex-shrink-0 rounded-[32.66px] bg-[#249AFF] lg:h-[340px] lg:w-[8px]"
-                aria-hidden="true"
-              />
-
-              <div className="relative flex min-h-[200px] w-full flex-row items-center gap-[28px] lg:h-[480px] lg:w-[512px] lg:flex-shrink-0">
-                <button
-                  type="button"
-                  onClick={closeSelectedEvent}
-                  className="absolute top-0 right-0 z-10 flex h-[30px] w-[30px] cursor-pointer items-center justify-center p-0 text-[#6B7A8D] transition-[transform,color] duration-200 ease-in-out hover:scale-[1.0667] hover:text-[#005EAF]"
-                  aria-label="Close"
-                >
-                  <VscClose size={30} aria-hidden="true" />
-                </button>
-                <div className="flex w-full flex-col gap-[42px]">
-                  <div className="flex flex-col gap-[25px]">
-                    <div className="flex flex-col gap-[8px]">
-                      <p className="h-[20px] w-[95px] text-[20px] leading-[20px] font-bold text-[#249AFF]">
-                        Event Info
-                      </p>
-                      <h2 className="w-full text-[30px] leading-[32px] font-semibold text-[#0B1A2B] lg:w-[512px]">
-                        {selectedEvent.title}
-                      </h2>
-                    </div>
-                    <p className="h-[158px] w-full overflow-y-auto text-[20px] leading-[22.5px] font-normal text-black lg:w-[512px]">
-                      {selectedEvent.description}
-                    </p>
-                  </div>
-                  <ArrowButton
-                    text="Complete Registration"
-                    link={selectedEvent.application_link}
-                    fullWidth
+              <div className="flex min-h-0 w-full flex-auto flex-col items-stretch gap-[clamp(24px,4vw,36px)] overflow-y-auto overscroll-contain lg:min-h-[var(--modal-media-size)] lg:flex-row lg:items-center lg:gap-[clamp(28px,5vw,88px)] lg:overflow-x-hidden lg:overflow-y-auto lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden">
+                <div className="relative mx-auto aspect-square w-full flex-shrink-0 overflow-hidden rounded-[16px] lg:mx-0 lg:h-[var(--modal-media-size)] lg:w-[var(--modal-media-size)]">
+                  <Image
+                    src={selectedEvent.photo}
+                    alt={`${selectedEvent.title} photo`}
+                    fill
+                    sizes="(min-width: 1280px) 512px, (min-width: 1024px) 40vw, (min-width: 768px) 650px, calc(100vw - 48px)"
+                    className="object-cover"
                   />
+                </div>
+
+                <div
+                  className="h-[8px] w-[calc(100%-16px)] flex-shrink-0 self-center rounded-[32.66px] bg-[#249AFF] lg:h-[clamp(220px,30vw,340px)] lg:w-[8px]"
+                  aria-hidden="true"
+                />
+
+                <div className="flex min-h-[clamp(260px,36dvh,320px)] w-full min-w-0 flex-col px-[clamp(8px,2vw,20px)] pb-[clamp(8px,2vw,20px)] lg:h-auto lg:min-h-[336px] lg:flex-1 lg:px-0 lg:pr-[clamp(8px,1.5vw,16px)] lg:pb-0">
+                  <div className="flex flex-shrink-0 flex-col gap-[8px] pr-[48px]">
+                    <p className="text-[18px] leading-[20px] font-bold whitespace-nowrap text-[#249AFF] sm:text-[20px]">
+                      Event Info
+                    </p>
+                    <h2 className="w-full text-[clamp(24px,4vw,30px)] leading-[32px] font-semibold text-[#0B1A2B]">
+                      {selectedEvent.title}
+                    </h2>
+                  </div>
+
+                  <p className="mt-[clamp(16px,2vw,25px)] h-[158px] w-full flex-none overflow-y-scroll pr-[8px] text-[16px] leading-[20px] font-normal text-black [scrollbar-color:#DCE6F2_transparent] [scrollbar-gutter:stable] [scrollbar-width:thin] sm:text-[20px] sm:leading-[22.5px] [&::-webkit-scrollbar]:w-[6px] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#DCE6F2] [&::-webkit-scrollbar-track]:bg-transparent">
+                    {selectedEvent.description}
+                  </p>
+
+                  <div className="mt-auto w-full flex-shrink-0 pt-[clamp(24px,3vw,42px)]">
+                    <ArrowButton
+                      text="Complete Registration"
+                      link={selectedEvent.application_link}
+                      fullWidth
+                    />
+                  </div>
                 </div>
               </div>
             </div>
