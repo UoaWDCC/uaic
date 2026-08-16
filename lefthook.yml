@@ -4,7 +4,7 @@
 # To skip in an emergency: git commit --no-verify
 
 pre-commit:
-  parallel: true
+  parallel: false
   commands:
     format:
       glob: "*.{js,jsx,ts,tsx,css,scss,json,md,yml,yaml}"
@@ -12,7 +12,7 @@ pre-commit:
       stage_fixed: true
     lint:
       glob: "*.{js,jsx,ts,tsx}"
-      run: pnpm exec eslint {staged_files}
+      run: pnpm exec eslint --no-warn-ignored {staged_files}
 #       run: bundle exec rubocop --force-exclusion {all_files}
 #
 #     - name: govet

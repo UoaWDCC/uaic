@@ -284,7 +284,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
         <StockTicker className="m-0 block w-full" isTransparent={true} />
       </div>
       {/* Stock Ticker - Mobile */}
-      <StockTicker className="shadow-xl/10 lg:hidden" isTransparent={!hasBlueTheme} />
+      <StockTicker className="lg:hidden" isTransparent={!hasBlueTheme} />
     </nav>
   );
 };
