@@ -24,6 +24,19 @@ interface UpcomingEventsProps {
   events: any[]; // Raw events from database
 }
 
+const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
+// toLocaleDateString/toLocaleTimeString aren't guaranteed to return identical
+// strings across JS engines (e.g. Node/V8 vs Safari's JavaScriptCore), which
+// causes SSR/CSR hydration mismatches since this component renders on both.
+const formatTime = (date: Date) => {
+  const hours24 = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const period = hours24 >= 12 ? "PM" : "AM";
+  const hours12 = hours24 % 12 || 12;
+  return `${hours12}:${minutes} ${period}`;
+};
+
 const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
   const [selectedEvent, setSelectedEvent] = useState<null | Event>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -128,24 +141,15 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
       })
       .replace(",", "");
 
-    const startTime = startDate.toLocaleTimeString("en-NZ", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
-
-    const endTime = endDate.toLocaleTimeString("en-NZ", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
+    const startTime = formatTime(startDate);
+    const endTime = formatTime(endDate);
 
     return {
       id: dbEvent.id,
       date: formattedDate,
       day: startDate.toLocaleDateString("en-NZ", { day: "2-digit" }),
-      month: startDate.toLocaleDateString("en-NZ", { month: "short" }).toUpperCase(),
-      startTime: startTime.replace(/^0/, "").toUpperCase(),
+      month: MONTHS[startDate.getMonth()],
+      startTime,
       time: `${startTime} - ${endTime}`,
       title: dbEvent.event,
       location: dbEvent.location,
