@@ -11,8 +11,7 @@ interface NavbarProps {
   theme?: "auto" | "blue";
 }
 
-// Routes that open on a light background instead of a dark hero — the white
-// navbar would be invisible there, so they get the solid one straight away.
+// this is for pages that doesnt have a hero section, u can append more pages to the list if u want solid white bg navbar
 const SOLID_NAVBAR_ROUTES = ["/bulletin"];
 
 const Navbar = ({ theme = "auto" }: NavbarProps) => {
