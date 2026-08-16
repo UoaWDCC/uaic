@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import ArrowButton from "./ArrowButton";
 import StockTicker from "./StockTicker";
 import { GoArrowUpRight, GoArrowLeft } from "react-icons/go";
@@ -9,6 +10,8 @@ import Button from "./Button";
 interface NavbarProps {
   theme?: "auto" | "blue";
 }
+
+const NAVBAR_HEIGHT = 131.75;
 
 const Navbar = ({ theme = "auto" }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,31 +25,34 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
     setShowAboutSubpage(false);
   };
 
+  const pathname = usePathname();
+  const startsTransparent = theme === "auto" && pathname === "/";
+
   const [beyondHero, setBeyondHero] = useState(false);
 
   useEffect(() => {
-    if (theme === "blue") return;
+    if (!startsTransparent) return;
 
     const scrollHero = () => {
       const hero = document.getElementById("hero");
       if (!hero) return;
       const heroBottom = hero.getBoundingClientRect().bottom;
-      setBeyondHero(heroBottom < 0);
+      setBeyondHero(heroBottom <= NAVBAR_HEIGHT);
     };
     scrollHero();
     window.addEventListener("scroll", scrollHero);
     return () => {
       window.removeEventListener("scroll", scrollHero);
     };
-  }, [theme]);
+  }, [startsTransparent]);
 
-  const hasBlueTheme = theme === "blue" || beyondHero;
+  const hasBlueTheme = !startsTransparent || beyondHero;
 
   return (
     <nav className="w-full">
       {/* Top Bar */}
       <div
-        className={`topbar flex items-center justify-between ${hasBlueTheme ? "bg-white" : "bg-transparent"} px-6 py-0 text-[#172741] lg:p-0 lg:px-6`}
+        className={`topbar flex items-center justify-between transition-colors duration-300 ease-in-out ${hasBlueTheme ? "bg-white" : "bg-transparent"} px-6 py-2 text-[#172741] lg:p-0 lg:px-6`}
       >
         {/* Logo */}
         <Link href="/">
@@ -78,7 +84,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           <li>
             <Link
               href="/"
-              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] transition-colors duration-300 ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
             >
               Home
             </Link>
@@ -90,7 +96,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           >
             <Link
               href="/about"
-              className={`cursor-pointer p-[4px] font-[300] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] font-[300] transition-colors duration-300 ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
             >
               About
             </Link>
@@ -120,7 +126,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           <li>
             <Link
               href="/events"
-              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] transition-colors duration-300 ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
             >
               Events
             </Link>
@@ -128,19 +134,19 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           <li>
             <Link
               href="/bulletin"
-              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] transition-colors duration-300 ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
             >
               Bulletin
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               href="/investmentportfolio"
               className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
             >
               Investments
             </Link>
-          </li>
+          </li> */}
         </ul>
 
         <div className="hidden lg:block lg:ps-8 lg:pe-15">
@@ -218,11 +224,11 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
               Bulletin
             </Link>
           </li>
-          <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b pt-3 pb-1 text-3xl font-normal sm:p-8 sm:pl-16">
+          {/*           <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b pt-3 pb-1 text-3xl font-normal sm:p-8 sm:pl-16">
             <Link href="/investmentportfolio" className="block w-full" onClick={handleLinkClick}>
               Investments
             </Link>
-          </li>
+          </li> */}
           <li className="mx-auto my-auto flex justify-center p-5 pt-8 text-lg font-[600] sm:text-xl lg:mr-[30px]">
             <div className="text-3xl [&_a]:px-26 [&_a]:py-4 sm:[&_a]:w-[249.36px] sm:[&_svg]:hidden">
               <ArrowButton text="Become A Member" link="/login" />
