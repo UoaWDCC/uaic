@@ -308,43 +308,51 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
             />
           </div>
 
-          {/* Same "Sort By Category" bar as before — one shadowed rounded-full
-              surface with a label — but each pill is now its own dropdown
-              trigger instead of a static, always-visible option. */}
-          <div className="flex w-full flex-wrap items-center gap-2 rounded-full bg-white p-1.5 shadow-[0_2px_8px_rgba(11,26,43,0.08)] lg:w-auto lg:p-2">
-            <span className="shrink-0 px-2 text-[12px] font-semibold text-[#145BA7] lg:px-3 lg:text-[14px]">
+          {/* Same "Sort By Category" bar as before — one shadowed surface with
+              a label — but each pill is now its own dropdown trigger instead
+              of a static, always-visible option. A fixed radius rather than
+              rounded-full: rounded-full is relative to height, so once the
+              pills wrap onto a second row on narrow screens the corners
+              balloon into an oversized blob instead of staying consistent. */}
+          <div className="flex w-full items-center gap-2 rounded-[28px] bg-white p-1.5 shadow-[0_2px_8px_rgba(11,26,43,0.08)] lg:w-auto lg:p-2">
+            {/* Own div so the label never gets caught up in the pills'
+                wrapping — it stays pinned top-left, only the pills row
+                wraps beneath it. */}
+            <span className="shrink-0 px-2 py-1.5 text-[12px] font-semibold text-[#145BA7] lg:px-3 lg:py-2 lg:text-[14px]">
               Sort By
             </span>
-            <FilterPill
-              options={[ALL_SEMESTERS, ...semesters]}
-              value={selectedSemester}
-              defaultValue={ALL_SEMESTERS}
-              onChange={(value) => {
-                setSelectedSemester(value);
-                setCurrentPage(1);
-              }}
-              ariaLabel="Filter articles by semester"
-            />
-            <FilterPill
-              options={["Latest", "Oldest"]}
-              value={sortOrder}
-              defaultValue="Latest"
-              onChange={(value) => {
-                setSortOrder(value as SortOrder);
-                setCurrentPage(1);
-              }}
-              ariaLabel="Sort articles by date"
-            />
-            <FilterPill
-              options={[ALL_READ_TIMES, ...READ_TIME_BUCKETS]}
-              value={selectedReadTime}
-              defaultValue={ALL_READ_TIMES}
-              onChange={(value) => {
-                setSelectedReadTime(value);
-                setCurrentPage(1);
-              }}
-              ariaLabel="Filter articles by read time"
-            />
+            <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2 lg:flex-none">
+              <FilterPill
+                options={[ALL_SEMESTERS, ...semesters]}
+                value={selectedSemester}
+                defaultValue={ALL_SEMESTERS}
+                onChange={(value) => {
+                  setSelectedSemester(value);
+                  setCurrentPage(1);
+                }}
+                ariaLabel="Filter articles by semester"
+              />
+              <FilterPill
+                options={["Latest", "Oldest"]}
+                value={sortOrder}
+                defaultValue="Latest"
+                onChange={(value) => {
+                  setSortOrder(value as SortOrder);
+                  setCurrentPage(1);
+                }}
+                ariaLabel="Sort articles by date"
+              />
+              <FilterPill
+                options={[ALL_READ_TIMES, ...READ_TIME_BUCKETS]}
+                value={selectedReadTime}
+                defaultValue={ALL_READ_TIMES}
+                onChange={(value) => {
+                  setSelectedReadTime(value);
+                  setCurrentPage(1);
+                }}
+                ariaLabel="Filter articles by read time"
+              />
+            </div>
           </div>
         </div>
 
