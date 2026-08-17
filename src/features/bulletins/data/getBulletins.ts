@@ -1,6 +1,7 @@
 "use server";
 import { getPayload } from "payload";
 import config from "@payload-config";
+import type { BulletinCategory } from "@/lib/bulletinCategories";
 
 export interface Bulletin {
   id: string;
@@ -8,11 +9,13 @@ export interface Bulletin {
   issueNumber: number;
   publishDate: string;
   description?: string;
-  bulletinCover: {
+  category?: BulletinCategory;
+  readTime?: number;
+  bulletinCover?: {
     url: string;
     alt?: string;
   };
-  bulletinPDF: {
+  bulletinPDF?: {
     url: string;
     alt?: string;
   };
@@ -35,6 +38,8 @@ export const getBulletins = async (): Promise<Bulletin[]> => {
       issueNumber: doc.issueNumber,
       publishDate: doc.publishDate,
       description: doc.description,
+      category: doc.category ?? undefined,
+      readTime: doc.readTime ?? undefined,
       bulletinCover: doc.bulletinCover
         ? {
             url: doc.bulletinCover.url,

@@ -222,6 +222,14 @@ export interface Bulletin {
   title: string;
   description?: string | null;
   /**
+   * Shown on the article card and used by the category filter on /bulletin
+   */
+  category?: ('Topic' | 'Market' | 'Asset Class' | 'Level') | null;
+  /**
+   * Estimated read time in minutes, shown on the article card
+   */
+  readTime?: number | null;
+  /**
    * Only image files are allowed
    */
   bulletinCover?: (string | null) | Media;
@@ -465,6 +473,8 @@ export interface BulletinSelect<T extends boolean = true> {
   publishDate?: T;
   title?: T;
   description?: T;
+  category?: T;
+  readTime?: T;
   bulletinCover?: T;
   updatedAt?: T;
   createdAt?: T;
