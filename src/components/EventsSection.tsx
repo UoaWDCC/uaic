@@ -1,42 +1,37 @@
-"use client";
-import React, { useState } from "react";
-import RecentEvents from "@/components/events/RecentEvents";
-import UpcomingEvents from "@/components/events/UpcomingEvents";
+import React from "react";
+import EventCardList from "@/components/events/EventCardList";
+import ArrowButton from "./ArrowButton";
 import type { Event } from "../../payload-types";
 
 interface EventsSectionProps {
-  upcomingEvents: Event[];
-  recentEvents: Event[];
+  events: Event[];
+  subtitle?: string;
+  title?: string;
 }
 
-const EventsSection = ({ upcomingEvents, recentEvents }: EventsSectionProps) => {
-  const [selected, setSelected] = useState("upcoming");
-
+const EventsSection = ({
+  events,
+  subtitle = "Upcoming",
+  title = "Events & Workshops",
+}: EventsSectionProps) => {
   return (
-    <div className="flex flex-col items-center gap-6 bg-[radial-gradient(circle,_var(--darkBlue)_0%,_white_42%)] px-[16px] lg:px-[120px]">
-      <div className="flex w-fit rounded-full bg-gradient-to-r from-white to-white">
-        <button
-          onClick={() => setSelected("upcoming")}
-          className={`rounded-full px-6 py-2 font-medium transition-all duration-600 hover:cursor-pointer ${selected === "upcoming" ? "bg-[var(--darkBlue)] text-white" : "bg-white text-black"} `}
-        >
-          Upcoming Events
-        </button>
-        <button
-          onClick={() => setSelected("recent")}
-          className={`rounded-full px-6 py-2 font-medium transition-all duration-600 hover:cursor-pointer ${selected === "recent" ? "bg-[var(--darkBlue)] text-white" : "bg-white text-black"}`}
-        >
-          Recent Events
-        </button>
+    <div className="my-[200px] flex flex-col items-center gap-[36px] px-[16px] lg:px-[120px]">
+      <div className="flex w-full flex-col gap-[20px]">
+        <hr className="h-[2px] w-full border-0 bg-[#DCE6F2]" />
+        <div className="flex w-full flex-row items-center justify-between">
+          <div className="flex flex-col gap-[8px]">
+            <h1 className="text-[20px] leading-[20px] font-bold tracking-[0px] text-[#249AFF]">
+              {subtitle}
+            </h1>
+            <h1 className="text-[38px] leading-[34px] font-bold tracking-[0px] text-[#0B1A2B]">
+              {title}
+            </h1>
+          </div>
+          <ArrowButton text="View All Events" link="/events" />
+        </div>
       </div>
 
-      {/* Conditional Rendering */}
-      <div className="w-full">
-        {selected === "upcoming" ? (
-          <UpcomingEvents events={upcomingEvents} />
-        ) : (
-          <RecentEvents events={recentEvents} />
-        )}
-      </div>
+      <EventCardList events={events} />
     </div>
   );
 };
