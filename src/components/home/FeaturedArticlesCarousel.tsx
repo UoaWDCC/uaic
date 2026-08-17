@@ -3,7 +3,8 @@
 import { GoArrowRight, GoArrowUpRight } from "react-icons/go";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchArticles } from "@/lib/fetchArticles";
 
 type FeaturedArticle = {
   image: string;
@@ -15,68 +16,7 @@ type FeaturedArticle = {
   link: string;
 };
 
-const featuredArticles: FeaturedArticle[] = [
-  {
-    image: "/assets/bulletins/temparticlecard.png",
-    category: "Category Name 1",
-    title: "Exploring DCT Investing",
-    description:
-      "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations.  ",
-    date: "Nov 24",
-    readTime: "4 Min read",
-    link: "/joinus",
-  },
-  {
-    image: "/assets/bulletins/temparticlecard.png",
-    category: "Category Name 2",
-    title: "Exploring DCT Investing 2",
-    description:
-      "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations.",
-    date: "Nov 24",
-    readTime: "10 Min read",
-    link: "/joinus",
-  },
-  {
-    image: "/assets/bulletins/temparticlecard.png",
-    category: "Category Name 3",
-    title: "Exploring DCT Investing 3",
-    description:
-      "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations. ",
-    date: "Nov 24",
-    readTime: "4 Min read",
-    link: "/about",
-  },
-  {
-    image: "/assets/bulletins/temparticlecard.png",
-    category: "Category Name 4",
-    title: "Exploring DCT Investing 4",
-    description:
-      "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations. ",
-    date: "Nov 24",
-    readTime: "14 Min read",
-    link: "/bulletin",
-  },
-  {
-    image: "/assets/bulletins/temparticlecard.png",
-    category: "Category Name 5",
-    title: "Exploring DCT Investing 5",
-    description:
-      "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations. ",
-    date: "Nov 24",
-    readTime: "4 Min read",
-    link: "/bulletin",
-  },
-  {
-    image: "/assets/bulletins/temparticlecard.png",
-    category: "Category Name 6",
-    title: "Exploring DCT Investing 6",
-    description:
-      "A look into how DCT, why investors use it, and how consistent investing can reduce impact of market fluctuations. ",
-    date: "Nov 24",
-    readTime: "54 Min read",
-    link: "/bulletin",
-  },
-];
+const articlesPerPage = 3;
 
 const ArticleCard = ({ contentToDisplay }: { contentToDisplay: FeaturedArticle }) => {
   return (
@@ -118,17 +58,44 @@ const ArticleCard = ({ contentToDisplay }: { contentToDisplay: FeaturedArticle }
   );
 };
 
-const articlesPerPage = 3;
-const articlePages = Array.from(
-  { length: Math.ceil(featuredArticles.length / articlesPerPage) },
-  (_, pageIndex) =>
-    featuredArticles.slice(pageIndex * articlesPerPage, (pageIndex + 1) * articlesPerPage),
-);
-
 const FeaturedArticlesCarousel = () => {
+  const [articles, setArticles] = useState<FeaturedArticle[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activePageIndex, setActivePageIndex] = useState(0);
+
   const isFirstPage = activePageIndex === 0;
   const pageGapPx = 24;
+
+  useEffect(() => {
+    async function load() {
+      const data = await fetchArticles({ sort: "-publishDate" });
+
+      setArticles(
+        data.map((b) => ({
+          image: "/assets/bulletins/placeholder-bulletin-cover.png",
+          category: `Issue ${b.issueNumber}`,
+          title: b.title,
+          description: b.description,
+          date: new Date(b.publishDate).toLocaleDateString("en-NZ", {
+            month: "short",
+            day: "numeric",
+          }),
+          readTime: "5 Min read",
+          link: `/bulletin/${b.id}`,
+        })),
+      );
+
+      setLoading(false);
+    }
+
+    load();
+  }, []);
+
+  const articlePages = Array.from(
+    { length: Math.ceil(articles.length / articlesPerPage) },
+    (_, pageIndex) =>
+      articles.slice(pageIndex * articlesPerPage, (pageIndex + 1) * articlesPerPage),
+  );
 
   const changeArticles = () => {
     setActivePageIndex((currentPageIndex) =>
@@ -138,19 +105,16 @@ const FeaturedArticlesCarousel = () => {
 
   return (
     <div className="p-[66px] min-[1025px]:p-[82px]">
-      {/* Split previous above and below div to fix article card shadow*/}
       <div className="overflow-hidden p-[14px]">
         <div className="flex flex-col gap-[12px]">
-          {/* Header row container */}
+          {/* Header */}
           <div className="[container-type:inline-size] flex flex-row items-center justify-between gap-[2cqw]">
-            {/* Header Title Container */}
             <div className="flex w-full sm:w-auto">
               <p className="text-[max(22px,5cqw)] font-semibold text-[#005EAF] min-[1025px]:text-[max(24px,2.65cqw)]">
                 Featured Articles
               </p>
             </div>
 
-            {/* Header Arrows */}
             <div className="flex flex-row gap-[2cqw] sm:justify-center">
               <button className="cursor-pointer" type="button" onClick={changeArticles}>
                 <GoArrowRight
@@ -162,7 +126,7 @@ const FeaturedArticlesCarousel = () => {
             </div>
           </div>
 
-          {/* Components container */}
+          {/* Content */}
           <div
             className="flex w-full gap-[24px] transition-transform duration-500 ease-in-out"
             style={{
@@ -171,19 +135,34 @@ const FeaturedArticlesCarousel = () => {
               }px))`,
             }}
           >
-            {articlePages.map((articlePage, pageIndex) => (
-              <div
-                className="grid w-full shrink-0 grid-cols-1 gap-[24px] min-[1025px]:grid-cols-3"
-                key={`featured-articles-page-${pageIndex}`}
-              >
-                {articlePage.map((item, index) => (
-                  <ArticleCard
-                    key={`${item.category}-${item.link}-${index}`}
-                    contentToDisplay={item}
-                  />
-                ))}
+            {loading && (
+              <div className="flex w-full items-center justify-center py-10">
+                <p className="text-lg font-medium text-[#005EAF]">Loading featured articles...</p>
               </div>
-            ))}
+            )}
+
+            {!loading && articles.length === 0 && (
+              <div className="flex w-full items-center justify-center py-10">
+                <p className="text-lg font-medium text-[#005EAF]">
+                  No featured articles available.
+                </p>
+              </div>
+            )}
+
+            {!loading &&
+              articlePages.map((articlePage, pageIndex) => (
+                <div
+                  className="grid w-full shrink-0 grid-cols-1 gap-[24px] min-[1025px]:grid-cols-3"
+                  key={`featured-articles-page-${pageIndex}`}
+                >
+                  {articlePage.map((item, index) => (
+                    <ArticleCard
+                      key={`${item.category}-${item.link}-${index}`}
+                      contentToDisplay={item}
+                    />
+                  ))}
+                </div>
+              ))}
           </div>
         </div>
       </div>
