@@ -15,18 +15,36 @@ const SponsorsBanner = async () => {
         Our 2026 Sponsors and Partners
       </h3>
       <Marquee speed={120} autoFill gradient={true} gradientColor="#ffffff">
-        <div className="mt-10 flex items-center justify-evenly gap-4 px-4 lg:gap-8">
+        <div className="mt-10 flex items-center justify-evenly gap-8 px-4 lg:gap-12">
           {bar1.map((sponsor) => (
-            <div key={sponsor.id} className="relative flex h-20 w-32 items-center">
+            <div
+              key={sponsor.id}
+              className="relative flex h-16 items-center justify-center"
+              style={{
+                aspectRatio:
+                  sponsor.logoWidth && sponsor.logoHeight
+                    ? `${sponsor.logoWidth} / ${sponsor.logoHeight}`
+                    : "1 / 1",
+              }}
+            >
               <LogoTint src={sponsor.logo} colorClass="bg-[#145ca9]" className="h-full w-full" />
             </div>
           ))}
         </div>
       </Marquee>
       <Marquee speed={120} autoFill gradient={true} direction="right" gradientColor="#ffffff">
-        <div className="mt-10 mb-4 flex items-center justify-evenly gap-4 px-4 lg:mb-6 lg:gap-8">
+        <div className="mt-10 mb-4 flex items-center justify-evenly gap-8 px-4 lg:mb-6 lg:gap-12">
           {bar2.map((sponsor) => (
-            <div key={sponsor.id} className="relative flex h-20 w-32 items-center">
+            <div
+              key={sponsor.id}
+              className="relative flex h-16 items-center justify-center"
+              style={{
+                aspectRatio:
+                  sponsor.logoWidth && sponsor.logoHeight
+                    ? `${sponsor.logoWidth} / ${sponsor.logoHeight}`
+                    : "1 / 1",
+              }}
+            >
               <LogoTint src={sponsor.logo} colorClass="bg-[#145ca9]" className="h-full w-full" />
             </div>
           ))}

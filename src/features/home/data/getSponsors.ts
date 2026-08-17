@@ -20,6 +20,8 @@ export const getSponsors = async () => {
       id: doc.id,
       name: doc.name,
       logo: logo?.url || "",
+      logoWidth: logo?.width ?? null,
+      logoHeight: logo?.height ?? null,
     };
   });
 };
