@@ -1,24 +1,54 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
-import { GoChevronLeft, GoChevronRight, GoSearch } from "react-icons/go";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { GoChevronDown, GoChevronLeft, GoChevronRight, GoSearch } from "react-icons/go";
 import ArticleCard from "@/components/ArticleCard";
 import type { ArticleCardContent } from "@/components/ArticleCard";
-import { BULLETIN_CATEGORIES } from "@/lib/bulletinCategories";
 import type { Bulletin } from "@/features/bulletins/data/getBulletins";
 
 type AllArticlesProps = {
   bulletins: Bulletin[];
 };
 
-const ALL_CATEGORIES = "All";
+type SortOrder = "Latest" | "Oldest";
+
+const ALL_SEMESTERS = "All semesters";
+const ALL_READ_TIMES = "All read times";
+const READ_TIME_BUCKETS = ["Quick (<5 min)", "Medium (5–10 min)", "Long (10+ min)"] as const;
 const FALLBACK_COVER = "/assets/bulletins/placeholder-bulletin-cover.png";
 const ARTICLES_PER_PAGE = 8;
 // The navbar is fixed, so paging back to the top has to clear its height.
 const NAVBAR_OFFSET_PX = 150;
 const ELLIPSIS = "…";
 
-const categoryFilters = [ALL_CATEGORIES, ...BULLETIN_CATEGORIES];
+// UoA-style academic semesters: Semester One (Mar–Jun) and Semester Two
+// (Jul–Oct) sit within a single calendar year, but Summer School (Nov–Feb)
+// straddles two, so it's labelled with both years it touches (e.g.
+// "2025/26 SS"). sortKey is monotonically increasing through the academic
+// calendar so the semester dropdown can be listed latest-first.
+const getSemester = (publishDate: string): { label: string; sortKey: number } | null => {
+  const date = new Date(publishDate);
+  if (Number.isNaN(date.getTime())) return null;
+
+  const month = date.getUTCMonth() + 1;
+  const year = date.getUTCFullYear();
+
+  if (month >= 3 && month <= 6) return { label: `${year} S1`, sortKey: year * 10 + 1 };
+  if (month >= 7 && month <= 10) return { label: `${year} S2`, sortKey: year * 10 + 2 };
+
+  const ssStartYear = month >= 11 ? year : year - 1;
+  return {
+    label: `${ssStartYear}/${String((ssStartYear + 1) % 100).padStart(2, "0")} SS`,
+    sortKey: ssStartYear * 10 + 3,
+  };
+};
+
+const getReadTimeBucket = (readTime?: number): (typeof READ_TIME_BUCKETS)[number] | null => {
+  if (!readTime) return null;
+  if (readTime < 5) return READ_TIME_BUCKETS[0];
+  if (readTime <= 10) return READ_TIME_BUCKETS[1];
+  return READ_TIME_BUCKETS[2];
+};
 
 // First and last page stay reachable; the middle is a window around the current
 // page so a long archive doesn't spill a button per issue across the screen.
@@ -54,6 +84,100 @@ const formatPublishDate = (publishDate: string) => {
   });
 };
 
+type FilterPillProps = {
+  options: string[];
+  value: string;
+  defaultValue: string;
+  onChange: (value: string) => void;
+  ariaLabel: string;
+};
+
+// One pill inside the filter bar that opens its own options menu on click,
+// instead of the bar just listing every option inline. Gradient-highlighted
+// once a non-default value is picked, so an active filter stays visible even
+// after its menu closes.
+const FilterPill = ({ options, value, defaultValue, onChange, ariaLabel }: FilterPillProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isActive = value !== defaultValue;
+
+  // Sized to the longest option this pill can ever show, so picking a
+  // shorter/longer value doesn't reflow the rest of the filter bar. "ch"
+  // scales with the pill's own font size, so mobile/lg text sizes both work.
+  const longestOption = options.reduce(
+    (longest, option) => (option.length > longest.length ? option : longest),
+    "",
+  );
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
+
+  return (
+    <div ref={containerRef} className="relative shrink-0">
+      <button
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        aria-label={ariaLabel}
+        onClick={() => setIsOpen((prev) => !prev)}
+        style={{ minWidth: `${longestOption.length + 3}ch` }}
+        className={`flex shrink-0 cursor-pointer items-center justify-between gap-1.5 rounded-full px-3.5 py-1.5 text-[12px] whitespace-nowrap transition-colors duration-200 lg:px-4 lg:py-2 lg:text-[13px] ${
+          isActive
+            ? "bg-gradient-to-l from-[#005EAF] to-[#249AFF] text-white"
+            : "bg-[#F1F5FA] text-[#0B1A2B]/50 hover:bg-[#E4EEF9] hover:text-[#145BA7]"
+        }`}
+      >
+        <span>{value}</span>
+        <GoChevronDown
+          className={`h-3.5 w-3.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""} ${isActive ? "text-white/80" : "text-[#0B1A2B]/40"}`}
+        />
+      </button>
+
+      {isOpen && (
+        <div
+          role="listbox"
+          aria-label={ariaLabel}
+          className="absolute top-full left-0 z-10 mt-2 max-h-64 min-w-[160px] overflow-y-auto rounded-2xl bg-white p-1.5 shadow-[0_8px_24px_rgba(11,26,43,0.12)]"
+        >
+          {options.map((option) => {
+            const isSelected = option === value;
+
+            return (
+              <button
+                key={option}
+                type="button"
+                role="option"
+                aria-selected={isSelected}
+                onClick={() => {
+                  onChange(option);
+                  setIsOpen(false);
+                }}
+                className={`block w-full cursor-pointer rounded-full px-3.5 py-1.5 text-left text-[12px] whitespace-nowrap transition-colors duration-200 lg:text-[13px] ${
+                  isSelected
+                    ? "bg-gradient-to-l from-[#005EAF] to-[#249AFF] text-white"
+                    : "text-[#0B1A2B]/70 hover:bg-[#F1F5FA] hover:text-[#145BA7]"
+                }`}
+              >
+                {option}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const toArticleCard = (bulletin: Bulletin): ArticleCardContent => ({
   image: bulletin.bulletinCover?.url || FALLBACK_COVER,
   // Older issues predate the category field, so fall back to the issue number
@@ -68,19 +192,41 @@ const toArticleCard = (bulletin: Bulletin): ArticleCardContent => ({
 });
 
 const AllArticles = ({ bulletins }: AllArticlesProps) => {
-  const [selectedCategory, setSelectedCategory] = useState(ALL_CATEGORIES);
+  const [selectedSemester, setSelectedSemester] = useState(ALL_SEMESTERS);
+  const [selectedReadTime, setSelectedReadTime] = useState(ALL_READ_TIMES);
+  const [sortOrder, setSortOrder] = useState<SortOrder>("Latest");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const gridRef = useRef<HTMLDivElement>(null);
 
+  // Distinct semesters actually present in the data, latest first.
+  const semesters = useMemo(() => {
+    const labelBySortKey = new Map<number, string>();
+
+    bulletins.forEach((bulletin) => {
+      const semester = getSemester(bulletin.publishDate);
+      if (semester) labelBySortKey.set(semester.sortKey, semester.label);
+    });
+
+    return Array.from(labelBySortKey.entries())
+      .sort(([firstKey], [secondKey]) => secondKey - firstKey)
+      .map(([, label]) => label);
+  }, [bulletins]);
+
   const visibleBulletins = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
 
-    return bulletins.filter((bulletin) => {
-      const matchesCategory =
-        selectedCategory === ALL_CATEGORIES || bulletin.category === selectedCategory;
+    const filtered = bulletins.filter((bulletin) => {
+      const matchesSemester =
+        selectedSemester === ALL_SEMESTERS ||
+        getSemester(bulletin.publishDate)?.label === selectedSemester;
+      if (!matchesSemester) return false;
 
-      if (!matchesCategory) return false;
+      const matchesReadTime =
+        selectedReadTime === ALL_READ_TIMES ||
+        getReadTimeBucket(bulletin.readTime) === selectedReadTime;
+      if (!matchesReadTime) return false;
+
       if (!query) return true;
 
       return [
@@ -94,7 +240,15 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
         .toLowerCase()
         .includes(query);
     });
-  }, [bulletins, selectedCategory, searchQuery]);
+
+    return filtered.sort((firstBulletin, secondBulletin) => {
+      const diff =
+        new Date(firstBulletin.publishDate).getTime() -
+        new Date(secondBulletin.publishDate).getTime();
+
+      return sortOrder === "Latest" ? -diff : diff;
+    });
+  }, [bulletins, selectedSemester, selectedReadTime, sortOrder, searchQuery]);
 
   const totalPages = Math.max(1, Math.ceil(visibleBulletins.length / ARTICLES_PER_PAGE));
   // Clamped rather than trusted: the filters reset the page, but the bulletin
@@ -137,7 +291,7 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
           </p>
         </div>
 
-        {/* Search + category filters */}
+        {/* Search + filters */}
         <div className="mt-10 flex flex-col gap-4 lg:mt-24 lg:flex-row lg:items-center lg:gap-6">
           <div className="relative w-full lg:flex-1">
             <GoSearch className="pointer-events-none absolute top-1/2 left-5 h-4 w-4 -translate-y-1/2 text-[#0B1A2B]/40 lg:h-5 lg:w-5" />
@@ -148,40 +302,49 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
                 setSearchQuery(event.target.value);
                 setCurrentPage(1);
               }}
-              placeholder="Search..."
-              aria-label="Search articles"
+              placeholder="Search by title or issue #..."
+              aria-label="Search articles by title or issue number"
               className="w-full rounded-full bg-white py-3 pr-5 pl-12 text-[13px] text-[#0B1A2B] shadow-[0_2px_8px_rgba(11,26,43,0.08)] outline-none placeholder:text-[#0B1A2B]/40 focus:ring-2 focus:ring-[#249AFF]/40 lg:py-3.5 lg:pl-14 lg:text-[15px]"
             />
           </div>
 
-          {/* The pill row keeps the search bar's width on small screens — the
-              pills scroll sideways inside the bar instead of overflowing it. */}
-          <div className="flex w-full items-center gap-2 overflow-x-auto rounded-full bg-white p-1.5 shadow-[0_2px_8px_rgba(11,26,43,0.08)] [scrollbar-width:none] lg:w-auto lg:overflow-visible lg:p-2 [&::-webkit-scrollbar]:hidden">
+          {/* Same "Sort By Category" bar as before — one shadowed rounded-full
+              surface with a label — but each pill is now its own dropdown
+              trigger instead of a static, always-visible option. */}
+          <div className="flex w-full flex-wrap items-center gap-2 rounded-full bg-white p-1.5 shadow-[0_2px_8px_rgba(11,26,43,0.08)] lg:w-auto lg:p-2">
             <span className="shrink-0 px-2 text-[12px] font-semibold text-[#145BA7] lg:px-3 lg:text-[14px]">
-              Sort By Category
+              Sort By
             </span>
-            {categoryFilters.map((category) => {
-              const isActive = category === selectedCategory;
-
-              return (
-                <button
-                  key={category}
-                  type="button"
-                  aria-pressed={isActive}
-                  onClick={() => {
-                    setSelectedCategory(category);
-                    setCurrentPage(1);
-                  }}
-                  className={`shrink-0 cursor-pointer rounded-full px-3.5 py-1.5 text-[12px] transition-colors duration-200 lg:px-4 lg:py-2 lg:text-[13px] ${
-                    isActive
-                      ? "bg-gradient-to-l from-[#005EAF] to-[#249AFF] text-white"
-                      : "bg-[#F1F5FA] text-[#0B1A2B]/50 hover:bg-[#E4EEF9] hover:text-[#145BA7]"
-                  }`}
-                >
-                  {category}
-                </button>
-              );
-            })}
+            <FilterPill
+              options={[ALL_SEMESTERS, ...semesters]}
+              value={selectedSemester}
+              defaultValue={ALL_SEMESTERS}
+              onChange={(value) => {
+                setSelectedSemester(value);
+                setCurrentPage(1);
+              }}
+              ariaLabel="Filter articles by semester"
+            />
+            <FilterPill
+              options={["Latest", "Oldest"]}
+              value={sortOrder}
+              defaultValue="Latest"
+              onChange={(value) => {
+                setSortOrder(value as SortOrder);
+                setCurrentPage(1);
+              }}
+              ariaLabel="Sort articles by date"
+            />
+            <FilterPill
+              options={[ALL_READ_TIMES, ...READ_TIME_BUCKETS]}
+              value={selectedReadTime}
+              defaultValue={ALL_READ_TIMES}
+              onChange={(value) => {
+                setSelectedReadTime(value);
+                setCurrentPage(1);
+              }}
+              ariaLabel="Filter articles by read time"
+            />
           </div>
         </div>
 
@@ -197,7 +360,7 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
             <p className="py-12 text-center text-[14px] text-[#0B1A2B]/60">
               {bulletins.length === 0
                 ? "No articles have been published yet."
-                : "No articles match your search."}
+                : "No articles match your filters."}
             </p>
           )}
         </div>
