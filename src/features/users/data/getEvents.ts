@@ -35,8 +35,8 @@ export const getUpcomingEvents = async (): Promise<any[]> => {
   return events.docs;
 };
 
-// Get only past events (endDate < today)
-export const getRecentEvents = async (): Promise<any[]> => {
+// Get only past events (endDate < today), optionally capped to the `limit` most recent
+export const getRecentEvents = async (limit?: number): Promise<any[]> => {
   const payload = await getPayload({ config });
 
   const events = await payload.find({
@@ -51,5 +51,5 @@ export const getRecentEvents = async (): Promise<any[]> => {
     },
   });
 
-  return events.docs;
+  return typeof limit === "number" ? events.docs.slice(0, limit) : events.docs;
 };

@@ -6,15 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { fetchArticles } from "@/lib/fetchArticles";
 
-type FeaturedArticle = {
-  image: string;
-  category: string;
-  title: string;
-  description: string;
-  date: string;
-  readTime: string;
-  link: string;
-};
+type FeaturedArticle = ArticleCardContent;
 
 const articlesPerPage = 3;
 
