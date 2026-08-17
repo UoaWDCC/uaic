@@ -1,13 +1,19 @@
 import React from "react";
-import UpcomingEvents from "@/components/events/UpcomingEvents";
+import EventCardList from "@/components/events/EventCardList";
 import ArrowButton from "./ArrowButton";
 import type { Event } from "../../payload-types";
 
 interface EventsSectionProps {
-  upcomingEvents: Event[];
+  events: Event[];
+  subtitle?: string;
+  title?: string;
 }
 
-const EventsSection = ({ upcomingEvents }: EventsSectionProps) => {
+const EventsSection = ({
+  events,
+  subtitle = "Upcoming",
+  title = "Events & Workshops",
+}: EventsSectionProps) => {
   return (
     <div className="my-[200px] flex flex-col items-center gap-[36px] px-[16px] lg:px-[120px]">
       <div className="flex w-full flex-col gap-[20px]">
@@ -15,17 +21,17 @@ const EventsSection = ({ upcomingEvents }: EventsSectionProps) => {
         <div className="flex w-full flex-row items-center justify-between">
           <div className="flex flex-col gap-[8px]">
             <h1 className="text-[20px] leading-[20px] font-bold tracking-[0px] text-[#249AFF]">
-              Upcoming
+              {subtitle}
             </h1>
             <h1 className="text-[38px] leading-[34px] font-bold tracking-[0px] text-[#0B1A2B]">
-              Events &amp; Workshops
+              {title}
             </h1>
           </div>
           <ArrowButton text="View All Events" link="/events" />
         </div>
       </div>
 
-      <UpcomingEvents events={upcomingEvents} />
+      <EventCardList events={events} />
     </div>
   );
 };
