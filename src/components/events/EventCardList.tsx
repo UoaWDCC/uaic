@@ -20,7 +20,7 @@ interface Event {
   application_link: string;
 }
 
-interface UpcomingEventsProps {
+interface EventCardListProps {
   events: any[]; // Raw events from database
 }
 
@@ -37,11 +37,10 @@ const formatTime = (date: Date) => {
   return `${hours12}:${minutes} ${period}`;
 };
 
-const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
+const EventCardList = ({ events: rawEvents }: EventCardListProps) => {
   const [selectedEvent, setSelectedEvent] = useState<null | Event>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const closeTimerRef = useRef<number | null>(null);
-  const eventsListRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!selectedEvent) return;
@@ -66,52 +65,6 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
       if (closeTimerRef.current !== null) window.clearTimeout(closeTimerRef.current);
     };
   }, []);
-
-  useEffect(() => {
-    const eventsList = eventsListRef.current;
-    if (!eventsList) return;
-
-    let animationFrame: number | null = null;
-
-    const syncStackedListHeight = () => {
-      if (animationFrame !== null) window.cancelAnimationFrame(animationFrame);
-
-      animationFrame = window.requestAnimationFrame(() => {
-        if (window.innerWidth >= 1024) {
-          eventsList.style.removeProperty("--stacked-events-height");
-          return;
-        }
-
-        const visibleCards = Array.from(
-          eventsList.querySelectorAll<HTMLElement>("[data-event-card]"),
-        ).slice(0, 2);
-
-        if (visibleCards.length === 0) return;
-
-        const listStyles = window.getComputedStyle(eventsList);
-        const rowGap = Number.parseFloat(listStyles.rowGap) || 0;
-        const paddingTop = Number.parseFloat(listStyles.paddingTop) || 0;
-        const cardsHeight = visibleCards.reduce((height, card) => height + card.offsetHeight, 0);
-        const totalHeight =
-          cardsHeight + rowGap * Math.max(visibleCards.length - 1, 0) + paddingTop;
-
-        eventsList.style.setProperty("--stacked-events-height", `${Math.ceil(totalHeight)}px`);
-      });
-    };
-
-    const resizeObserver = new ResizeObserver(syncStackedListHeight);
-    eventsList
-      .querySelectorAll<HTMLElement>("[data-event-card]")
-      .forEach((card) => resizeObserver.observe(card));
-    window.addEventListener("resize", syncStackedListHeight);
-    syncStackedListHeight();
-
-    return () => {
-      if (animationFrame !== null) window.cancelAnimationFrame(animationFrame);
-      resizeObserver.disconnect();
-      window.removeEventListener("resize", syncStackedListHeight);
-    };
-  }, [rawEvents.length]);
 
   const openSelectedEvent = (event: Event) => {
     if (closeTimerRef.current !== null) window.clearTimeout(closeTimerRef.current);
@@ -167,14 +120,10 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
   return (
     <div className="mt-[20px] w-full text-center text-black lg:mt-[0px]">
       <div className="px-[16px] lg:px-0">
-        <div
-          ref={eventsListRef}
-          className="flex h-[var(--stacked-events-height,916px)] flex-col items-stretch gap-[36px] overflow-y-auto pt-[10px] text-left lg:h-[38em]"
-        >
+        <div className="flex flex-col items-stretch gap-[36px] pt-[10px] text-left">
           {events.map((event: Event) => (
             <article
               key={event.id}
-              data-event-card
               className="group/card mx-auto flex w-full max-w-[1444.56px] flex-shrink-0 flex-col gap-[20px] rounded-[24px] border border-[#DCE6F2] bg-white p-[8px] shadow-[0_1px_4px_0_rgba(12,12,13,0.05),0_1px_4px_0_rgba(12,12,13,0.10)] transition-transform duration-200 ease-in-out hover:-translate-y-[5px] lg:h-[clamp(226px,calc(20vw+21px),260px)] lg:flex-row lg:gap-[clamp(24px,calc(10vw-78px),39px)]"
             >
               <div className="flex h-[190px] w-full flex-shrink-0 flex-row gap-[8px] lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:w-[clamp(428px,calc(40vw+18px),496px)]">
@@ -318,4 +267,4 @@ const UpcomingEvents = ({ events: rawEvents }: UpcomingEventsProps) => {
   );
 };
 
-export default UpcomingEvents;
+export default EventCardList;
