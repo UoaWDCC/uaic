@@ -1,30 +1,7 @@
 import React from "react";
-//import Image from "next/image";
 import Marquee from "react-fast-marquee";
 import LogoTint from "./LogoTint";
 import { getSponsors } from "@/features/home/data/getSponsors";
-
-/* const logos = [
-  "/assets/logos/Blackbull.svg",
-  "/assets/logos/CFA_society.svg",
-  "/assets/logos/Crescent_Cap.svg",
-  "/assets/logos/Denning.svg",
-  "/assets/logos/Forsyth_Barr.svg",
-  "/assets/logos/Goldman_Sachs.svg",
-  "/assets/logos/macquarie.svg",
-  "/assets/logos/Murray&CO.svg",
-];
-
-const logos_2 = [
-  "/assets/logos/National_Business_Review.svg",
-  "/assets/logos/Node.svg",
-  "/assets/logos/NZSuperFund.svg",
-  "/assets/logos/Optiver.svg",
-  "/assets/logos/Redbull.svg",
-  "/assets/logos/Sharesies.svg",
-  "/assets/logos/UBS.svg",
-  "/assets/logos/UOA_BUSINESS_SCHOOL.svg",
-]; */
 
 const SponsorsBanner = async () => {
   const sponsors = await getSponsors();
