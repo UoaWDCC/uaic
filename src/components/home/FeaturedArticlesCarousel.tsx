@@ -3,11 +3,11 @@
 import { GoArrowRight } from "react-icons/go";
 import { useEffect, useState } from "react";
 import { fetchArticles } from "@/lib/fetchArticles";
-import { ArticleCardContent } from "../ArticleCard";
-import ArticleCard from "@/components/ArticleCard";
+import ArticleCard, { type ArticleCardContent } from "@/components/ArticleCard";
 
 type FeaturedArticle = ArticleCardContent;
 
+const FALLBACK_COVER = "/assets/bulletins/placeholder-bulletin-cover.png";
 const articlesPerPage = 3;
 
 const FeaturedArticlesCarousel = () => {
@@ -20,19 +20,19 @@ const FeaturedArticlesCarousel = () => {
 
   useEffect(() => {
     async function load() {
-      const data = await fetchArticles({ sort: "-publishDate" });
+      const data = await fetchArticles({ sort: "-publishDate", depth: "1" });
 
       setArticles(
         data.map((b) => ({
-          image: "/assets/bulletins/placeholder-bulletin-cover.png",
-          category: `Issue ${b.issueNumber}`,
+          image: b.bulletinCover?.url || FALLBACK_COVER,
+          category: b.category || `Issue ${b.issueNumber}`,
           title: b.title,
           description: b.description,
           date: new Date(b.publishDate).toLocaleDateString("en-NZ", {
             month: "short",
             day: "numeric",
           }),
-          readTime: "5 Min read",
+          readTime: b.readTime ? `${b.readTime} Min read` : undefined,
           link: `/bulletin/${b.id}`,
         })),
       );
@@ -56,7 +56,7 @@ const FeaturedArticlesCarousel = () => {
   };
 
   return (
-    <div className="p-[66px] min-[1025px]:p-[82px]">
+    <div className="px-[16px] py-[66px] min-[1025px]:p-[82px]">
       <div className="overflow-hidden p-[14px]">
         <div className="flex flex-col gap-[12px]">
           {/* Header */}
