@@ -18,7 +18,7 @@ interface Event {
   type: string;
   photo: string;
   description: string;
-  application_link?: string;
+  application_link?: string | null;
 }
 
 interface EventCardListProps {
@@ -170,13 +170,13 @@ const EventCardList = ({ events: rawEvents }: EventCardListProps) => {
                   {event.description}
                 </p>
 
-                <div className="mt-auto flex w-full flex-row gap-[24px]">
+                <div className="mt-auto flex w-full flex-row items-stretch gap-[24px]">
                   {event.application_link ? (
                     <Link
                       href={event.application_link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group relative flex h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden rounded-[100px] border border-transparent bg-[#EFF4FA] px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-white transition-colors duration-200 hover:border-[#DCE6F2] hover:text-[#005EAF]"
+                      className="group relative flex min-h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden rounded-[100px] border border-transparent bg-[#EFF4FA] px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-white transition-colors duration-200 hover:border-[#DCE6F2] hover:text-[#005EAF]"
                     >
                       <span className="absolute inset-0 rounded-[100px] bg-gradient-to-r from-[#249AFF] to-[#005EAF] transition-opacity duration-200 group-hover:opacity-0" />
                       <span className="relative z-10 font-[500] whitespace-nowrap">
@@ -184,14 +184,16 @@ const EventCardList = ({ events: rawEvents }: EventCardListProps) => {
                       </span>
                     </Link>
                   ) : (
-                    <span className="flex h-[27px] min-w-0 flex-1 cursor-not-allowed items-center justify-center rounded-[100px] bg-[#DCE6F2] px-[12px] py-[4px] text-[16px] leading-none font-medium whitespace-nowrap text-[#6B6F8D]">
-                      Registration unavailable
+                    <span className="flex min-h-[27px] min-w-0 flex-1 cursor-not-allowed items-center justify-center rounded-[100px] bg-[#DCE6F2] px-[12px] py-[4px] text-[16px] leading-[18px] font-medium text-[#6B6F8D]">
+                      <span className="max-w-full min-w-0 text-center break-words">
+                        Registration unavailable
+                      </span>
                     </span>
                   )}
                   <button
                     type="button"
                     onClick={() => openSelectedEvent(event)}
-                    className="group relative flex h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden rounded-[100px] border border-[#DCE6F2] bg-gradient-to-r from-[#249AFF] to-[#005EAF] px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-[#005EAF] transition-colors duration-200 hover:cursor-pointer hover:border-transparent hover:text-white"
+                    className="group relative flex min-h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden rounded-[100px] border border-[#DCE6F2] bg-gradient-to-r from-[#249AFF] to-[#005EAF] px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-[#005EAF] transition-colors duration-200 hover:cursor-pointer hover:border-transparent hover:text-white"
                   >
                     <span className="absolute inset-0 rounded-[100px] bg-[#EFF4FA] transition-opacity duration-200 group-hover:opacity-0" />
                     <span className="relative z-10 font-[500] whitespace-nowrap">Learn More</span>
