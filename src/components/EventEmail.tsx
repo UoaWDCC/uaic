@@ -1,19 +1,13 @@
-<<<<<<< HEAD
-const EventEmail = () => {
-  return <div className="w-600px flex bg-white"> event </div>;
-};
-
-=======
 "use client";
 import Link from "next/link";
-import MemberSignupButton from "./MemberSignupButton";
+import ArrowButton from "./ArrowButton";
 
 const EventEmail = () => {
   return (
     <div className="w-full">
       {/* Container */}
       <div className="sm:py-28px flex justify-center px-6">
-        <div className="flex min-h-[600px] w-full max-w-[472px] flex-col gap-[30px] rounded-[8px] bg-white px-[28px] py-[30px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
+        <div className="flex min-h-[600px] w-full max-w-[472px] flex-col gap-[30px] rounded-[8px] bg-white px-[24px] py-[30px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
           <div className="w-full flex-col gap-[8px]">
             <div className="w-full text-[5vw] font-semibold text-[#00529B] md:text-[1.7vw]">
               You're all set!
@@ -64,7 +58,7 @@ const EventEmail = () => {
               <div className="w-full flex-row justify-center">
                 {/* one */}
                 <div className="flex w-full flex-row items-start gap-3 pb-3">
-                  <div className="flex h-[6vw] w-[6vw] flex-shrink-0 items-center justify-center rounded-full bg-[#249AFF] text-[2.5vw] font-semibold text-white md:h-[2vw] md:w-[2vw] md:text-base">
+                  <div className="flex h-[5vw] w-[5vw] flex-shrink-0 items-center justify-center rounded-full bg-[#249AFF] text-[2.5vw] text-white md:h-[1.8vw] md:w-[1.8vw] md:text-[0.8vw]">
                     1
                   </div>
                   <div className="flex flex-col">
@@ -76,7 +70,7 @@ const EventEmail = () => {
                 </div>
                 {/* two */}
                 <div className="flex w-full flex-row items-start gap-3 pb-3">
-                  <div className="flex h-[6vw] w-[6vw] flex-shrink-0 items-center justify-center rounded-full bg-[#249AFF] text-[2.5vw] font-semibold text-white md:h-[2vw] md:w-[2vw] md:text-base">
+                  <div className="flex h-[5vw] w-[5vw] flex-shrink-0 items-center justify-center rounded-full bg-[#249AFF] text-[2.5vw] text-white md:h-[1.8vw] md:w-[1.8vw] md:text-[0.8vw]">
                     2
                   </div>
                   <div className="flex flex-col">
@@ -91,7 +85,7 @@ const EventEmail = () => {
                 </div>
                 {/* three */}
                 <div className="flex w-full flex-row items-start gap-3 pb-3">
-                  <div className="flex h-[6vw] w-[6vw] flex-shrink-0 items-center justify-center rounded-full bg-[#249AFF] text-[2.5vw] font-semibold text-white md:h-[2vw] md:w-[2vw] md:text-base">
+                  <div className="flex h-[5vw] w-[5vw] flex-shrink-0 items-center justify-center rounded-full bg-[#249AFF] text-[2.5vw] text-white md:h-[1.8vw] md:w-[1.8vw] md:text-[0.8vw]">
                     3
                   </div>
                   <div className="flex flex-col">
@@ -106,7 +100,7 @@ const EventEmail = () => {
               </div>
             </div>
             <div className="mx-auto my-auto flex justify-center [&_a]:px-26 [&_a]:py-4 md:[&_a]:px-[15vw]">
-              <MemberSignupButton />
+              <ArrowButton text="Go to member portal" link="/" fullWidth />
             </div>
           </div>
           {/* email */}
@@ -130,5 +124,4 @@ const EventEmail = () => {
     </div>
   );
 };
->>>>>>> a81b8cf (membership and event confirmations. Mobile view only.)
 export default EventEmail;
