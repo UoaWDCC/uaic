@@ -74,6 +74,17 @@ export const Events: CollectionConfig = {
       },
     },
     {
+      name: "registrationLink",
+      type: "text",
+      label: "Registration Link",
+      required: false,
+      admin: {
+        style: {
+          cursor: "pointer",
+        },
+      },
+    },
+    {
       name: "image",
       type: "upload",
       label: "Image",
