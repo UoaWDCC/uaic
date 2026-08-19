@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function SignUpForm() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,7 @@ export default function SignUpForm() {
       const result = await signUp.email({
         email,
         password,
-        name: "",
+        name,
       });
 
       if (result.error) {
@@ -76,6 +77,18 @@ export default function SignUpForm() {
             {/* Input fields, sign up button */}
             <form onSubmit={handleSignUp} className="flex flex-col gap-[44px]">
               <div className="flex flex-col gap-[32px]">
+                <div>
+                  <input
+                    type="text"
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Full Name"
+                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] placeholder:font-light placeholder:text-[#9AA0B6] focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
+                    required
+                  />
+                </div>
+
                 <div>
                   <input
                     type="email"

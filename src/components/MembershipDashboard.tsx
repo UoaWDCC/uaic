@@ -1,10 +1,34 @@
 "use client";
 import React, { useState } from "react";
-import { FiEdit2, FiArrowUpRight } from "react-icons/fi";
+import { useRouter } from "next/navigation";
+import { FiEdit2, FiArrowUpRight, FiLogOut } from "react-icons/fi";
+import { signOut } from "@/lib/auth-client";
 
-type DetailField = {
-  label: string;
-  value: string;
+type SessionUser = {
+  name: string;
+  email: string;
+};
+
+export type MemberProfile = {
+  studentId: string;
+  universityYear: "year1" | "year2" | "year3" | "year4" | "year5Plus" | "postgraduate";
+  degrees: string;
+  hasPaid: boolean;
+  paymentDate?: string | null;
+};
+
+interface MembershipDashboardProps {
+  user: SessionUser;
+  member: MemberProfile | null;
+}
+
+const YEAR_LABELS: Record<MemberProfile["universityYear"], string> = {
+  year1: "1st Year",
+  year2: "2nd Year",
+  year3: "3rd Year",
+  year4: "4th Year",
+  year5Plus: "5th Year+",
+  postgraduate: "Postgraduate",
 };
 
 type UpcomingEvent = {
@@ -23,15 +47,6 @@ interface CardHeaderProps {
   subtitle?: string;
   onEdit?: () => void;
 }
-
-const personalDetails: DetailField[] = [
-  { label: "Full Name", value: "Test Name" },
-  { label: "Student ID", value: "12345" },
-  { label: "University Email", value: "email@aucklanduni.ac.nz" },
-  { label: "Phone Number", value: "••• ••• ••••" },
-  { label: "Degree / Programme", value: "BA Business" },
-  { label: "Year of Study", value: "3rd Year" },
-];
 
 const upcomingEvents: UpcomingEvent[] = [
   {
@@ -90,14 +105,38 @@ const Toggle = () => {
   );
 };
 
-const MembershipDashboard = () => {
+const formatMemberSince = (paymentDate?: string | null) => {
+  if (!paymentDate) return "—";
+  return new Date(paymentDate).toLocaleDateString("en-NZ", { month: "long", year: "numeric" });
+};
+
+const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
+  const router = useRouter();
+  const [signingOut, setSigningOut] = useState(false);
+
+  const handleSignOut = async () => {
+    setSigningOut(true);
+    await signOut();
+    router.push("/login");
+  };
+
+  const personalDetails = [
+    { label: "Full Name", value: user.name || "Not provided" },
+    { label: "Student ID", value: member?.studentId ?? "—" },
+    { label: "University Email", value: user.email },
+    { label: "Degree / Programme", value: member?.degrees ?? "—" },
+    { label: "Year of Study", value: member ? YEAR_LABELS[member.universityYear] : "—" },
+  ];
+
   return (
     <div className="min-h-screen bg-slate-100 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto w-full max-w-6xl">
         <p className="text-sm font-bold tracking-wide text-blue-500 uppercase">
           Membership Dashboard
         </p>
-        <h1 className="text-header text-darkBlue mt-1 font-bold">Welcome Back, Test</h1>
+        <h1 className="text-header text-darkBlue mt-1 font-bold">
+          Welcome Back, {user.name?.split(" ")[0] || "Member"}
+        </h1>
         <p className="text-body mt-2 max-w-2xl text-slate-500">
           Manage your details, track your event RSVPs, and tell us what kind of investing content
           you want more of.
@@ -131,14 +170,16 @@ const MembershipDashboard = () => {
           <Card>
             <CardHeader title="Membership" />
             <div className="rounded-xl bg-gradient-to-r from-blue-500 to-blue-700 p-5 text-white">
-              <p className="text-lg font-bold">General Member</p>
-              <p className="mt-1 text-sm text-blue-100">Valid until end of 2026</p>
+              <p className="text-lg font-bold">
+                {member?.hasPaid ? "Active Member" : "Membership Pending"}
+              </p>
+              {!member && <p className="mt-1 text-sm text-blue-100">No membership on file yet</p>}
             </div>
             <hr className="border-grey-200 my-6 border-t" />
             <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
               Member Since
             </p>
-            <p className="text-darkBlue mt-1">March 2026</p>
+            <p className="text-darkBlue mt-1">{formatMemberSince(member?.paymentDate)}</p>
           </Card>
 
           {/* Upcoming events */}
@@ -195,7 +236,14 @@ const MembershipDashboard = () => {
           </Card>
         </div>
 
-        {/* TODO: paste the sign out button from UserInfo.tsx here */}
+        <button
+          onClick={handleSignOut}
+          disabled={signingOut}
+          className="mt-8 inline-flex items-center gap-2 font-medium text-red-600 hover:cursor-pointer hover:underline disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <FiLogOut size={16} />
+          {signingOut ? "Signing out..." : "Sign Out"}
+        </button>
       </div>
     </div>
   );

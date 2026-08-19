@@ -10,7 +10,8 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "delete-test-account": "node scripts/delete-test-account.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.782.0",
