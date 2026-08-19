@@ -151,5 +151,6 @@ export const Member: CollectionConfig = {
   ],
   access: {
     read: () => true,
+    create: () => true,
   },
 };

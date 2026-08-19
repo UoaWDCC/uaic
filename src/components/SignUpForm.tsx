@@ -12,11 +12,14 @@ export default function SignUpForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  const params = new URLSearchParams();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
+    params.set("google", "true");
+    params.set("email", email);
 
     try {
       const result = await signUp.email({
@@ -28,7 +31,7 @@ export default function SignUpForm() {
       if (result.error) {
         setError(result.error.message || `${result.error}`);
       } else {
-        router.push("/dashboard");
+        router.push(`/payment?${params.toString()}`);
       }
     } catch {
       setError("An unexpected error occurred");
@@ -42,9 +45,12 @@ export default function SignUpForm() {
     setError("");
 
     try {
+      params.set("google", "true");
+      params.set("email", "placeholder");
+
       await signIn.social({
         provider: "google",
-        callbackURL: "/dashboard",
+        callbackURL: `/payment?${params.toString()}`,
       });
     } catch {
       setError("Failed to sign up with Google");

@@ -222,6 +222,14 @@ export interface Bulletin {
   title: string;
   description?: string | null;
   /**
+   * Shown on the article card and used by the category filter on /bulletin
+   */
+  category?: ('Topic' | 'Market' | 'Asset Class' | 'Level') | null;
+  /**
+   * Estimated read time in minutes, shown on the article card
+   */
+  readTime?: number | null;
+  /**
    * Only image files are allowed
    */
   bulletinCover?: (string | null) | Media;
@@ -234,13 +242,20 @@ export interface Bulletin {
  */
 export interface Member {
   id: string;
-  member: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   upi: string;
-  studentID: string;
-  role: 'member' | 'exec' | 'leadership';
-  executiveInformation?: (string | null) | Executive;
-  degree: string;
-  events?: (string | Event)[] | null;
+  studentId: string;
+  gender: 'male' | 'female' | 'nonBinary' | 'preferNotToSay';
+  universityYear: 'year1' | 'year2' | 'year3' | 'year4' | 'year5Plus' | 'postgraduate';
+  memberType: 'returning' | 'newMember';
+  degrees: string;
+  majors: string;
+  ethnicity: 'european' | 'maori' | 'pacificPeoples' | 'asian' | 'melaa' | 'other' | 'preferNotToSay';
+  howDidYouFindUs?: string | null;
+  hasPaid: boolean;
+  paymentDate?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -266,6 +281,7 @@ export interface Event {
   endDate: string;
   location: string;
   description: string;
+  registrationLink?: string | null;
   image?: (string | null) | Media;
   attendees?: (string | Member)[] | null;
   updatedAt: string;
@@ -458,6 +474,8 @@ export interface BulletinSelect<T extends boolean = true> {
   publishDate?: T;
   title?: T;
   description?: T;
+  category?: T;
+  readTime?: T;
   bulletinCover?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -467,13 +485,20 @@ export interface BulletinSelect<T extends boolean = true> {
  * via the `definition` "member_select".
  */
 export interface MemberSelect<T extends boolean = true> {
-  member?: T;
+  firstName?: T;
+  lastName?: T;
+  email?: T;
   upi?: T;
-  studentID?: T;
-  role?: T;
-  executiveInformation?: T;
-  degree?: T;
-  events?: T;
+  studentId?: T;
+  gender?: T;
+  universityYear?: T;
+  memberType?: T;
+  degrees?: T;
+  majors?: T;
+  ethnicity?: T;
+  howDidYouFindUs?: T;
+  hasPaid?: T;
+  paymentDate?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -497,6 +522,7 @@ export interface EventsSelect<T extends boolean = true> {
   endDate?: T;
   location?: T;
   description?: T;
+  registrationLink?: T;
   image?: T;
   attendees?: T;
   updatedAt?: T;
