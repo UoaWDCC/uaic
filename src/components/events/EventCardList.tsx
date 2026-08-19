@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { VscClose } from "react-icons/vsc";
 import Image from "next/image";
 import Link from "next/link";
+import type { Event as PayloadEvent } from "../../../payload-types";
 import ArrowButton from "../ArrowButton";
 
 interface Event {
@@ -17,11 +18,11 @@ interface Event {
   type: string;
   photo: string;
   description: string;
-  application_link: string;
+  application_link?: string | null;
 }
 
 interface EventCardListProps {
-  events: any[]; // Raw events from database
+  events: PayloadEvent[];
 }
 
 const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -107,9 +108,12 @@ const EventCardList = ({ events: rawEvents }: EventCardListProps) => {
       title: dbEvent.event,
       location: dbEvent.location,
       type: "Event",
-      photo: dbEvent.image?.url || "/assets/logos/uaic.webp",
+      photo:
+        typeof dbEvent.image === "object" && dbEvent.image?.url
+          ? dbEvent.image.url
+          : "/assets/logos/uaic.webp",
       description: dbEvent.description,
-      application_link: `/events/${dbEvent.id}`,
+      application_link: dbEvent.registrationLink,
     };
   });
 
@@ -166,18 +170,30 @@ const EventCardList = ({ events: rawEvents }: EventCardListProps) => {
                   {event.description}
                 </p>
 
-                <div className="mt-auto flex w-full flex-row gap-[24px]">
-                  <Link
-                    href={event.application_link}
-                    className="group relative flex h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden rounded-[100px] border border-transparent bg-[#EFF4FA] px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-white transition-colors duration-200 hover:border-[#DCE6F2] hover:text-[#005EAF]"
-                  >
-                    <span className="absolute inset-0 rounded-[100px] bg-gradient-to-r from-[#249AFF] to-[#005EAF] transition-opacity duration-200 group-hover:opacity-0" />
-                    <span className="relative z-10 font-[500] whitespace-nowrap">Register Now</span>
-                  </Link>
+                <div className="mt-auto flex w-full flex-row items-stretch gap-[24px]">
+                  {event.application_link ? (
+                    <Link
+                      href={event.application_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative flex min-h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden rounded-[100px] border border-transparent bg-[#EFF4FA] px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-white transition-colors duration-200 hover:border-[#DCE6F2] hover:text-[#005EAF]"
+                    >
+                      <span className="absolute inset-0 rounded-[100px] bg-gradient-to-r from-[#249AFF] to-[#005EAF] transition-opacity duration-200 group-hover:opacity-0" />
+                      <span className="relative z-10 font-[500] whitespace-nowrap">
+                        Register Now
+                      </span>
+                    </Link>
+                  ) : (
+                    <span className="flex min-h-[27px] min-w-0 flex-1 cursor-not-allowed items-center justify-center rounded-[100px] bg-[#DCE6F2] px-[12px] py-[4px] text-[16px] leading-[18px] font-medium text-[#6B6F8D]">
+                      <span className="max-w-full min-w-0 text-center break-words">
+                        Registration unavailable
+                      </span>
+                    </span>
+                  )}
                   <button
                     type="button"
                     onClick={() => openSelectedEvent(event)}
-                    className="group relative flex h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden rounded-[100px] border border-[#DCE6F2] bg-gradient-to-r from-[#249AFF] to-[#005EAF] px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-[#005EAF] transition-colors duration-200 hover:cursor-pointer hover:border-transparent hover:text-white"
+                    className="group relative flex min-h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden rounded-[100px] border border-[#DCE6F2] bg-gradient-to-r from-[#249AFF] to-[#005EAF] px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-[#005EAF] transition-colors duration-200 hover:cursor-pointer hover:border-transparent hover:text-white"
                   >
                     <span className="absolute inset-0 rounded-[100px] bg-[#EFF4FA] transition-opacity duration-200 group-hover:opacity-0" />
                     <span className="relative z-10 font-[500] whitespace-nowrap">Learn More</span>
@@ -251,11 +267,18 @@ const EventCardList = ({ events: rawEvents }: EventCardListProps) => {
                   </p>
 
                   <div className="mt-auto w-full flex-shrink-0 pt-[clamp(24px,3vw,42px)]">
-                    <ArrowButton
-                      text="Complete Registration"
-                      link={selectedEvent.application_link}
-                      fullWidth
-                    />
+                    {selectedEvent.application_link ? (
+                      <ArrowButton
+                        text="Complete Registration"
+                        link={selectedEvent.application_link}
+                        fullWidth
+                        openInNewTab
+                      />
+                    ) : (
+                      <div className="flex h-[37px] w-full cursor-not-allowed items-center justify-center rounded-full bg-[#DCE6F2] text-sm font-medium text-[#6B6F8D] sm:h-[51px] sm:text-[20px]">
+                        Registration unavailable
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

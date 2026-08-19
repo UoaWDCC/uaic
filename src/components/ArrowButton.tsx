@@ -5,12 +5,15 @@ interface ArrowButtonProps {
   text: string;
   link: string;
   fullWidth?: boolean;
+  openInNewTab?: boolean;
 }
 
-const ArrowButton = ({ text, link, fullWidth = false }: ArrowButtonProps) => {
+const ArrowButton = ({ text, link, fullWidth = false, openInNewTab = false }: ArrowButtonProps) => {
   return (
     <Link
       href={link}
+      target={openInNewTab ? "_blank" : undefined}
+      rel={openInNewTab ? "noopener noreferrer" : undefined}
       className={`group relative flex h-[37px] shrink-0 items-center justify-center gap-3 overflow-hidden rounded-full bg-white px-4.5 py-2.5 whitespace-nowrap text-white transition-colors duration-200 hover:text-[#005EAF] sm:h-[51px] sm:gap-[8px] sm:px-[16px] sm:py-0 ${
         fullWidth ? "w-full" : "w-fit"
       }`}

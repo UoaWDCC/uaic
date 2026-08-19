@@ -281,6 +281,7 @@ export interface Event {
   endDate: string;
   location: string;
   description: string;
+  registrationLink?: string | null;
   image?: (string | null) | Media;
   attendees?: (string | Member)[] | null;
   updatedAt: string;
@@ -521,6 +522,7 @@ export interface EventsSelect<T extends boolean = true> {
   endDate?: T;
   location?: T;
   description?: T;
+  registrationLink?: T;
   image?: T;
   attendees?: T;
   updatedAt?: T;
