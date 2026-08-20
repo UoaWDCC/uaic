@@ -23,6 +23,7 @@ interface Event {
 
 interface EventCardListProps {
   events: PayloadEvent[];
+  emptyMessage?: string;
 }
 
 const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -38,7 +39,10 @@ const formatTime = (date: Date) => {
   return `${hours12}:${minutes} ${period}`;
 };
 
-const EventCardList = ({ events: rawEvents }: EventCardListProps) => {
+const EventCardList = ({
+  events: rawEvents,
+  emptyMessage = "No upcoming events at this time.",
+}: EventCardListProps) => {
   const [selectedEvent, setSelectedEvent] = useState<null | Event>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const closeTimerRef = useRef<number | null>(null);
@@ -118,7 +122,7 @@ const EventCardList = ({ events: rawEvents }: EventCardListProps) => {
   });
 
   if (events.length === 0) {
-    return <div className="py-10 text-center text-gray-500">No upcoming events at this time.</div>;
+    return <div className="py-10 text-center text-gray-500">{emptyMessage}</div>;
   }
 
   return (
