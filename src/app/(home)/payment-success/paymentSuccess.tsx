@@ -17,7 +17,7 @@ export default function PaymentSuccess({ amount }: { amount: string }) {
   });
 
   return (
-    <div className="fixed inset-0 z-50 mx-auto flex h-screen w-screen flex-col items-center justify-center rounded-md border bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)] p-10">
+    <div className="fixed inset-0 z-50 mx-auto flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)] p-10">
       {/* Logo */}
       <Link href="/">
         <div
