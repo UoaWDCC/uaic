@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { GoChevronDown, GoChevronLeft, GoChevronRight, GoSearch } from "react-icons/go";
 import ArticleCard from "@/components/ArticleCard";
 import type { ArticleCardContent } from "@/components/ArticleCard";
+import PageHeader from "@/components/PageHeader";
 import type { Bulletin } from "@/features/bulletins/data/getBulletins";
 
 type AllArticlesProps = {
@@ -277,19 +278,11 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
           the page content lines up with the logo and nav links above it. */}
       <div className="flex w-full flex-col px-6 py-12 lg:px-16 lg:py-20">
         {/* Header — type scale taken from Figma (Figtree 34.27 / 65.11 / 16) */}
-        <div className="flex flex-col gap-3 lg:gap-[17px]">
-          <p className="text-[22px] leading-none font-bold text-[#249AFF] lg:text-[34.27px]">
-            Readup
-          </p>
-          <h1 className="text-[42px] leading-[0.895] font-bold text-[#0B1A2B] sm:text-[52px] lg:text-[65.11px]">
-            All Articles
-          </h1>
-          <p className="mt-1 max-w-[728px] text-[14px] leading-[1.5625] font-normal text-[#0B1A2B] lg:mt-2 lg:text-[16px]">
-            Explore a collection of insights, analysis, and perspectives from the UoA Investment
-            Club, covering markets, companies, investment strategies, and the wider world of
-            finance.
-          </p>
-        </div>
+        <PageHeader
+          kicker="Readup"
+          title="All Articles"
+          description="Explore a collection of insights, analysis, and perspectives from the UoA Investment Club, covering markets, companies, investment strategies, and the wider world of finance."
+        />
 
         {/* Search + filters */}
         <div className="mt-10 flex flex-col gap-4 lg:mt-24 lg:flex-row lg:items-center lg:gap-6">

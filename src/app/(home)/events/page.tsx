@@ -1,34 +1,15 @@
 import React from "react";
-import EventLanding from "@/components/events/EventLanding";
-import RecentEvents from "@/components/events/RecentEvents";
-import EventCardList from "@/components/events/EventCardList";
-import BlueGradient from "@/components/BlueGradient";
+import EventsPageContent from "@/components/events/EventsPageContent";
 import { getUpcomingEvents, getRecentEvents } from "@/features/users/data/getEvents";
 
 const page = async () => {
   // Fetch data server-side
   const upcomingEvents = await getUpcomingEvents();
-  const recentEvents = await getRecentEvents();
+  const pastEvents = await getRecentEvents();
 
   return (
     <div className="flex w-full flex-col items-center">
-      <div className="w-full">
-        <EventLanding />
-      </div>
-      <div className="w-full bg-white">
-        <div className="flex w-full cursor-pointer flex-col items-center gap-[20px] bg-[linear-gradient(transparent,rgba(20,92,169,0.4)_50%,transparent)] px-[16px] pb-[100px] lg:gap-[70px] lg:bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)] lg:px-[120px]">
-          <h1 className="text-darkBlue text-title cursor-pointer font-bold">Upcoming Events</h1>
-
-          <EventCardList events={upcomingEvents} />
-        </div>
-
-        <div className="mt-5 mb-20 flex w-full cursor-pointer flex-col items-center gap-[20px] bg-[linear-gradient(transparent,rgba(20,92,169,0.4)_50%,transparent)] px-[16px] pt-[100px] pb-[100px] lg:gap-[70px] lg:bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)] lg:px-[120px]">
-          <h1 className="text-darkBlue text-title cursor-pointer font-bold">Recent Events</h1>
-
-          <RecentEvents events={recentEvents} />
-        </div>
-        <BlueGradient />
-      </div>
+      <EventsPageContent upcomingEvents={upcomingEvents} pastEvents={pastEvents} />
     </div>
   );
 };
