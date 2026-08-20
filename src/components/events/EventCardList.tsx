@@ -193,9 +193,9 @@ const EventCardList = ({ events: rawEvents }: EventCardListProps) => {
                   <button
                     type="button"
                     onClick={() => openSelectedEvent(event)}
-                    className="group relative flex min-h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden rounded-[100px] border border-[#DCE6F2] bg-gradient-to-r from-[#249AFF] to-[#005EAF] px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-[#005EAF] transition-colors duration-200 hover:cursor-pointer hover:border-transparent hover:text-white"
+                    className="group relative flex min-h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden rounded-[100px] border border-[#DCE6F2] bg-[#EFF4FA] px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-[#005EAF] transition-colors duration-200 hover:cursor-pointer hover:border-transparent hover:text-white"
                   >
-                    <span className="absolute inset-0 rounded-[100px] bg-[#EFF4FA] transition-opacity duration-200 group-hover:opacity-0" />
+                    <span className="pointer-events-none absolute -inset-px rounded-[inherit] bg-gradient-to-r from-[#249AFF] to-[#005EAF] opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
                     <span className="relative z-10 font-[500] whitespace-nowrap">Learn More</span>
                   </button>
                 </div>
