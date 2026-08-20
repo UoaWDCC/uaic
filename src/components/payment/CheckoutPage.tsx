@@ -134,7 +134,7 @@ const CheckoutPage = ({
             setErrMessage(memberReponse.error || "Failed to update member");
             return;
           }
-          window.location.href = window.location.origin + `/payment-success?amount=${amount}`;
+          window.location.href = window.location.origin + "/dashboard";
         } catch (error) {
           console.log("Unable to update member:", error);
           setErrMessage("Payment succeeded, but unable to update member.");
