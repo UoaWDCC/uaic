@@ -51,6 +51,7 @@ export default function SignUpForm() {
       await signIn.social({
         provider: "google",
         callbackURL: `/payment?${params.toString()}`,
+        requestSignUp: true,
       });
     } catch {
       setError("Failed to sign up with Google");
