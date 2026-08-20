@@ -164,9 +164,21 @@ export default function Payment() {
 
         <div id="regForm">
           {/* Fixed the dynamic variable text color configuration */}
-          <h1 className="mb-4 text-2xl font-bold text-[var(--darkBlue)]">
-            {currentStep < 3 ? "Membership" : "Payment"}
-          </h1>
+          <div className="mb-4 flex items-start justify-between">
+            <div>
+              <p className="text-sm font-medium text-blue-500">Step {currentStep + 1}</p>
+              <p className="text-2xl font-bold text-black">
+                {currentStep < 3 ? "Membership" : "Payment"}
+              </p>
+            </div>
+
+            {currentStep === 3 && (
+              <div className="text-right">
+                <p className="text-sm font-medium text-blue-500">Membership Fee</p>
+                <p className="text-2xl font-bold text-black">${amount.toFixed(2)}</p>
+              </div>
+            )}
+          </div>
 
           <div className="mb-6 flex w-full items-center justify-between">
             <div className="relative h-9 w-9 flex-shrink-0 lg:h-9 lg:w-9">
