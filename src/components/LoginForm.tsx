@@ -42,6 +42,7 @@ export default function LoginForm() {
       await signIn.social({
         provider: "google",
         callbackURL: "/dashboard",
+        errorCallbackURL: "/signup",
       });
     } catch {
       setError("Failed to sign in with Google");

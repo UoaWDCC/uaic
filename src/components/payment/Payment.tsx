@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession, signOut } from "@/lib/auth-client";
+import { useSession } from "@/lib/auth-client";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutPage from "./CheckoutPage";
@@ -122,10 +122,13 @@ export default function Payment() {
   }
 
   useEffect(() => {
+    // Prefills editable fields once the session name loads; the user can still edit them afterward.
+    /* eslint-disable react-hooks/set-state-in-effect */
     if (!isPending && session?.user?.name) {
       setFirstName(session?.user?.name?.split(" ")[0] || "");
       setLastName(session?.user?.name?.split(" ")[1] || "");
     }
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [isPending, session]);
 
   useEffect(() => {
@@ -147,7 +150,7 @@ export default function Payment() {
 
   return (
     /* Parent layout container: centering elements horizontally and vertically using flex */
-    <div className="fixed inset-0 z-50 mx-auto flex h-screen w-screen flex-col items-center justify-center rounded-md border bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)] p-10">
+    <div className="fixed inset-0 z-50 mx-auto flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)] p-10">
       {/* Centered White wrapper container card */}
       <div className="mb-10 w-full rounded-2xl bg-white p-4 pb-0 text-black shadow-[0_5px_15px_rgba(0,0,0,0.25)] lg:max-w-xl">
         <div
@@ -161,9 +164,21 @@ export default function Payment() {
 
         <div id="regForm">
           {/* Fixed the dynamic variable text color configuration */}
-          <h1 className="mb-4 text-2xl font-bold text-[var(--darkBlue)]">
-            {currentStep < 3 ? "Membership" : "Payment"}
-          </h1>
+          <div className="mb-4 flex items-start justify-between">
+            <div>
+              <p className="text-sm font-medium text-blue-500">Step {currentStep + 1}</p>
+              <p className="text-2xl font-bold text-black">
+                {currentStep < 3 ? "Membership" : "Payment"}
+              </p>
+            </div>
+
+            {currentStep === 3 && (
+              <div className="text-right">
+                <p className="text-sm font-medium text-blue-500">Membership Fee</p>
+                <p className="text-2xl font-bold text-black">${amount.toFixed(2)}</p>
+              </div>
+            )}
+          </div>
 
           <div className="mb-6 flex w-full items-center justify-between">
             <div className="relative h-9 w-9 flex-shrink-0 lg:h-9 lg:w-9">

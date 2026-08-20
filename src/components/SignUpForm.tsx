@@ -1,17 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signUp, signIn } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export default function SignUpForm() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
   const params = new URLSearchParams();
+
+  useEffect(() => {
+    // A Google sign-in for an account that doesn't exist yet lands here with
+    // ?error=signup_disabled; drop it from the URL so the form just presents normally.
+    if (searchParams.get("error") === "signup_disabled") {
+      router.replace("/signup");
+    }
+  }, [searchParams, router]);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +34,7 @@ export default function SignUpForm() {
       const result = await signUp.email({
         email,
         password,
-        name: "",
+        name,
       });
 
       if (result.error) {
@@ -50,6 +60,7 @@ export default function SignUpForm() {
       await signIn.social({
         provider: "google",
         callbackURL: `/payment?${params.toString()}`,
+        requestSignUp: true,
       });
     } catch {
       setError("Failed to sign up with Google");
@@ -82,6 +93,18 @@ export default function SignUpForm() {
             {/* Input fields, sign up button */}
             <form onSubmit={handleSignUp} className="flex flex-col gap-[44px]">
               <div className="flex flex-col gap-[32px]">
+                <div>
+                  <input
+                    type="text"
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Full Name"
+                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] placeholder:font-light placeholder:text-[#9AA0B6] focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
+                    required
+                  />
+                </div>
+
                 <div>
                   <input
                     type="email"

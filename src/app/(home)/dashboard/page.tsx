@@ -1,12 +1,27 @@
-import UserInfo from "@/components/UserInfo";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { getPayload } from "payload";
+import config from "@payload-config";
+import { auth } from "@/lib/auth";
+import MembershipDashboard, { type MemberProfile } from "@/components/MembershipDashboard";
 
-export default function DashboardPage() {
-  return (
-    <div className="flex min-h-screen flex-col justify-center bg-gray-50 py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h1 className="mb-8 text-center text-3xl font-bold">Dashboard</h1>
-        <UserInfo />
-      </div>
-    </div>
-  );
+export default async function DashboardPage() {
+  const session = await auth.api.getSession({ headers: await headers() });
+
+  if (!session) {
+    redirect("/login");
+  }
+
+  const payload = await getPayload({ config });
+  const { docs } = await payload.find({
+    collection: "member",
+    where: { email: { equals: session.user.email } },
+    limit: 1,
+  });
+
+  // payload-types.ts is stale relative to src/collections/Member.ts, so the
+  // generated `Member` type doesn't reflect the fields this collection actually has.
+  const member = (docs[0] as unknown as MemberProfile) ?? null;
+
+  return <MembershipDashboard user={session.user} member={member} />;
 }

@@ -5,7 +5,9 @@ import { usePathname } from "next/navigation";
 import ArrowButton from "./ArrowButton";
 import StockTicker from "./StockTicker";
 import { GoArrowUpRight, GoArrowLeft } from "react-icons/go";
+import { CgProfile } from "react-icons/cg";
 import Button from "./Button";
+import { useSession } from "@/lib/auth-client";
 
 interface NavbarProps {
   theme?: "auto" | "blue";
@@ -14,6 +16,7 @@ interface NavbarProps {
 const NAVBAR_HEIGHT = 131.75;
 
 const Navbar = ({ theme = "auto" }: NavbarProps) => {
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const [showAboutSubpage, setShowAboutSubpage] = useState(false);
@@ -150,9 +153,18 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
         </ul>
 
         <div className="hidden lg:block lg:ps-8 lg:pe-15">
-          <Button link="/login" className="cursor-pointer p-4 py-1.5 text-lg text-white">
-            Join Us
-          </Button>
+          {session ? (
+            <Link
+              href="/dashboard"
+              className={`flex items-center justify-center transition-colors duration-300 ease-in-out ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+            >
+              <CgProfile size={32} />
+            </Link>
+          ) : (
+            <Button link="/login" className="cursor-pointer p-4 py-1.5 text-lg text-white">
+              Join Us
+            </Button>
+          )}
         </div>
       </div>
 
