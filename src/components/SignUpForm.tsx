@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signUp, signIn } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export default function SignUpForm() {
@@ -12,7 +12,16 @@ export default function SignUpForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
   const params = new URLSearchParams();
+
+  useEffect(() => {
+    // A Google sign-in for an account that doesn't exist yet lands here with
+    // ?error=signup_disabled; drop it from the URL so the form just presents normally.
+    if (searchParams.get("error") === "signup_disabled") {
+      router.replace("/signup");
+    }
+  }, [searchParams, router]);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
