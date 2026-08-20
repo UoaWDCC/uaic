@@ -24,6 +24,7 @@ interface Event {
 interface EventCardListProps {
   events: PayloadEvent[];
   emptyMessage?: string;
+  isPast?: boolean;
 }
 
 const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -42,6 +43,7 @@ const formatTime = (date: Date) => {
 const EventCardList = ({
   events: rawEvents,
   emptyMessage = "No upcoming events at this time.",
+  isPast = false,
 }: EventCardListProps) => {
   const [selectedEvent, setSelectedEvent] = useState<null | Event>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -150,7 +152,7 @@ const EventCardList = ({
                     alt={`${event.title} photo`}
                     fill
                     sizes="(min-width: 1024px) 244px, 50vw"
-                    className="object-cover"
+                    className={`object-cover ${isPast ? "grayscale" : ""}`}
                   />
                 </div>
               </div>
@@ -247,7 +249,7 @@ const EventCardList = ({
                     alt={`${selectedEvent.title} photo`}
                     fill
                     sizes="(min-width: 1280px) 512px, (min-width: 1024px) 40vw, (min-width: 768px) 650px, calc(100vw - 48px)"
-                    className="object-cover"
+                    className={`object-cover ${isPast ? "grayscale" : ""}`}
                   />
                 </div>
 

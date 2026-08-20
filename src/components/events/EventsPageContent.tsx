@@ -47,6 +47,7 @@ const EventsPageContent = ({ upcomingEvents, pastEvents }: EventsPageContentProp
         <div className="mt-6 lg:mt-8">
           <EventCardList
             events={visibleEvents}
+            isPast={activeTab === "past"}
             emptyMessage={
               activeTab === "upcoming"
                 ? "No upcoming events at this time."
