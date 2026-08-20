@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getPayload } from "payload";
 import config from "@payload-config";
+import type { Member } from "../../../../../payload-types";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -64,9 +65,9 @@ export async function POST(request: NextRequest) {
             upi: paymentIntent.metadata.upi,
             studentId: paymentIntent.metadata.studentId,
             degrees: paymentIntent.metadata.degrees,
-            ethnicity: paymentIntent.metadata.ethnicity,
-            gender: paymentIntent.metadata.gender,
-            universityYear: paymentIntent.metadata.universityYear,
+            ethnicity: paymentIntent.metadata.ethnicity as Member["ethnicity"],
+            gender: paymentIntent.metadata.gender as Member["gender"],
+            universityYear: paymentIntent.metadata.universityYear as Member["universityYear"],
             majors: paymentIntent.metadata.majors,
             email: paymentIntent.metadata.email,
             hasPaid: true,
