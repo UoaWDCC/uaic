@@ -1,5 +1,5 @@
 import React from "react";
-import EventLanding from "@/components/events/EventLanding";
+import EventsHeader from "@/components/events/EventsHeader";
 import RecentEvents from "@/components/events/RecentEvents";
 import EventCardList from "@/components/events/EventCardList";
 import BlueGradient from "@/components/BlueGradient";
@@ -13,7 +13,7 @@ const page = async () => {
   return (
     <div className="flex w-full flex-col items-center">
       <div className="w-full">
-        <EventLanding />
+        <EventsHeader />
       </div>
       <div className="w-full bg-white">
         <div className="flex w-full cursor-pointer flex-col items-center gap-[20px] bg-[linear-gradient(transparent,rgba(20,92,169,0.4)_50%,transparent)] px-[16px] pb-[100px] lg:gap-[70px] lg:bg-[radial-gradient(rgba(20,92,169,0.4)_10%,rgba(255,255,255,0.2)_70%)] lg:px-[120px]">
