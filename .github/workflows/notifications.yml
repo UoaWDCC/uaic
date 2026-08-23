@@ -5,35 +5,14 @@ on:
     types: [opened, reopened, closed, ready_for_review]
 
 jobs:
-  pull_request_created:
+  notify:
     if: |
       github.event_name == 'pull_request' &&
-      github.event.pull_request.draft == false &&
-      (github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'ready_for_review')
+      !((github.event.action == 'opened' || github.event.action == 'reopened') && github.event.pull_request.draft == true)
     runs-on: ubuntu-latest
     steps:
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v5.3.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: "Pull request ${{ github.event.action == 'ready_for_review' && 'marked ready for review' || 'opened' }} by ${{ github.event.pull_request.user.login }}: ${{ github.event.pull_request.title }} | Link: [View Pull Request](${{ github.event.pull_request.html_url }})"
-
-  pull_request_merged:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
-    steps:
-      - name: Discord Webhook Action
-        uses: tsickert/discord-webhook@v5.3.0
-        with:
-          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: "Pull request merged by ${{ github.event.pull_request.user.login }}: ${{ github.event.pull_request.title }} | Link: [View Pull Request](${{ github.event.pull_request.html_url }})"
-
-  pull_request_closed:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == false
-    runs-on: ubuntu-latest
-    steps:
-      - name: Discord Webhook Action
-        uses: tsickert/discord-webhook@v5.3.0
-        with:
-          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: "Pull request closed without merging by ${{ github.event.pull_request.user.login }}: ${{ github.event.pull_request.title }} | Link: [View Pull Request](${{ github.event.pull_request.html_url }})"
+          content: "Pull request ${{ (github.event.action == 'closed' && github.event.pull_request.merged == true && 'merged') || (github.event.action == 'closed' && github.event.pull_request.merged == false && 'closed without merging') || (github.event.action == 'ready_for_review' && 'marked ready for review') || 'opened' }} by ${{ github.event.pull_request.user.login }}: ${{ github.event.pull_request.title }} | Link: [View Pull Request](${{ github.event.pull_request.html_url }})"
