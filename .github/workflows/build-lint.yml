@@ -10,8 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build
+  build-lint:
+    name: Checks
     runs-on: ubuntu-latest
     timeout-minutes: 15
     services:
@@ -55,26 +55,6 @@ jobs:
           PAYLOAD_SECRET: ci-build-placeholder-secret
           GOOGLE_CLIENT_ID: ci-build-placeholder-client-id
           GOOGLE_CLIENT_SECRET: ci-build-placeholder-client-secret
-
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.16.0
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
 
       - name: Lint
         run: pnpm lint
