@@ -1,6 +1,6 @@
 # UAIC Project
 
-Welcome to the UAIC Project!
+Welcome to the UAIC Project!!
 
 # Getting Started
 
