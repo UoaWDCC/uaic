@@ -71,11 +71,18 @@ export interface Config {
     users: User;
     media: Media;
     'investment-committee-images': InvestmentCommitteeImage;
+    'landing-page-images': LandingPageImage;
+    'hero-section-carousel': HeroSectionCarousel;
     bulletin: Bulletin;
     member: Member;
     executive: Executive;
+    'executive-committee': ExecutiveCommittee;
+    'bulletin-committee': BulletinCommittee;
     events: Event;
     portfolio: Portfolio;
+    sponsors: Sponsor;
+    exports: Export;
+    'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -86,11 +93,18 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'investment-committee-images': InvestmentCommitteeImagesSelect<false> | InvestmentCommitteeImagesSelect<true>;
+    'landing-page-images': LandingPageImagesSelect<false> | LandingPageImagesSelect<true>;
+    'hero-section-carousel': HeroSectionCarouselSelect<false> | HeroSectionCarouselSelect<true>;
     bulletin: BulletinSelect<false> | BulletinSelect<true>;
     member: MemberSelect<false> | MemberSelect<true>;
     executive: ExecutiveSelect<false> | ExecutiveSelect<true>;
+    'executive-committee': ExecutiveCommitteeSelect<false> | ExecutiveCommitteeSelect<true>;
+    'bulletin-committee': BulletinCommitteeSelect<false> | BulletinCommitteeSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     portfolio: PortfolioSelect<false> | PortfolioSelect<true>;
+    sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
+    exports: ExportsSelect<false> | ExportsSelect<true>;
+    'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -105,7 +119,13 @@ export interface Config {
     collection: 'users';
   };
   jobs: {
-    tasks: unknown;
+    tasks: {
+      createCollectionExport: TaskCreateCollectionExport;
+      inline: {
+        input: unknown;
+        output: unknown;
+      };
+    };
     workflows: unknown;
   };
 }
@@ -144,6 +164,7 @@ export interface FAQ {
  */
 export interface User {
   id: string;
+  role?: ('admin' | 'exec') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -206,6 +227,33 @@ export interface InvestmentCommitteeImage {
       filename?: string | null;
     };
   };
+}
+/**
+ * Upload and manage up to three landing images — one each for the homepage, events, and bulletin.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "landing-page-images".
+ */
+export interface LandingPageImage {
+  id: string;
+  image: string | Media;
+  tag: 'homepage' | 'events' | 'bulletin';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Manage the homepage hero carousel slides and their display order.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero-section-carousel".
+ */
+export interface HeroSectionCarousel {
+  id: string;
+  image: string | Media;
+  index: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -272,6 +320,40 @@ export interface Executive {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "executive-committee".
+ */
+export interface ExecutiveCommittee {
+  id: string;
+  name: string;
+  title: string;
+  degree: string;
+  image: string | Media;
+  subteam:
+    | 'Leadership Team'
+    | 'Bulletin and Investment Committee Chairperson'
+    | 'Secretary & Treasurer'
+    | 'Diversity and Inclusion Team'
+    | 'Education Team'
+    | 'Competitions Team 1'
+    | 'Competitions Team 2'
+    | 'Marketing Team'
+    | 'Social Team';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bulletin-committee".
+ */
+export interface BulletinCommittee {
+  id: string;
+  name: string;
+  role: 'Editor-in-Chief' | 'Sub-Editor' | 'Senior Writer' | 'Writer';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events".
  */
 export interface Event {
@@ -304,6 +386,144 @@ export interface Portfolio {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sponsors".
+ */
+export interface Sponsor {
+  id: string;
+  name: string;
+  logo: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exports".
+ */
+export interface Export {
+  id: string;
+  name?: string | null;
+  format: 'csv' | 'json';
+  limit?: number | null;
+  sort?: string | null;
+  drafts?: ('yes' | 'no') | null;
+  selectionToUse?: ('currentSelection' | 'currentFilters' | 'all') | null;
+  fields?: string[] | null;
+  collectionSlug: string;
+  where?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs".
+ */
+export interface PayloadJob {
+  id: string;
+  /**
+   * Input data provided to the job
+   */
+  input?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  taskStatus?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  completedAt?: string | null;
+  totalTried?: number | null;
+  /**
+   * If hasError is true this job will not be retried
+   */
+  hasError?: boolean | null;
+  /**
+   * If hasError is true, this is the error that caused it
+   */
+  error?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Task execution log
+   */
+  log?:
+    | {
+        executedAt: string;
+        completedAt: string;
+        taskSlug: 'inline' | 'createCollectionExport';
+        taskID: string;
+        input?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        output?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        state: 'failed' | 'succeeded';
+        error?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  taskSlug?: ('inline' | 'createCollectionExport') | null;
+  queue?: string | null;
+  waitUntil?: string | null;
+  processing?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -326,6 +546,14 @@ export interface PayloadLockedDocument {
         value: string | InvestmentCommitteeImage;
       } | null)
     | ({
+        relationTo: 'landing-page-images';
+        value: string | LandingPageImage;
+      } | null)
+    | ({
+        relationTo: 'hero-section-carousel';
+        value: string | HeroSectionCarousel;
+      } | null)
+    | ({
         relationTo: 'bulletin';
         value: string | Bulletin;
       } | null)
@@ -338,12 +566,32 @@ export interface PayloadLockedDocument {
         value: string | Executive;
       } | null)
     | ({
+        relationTo: 'executive-committee';
+        value: string | ExecutiveCommittee;
+      } | null)
+    | ({
+        relationTo: 'bulletin-committee';
+        value: string | BulletinCommittee;
+      } | null)
+    | ({
         relationTo: 'events';
         value: string | Event;
       } | null)
     | ({
         relationTo: 'portfolio';
         value: string | Portfolio;
+      } | null)
+    | ({
+        relationTo: 'sponsors';
+        value: string | Sponsor;
+      } | null)
+    | ({
+        relationTo: 'exports';
+        value: string | Export;
+      } | null)
+    | ({
+        relationTo: 'payload-jobs';
+        value: string | PayloadJob;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -402,6 +650,7 @@ export interface FAQSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -466,6 +715,27 @@ export interface InvestmentCommitteeImagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "landing-page-images_select".
+ */
+export interface LandingPageImagesSelect<T extends boolean = true> {
+  image?: T;
+  tag?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero-section-carousel_select".
+ */
+export interface HeroSectionCarouselSelect<T extends boolean = true> {
+  image?: T;
+  index?: T;
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "bulletin_select".
  */
 export interface BulletinSelect<T extends boolean = true> {
@@ -514,6 +784,29 @@ export interface ExecutiveSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "executive-committee_select".
+ */
+export interface ExecutiveCommitteeSelect<T extends boolean = true> {
+  name?: T;
+  title?: T;
+  degree?: T;
+  image?: T;
+  subteam?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bulletin-committee_select".
+ */
+export interface BulletinCommitteeSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
@@ -539,6 +832,73 @@ export interface PortfolioSelect<T extends boolean = true> {
   ticker?: T;
   exchange?: T;
   industry?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sponsors_select".
+ */
+export interface SponsorsSelect<T extends boolean = true> {
+  name?: T;
+  logo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exports_select".
+ */
+export interface ExportsSelect<T extends boolean = true> {
+  name?: T;
+  format?: T;
+  limit?: T;
+  sort?: T;
+  drafts?: T;
+  selectionToUse?: T;
+  fields?: T;
+  collectionSlug?: T;
+  where?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs_select".
+ */
+export interface PayloadJobsSelect<T extends boolean = true> {
+  input?: T;
+  taskStatus?: T;
+  completedAt?: T;
+  totalTried?: T;
+  hasError?: T;
+  error?: T;
+  log?:
+    | T
+    | {
+        executedAt?: T;
+        completedAt?: T;
+        taskSlug?: T;
+        taskID?: T;
+        input?: T;
+        output?: T;
+        state?: T;
+        error?: T;
+        id?: T;
+      };
+  taskSlug?: T;
+  queue?: T;
+  waitUntil?: T;
+  processing?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -573,6 +933,37 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskCreateCollectionExport".
+ */
+export interface TaskCreateCollectionExport {
+  input: {
+    name?: string | null;
+    format: 'csv' | 'json';
+    limit?: number | null;
+    sort?: string | null;
+    drafts?: ('yes' | 'no') | null;
+    selectionToUse?: ('currentSelection' | 'currentFilters' | 'all') | null;
+    fields?: string[] | null;
+    collectionSlug: string;
+    where?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    user?: string | null;
+    userCollection?: string | null;
+    exportsCollection?: string | null;
+  };
+  output: {
+    success?: boolean | null;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
