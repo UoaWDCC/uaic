@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import ArrowButton from "@/components/ArrowButton";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 type FAQ = {
@@ -31,6 +32,7 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
   };
 
   return (
+    /* Header section of FAQ page*/
     <div className="lg:px-16">
       <div className="container mx-auto p-6">
         <div className="text-[34.27px] font-bold text-[#249AFF]">Got Questions?</div>
@@ -39,6 +41,9 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
           Connect with the team behind New Zealand's sovereign wealth fund and gain firsthand
           insights into long-term investing, portfolio management, and the role the Fund plays in
           shaping New Zealand's financial future.
+        </div>
+        <div className="w-full py-[24px] lg:w-fit lg:py-[16px]">
+          <ArrowButton text="View Upcoming Events" link="\events" fullWidth />
         </div>
       </div>
       {faqs.map((faq) => (
