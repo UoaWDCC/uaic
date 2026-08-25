@@ -32,10 +32,15 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
 
   return (
     <div className="lg:px-16">
-      <div className="text-title text-darkBlue px-8 py-4 font-bold lg:pt-0">FAQ</div>
-
-      <hr className="mb-2 w-screen border-t border-gray-300 lg:mx-4 lg:w-auto" />
-
+      <div className="container mx-auto p-6">
+        <div className="text-[34.27px] font-bold text-[#249AFF]">Got Questions?</div>
+        <div className="text-[64px] font-bold text-black lg:pt-0">FAQ</div>
+        <div className="max-w-[328px] lg:max-w-[732px]">
+          Connect with the team behind New Zealand's sovereign wealth fund and gain firsthand
+          insights into long-term investing, portfolio management, and the role the Fund plays in
+          shaping New Zealand's financial future.
+        </div>
+      </div>
       {faqs.map((faq) => (
         <div
           key={faq.id}
