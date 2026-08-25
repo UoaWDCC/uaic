@@ -14,6 +14,11 @@ pre-commit:
       glob: "*.{js,jsx,ts,tsx}"
       run: pnpm exec eslint --no-warn-ignored {staged_files}
 #       run: bundle exec rubocop --force-exclusion {all_files}
+
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm exec commitlint --edit {1}
 #
 #     - name: govet
 #       files: git ls-files -m
