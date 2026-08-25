@@ -90,7 +90,13 @@ pnpm exec prettier --write path/to/your/file.tsx
 pnpm exec prettier --check path/to/your/file.tsx
 ```
 
-Prettier (including Tailwind class sorting) and ESLint run automatically on staged files before every `git commit` via [Lefthook](https://lefthook.dev). The hooks are installed automatically when you run `pnpm install`. To skip in an emergency: `git commit --no-verify`.
+## Git Hooks
+
+This project uses [Lefthook](https://lefthook.dev) for git hooks, installed automatically when you run `pnpm install`. To skip any hook in an emergency: `git commit --no-verify` (or `--no-verify` on the relevant git command).
+
+- **pre-commit** — Prettier (including Tailwind class sorting) and ESLint run automatically on staged files.
+- **commit-msg** — commit messages must follow `type(dir): description`, e.g. `fix(events): correct upcoming/past toggle filter`, enforced via [commitlint](https://commitlint.js.org) (see `commitlint.config.js`). Valid types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`. Type is case-insensitive; scope is optional (some commits legitimately span multiple files/dirs). Also checked in CI on pull requests via `.github/workflows/commitlint.yml` (currently non-blocking — no branch protection requires it yet).
+- **post-merge** / **post-checkout** — `pnpm install` runs automatically after `git pull` or switching branches, but only when `package.json` or `pnpm-lock.yaml` actually changed.
 
 ## Client Stripe Migration
 
