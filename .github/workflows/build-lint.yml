@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   build-lint:
-    name: Checks
+    name: Build & Lint
     runs-on: ubuntu-latest
     timeout-minutes: 15
     services:
