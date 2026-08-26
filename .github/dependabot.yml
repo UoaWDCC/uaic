@@ -12,6 +12,7 @@ updates:
     versioning-strategy: increase
     labels:
       - "dependencies"
+      - "security"
     commit-message:
       prefix: "chore"
     ignore:
@@ -33,6 +34,7 @@ updates:
       timezone: "Pacific/Auckland"
     labels:
       - "dependencies"
+      - "security"
     commit-message:
       prefix: "chore"
     groups:
