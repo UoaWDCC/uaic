@@ -57,6 +57,8 @@ jobs:
           GOOGLE_CLIENT_SECRET: ci-build-placeholder-client-secret
           BETTER_AUTH_SECRET: ci-build-placeholder-auth-secret
           STRIPE_SECRET_KEY: sk_test_ci-build-placeholder
+          NEXT_PUBLIC_STRIPE_PUBLIC_KEY: pk_test_ci-build-placeholder
+          RESEND_API_KEY: ci-build-placeholder-resend-key
 
       - name: Lint
         run: pnpm lint
