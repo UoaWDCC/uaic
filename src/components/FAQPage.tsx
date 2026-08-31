@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import ArrowButton from "@/components/ArrowButton";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { GoArrowUpRight } from "react-icons/go";
 
 type FAQ = {
   id: string;
@@ -26,9 +26,7 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
   }, [faqs]);
 
   const toggleFaq = (id: string) => {
-    if (window.innerWidth < 1024) {
-      setOpenFaqs((prev) => ({ ...prev, [id]: !prev[id] }));
-    }
+    setOpenFaqs((prev) => ({ ...prev, [id]: !prev[id] }));  
   };
 
   return (
@@ -46,29 +44,34 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
           <ArrowButton text="View Upcoming Events" link="\events" fullWidth />
         </div>
       </div>
+      
       {faqs.map((faq) => (
         <div
           key={faq.id}
-          className="m-4 mb-4 rounded-lg p-4 shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:shadow-none"
+          className="m-4 mb-4 rounded-full outline-1 outline-[#DCE6F2] p-4"
         >
           <button
             onClick={() => toggleFaq(faq.id)}
-            className="text-darkBlue flex w-full items-center justify-between text-left hover:cursor-pointer"
+            className="text-black flex w-full items-center justify-between text-left hover:cursor-pointer"
           >
-            <span className="text-header font-bold">{faq.question}</span>
-            {openFaqs[faq.id] ? (
-              <IoIosArrowDown className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
-            ) : (
-              <IoIosArrowUp className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
-            )}
+            <span className="text-body">{faq.question}</span>
+            <GoArrowUpRight
+              className={`h-7 w-7 flex-shrink-0 transition-transform duration-200 lg:hidden ${
+              openFaqs[faq.id] ? "rotate-45" : ""
+              }`}
+            />    
           </button>
-          {openFaqs[faq.id] && (
-            <div className="text-darkBlue text-sm hover:cursor-pointer">
-              <div className="w-full">
-                <p className="text-body mt-4 font-normal">{faq.answer}</p>
-              </div>
-            </div>
-          )}
+          <div
+            className={`overflow-hidden transition-[max-height] duration-500 ease-in-out ${
+            openFaqs[faq.id] ? "max-h-[500px]" : "max-h-0"
+            }`}
+          >
+          <div className="text-darkBlue text-sm hover:cursor-pointer">
+          <div className="w-full">
+            <p className="text-body mt-4 font-normal">{faq.answer}</p>
+          </div>
+        </div>
+      </div>
         </div>
       ))}
     </div>
