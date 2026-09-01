@@ -5,7 +5,8 @@ on:
     types: [opened, reopened, closed, ready_for_review, review_requested]
 
 jobs:
-  notify:
+  notify-discord:
+    name: Notify Discord
     if: |
       github.event_name == 'pull_request_target' &&
       !((github.event.action == 'opened' || github.event.action == 'reopened') && github.event.pull_request.draft == true)
