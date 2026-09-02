@@ -1,14 +1,24 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
+import tsconfigPaths from "vite-tsconfig-paths";
 
+// vite and @vitejs/plugin-react are pinned to the 7.x line in package.json
+// (not just left to float on ^8) because Vite 8 made Rolldown its default
+// bundler, and Rolldown's native binding resolution is currently broken
+// under pnpm on Linux CI - a real, open, unresolved upstream bug as of
+// writing: https://github.com/rolldown/rolldown/issues/9068. Once that's
+// fixed, both pins (and the vite-tsconfig-paths plugin below, which exists
+// only because Vite 7 lacks Vite 8's native resolve.tsconfigPaths) can be
+// revisited.
 export default defineConfig({
-  // @vitejs/plugin-react transforms JSX itself (via Babel), so it isn't
-  // affected by tsconfig.json's jsx: "preserve" (needed for Next.js's own
-  // SWC transform) the way Vite's built-in esbuild transform is.
-  plugins: [react()],
-  resolve: {
-    tsconfigPaths: true,
-  },
+  plugins: [
+    // Transforms JSX itself (via Babel), so it isn't affected by
+    // tsconfig.json's jsx: "preserve" (needed for Next.js's own SWC
+    // transform) the way Vite's built-in esbuild transform is.
+    react(),
+    // Resolves @/* and @payload-config from tsconfig.json's "paths".
+    tsconfigPaths(),
+  ],
   test: {
     environment: "jsdom",
     globals: true,

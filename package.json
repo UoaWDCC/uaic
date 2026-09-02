@@ -54,7 +54,7 @@
     "@types/react-dom": "^19",
     "@typescript-eslint/eslint-plugin": "^8.57.0",
     "@typescript-eslint/parser": "^8.57.0",
-    "@vitejs/plugin-react": "^6.1.1",
+    "@vitejs/plugin-react": "^5.2.0",
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.1.6",
     "eslint-config-prettier": "^10.1.8",
@@ -66,6 +66,8 @@
     "tailwindcss": "^4",
     "tsx": "^4.19.3",
     "typescript": "^5",
+    "vite": "7.3.6",
+    "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.1.11"
   },
   "packageManager": "pnpm@9.15.2+sha512.93e57b0126f0df74ce6bff29680394c0ba54ec47246b9cf321f0121d8d9bb03f750a705f24edc3c1180853afd7c2c3b94196d0a3d53d3e069d9e2793ef11f321"
