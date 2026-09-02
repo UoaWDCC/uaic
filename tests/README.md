@@ -53,9 +53,8 @@ transitively pulls in `payload.config.ts`, and `mongod.stop()` in `afterAll`.
 
 **First run downloads a MongoDB binary** (~75MB, cached afterwards under
 `node_modules/.cache/mongodb-memory-server/`). Locally this is a one-time
-cost. In CI, cache that directory (the same way `build-lint.yml` already
-caches `.next/cache`) to avoid re-downloading it on every run - worth
-picking up when CI is wired up for tests.
+cost. CI caches that same directory (see the `test` job in
+`.github/workflows/ci.yml`), so it only costs time on a cold cache.
 
 `beforeAll` in these tests passes an explicit longer timeout (`60_000`) to
 `vitest` to cover that first download; don't remove it.
