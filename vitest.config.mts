@@ -20,6 +20,14 @@ export default defineConfig({
     tsconfigPaths(),
   ],
   test: {
+    // jsdom is pinned to 26.1.0 in package.json (not left on ^30) because
+    // jsdom 27+ pulls in html-encoding-sniffer@6 -> @exodus/bytes, an
+    // ESM-only package with top-level await that its own CJS require()
+    // can't load - breaks vitest's worker startup outright. Passed locally
+    // (same resolved versions as CI, so this isn't a stale-install thing -
+    // seemingly Node-version-sensitive; CI runs Node 24) but failed in CI's
+    // clean-install run. Known upstream regression, no fix yet as of
+    // writing: https://github.com/vitest-dev/vitest/issues/9281
     environment: "jsdom",
     globals: true,
     setupFiles: ["./vitest.setup.ts"],
