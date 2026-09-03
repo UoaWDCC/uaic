@@ -32,32 +32,36 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
         </div>
       </div>
 
-      {faqs.map((faq) => (
-        <div key={faq.id} className="m-4 mb-4 rounded-[28px] p-4 outline-1 outline-[#DCE6F2]">
-          <button
-            onClick={() => toggleFaq(faq.id)}
-            className="flex w-full items-center justify-between text-left text-black hover:cursor-pointer"
-          >
-            <span className="text-body">{faq.question}</span>
-            <GoArrowUpRight
-              className={`h-7 w-7 flex-shrink-0 fill-[#005EAF] transition-transform duration-200 ${
-                openFaqs[faq.id] ? "rotate-45" : ""
-              }`}
-            />
-          </button>
-          <div
-            className={`overflow-hidden transition-[max-height] duration-1000 ease-in-out ${
-              openFaqs[faq.id] ? "max-h-[500px]" : "max-h-0"
-            }`}
-          >
-            <div className="text-sm text-black hover:cursor-pointer">
-              <div className="w-full">
-                <p className="text-body mt-4 font-medium">{faq.answer}</p>
+      <div className="px-6 pt-10 pb-16">
+        <div className="grid grid-cols-1 gap-6.5 lg:grid-cols-2">
+          {faqs.map((faq) => (
+            <div key={faq.id} className="rounded-[28px] p-4 outline-1 outline-[#DCE6F2]">
+              <button
+                onClick={() => toggleFaq(faq.id)}
+                className="flex w-full items-center justify-between text-left text-black hover:cursor-pointer"
+              >
+                <span className="text-body">{faq.question}</span>
+                <GoArrowUpRight
+                  className={`h-7 w-7 flex-shrink-0 fill-[#005EAF] transition-transform duration-200 ${
+                    openFaqs[faq.id] ? "rotate-45" : ""
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-[max-height] duration-930 ease-in-out ${
+                  openFaqs[faq.id] ? "max-h-[500px]" : "max-h-0"
+                }`}
+              >
+                <div className="text-sm text-black hover:cursor-pointer">
+                  <div className="w-full">
+                    <p className="text-body mt-4 font-medium">{faq.answer}</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
+      </div>
     </div>
   );
 };
