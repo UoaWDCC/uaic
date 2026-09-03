@@ -33,7 +33,7 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
       </div>
 
       <div className="px-6 pt-10 pb-16">
-        <div className="grid grid-cols-1 gap-6.5 lg:grid-cols-2">
+        <div className="grid grid-cols-1 items-start gap-6.5 lg:grid-cols-2">
           {faqs.map((faq) => (
             <div key={faq.id} className="rounded-[28px] p-4 outline-1 outline-[#DCE6F2]">
               <button
