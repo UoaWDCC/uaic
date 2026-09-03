@@ -33,7 +33,7 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
       </div>
 
       {faqs.map((faq) => (
-        <div key={faq.id} className="m-4 mb-4 rounded-full p-4 outline-1 outline-[#DCE6F2]">
+        <div key={faq.id} className="m-4 mb-4 rounded-[28px] p-4 outline-1 outline-[#DCE6F2]">
           <button
             onClick={() => toggleFaq(faq.id)}
             className="flex w-full items-center justify-between text-left text-black hover:cursor-pointer"
