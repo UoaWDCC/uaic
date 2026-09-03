@@ -1,14 +1,55 @@
 "use client";
 
-import { GoArrowRight } from "react-icons/go";
+import { GoArrowRight, GoArrowUpRight } from "react-icons/go";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { fetchArticles } from "@/lib/fetchArticles";
-import ArticleCard, { type ArticleCardContent } from "@/components/ArticleCard";
 
 type FeaturedArticle = ArticleCardContent;
 
 const FALLBACK_COVER = "/assets/bulletins/placeholder-bulletin-cover.png";
 const articlesPerPage = 3;
+
+const ArticleCard = ({ contentToDisplay }: { contentToDisplay: FeaturedArticle }) => {
+  return (
+    <Link
+      href={contentToDisplay.link}
+      className="group [container-type:inline-size] block w-full overflow-hidden rounded-[16px] shadow-[0_2.5px_10px_rgba(0,0,0,0.25)]"
+    >
+      <div className="aspect-[400/161] w-full overflow-hidden">
+        <Image
+          src={contentToDisplay.image}
+          alt="Article Image"
+          width={400}
+          height={161}
+          className="h-full w-full scale-110 object-cover transition-transform duration-300 group-hover:scale-100"
+        />
+      </div>
+      <div className="flex flex-col gap-[2cqw] p-[6cqw]">
+        <div className="inline-flex min-h-[6.75cqw] w-fit items-center justify-center rounded-[100px] bg-gradient-to-l from-[#005EAF] to-[#249AFF] px-[3cqw] py-[1cqw]">
+          <p className="text-[4cqw] leading-none font-normal text-white">
+            {contentToDisplay.category}
+          </p>
+        </div>
+        <div className="flex flex-col gap-[1.5cqw]">
+          <h2 className="text-[5cqw] leading-[1.15] font-semibold">{contentToDisplay.title}</h2>
+          <p className="max-w-full text-[4cqw] leading-tight font-normal">
+            {contentToDisplay.description}
+          </p>
+        </div>
+        <div className="flex flex-row items-center justify-between gap-[4cqw]">
+          <div className="flex flex-row gap-[2cqw] text-[4cqw] font-normal opacity-50">
+            <p>{contentToDisplay.date}</p>
+            <p>•</p>
+            <p>{contentToDisplay.readTime}</p>
+          </div>
+          <GoArrowUpRight className="h-[7.25cqw] w-[7.25cqw] shrink-0 text-[#145BA7] transition-transform duration-300 group-hover:rotate-45" />
+        </div>
+      </div>
+    </Link>
+  );
+};
 
 const FeaturedArticlesCarousel = () => {
   const [articles, setArticles] = useState<FeaturedArticle[]>([]);
