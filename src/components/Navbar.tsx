@@ -172,7 +172,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
       <StockTicker className="hidden lg:block" isTransparent={!hasBlueTheme} />
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 z-30 w-full overflow-hidden transition-all transition-discrete duration-600 ease-in-out lg:hidden ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}
+        className={`fixed top-0 z-30 w-full overflow-hidden transition-[translate,opacity] duration-600 ease-in-out lg:hidden ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}
       >
         <ul className="flex w-full flex-col rounded-b-3xl bg-white pb-5 text-[#005EAF] shadow-xl/20">
           <div className="flex items-center justify-between pr-2 pb-7 pl-6">
@@ -188,25 +188,23 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
             </Link>
           </li>
           <li
-            className={`hover:bg-whiteHover mx-auto flex w-14/16 cursor-pointer items-center justify-between text-xl font-normal transition-all ${isOpen ? "opacity-100" : "opacity-0"} `}
+            className="hover:bg-whiteHover mx-auto flex w-14/16 cursor-pointer items-center justify-between pt-3 pb-1 text-3xl font-normal sm:py-8 sm:pl-16"
             onClick={() => {
               setShowAboutSubpage(!showAboutSubpage);
             }}
           >
-            <div className="flex w-[100vw] cursor-pointer justify-between pt-3 pb-1 text-3xl font-normal">
-              <span>About</span>
-              <GoArrowUpRight
-                size={40}
-                className={`right-1 transition-transform duration-200 ${showAboutSubpage ? "rotate-45" : ""}`}
-              />
-            </div>
+            <span>About</span>
+            <GoArrowUpRight
+              size={40}
+              className={`transition-transform duration-200 ${showAboutSubpage ? "rotate-45" : ""}`}
+            />
           </li>
           {/* Sub-menu Items */}
           <li
-            className={`block overflow-hidden bg-white transition-all duration-500 ease-in-out lg:hidden ${showAboutSubpage ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}
+            className={`block overflow-hidden bg-white transition-[max-height,opacity] duration-500 ease-in-out lg:hidden ${showAboutSubpage ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}
           >
-            <ul className="font-light text-black">
-              <li className="hover:bg-whiteHover flex cursor-pointer pb-2 pl-6 text-xl sm:p-8 sm:pl-16">
+            <ul className="mx-auto w-14/16 font-light text-black">
+              <li className="hover:bg-whiteHover flex cursor-pointer pb-2 text-xl sm:pl-16">
                 <Link
                   href=""
                   className="block w-full"
@@ -218,7 +216,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
                   The Committees
                 </Link>
               </li>
-              <li className="hover:bg-whiteHover flex cursor-pointer pb-2 pl-6 text-xl sm:p-8 sm:pl-16">
+              <li className="hover:bg-whiteHover flex cursor-pointer pb-2 text-xl sm:pl-16">
                 <Link href="/FAQ" className="block w-full" onClick={handleLinkClick}>
                   FAQ
                 </Link>
