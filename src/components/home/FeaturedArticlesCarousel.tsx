@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { fetchArticles } from "@/lib/fetchArticles";
+import type { ArticleCardContent } from "@/components/ArticleCard";
 
 type FeaturedArticle = ArticleCardContent;
 
@@ -64,7 +65,7 @@ const FeaturedArticlesCarousel = () => {
       const data = await fetchArticles({ sort: "-publishDate", depth: "1" });
 
       setArticles(
-        data.map((b) => ({
+        data.map((b: any) => ({
           image: b.bulletinCover?.url || FALLBACK_COVER,
           category: b.category || `Issue ${b.issueNumber}`,
           title: b.title,

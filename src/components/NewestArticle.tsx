@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 const NewestArticle = async () => {
-  // fetch bulletins server-side
   const bulletins: Bulletin[] = await getBulletins();
   const newest = bulletins.slice(0, 4);
 
@@ -14,7 +13,6 @@ const NewestArticle = async () => {
       <p className="text-darkBlue pb-1 text-3xl font-semibold lg:pb-3">Newest Articles</p>
 
       <div className="grid grid-rows-2 flex-col gap-2 lg:grid-cols-6 lg:grid-rows-1 lg:gap-10">
-        {/* Main Featured Newest Article */}
         {newest[0] && (
           <Link
             href={`/bulletin/${newest[0].id}`}
@@ -45,7 +43,6 @@ const NewestArticle = async () => {
           </Link>
         )}
 
-        {/* Sidebar List */}
         <div className="pt-5 lg:col-span-2 lg:pt-0">
           {newest.slice(1).map((b) => (
             <Link
