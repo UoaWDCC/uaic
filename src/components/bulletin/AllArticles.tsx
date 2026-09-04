@@ -20,7 +20,7 @@ const FALLBACK_COVER = "/assets/bulletins/placeholder-bulletin-cover.png";
 const ARTICLES_PER_PAGE = 8;
 // The navbar is fixed, so paging back to the top has to clear its height.
 const NAVBAR_OFFSET_PX = 150;
-const ELLIPSIS = "…";
+export const ELLIPSIS = "…";
 
 // UoA-style academic semesters: Semester One (Mar–Jun) and Semester Two
 // (Jul–Oct) sit within a single calendar year, but Summer School (Nov–Feb)
@@ -53,7 +53,10 @@ const getReadTimeBucket = (readTime?: number): (typeof READ_TIME_BUCKETS)[number
 
 // First and last page stay reachable; the middle is a window around the current
 // page so a long archive doesn't spill a button per issue across the screen.
-const getPageItems = (totalPages: number, currentPage: number): (number | typeof ELLIPSIS)[] => {
+export const getPageItems = (
+  totalPages: number,
+  currentPage: number,
+): (number | typeof ELLIPSIS)[] => {
   if (totalPages <= 7) {
     return Array.from({ length: totalPages }, (_, index) => index + 1);
   }
