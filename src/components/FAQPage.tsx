@@ -19,7 +19,7 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
 
   return (
     /* Header section of FAQ page*/
-    <div className="px-[23.5px] py-18 lg:px-24.5">
+    <div className="px-[23.5px] pt-18 lg:px-24.5">
       <PageHeader
         kicker="Got Questions?"
         title="FAQ"
