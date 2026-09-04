@@ -93,6 +93,15 @@ pnpm exec prettier --check path/to/your/file.tsx
 
 Prettier (including Tailwind class sorting) and ESLint run automatically on staged files before every `git commit` via [Lefthook](https://lefthook.dev). The hooks are installed automatically when you run `pnpm install`. To skip in an emergency: `git commit --no-verify`.
 
+## Testing
+
+```bash
+pnpm test        # run the test suite once
+pnpm test:watch  # re-run tests on file changes
+```
+
+Tests run with [Vitest](https://vitest.dev) and [React Testing Library](https://testing-library.com/react). Colocate a test next to the code it covers as `*.test.ts(x)`, or add it under `tests/` for cross-cutting/setup checks.
+
 ## Client Stripe Migration
 
 When a client migrates to this platform using their own Stripe account, the following env vars need to be swapped to their values:
