@@ -1,14 +1,14 @@
 name: Pull Request Notifications
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, reopened, closed, ready_for_review, review_requested]
 
 jobs:
   notify-discord:
     name: Notify Discord
     if: |
-      github.event_name == 'pull_request' &&
+      github.event_name == 'pull_request_target' &&
       !((github.event.action == 'opened' || github.event.action == 'reopened') && github.event.pull_request.draft == true)
     runs-on: ubuntu-latest
     steps:
