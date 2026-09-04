@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import ArrowButton from "@/components/ArrowButton";
 import { GoArrowUpRight } from "react-icons/go";
+import PageHeader from "@/components/PageHeader";
 
 type FAQ = {
   id: string;
@@ -18,19 +19,13 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
 
   return (
     /* Header section of FAQ page*/
-    <div className="lg:px-16">
-      <div className="container mx-auto p-6">
-        <div className="text-[34.27px] font-bold text-[#249AFF]">Got Questions?</div>
-        <div className="text-[64px] font-bold text-black lg:pt-0">FAQ</div>
-        <div className="max-w-[328px] lg:max-w-[732px]">
-          Connect with the team behind New Zealand's sovereign wealth fund and gain firsthand
-          insights into long-term investing, portfolio management, and the role the Fund plays in
-          shaping New Zealand's financial future.
-        </div>
-        <div className="w-full py-[24px] lg:w-fit lg:py-[16px]">
-          <ArrowButton text="View Upcoming Events" link="\events" fullWidth />
-        </div>
-      </div>
+    <div className="px-[23.5px] py-18 lg:px-24.5">
+      <PageHeader
+        kicker="Got Questions?"
+        title="FAQ"
+        description="Connect with the team behind New Zealand's sovereign wealth fund and gain firsthand insights into long-term investing, portfolio management, and the role the Fund plays in shaping New Zealand's financial future."
+        action={<ArrowButton text="View Upcoming Events" link="events" />}
+      />
 
       <div className="px-6 pt-10 pb-16">
         <div className="grid grid-cols-1 items-start gap-6.5 lg:grid-cols-2">
