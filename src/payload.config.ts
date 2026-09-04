@@ -70,8 +70,8 @@ export default buildConfig({
 
   plugins: [
     importExportPlugin({
-      collections: ["member"],
-      overrideExportCollection: (collection) => ({
+      collections: [{ slug: "member" }],
+      overrideExportCollection: ({ collection }) => ({
         ...collection,
         admin: {
           ...collection.admin,
