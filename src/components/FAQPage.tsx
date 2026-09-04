@@ -27,8 +27,8 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
         action={<ArrowButton text="View Upcoming Events" link="events" />}
       />
 
-      <div className="px-6 pt-10 pb-16">
-        <div className="grid grid-cols-1 items-start gap-6.5 lg:grid-cols-2">
+      <div className="pt-10 pb-16">
+        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
           {faqs.map((faq) => (
             <div key={faq.id} className="rounded-[28px] p-4 outline-1 outline-[#DCE6F2]">
               <button
@@ -43,13 +43,13 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
                 />
               </button>
               <div
-                className={`overflow-hidden transition-[max-height] duration-930 ease-in-out ${
-                  openFaqs[faq.id] ? "max-h-[500px]" : "max-h-0"
+                className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
+                  openFaqs[faq.id] ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                 }`}
               >
-                <div className="text-sm text-black hover:cursor-pointer">
+                <div className="overflow-hidden text-sm text-black">
                   <div className="w-full">
-                    <p className="text-body mt-4 font-medium">{faq.answer}</p>
+                    <p className="text-body mt-4">{faq.answer}</p>
                   </div>
                 </div>
               </div>
