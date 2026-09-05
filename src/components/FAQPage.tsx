@@ -1,6 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import React, { useState } from "react";
+import ArrowButton from "@/components/ArrowButton";
+import { GoArrowUpRight } from "react-icons/go";
+import PageHeader from "@/components/PageHeader";
 
 type FAQ = {
   id: string;
@@ -10,57 +12,55 @@ type FAQ = {
 
 const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
   const [openFaqs, setOpenFaqs] = useState<Record<string, boolean>>({});
-
-  useEffect(() => {
-    const updateOpenFaqs = () => {
-      const shouldOpen = window.innerWidth >= 1024;
-      const newState: Record<string, boolean> = {};
-      faqs.forEach((faq) => (newState[faq.id] = shouldOpen));
-      setOpenFaqs(newState);
-    };
-
-    updateOpenFaqs();
-    window.addEventListener("resize", updateOpenFaqs);
-    return () => window.removeEventListener("resize", updateOpenFaqs);
-  }, [faqs]);
+  const leftFaqs = faqs.filter((_, i) => i % 2 === 0);
+  const rightFaqs = faqs.filter((_, i) => i % 2 === 1);
 
   const toggleFaq = (id: string) => {
-    if (window.innerWidth < 1024) {
-      setOpenFaqs((prev) => ({ ...prev, [id]: !prev[id] }));
-    }
+    setOpenFaqs((prev) => ({ ...prev, [id]: !prev[id] }));
   };
+  const renderFaq = (faq: FAQ) => (
+    <div key={faq.id} className="rounded-[28px] p-4 outline-1 outline-[#DCE6F2]">
+      <button
+        onClick={() => toggleFaq(faq.id)}
+        className="flex w-full items-center justify-between text-left text-black hover:cursor-pointer"
+      >
+        <span className="text-body">{faq.question}</span>
+        <GoArrowUpRight
+          className={`h-7 w-7 flex-shrink-0 fill-[#005EAF] transition-transform duration-200 ${
+            openFaqs[faq.id] ? "rotate-45" : ""
+          }`}
+        />
+      </button>
+      <div
+        className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
+          openFaqs[faq.id] ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden text-sm text-black">
+          <div className="w-full">
+            <p className="text-body mt-4">{faq.answer}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="lg:px-16">
-      <div className="text-title text-darkBlue px-8 py-4 font-bold lg:pt-0">FAQ</div>
+    /* Header section of FAQ page*/
+    <div className="px-[23.5px] pt-18 lg:px-24.5">
+      <PageHeader
+        kicker="Got Questions?"
+        title="FAQ"
+        description="Connect with the team behind New Zealand's sovereign wealth fund and gain firsthand insights into long-term investing, portfolio management, and the role the Fund plays in shaping New Zealand's financial future."
+        action={<ArrowButton text="View Upcoming Events" link="events" />}
+      />
 
-      <hr className="mb-2 w-screen border-t border-gray-300 lg:mx-4 lg:w-auto" />
-
-      {faqs.map((faq) => (
-        <div
-          key={faq.id}
-          className="m-4 mb-4 rounded-lg p-4 shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:shadow-none"
-        >
-          <button
-            onClick={() => toggleFaq(faq.id)}
-            className="text-darkBlue flex w-full items-center justify-between text-left hover:cursor-pointer"
-          >
-            <span className="text-header font-bold">{faq.question}</span>
-            {openFaqs[faq.id] ? (
-              <IoIosArrowDown className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
-            ) : (
-              <IoIosArrowUp className="inline-block h-7 w-7 flex-shrink-0 lg:hidden" />
-            )}
-          </button>
-          {openFaqs[faq.id] && (
-            <div className="text-darkBlue text-sm hover:cursor-pointer">
-              <div className="w-full">
-                <p className="text-body mt-4 font-normal">{faq.answer}</p>
-              </div>
-            </div>
-          )}
+      <div className="pt-10 pb-16">
+        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
+          <div className="flex flex-col gap-6">{leftFaqs.map(renderFaq)}</div>
+          <div className="flex flex-col gap-6">{rightFaqs.map(renderFaq)}</div>
         </div>
-      ))}
+      </div>
     </div>
   );
 };
