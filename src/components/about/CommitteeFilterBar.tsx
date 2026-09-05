@@ -61,7 +61,7 @@ const CommitteeFilterBar = ({
           onChange={(event) => onSearchChange(event.target.value)}
           placeholder="Search..."
           aria-label="Search committee members by name, role, degree, or team"
-          className="w-full rounded-full bg-white py-3 pr-5 pl-12 text-[13px] text-[#0B1A2B] shadow-[0_2px_8px_rgba(11,26,43,0.08)] outline-none placeholder:text-[#0B1A2B]/40 focus:ring-2 focus:ring-[#249AFF]/40 lg:py-3.5 lg:pl-14 lg:text-[15px]"
+          className="w-full rounded-full bg-white py-3 pr-5 pl-12 text-[13px] text-[#0B1A2B] shadow-[0_2px_8px_rgba(11,26,43,0.08)] outline-none placeholder:text-[#0B1A2B]/40 focus:ring-2 focus:ring-[#249AFF]/40 lg:py-3.5 lg:pl-14 lg:text-[15px] [&::-webkit-search-cancel-button]:cursor-pointer"
         />
       </div>
 
