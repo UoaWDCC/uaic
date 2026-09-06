@@ -22,7 +22,7 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
     <div key={faq.id} className="rounded-[28px] p-4 outline-1 outline-[#DCE6F2]">
       <button
         onClick={() => toggleFaq(faq.id)}
-        className="flex w-full items-center justify-between text-left text-black hover:cursor-pointer"
+        className="flex w-full items-center justify-between text-left hover:cursor-pointer"
       >
         <span className="text-body">{faq.question}</span>
         <GoArrowUpRight
@@ -36,7 +36,7 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
           openFaqs[faq.id] ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
         }`}
       >
-        <div className="overflow-hidden text-sm text-black">
+        <div className="overflow-hidden">
           <div className="w-full">
             <p className="text-body mt-4">{faq.answer}</p>
           </div>
