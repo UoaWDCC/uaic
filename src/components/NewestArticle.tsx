@@ -15,7 +15,7 @@ const NewestArticle = async () => {
       <div className="grid grid-rows-2 flex-col gap-2 lg:grid-cols-6 lg:grid-rows-1 lg:gap-10">
         {newest[0] && (
           <Link
-            href={`/bulletin/${newest[0].id}`}
+            href={newest[0].bulletinPDF?.url || "#"}
             className="group relative flex flex-col overflow-hidden rounded-2xl ps-2 pb-2 lg:col-span-4 lg:ps-5 lg:pe-5 lg:pb-5"
           >
             <Image
@@ -38,7 +38,7 @@ const NewestArticle = async () => {
                 month: "short",
                 day: "numeric",
               })}{" "}
-              · 5 Min read
+              {newest[0].readTime ? `${newest[0].readTime} Min read` : "Read"}
             </p>
           </Link>
         )}
@@ -47,7 +47,7 @@ const NewestArticle = async () => {
           {newest.slice(1).map((b) => (
             <Link
               key={b.id}
-              href={`/bulletin/${b.id}`}
+              href={b.bulletinPDF?.url || "#"}
               className="group grid grid-cols-[1fr_3fr] gap-3 pb-3 xl:gap-5"
             >
               <div className="relative aspect-square overflow-hidden rounded-2xl">
