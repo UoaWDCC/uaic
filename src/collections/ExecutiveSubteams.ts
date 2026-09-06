@@ -41,7 +41,7 @@ export const ExecutiveSubteams: CollectionConfig = {
       required: true,
       admin: {
         description:
-          "Filter button label. Use the same label for teams that share a button, e.g. Engagement.",
+          "Filter button label. Use the same label for teams that share a button in the filter bar.",
       },
     },
     {
@@ -52,7 +52,7 @@ export const ExecutiveSubteams: CollectionConfig = {
       defaultValue: 0,
       min: 0,
       admin: {
-        description: "Lower numbers appear higher up.",
+        description: "Lower numbers appear higher up on the page and filter bar.",
       },
     },
   ],

@@ -346,7 +346,13 @@ export interface ExecutiveCommittee {
   degree: string;
   linkedinUrl?: string | null;
   image: string | Media;
+  /**
+   * Select the team created in Executive Subteams.
+   */
   team: string | ExecutiveSubteam;
+  /**
+   * Order within this member's team. Lower numbers appear first; equal numbers are sorted by name.
+   */
   displayOrder: number;
   updatedAt: string;
   createdAt: string;
@@ -366,11 +372,11 @@ export interface ExecutiveSubteam {
    */
   sectionTitle: string;
   /**
-   * Filter button label. Use the same label for teams that share a button, e.g. Engagement.
+   * Filter button label. Use the same label for teams that share a button in the filter bar.
    */
   filterLabel: string;
   /**
-   * Lower numbers appear higher up.
+   * Lower numbers appear higher up on the page and filter bar.
    */
   displayOrder: number;
   updatedAt: string;
