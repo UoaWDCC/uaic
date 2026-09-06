@@ -4,7 +4,7 @@ import { GoSearch } from "react-icons/go";
 
 const SUBTEAM_CATEGORIES = {
   "Leadership Team": "Leadership",
-  "Bulletin and Investment Committee Chairperson": "Investment",
+  "Bulletin and Investment Committee Chairperson": "B&I",
   "Secretary & Treasurer": "Operations",
   "Diversity and Inclusion Team": "D&I",
   "Education Team": "Education",

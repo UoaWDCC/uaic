@@ -15,11 +15,12 @@ type CommitteeCardListProps = {
 };
 
 const TEAM_CATEGORY_TITLES: Record<string, string> = {
-  "Secretary & Treasurer": "Operations",
+  "Secretary & Treasurer": "Operations Team",
   "Bulletin and Investment Committee Chairperson": "Bulletin and Investment Team",
 };
 
 const TEAM_SECTION_TITLES: Record<string, string> = {
+  "Leadership Team": "Presidents",
   "Bulletin and Investment Committee Chairperson":
     "Bulletin Editor-in-Chief and Investment Committee Chairperson",
   "Secretary & Treasurer": "Secretaries and Treasurers",
