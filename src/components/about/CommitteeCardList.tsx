@@ -14,7 +14,26 @@ type CommitteeCardListProps = {
   teamProfiles: Record<string, ExecutiveCommitteeMember[]>;
 };
 
+const TEAM_CATEGORY_TITLES: Record<string, string> = {
+  "Secretary & Treasurer": "Operations",
+  "Bulletin and Investment Committee Chairperson": "Bulletin and Investment Team",
+};
+
+const TEAM_SECTION_TITLES: Record<string, string> = {
+  "Bulletin and Investment Committee Chairperson":
+    "Bulletin Editor-in-Chief and Investment Committee Chairperson",
+  "Secretary & Treasurer": "Secretaries and Treasurers",
+  "Social Team": "Social Officers",
+  "Marketing Team": "Marketing Officers",
+  "Education Team": "Education Officers",
+  "Diversity and Inclusion Team": "Diversity and Inclusion Officers",
+  "Competitions Team 1": "Competitions Officers",
+  "Competitions Team 2": "Competitions Officers",
+};
+
 const getRoleOrder = (role: string) => {
+  if (/\bsecretar(?:y|ies)\b/i.test(role)) return 0;
+  if (/\btreasurers?\b/i.test(role)) return 2;
   if (/\bofficer\b/i.test(role)) return 2;
   if (/\bdirector\b/i.test(role)) return 0;
   return 1;
@@ -30,8 +49,13 @@ const CommitteeCardList = ({ executiveSubteams, teamProfiles }: CommitteeCardLis
           { title: string; members: ExecutiveCommitteeMember[] }
         >();
 
-        for (const member of members) {
-          const title = member.title.trim() || "Committee Member";
+        const sectionTitle = TEAM_SECTION_TITLES[team];
+        const orderedMembers = sectionTitle
+          ? [...members].sort((a, b) => getRoleOrder(a.title) - getRoleOrder(b.title))
+          : members;
+
+        for (const member of orderedMembers) {
+          const title = sectionTitle || member.title.trim() || "Committee Member";
           const key = title.toLowerCase();
           const group = roleGroups.get(key);
 
@@ -52,7 +76,7 @@ const CommitteeCardList = ({ executiveSubteams, teamProfiles }: CommitteeCardLis
               id={`committee-team-${teamIndex}`}
               className="text-[18.19px] leading-[22.74px] font-medium tracking-[0px] text-[#249AFF] capitalize"
             >
-              {team}
+              {TEAM_CATEGORY_TITLES[team] || team}
             </h2>
 
             <div className="flex flex-col gap-12 lg:gap-16">
