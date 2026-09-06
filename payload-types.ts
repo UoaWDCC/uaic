@@ -327,6 +327,7 @@ export interface ExecutiveCommittee {
   name: string;
   title: string;
   degree: string;
+  linkedinUrl?: string | null;
   image: string | Media;
   subteam:
     | 'Leadership Team'
@@ -790,6 +791,7 @@ export interface ExecutiveCommitteeSelect<T extends boolean = true> {
   name?: T;
   title?: T;
   degree?: T;
+  linkedinUrl?: T;
   image?: T;
   subteam?: T;
   updatedAt?: T;

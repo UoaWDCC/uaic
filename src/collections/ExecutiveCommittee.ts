@@ -29,6 +29,12 @@ export const ExecutiveCommittee: CollectionConfig = {
       required: true,
     },
     {
+      name: "linkedinUrl",
+      type: "text",
+      label: "LinkedIn URL",
+      required: false,
+    },
+    {
       name: "image",
       type: "upload",
       relationTo: "media",

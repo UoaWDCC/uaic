@@ -13,6 +13,7 @@ type ExecutiveCommitteeMember = {
   title: string;
   degree: string;
   imageSrc: string;
+  linkedinUrl?: string;
 };
 
 type CommitteePageContentProps = {

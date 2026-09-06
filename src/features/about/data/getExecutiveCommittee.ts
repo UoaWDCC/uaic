@@ -21,6 +21,7 @@ type ExecutiveCommitteeMember = {
   title: string;
   degree: string;
   imageSrc: string;
+  linkedinUrl?: string;
 };
 
 type ExecutiveCommitteeDoc = {
@@ -28,6 +29,7 @@ type ExecutiveCommitteeDoc = {
   title?: string | null;
   degree?: string | null;
   subteam?: string | null;
+  linkedinUrl?: string | null;
   image?: {
     url?: string | null;
   } | null;
@@ -69,6 +71,7 @@ export const getExecutiveCommittee = async (): Promise<{
         title: doc.title || "",
         degree: doc.degree || "",
         imageSrc: getImageSrc(doc.image),
+        linkedinUrl: doc.linkedinUrl?.trim() || undefined,
       }));
 
     teamProfiles[team] = members;
