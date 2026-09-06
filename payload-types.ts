@@ -346,16 +346,8 @@ export interface ExecutiveCommittee {
   degree: string;
   linkedinUrl?: string | null;
   image: string | Media;
-  subteam:
-    | 'Leadership Team'
-    | 'Bulletin and Investment Committee Chairperson'
-    | 'Secretary & Treasurer'
-    | 'Diversity and Inclusion Team'
-    | 'Education Team'
-    | 'Competitions Team 1'
-    | 'Competitions Team 2'
-    | 'Marketing Team'
-    | 'Social Team';
+  team: string | ExecutiveSubteam;
+  displayOrder: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -894,7 +886,8 @@ export interface ExecutiveCommitteeSelect<T extends boolean = true> {
   degree?: T;
   linkedinUrl?: T;
   image?: T;
-  subteam?: T;
+  team?: T;
+  displayOrder?: T;
   updatedAt?: T;
   createdAt?: T;
 }

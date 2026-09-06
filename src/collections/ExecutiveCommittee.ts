@@ -8,6 +8,7 @@ export const ExecutiveCommittee: CollectionConfig = {
   },
   admin: {
     useAsTitle: "name",
+    defaultColumns: ["name", "title", "team", "displayOrder"],
   },
   access: {
     read: () => true,
@@ -44,23 +45,27 @@ export const ExecutiveCommittee: CollectionConfig = {
       },
     },
     {
-      name: "subteam",
-      type: "select",
+      name: "team",
+      label: "Executive Subteam",
+      type: "relationship",
+      relationTo: "executive-subteams",
+      hasMany: false,
       required: true,
-      options: [
-        { label: "Leadership Team", value: "Leadership Team" },
-        {
-          label: "Bulletin and Investment Committee Chairperson",
-          value: "Bulletin and Investment Committee Chairperson",
-        },
-        { label: "Secretary & Treasurer", value: "Secretary & Treasurer" },
-        { label: "Diversity and Inclusion Team", value: "Diversity and Inclusion Team" },
-        { label: "Education Team", value: "Education Team" },
-        { label: "Competitions Team 1", value: "Competitions Team 1" },
-        { label: "Competitions Team 2", value: "Competitions Team 2" },
-        { label: "Marketing Team", value: "Marketing Team" },
-        { label: "Social Team", value: "Social Team" },
-      ],
+      admin: {
+        description: "Select the team created in Executive Subteams.",
+      },
+    },
+    {
+      name: "displayOrder",
+      label: "Display Order",
+      type: "number",
+      required: true,
+      defaultValue: 0,
+      min: 0,
+      admin: {
+        description:
+          "Order within this member's team. Lower numbers appear first; equal numbers are sorted by name.",
+      },
     },
   ],
 };

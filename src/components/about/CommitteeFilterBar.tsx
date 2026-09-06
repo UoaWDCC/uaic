@@ -2,49 +2,22 @@
 
 import { GoSearch } from "react-icons/go";
 
-const SUBTEAM_CATEGORIES = {
-  "Leadership Team": "Leadership",
-  "Bulletin and Investment Committee Chairperson": "B&I",
-  "Secretary & Treasurer": "Operations",
-  "Diversity and Inclusion Team": "D&I",
-  "Education Team": "Education",
-  "Competitions Team 1": "Comp",
-  "Competitions Team 2": "Comp",
-  "Marketing Team": "Engagement",
-  "Social Team": "Engagement",
-} as const;
-
-type MappedCommitteeCategory = (typeof SUBTEAM_CATEGORIES)[keyof typeof SUBTEAM_CATEGORIES];
-
-export type CommitteeCategory = "All" | MappedCommitteeCategory;
-
-export const getCommitteeCategory = (subteam: string): MappedCommitteeCategory | undefined =>
-  SUBTEAM_CATEGORIES[subteam as keyof typeof SUBTEAM_CATEGORIES];
-
 type CommitteeFilterBarProps = {
-  executiveSubteams: readonly string[];
+  categories: { value: string; label: string }[];
   searchQuery: string;
   onSearchChange: (value: string) => void;
-  selectedCategory: CommitteeCategory;
-  onCategoryChange: (category: CommitteeCategory) => void;
+  selectedCategory: string | null;
+  onCategoryChange: (category: string | null) => void;
 };
 
 const CommitteeFilterBar = ({
-  executiveSubteams,
+  categories,
   searchQuery,
   onSearchChange,
   selectedCategory,
   onCategoryChange,
 }: CommitteeFilterBarProps) => {
-  const categories = Array.from(
-    new Set(
-      executiveSubteams
-        .map(getCommitteeCategory)
-        .filter((category): category is MappedCommitteeCategory => Boolean(category)),
-    ),
-  );
-
-  const categoryClassName = (category: CommitteeCategory) =>
+  const categoryClassName = (category: string | null) =>
     `shrink-0 cursor-pointer rounded-full px-3.5 py-1.5 text-[12px] whitespace-nowrap transition-colors duration-200 lg:px-4 lg:py-2 lg:text-[13px] ${
       selectedCategory === category
         ? "bg-gradient-to-l from-[#005EAF] to-[#249AFF] text-white"
@@ -60,7 +33,7 @@ const CommitteeFilterBar = ({
           value={searchQuery}
           onChange={(event) => onSearchChange(event.target.value)}
           placeholder="Search..."
-          aria-label="Search committee members by name, role, degree, or team"
+          aria-label="Search committee members by name, role, degree, team, section title, or filter label"
           className="w-full rounded-full bg-white py-3 pr-5 pl-12 text-[13px] text-[#0B1A2B] shadow-[0_2px_8px_rgba(11,26,43,0.08)] outline-none placeholder:text-[#0B1A2B]/40 focus:ring-2 focus:ring-[#249AFF]/40 lg:py-3.5 lg:pl-14 lg:text-[15px] [&::-webkit-search-cancel-button]:cursor-pointer"
         />
       </div>
@@ -73,22 +46,22 @@ const CommitteeFilterBar = ({
         <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2 xl:flex-none">
           <button
             type="button"
-            aria-pressed={selectedCategory === "All"}
-            onClick={() => onCategoryChange("All")}
-            className={categoryClassName("All")}
+            aria-pressed={selectedCategory === null}
+            onClick={() => onCategoryChange(null)}
+            className={categoryClassName(null)}
           >
             All
           </button>
 
-          {categories.map((category) => (
+          {categories.map(({ value, label }) => (
             <button
-              key={category}
+              key={value}
               type="button"
-              aria-pressed={selectedCategory === category}
-              onClick={() => onCategoryChange(category)}
-              className={categoryClassName(category)}
+              aria-pressed={selectedCategory === value}
+              onClick={() => onCategoryChange(value)}
+              className={categoryClassName(value)}
             >
-              {category}
+              {label}
             </button>
           ))}
         </div>

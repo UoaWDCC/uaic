@@ -2,6 +2,9 @@ import React from "react";
 import CommitteePageContent from "@/components/about/CommitteePageContent";
 import { getExecutiveCommittee } from "@/features/about/data/getExecutiveCommittee";
 
+// Read current CMS content on every page request.
+export const dynamic = "force-dynamic";
+
 const page = async () => {
   const executiveCommittee = await getExecutiveCommittee();
 
