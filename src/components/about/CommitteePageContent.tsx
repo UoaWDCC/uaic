@@ -82,7 +82,6 @@ const CommitteePageContent = ({ executiveCommittee }: CommitteePageContentProps)
             <CommitteeCardList
               executiveSubteams={filteredCommittee.executiveSubteams}
               teamProfiles={filteredCommittee.teamProfiles}
-              expandAll={searchQuery.trim().length > 0}
             />
           ) : (
             <div className="py-10 text-center text-gray-500">

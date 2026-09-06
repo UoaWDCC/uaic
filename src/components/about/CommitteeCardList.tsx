@@ -1,8 +1,4 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
-import { GoArrowUpRight } from "react-icons/go";
 
 type ExecutiveCommitteeMember = {
   name: string;
@@ -14,96 +10,99 @@ type ExecutiveCommitteeMember = {
 type CommitteeCardListProps = {
   executiveSubteams: readonly string[];
   teamProfiles: Record<string, ExecutiveCommitteeMember[]>;
-  expandAll?: boolean;
 };
 
-const CommitteeCardList = ({
-  executiveSubteams,
-  teamProfiles,
-  expandAll = false,
-}: CommitteeCardListProps) => {
-  const [openSubteams, setOpenSubteams] = useState<string[]>([]);
+const getRoleOrder = (role: string) => {
+  if (/\bofficer\b/i.test(role)) return 2;
+  if (/\bdirector\b/i.test(role)) return 0;
+  return 1;
+};
 
-  const toggleSubteam = (team: string) => {
-    setOpenSubteams((currentTeams) =>
-      currentTeams.includes(team)
-        ? currentTeams.filter((openTeam) => openTeam !== team)
-        : [...currentTeams, team],
-    );
-  };
-
+const CommitteeCardList = ({ executiveSubteams, teamProfiles }: CommitteeCardListProps) => {
   return (
-    <div className="flex w-full flex-col gap-5 lg:gap-6">
+    <div className="flex w-full flex-col gap-12 lg:gap-16">
       {executiveSubteams.map((team, teamIndex) => {
         const members = teamProfiles[team] ?? [];
-        const isOpen = expandAll || openSubteams.includes(team);
-        const panelId = `committee-team-${teamIndex}`;
+        const roleGroups = new Map<
+          string,
+          { title: string; members: ExecutiveCommitteeMember[] }
+        >();
+
+        for (const member of members) {
+          const title = member.title.trim() || "Committee Member";
+          const key = title.toLowerCase();
+          const group = roleGroups.get(key);
+
+          if (group) {
+            group.members.push(member);
+          } else {
+            roleGroups.set(key, { title, members: [member] });
+          }
+        }
+
+        const sortedRoles = Array.from(roleGroups.values()).sort(
+          (a, b) => getRoleOrder(a.title) - getRoleOrder(b.title),
+        );
 
         return (
-          <section
-            key={team}
-            className="overflow-hidden rounded-[32px] border border-[#DCE6F2] bg-white shadow-[0_1px_4px_rgba(12,12,13,0.05)]"
-          >
-            <button
-              type="button"
-              onClick={() => toggleSubteam(team)}
-              aria-expanded={isOpen}
-              aria-controls={panelId}
-              className="flex min-h-[56px] w-full cursor-pointer items-center justify-between gap-5 px-5 py-2.5 text-left lg:min-h-[64px] lg:py-3"
+          <section key={team} aria-labelledby={`committee-team-${teamIndex}`}>
+            <h2
+              id={`committee-team-${teamIndex}`}
+              className="text-[18.19px] leading-[22.74px] font-medium tracking-[0px] text-[#249AFF] capitalize"
             >
-              <span className="text-[18px] leading-tight font-light text-[#6B7A90] lg:text-[18px]">
-                {team}
-              </span>
-              <GoArrowUpRight
-                aria-hidden="true"
-                className={`h-7 w-7 shrink-0 text-[#0067B9] transition-transform duration-200 lg:h-8 lg:w-8 ${isOpen ? "rotate-45" : "rotate-0"}`}
-              />
-            </button>
+              {team}
+            </h2>
 
-            <div
-              id={panelId}
-              className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${
-                isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-              }`}
-            >
-              <div className="overflow-hidden">
-                <div className="grid grid-cols-1 gap-4 px-3 pb-3 sm:grid-cols-2 lg:px-5 lg:pb-5 xl:grid-cols-3">
-                  {members.length > 0 ? (
-                    members.map((member, memberIndex) => (
+            <div className="flex flex-col gap-12 lg:gap-16">
+              {sortedRoles.map(({ title, members: roleMembers }) => (
+                <div key={title}>
+                  <h3 className="text-[30px] leading-[34px] font-semibold tracking-[0px] text-[#0B1A2B] capitalize">
+                    {title}
+                  </h3>
+
+                  <div className="mt-7 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-8 lg:gap-7 xl:grid-cols-3">
+                    {roleMembers.map((member, memberIndex) => (
                       <article
                         key={`${member.name}-${member.title}-${memberIndex}`}
-                        className="min-w-0 rounded-[20px] border border-[#DCE6F2] bg-white p-2 shadow-[0_1px_4px_rgba(12,12,13,0.05)]"
+                        className="min-w-0 overflow-hidden rounded-[20px] border border-[#DCE6F2] bg-white p-2 shadow-[0_1px_4px_rgba(12,12,13,0.05)]"
                       >
-                        <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[14px] bg-[#EFF4FA]">
+                        <div className="relative aspect-[381.9684/451.4099] w-full overflow-hidden rounded-[13.64px] bg-[#EFF4FA]">
                           <Image
                             src={member.imageSrc || "/assets/logos/uaic.webp"}
                             alt={`${member.name} profile photo`}
                             fill
-                            sizes="(min-width: 1280px) 31vw, (min-width: 640px) 48vw, calc(100vw - 64px)"
+                            sizes="(min-width: 1280px) calc((100vw - 238px) / 3), (min-width: 1024px) calc((100vw - 192px) / 2), (min-width: 640px) calc((100vw - 108px) / 2), calc(100vw - 66px)"
                             className="object-cover"
                           />
                         </div>
 
-                        <div className="px-3 pt-5 pb-4">
-                          <p className="text-[16px] leading-[20px] font-medium text-[#249AFF] lg:text-[18px]">
-                            {member.title}
-                          </p>
-                          <h2 className="mt-1 text-[24px] leading-[28px] font-semibold text-[#0B1A2B] lg:text-[28px] lg:leading-[32px]">
-                            {member.name}
-                          </h2>
-                          <p className="mt-2 text-[16px] leading-[22px] text-[#6B6F8D] lg:text-[18px]">
-                            {member.degree}
-                          </p>
+                        <div className="flex items-center gap-3 px-1.5 pt-4 pb-2">
+                          <div className="min-w-0 flex-1 break-words">
+                            <p className="text-[18.19px] leading-[22.74px] font-medium tracking-[0px] text-[#249AFF] capitalize">
+                              {member.title}
+                            </p>
+                            <h4 className="text-[30px] leading-[34px] font-semibold tracking-[0px] text-[#0B1A2B] capitalize">
+                              {member.name}
+                            </h4>
+                            <p className="text-[20px] leading-[34.78px] font-medium tracking-[0px] text-[#6B6F8D]">
+                              {member.degree}
+                            </p>
+                          </div>
+                          <span
+                            aria-hidden="true"
+                            className="h-14 w-14 shrink-0 rounded-[3px] border border-[#DCE6F2]"
+                          />
                         </div>
                       </article>
-                    ))
-                  ) : (
-                    <p className="col-span-full py-8 text-center text-[#6B6F8D]">
-                      No members are currently listed for this team.
-                    </p>
-                  )}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              ))}
+              {members.length === 0 && (
+                <p className="py-8 text-[#6B6F8D]">
+                  No members are currently listed for this team.
+                </p>
+              )}
             </div>
           </section>
         );
