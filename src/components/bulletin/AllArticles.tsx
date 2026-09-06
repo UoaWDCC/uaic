@@ -373,7 +373,7 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
             row. Shown even on a single page, but not over an empty result. */}
         {pageBulletins.length > 0 && (
           <nav aria-label="Article pagination" className="mt-10 flex justify-center lg:mt-14">
-            <div className="flex max-w-full items-center gap-1 overflow-x-auto rounded-full bg-white p-1.5 shadow-[0_2px_8px_rgba(11,26,43,0.08)] [scrollbar-width:none] lg:gap-2 lg:p-2 [&::-webkit-scrollbar]:hidden">
+            <div className="flex max-w-full [scrollbar-width:none] items-center gap-1 overflow-x-auto rounded-full bg-white p-1.5 shadow-[0_2px_8px_rgba(11,26,43,0.08)] lg:gap-2 lg:p-2 [&::-webkit-scrollbar]:hidden">
               <button
                 type="button"
                 aria-label="Previous page"
