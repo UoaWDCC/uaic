@@ -38,7 +38,7 @@ const CommitteeCardList = ({ teams }: CommitteeCardListProps) => {
                     >
                       <div className="relative aspect-[381.9684/451.4099] w-full overflow-hidden rounded-[10.23px] bg-[#EFF4FA]">
                         <Image
-                          src={member.imageSrc || "/api/media/file/uaic_icon.png"}
+                          src={member.imageSrc || "/assets/logos/uaic.webp"}
                           alt={`${member.name} profile photo`}
                           fill
                           sizes="(max-width: 346px) calc(100vw - 62px), 285px"
