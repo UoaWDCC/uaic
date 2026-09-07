@@ -1,7 +1,8 @@
 # Lefthook configuration — https://lefthook.dev/configuration/
 #
-# Hooks run automatically on git commit.
-# To skip in an emergency: git commit --no-verify
+# Hooks run automatically on the relevant git command (commit, pull, checkout).
+# To skip commit-msg/pre-commit in an emergency: git commit --no-verify.
+# To skip any hook (e.g. post-merge/post-checkout): LEFTHOOK=0 <git command>.
 
 pre-commit:
   parallel: false
@@ -13,15 +14,22 @@ pre-commit:
     lint:
       glob: "*.{js,jsx,ts,tsx}"
       run: pnpm exec eslint --no-warn-ignored {staged_files}
-#       run: bundle exec rubocop --force-exclusion {all_files}
-#
-#     - name: govet
-#       files: git ls-files -m
-#       glob: "*.go"
-#       run: go vet {files}
-#
-#     - script: "hello.js"
-#       runner: node
-#
-#     - script: "hello.go"
-#       runner: go run
+
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm exec commitlint --edit {1}
+
+# Auto-install deps after `git pull` (post-merge) or switching branches
+# (post-checkout), but only when package.json/pnpm-lock.yaml actually changed.
+post-merge:
+  commands:
+    install:
+      glob: "{package.json,pnpm-lock.yaml}"
+      files: git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD
+      run: pnpm install
+
+post-checkout:
+  commands:
+    install:
+      run: git diff-tree -r --name-only --no-commit-id {1} {2} | grep -qE '^(package\.json|pnpm-lock\.yaml)$' && pnpm install || true
