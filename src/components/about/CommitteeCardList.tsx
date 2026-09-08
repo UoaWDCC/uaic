@@ -32,7 +32,7 @@ const CommitteeCardList = ({ teams }: CommitteeCardListProps) => {
                   {members.map((member) => (
                     <article
                       key={member.id}
-                      className={`relative w-[298.48px] max-w-full min-w-0 shrink-0 overflow-hidden rounded-[15px] border-[0.75px] border-[#DCE6F2] bg-white p-[6px] shadow-[0_0.75px_3px_rgba(12,12,13,0.05)] transition-transform duration-400 ease-out focus-within:-translate-y-1 hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none ${
+                      className={`relative w-[298.48px] max-w-full min-w-0 shrink-0 overflow-hidden rounded-[15px] border-[0.75px] border-[#DCE6F2] bg-white p-[6px] shadow-[0_0.75px_3px_rgba(12,12,13,0.05)] transition-transform duration-400 ease-out focus-within:-translate-y-1 hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none [@media(max-width:450px)]:w-full ${
                         member.linkedinUrl ? "cursor-pointer" : "cursor-default"
                       }`}
                     >
@@ -41,26 +41,26 @@ const CommitteeCardList = ({ teams }: CommitteeCardListProps) => {
                           src={member.imageSrc || "/assets/logos/uaic.webp"}
                           alt={`${member.name} profile photo`}
                           fill
-                          sizes="(max-width: 346px) calc(100vw - 62px), 285px"
+                          sizes="(max-width: 450px) calc(100vw - 61.5px), 285px"
                           className="object-cover"
                         />
                       </div>
 
-                      <div className="flex items-center gap-[9px] px-[4.5px] pt-3 pb-[6px]">
-                        <div className="min-w-0 flex-1 break-words">
+                      <div className="grid grid-cols-[minmax(0,1fr)_42px] items-start gap-x-[9px] gap-y-2 px-[4.5px] pt-3 pb-[6px]">
+                        <div className="col-start-1 min-w-0 break-words">
                           <p className="text-[13.6425px] leading-[17.055px] font-medium tracking-[0px] text-[#249AFF] capitalize">
                             {member.title}
                           </p>
                           <h4 className="text-[22.5px] leading-[25.5px] font-semibold tracking-[0px] text-[#0B1A2B] capitalize">
                             {member.name}
                           </h4>
-                          <p className="mt-2 text-[15px] leading-[26.085px] font-medium tracking-[0px] text-[#6B6F8D]">
-                            {member.degree}
-                          </p>
                         </div>
+                        <p className="col-start-1 row-start-2 min-w-0 text-[15px] leading-[26.085px] font-medium tracking-[0px] break-words text-[#6B6F8D]">
+                          {member.degree}
+                        </p>
                         <span
                           aria-hidden="true"
-                          className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[2.25px] text-[#005EAF]"
+                          className="col-start-2 row-start-2 flex h-[42px] w-[42px] items-center justify-center rounded-[2.25px] text-[#005EAF]"
                         >
                           <FaLinkedin aria-hidden="true" className="h-full w-full" />
                         </span>
