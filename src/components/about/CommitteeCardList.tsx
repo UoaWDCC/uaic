@@ -54,7 +54,7 @@ const CommitteeCardList = ({ teams }: CommitteeCardListProps) => {
                           <h4 className="text-[22.5px] leading-[25.5px] font-semibold tracking-[0px] text-[#0B1A2B] capitalize">
                             {member.name}
                           </h4>
-                          <p className="text-[15px] leading-[26.085px] font-medium tracking-[0px] text-[#6B6F8D]">
+                          <p className="mt-2 text-[15px] leading-[26.085px] font-medium tracking-[0px] text-[#6B6F8D]">
                             {member.degree}
                           </p>
                         </div>
