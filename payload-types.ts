@@ -78,7 +78,6 @@ export interface Config {
     executive: Executive;
     'executive-committee': ExecutiveCommittee;
     'executive-subteams': ExecutiveSubteam;
-    'bulletin-committee': BulletinCommittee;
     events: Event;
     portfolio: Portfolio;
     sponsors: Sponsor;
@@ -103,7 +102,6 @@ export interface Config {
     executive: ExecutiveSelect<false> | ExecutiveSelect<true>;
     'executive-committee': ExecutiveCommitteeSelect<false> | ExecutiveCommitteeSelect<true>;
     'executive-subteams': ExecutiveSubteamsSelect<false> | ExecutiveSubteamsSelect<true>;
-    'bulletin-committee': BulletinCommitteeSelect<false> | BulletinCommitteeSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     portfolio: PortfolioSelect<false> | PortfolioSelect<true>;
     sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
@@ -379,17 +377,6 @@ export interface ExecutiveSubteam {
    * Lower numbers appear higher up on the page and filter bar.
    */
   displayOrder: number;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bulletin-committee".
- */
-export interface BulletinCommittee {
-  id: string;
-  name: string;
-  role: 'Editor-in-Chief' | 'Sub-Editor' | 'Senior Writer' | 'Writer';
   updatedAt: string;
   createdAt: string;
 }
@@ -671,10 +658,6 @@ export interface PayloadLockedDocument {
         value: string | ExecutiveSubteam;
       } | null)
     | ({
-        relationTo: 'bulletin-committee';
-        value: string | BulletinCommittee;
-      } | null)
-    | ({
         relationTo: 'events';
         value: string | Event;
       } | null)
@@ -911,16 +894,6 @@ export interface ExecutiveSubteamsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bulletin-committee_select".
- */
-export interface BulletinCommitteeSelect<T extends boolean = true> {
-  name?: T;
-  role?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
@@ -1119,7 +1092,6 @@ export interface TaskCreateCollectionExport {
       | 'executive'
       | 'executive-committee'
       | 'executive-subteams'
-      | 'bulletin-committee'
       | 'events'
       | 'portfolio'
       | 'sponsors'

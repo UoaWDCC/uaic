@@ -16,7 +16,6 @@ import { Events } from "./collections/Events";
 import { Executive } from "./collections/Executive";
 import { ExecutiveCommittee } from "./collections/ExecutiveCommittee";
 import { ExecutiveSubteams } from "./collections/ExecutiveSubteams";
-import { BulletinCommittee } from "./collections/BulletinCommittee";
 import { Portfolio } from "./collections/Portfolio";
 import { LandingPageImages } from "./collections/LandingPageImages";
 import { HeroSectionCarousel } from "./collections/HeroSectionCarousel";
@@ -52,7 +51,6 @@ export default buildConfig({
     Executive,
     ExecutiveCommittee,
     ExecutiveSubteams,
-    BulletinCommittee,
     Events,
     Portfolio,
     Sponsors,
