@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { validateUrl } from "@payloadcms/richtext-lexical";
 
 export const ExecutiveCommittee: CollectionConfig = {
   slug: "executive-committee",
@@ -34,6 +35,10 @@ export const ExecutiveCommittee: CollectionConfig = {
       type: "text",
       label: "LinkedIn URL",
       required: false,
+      admin: {
+        description: "Include https:// at the start, e.g. https://www.linkedin.com/in/your-name/.",
+      },
+      validate: (value) => !value || validateUrl(value) || "Please enter a valid URL.",
     },
     {
       name: "image",
