@@ -32,7 +32,7 @@ const CommitteeCardList = ({ teams }: CommitteeCardListProps) => {
                   {members.map((member) => (
                     <article
                       key={member.id}
-                      className={`relative w-[298.48px] max-w-full min-w-0 shrink-0 overflow-hidden rounded-[15px] border-[0.75px] border-[#DCE6F2] bg-white p-[6px] shadow-[0_0.75px_3px_rgba(12,12,13,0.05)] transition-transform duration-200 ease-out focus-within:-translate-y-1 hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none ${
+                      className={`relative w-[298.48px] max-w-full min-w-0 shrink-0 overflow-hidden rounded-[15px] border-[0.75px] border-[#DCE6F2] bg-white p-[6px] shadow-[0_0.75px_3px_rgba(12,12,13,0.05)] transition-transform duration-400 ease-out focus-within:-translate-y-1 hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none ${
                         member.linkedinUrl ? "cursor-pointer" : "cursor-default"
                       }`}
                     >
