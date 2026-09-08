@@ -40,7 +40,7 @@ const CommitteeFilterBar = ({
 
       <div className="flex w-full items-center gap-2 rounded-[28px] bg-white p-1.5 shadow-[0_2px_8px_rgba(11,26,43,0.08)] lg:p-2 xl:w-auto">
         <span className="shrink-0 px-2 py-1.5 text-[12px] font-semibold text-[#145BA7] lg:px-3 lg:py-2 lg:text-[14px]">
-          Sort By
+          Filter By
         </span>
 
         <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2 xl:flex-none">
