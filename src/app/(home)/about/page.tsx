@@ -5,7 +5,7 @@ import { getExecutiveCommittee } from "@/features/about/data/getExecutiveCommitt
 // Read current CMS content on every page request.
 export const dynamic = "force-dynamic";
 
-const page = async () => {
+const Page = async () => {
   const executiveCommittee = await getExecutiveCommittee();
 
   return (
@@ -15,4 +15,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default Page;
