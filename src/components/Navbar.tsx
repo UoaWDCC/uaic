@@ -112,7 +112,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
                     href="/about"
                     className="flex flex-1 cursor-pointer items-center rounded-t-lg px-4 py-2 text-sm font-[300] hover:bg-blue-700"
                   >
-                    The Committees
+                    Executive Committees
                   </Link>
                   <Link
                     href="/FAQ"
@@ -204,7 +204,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
             <ul className="mx-auto w-14/16 font-light text-black">
               <li className="hover:bg-whiteHover flex cursor-pointer pb-2 text-xl sm:pl-16">
                 <Link href="/about" className="block w-full" onClick={handleLinkClick}>
-                  The Committees
+                  Executive Committees
                 </Link>
               </li>
               <li className="hover:bg-whiteHover flex cursor-pointer pb-2 text-xl sm:pl-16">
