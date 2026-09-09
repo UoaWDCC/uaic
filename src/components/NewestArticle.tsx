@@ -9,7 +9,7 @@ const NewestArticle = async () => {
   const newest = bulletins.slice(0, 4);
 
   return (
-    <div className="ps-5 pe-5 lg:ps-30 lg:pe-30">
+    <div className="mb-10 ps-5 pe-5 lg:mb-15 lg:ps-30 lg:pe-30">
       <p className="text-darkBlue pb-1 text-3xl font-semibold lg:pb-3">Newest Articles</p>
 
       <div className="grid grid-rows-2 flex-col gap-2 lg:grid-cols-6 lg:grid-rows-1 lg:gap-10">
