@@ -46,7 +46,7 @@ const CommitteeCardList = ({ teams }: CommitteeCardListProps) => {
                         />
                       </div>
 
-                      <div className="grid grid-cols-[minmax(0,1fr)_42px] items-start gap-x-[9px] gap-y-2 px-[4.5px] pt-3 pb-[6px]">
+                      <div className="grid grid-cols-[minmax(0,1fr)_42px] items-start gap-x-[12px] gap-y-2 px-[4.5px] pt-3 pb-[6px]">
                         <div className="col-start-1 min-w-0 break-words">
                           <p className="text-[13.6425px] leading-[17.055px] font-medium tracking-[0px] text-[#249AFF] capitalize">
                             {member.title}
