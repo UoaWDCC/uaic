@@ -1,4 +1,3 @@
-// src/components/ArticleCard.tsx
 import Image from "next/image";
 import Link from "next/link";
 import { GoArrowUpRight } from "react-icons/go";

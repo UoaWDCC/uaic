@@ -16,6 +16,7 @@ const NewestArticle = async () => {
         {newest[0] && (
           <Link
             href={newest[0].bulletinPDF?.url || "#"}
+            target="_blank"
             className="group relative flex flex-col overflow-hidden rounded-2xl ps-2 pb-2 lg:col-span-4 lg:ps-5 lg:pe-5 lg:pb-5"
           >
             <Image
@@ -37,8 +38,9 @@ const NewestArticle = async () => {
               {new Date(newest[0].publishDate).toLocaleDateString("en-NZ", {
                 month: "short",
                 day: "numeric",
-              })}{" "}
-              {newest[0].readTime ? `${newest[0].readTime} Min read` : "Read"}
+              })}
+              {" | "}
+              {newest[0].readTime ? `${(newest[0].readTime / 100).toFixed(2)} min read` : "read"}
             </p>
           </Link>
         )}
@@ -68,8 +70,11 @@ const NewestArticle = async () => {
                   {new Date(b.publishDate).toLocaleDateString("en-NZ", {
                     month: "short",
                     day: "numeric",
-                  })}{" "}
-                  · 5 Min read
+                  })}
+                  {" | "}
+                  {newest[0].readTime
+                    ? `${(newest[0].readTime / 100).toFixed(2)} min read`
+                    : "read"}
                 </p>
               </div>
             </Link>
