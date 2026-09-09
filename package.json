@@ -16,7 +16,7 @@
     "delete-test-account": "node scripts/delete-test-account.mjs"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.1125.0",
+    "@aws-sdk/client-s3": "^3.1127.0",
     "@payloadcms/db-mongodb": "^3.88.0",
     "@payloadcms/next": "^3.88.0",
     "@payloadcms/plugin-import-export": "3.88.0",
@@ -25,7 +25,7 @@
     "@payloadcms/ui": "3.88.0",
     "@stripe/react-stripe-js": "^4.0.2",
     "@stripe/stripe-js": "^7.9.0",
-    "better-auth": "^1.7.2",
+    "better-auth": "^1.7.3",
     "dotenv": "^17.4.2",
     "graphql": "^16.10.0",
     "ics": "^3.12.0",
@@ -38,7 +38,7 @@
     "react-fast-marquee": "^1.6.5",
     "react-icons": "^5.7.0",
     "react-spinners": "^0.17.0",
-    "resend": "^6.25.0",
+    "resend": "^6.26.0",
     "sharp": "^0.35.4",
     "stripe": "^18.5.0",
     "swiper": "^12.1.4"
