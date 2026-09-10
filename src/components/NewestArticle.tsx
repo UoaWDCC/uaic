@@ -1,8 +1,8 @@
 import { getBulletins } from "@/features/bulletins/data/getBulletins";
 import type { Bulletin } from "@/features/bulletins/data/getBulletins";
-import { GoArrowUpRight } from "react-icons/go";
 import Image from "next/image";
 import Link from "next/link";
+import ArrowButton from "./ArrowButton";
 
 const NewestArticle = async () => {
   const bulletins: Bulletin[] = await getBulletins();
@@ -49,6 +49,7 @@ const NewestArticle = async () => {
           {newest.slice(1).map((b) => (
             <Link
               key={b.id}
+              target="_blank"
               href={b.bulletinPDF?.url || "#"}
               className="group grid grid-cols-[1fr_3fr] gap-3 pb-3 xl:gap-5"
             >
@@ -80,15 +81,7 @@ const NewestArticle = async () => {
             </Link>
           ))}
 
-          <Link
-            href="/bulletin"
-            className="group inline-flex w-full flex-row items-center justify-start gap-3 rounded-full bg-gradient-to-l from-[#005eaf] to-[#249AFF] py-2.5 pr-4.5 pl-3.5 text-sm whitespace-nowrap text-white transition-colors duration-200 hover:bg-white hover:text-[#005eaf] sm:text-xl"
-          >
-            <span className="relative flex size-5 items-center justify-center 2xl:size-9">
-              <GoArrowUpRight className="absolute size-8 transition-transform duration-200 group-hover:rotate-45 2xl:size-8" />
-            </span>
-            <span className="text-xs lg:text-lg">View All Articles</span>
-          </Link>
+          <ArrowButton text="View All Articles" link="/bulletin" fullWidth />
         </div>
       </div>
     </div>
