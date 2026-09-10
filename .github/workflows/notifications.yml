@@ -3,17 +3,46 @@ name: Pull Request Notifications
 on:
   pull_request_target:
     types: [opened, reopened, closed, ready_for_review, review_requested]
+  pull_request_review:
+    types: [submitted]
 
 jobs:
   notify-discord:
     name: Notify Discord
     if: |
-      github.event_name == 'pull_request_target' &&
-      !((github.event.action == 'opened' || github.event.action == 'reopened') && github.event.pull_request.draft == true)
+      (github.event_name == 'pull_request_target' &&
+        !((github.event.action == 'opened' || github.event.action == 'reopened') && github.event.pull_request.draft == true)) ||
+      (github.event_name == 'pull_request_review' &&
+        (github.event.review.state == 'approved' || github.event.review.state == 'changes_requested'))
     runs-on: ubuntu-latest
     steps:
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: "${{ (github.event.action == 'closed' && github.event.pull_request.merged == true && '🟣') || (github.event.action == 'closed' && github.event.pull_request.merged == false && '🔴') || (github.event.action == 'review_requested' && '🟠') || (github.event.action == 'ready_for_review' && '🟢') || (github.event.action == 'reopened' && '🟡') || '🔵' }} ${{ (github.event.action == 'review_requested' && format('{0} requested a review from {1}', github.event.sender.login, (github.event.requested_reviewer && github.event.requested_reviewer.login) || github.event.requested_team.name)) || format('Pull request {0} by {1}', (github.event.action == 'closed' && github.event.pull_request.merged == true && 'merged') || (github.event.action == 'closed' && github.event.pull_request.merged == false && 'closed without merging') || (github.event.action == 'ready_for_review' && 'marked ready for review') || 'opened', github.event.pull_request.user.login) }}: ${{ github.event.pull_request.title }} | Link: [View Pull Request](${{ github.event.pull_request.html_url }})"
+          content: >-
+            ${{
+            (github.event.action == 'closed' && github.event.pull_request.merged == true && '🟣') ||
+            (github.event.action == 'closed' && github.event.pull_request.merged == false && '🔴') ||
+            (github.event.action == 'review_requested' && '🟠') ||
+            (github.event.action == 'ready_for_review' && '🟢') ||
+            (github.event.action == 'reopened' && '🟡') ||
+            (github.event_name == 'pull_request_review' && github.event.review.state == 'approved' && '⚪') ||
+            (github.event_name == 'pull_request_review' && github.event.review.state == 'changes_requested' && '🟤') ||
+            '🔵'
+            }} ${{
+            (github.event.action == 'review_requested' && format('{0} requested a review from {1}',
+            github.event.sender.login,
+            (github.event.requested_reviewer && github.event.requested_reviewer.login) || github.event.requested_team.name)) ||
+            (github.event_name == 'pull_request_review' && github.event.review.state == 'approved' && format('{0} approved the pull request', github.event.review.user.login)) ||
+            (github.event_name == 'pull_request_review' && github.event.review.state == 'changes_requested' && format('{0} requested changes on the pull request', github.event.review.user.login)) ||
+            format('Pull request {0} by {1}',
+            (github.event.action == 'closed' && github.event.pull_request.merged == true && 'merged') ||
+            (github.event.action == 'closed' && github.event.pull_request.merged == false && 'closed without merging') ||
+            (github.event.action == 'ready_for_review' && 'marked ready for review') ||
+            'opened',
+            github.event.pull_request.user.login)
+            }}: ${{ github.event.pull_request.title }} | Link: [View Pull Request](${{ github.event.pull_request.html_url }})${{
+            (github.event_name == 'pull_request_review' && github.event.review.state == 'approved' && ' - Please merge! ✅') ||
+            ''
+            }}

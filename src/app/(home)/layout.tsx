@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   description: "Investment Club Website",
 };
 
+// Match Fly behaviour: pages are rendered on demand, never prerendered at
+// build. Also lets `next build` run without a database, the way Fly's
+// `next build --experimental-build-mode compile` does.
+export const dynamic = "force-dynamic";
+
 export default function RootLayout({
   children,
 }: Readonly<{
