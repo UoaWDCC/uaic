@@ -32,11 +32,11 @@ const CommitteeCardList = ({ teams }: CommitteeCardListProps) => {
                   {members.map((member) => (
                     <article
                       key={member.id}
-                      className={`relative w-[298.48px] max-w-full min-w-0 shrink-0 overflow-hidden rounded-[15px] border-[0.75px] border-[#DCE6F2] bg-white p-[6px] shadow-[0_0.75px_3px_rgba(12,12,13,0.05)] transition-transform duration-400 ease-out focus-within:-translate-y-1 hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none [@media(max-width:450px)]:w-full ${
+                      className={`group relative flex w-[298.48px] max-w-full min-w-0 shrink-0 flex-col overflow-hidden rounded-[15px] border-[0.75px] border-[#DCE6F2] bg-white p-[6px] shadow-[0_0.75px_3px_rgba(12,12,13,0.05)] transition-transform duration-400 ease-out hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none [@media(max-width:450px)]:w-full ${
                         member.linkedinUrl ? "cursor-pointer" : "cursor-default"
                       }`}
                     >
-                      <div className="relative aspect-[381.9684/451.4099] w-full overflow-hidden rounded-[10.23px] bg-[#EFF4FA]">
+                      <div className="relative aspect-[381.9684/451.4099] w-full shrink-0 overflow-hidden rounded-[10.23px] bg-[#EFF4FA]">
                         <Image
                           src={member.imageSrc || "/assets/logos/uaic.webp"}
                           alt={`${member.name} profile photo`}
@@ -46,8 +46,8 @@ const CommitteeCardList = ({ teams }: CommitteeCardListProps) => {
                         />
                       </div>
 
-                      <div className="grid grid-cols-[minmax(0,1fr)_42px] items-start gap-x-[12px] gap-y-2 px-[4.5px] pt-3 pb-[6px]">
-                        <div className="col-start-1 min-w-0 break-words">
+                      <div className="flex flex-1 flex-col gap-2 px-[4.5px] pt-3 pb-[4.5px]">
+                        <div className="min-w-0 break-words">
                           <p className="text-[13.6425px] leading-[17.055px] font-medium tracking-[0px] text-[#249AFF] capitalize">
                             {member.title}
                           </p>
@@ -55,25 +55,21 @@ const CommitteeCardList = ({ teams }: CommitteeCardListProps) => {
                             {member.name}
                           </h4>
                         </div>
-                        <p className="col-start-1 row-start-2 min-w-0 text-[15px] leading-[26.085px] font-medium tracking-[0px] break-words text-[#6B6F8D]">
+                        <p className="min-w-0 text-[15px] leading-[22px] font-medium tracking-[0px] break-words text-[#6B6F8D]">
                           {member.degree}
                         </p>
-                        <span
-                          aria-hidden="true"
-                          className="col-start-2 row-start-2 flex h-[42px] w-[42px] items-center justify-center rounded-[2.25px] text-[#005EAF]"
-                        >
-                          <FaLinkedin aria-hidden="true" className="h-full w-full" />
-                        </span>
+                        {member.linkedinUrl && (
+                          <a
+                            href={member.linkedinUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${member.name} on LinkedIn (opens in a new tab)`}
+                            className="mt-auto flex h-[42px] w-[42px] items-center justify-center rounded-[2.25px] text-[#005EAF] transition-colors duration-200 after:absolute after:inset-0 after:z-10 after:cursor-pointer after:rounded-[15px] focus-visible:text-[#249AFF] focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-[#249AFF] motion-reduce:transition-none"
+                          >
+                            <FaLinkedin aria-hidden="true" className="h-full w-full" />
+                          </a>
+                        )}
                       </div>
-                      {member.linkedinUrl && (
-                        <a
-                          href={member.linkedinUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`${member.name} on LinkedIn (opens in a new tab)`}
-                          className="absolute inset-0 z-10 cursor-pointer rounded-[15px] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#249AFF]"
-                        />
-                      )}
                     </article>
                   ))}
                 </div>
