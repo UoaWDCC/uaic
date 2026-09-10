@@ -1,5 +1,8 @@
-import type { CollectionConfig } from "payload";
+import type { CollectionConfig, TextFieldSingleValidation } from "payload";
 import { validateUrl } from "@payloadcms/richtext-lexical";
+
+const validateLinkedinUrl: TextFieldSingleValidation = (value) =>
+  !value || validateUrl(value) || "Please enter a valid URL.";
 
 export const ExecutiveCommittee: CollectionConfig = {
   slug: "executive-committee",
@@ -38,7 +41,7 @@ export const ExecutiveCommittee: CollectionConfig = {
       admin: {
         description: "Include https:// at the start, e.g. https://www.linkedin.com/in/your-name/.",
       },
-      validate: (value) => !value || validateUrl(value) || "Please enter a valid URL.",
+      validate: validateLinkedinUrl,
     },
     {
       name: "image",
