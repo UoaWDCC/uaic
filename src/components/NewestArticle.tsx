@@ -17,6 +17,7 @@ const NewestArticle = async () => {
           <Link
             href={newest[0].bulletinPDF?.url || "#"}
             target="_blank"
+            rel="noopener noreferrer"
             className="group relative flex flex-col overflow-hidden rounded-2xl ps-2 pb-2 lg:col-span-4 lg:ps-5 lg:pe-5 lg:pb-5"
           >
             <Image
@@ -50,6 +51,7 @@ const NewestArticle = async () => {
             <Link
               key={b.id}
               target="_blank"
+              rel="noopener noreferrer"
               href={b.bulletinPDF?.url || "#"}
               className="group grid grid-cols-[1fr_3fr] gap-3 pb-3 xl:gap-5"
             >
