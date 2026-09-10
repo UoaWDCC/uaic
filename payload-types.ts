@@ -77,11 +77,13 @@ export interface Config {
     member: Member;
     executive: Executive;
     'executive-committee': ExecutiveCommittee;
-    'bulletin-committee': BulletinCommittee;
+    'executive-subteams': ExecutiveSubteam;
     events: Event;
     portfolio: Portfolio;
     sponsors: Sponsor;
     exports: Export;
+    imports: Import;
+    'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -99,11 +101,13 @@ export interface Config {
     member: MemberSelect<false> | MemberSelect<true>;
     executive: ExecutiveSelect<false> | ExecutiveSelect<true>;
     'executive-committee': ExecutiveCommitteeSelect<false> | ExecutiveCommitteeSelect<true>;
-    'bulletin-committee': BulletinCommitteeSelect<false> | BulletinCommitteeSelect<true>;
+    'executive-subteams': ExecutiveSubteamsSelect<false> | ExecutiveSubteamsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     portfolio: PortfolioSelect<false> | PortfolioSelect<true>;
     sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
     exports: ExportsSelect<false> | ExportsSelect<true>;
+    imports: ImportsSelect<false> | ImportsSelect<true>;
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -112,15 +116,18 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
+  fallbackLocale: null;
   globals: {};
   globalsSelect: {};
   locale: null;
-  user: User & {
-    collection: 'users';
+  widgets: {
+    collections: CollectionsWidget;
   };
+  user: User;
   jobs: {
     tasks: {
       createCollectionExport: TaskCreateCollectionExport;
+      createCollectionImport: TaskCreateCollectionImport;
       inline: {
         input: unknown;
         output: unknown;
@@ -174,7 +181,15 @@ export interface User {
   hash?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
   password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -327,28 +342,41 @@ export interface ExecutiveCommittee {
   name: string;
   title: string;
   degree: string;
+  linkedinUrl?: string | null;
   image: string | Media;
-  subteam:
-    | 'Leadership Team'
-    | 'Bulletin and Investment Committee Chairperson'
-    | 'Secretary & Treasurer'
-    | 'Diversity and Inclusion Team'
-    | 'Education Team'
-    | 'Competitions Team 1'
-    | 'Competitions Team 2'
-    | 'Marketing Team'
-    | 'Social Team';
+  /**
+   * Select the team created in Executive Subteams.
+   */
+  team: string | ExecutiveSubteam;
+  /**
+   * Order within this member's team. Lower numbers appear first; equal numbers are sorted by name.
+   */
+  displayOrder: number;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bulletin-committee".
+ * via the `definition` "executive-subteams".
  */
-export interface BulletinCommittee {
+export interface ExecutiveSubteam {
   id: string;
+  /**
+   * Blue category heading, e.g. Operations.
+   */
   name: string;
-  role: 'Editor-in-Chief' | 'Sub-Editor' | 'Senior Writer' | 'Writer';
+  /**
+   * Heading above the member cards, e.g. Secretaries and Treasurers.
+   */
+  sectionTitle: string;
+  /**
+   * Filter button label. Use the same label for teams that share a button in the filter bar.
+   */
+  filterLabel: string;
+  /**
+   * Lower numbers appear higher up on the page and filter bar.
+   */
+  displayOrder: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -404,7 +432,9 @@ export interface Export {
   name?: string | null;
   format: 'csv' | 'json';
   limit?: number | null;
+  page?: number | null;
   sort?: string | null;
+  sortOrder?: ('asc' | 'desc') | null;
   drafts?: ('yes' | 'no') | null;
   selectionToUse?: ('currentSelection' | 'currentFilters' | 'all') | null;
   fields?: string[] | null;
@@ -429,6 +459,60 @@ export interface Export {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imports".
+ */
+export interface Import {
+  id: string;
+  collectionSlug: string;
+  importMode?: ('create' | 'update' | 'upsert') | null;
+  matchField?: string | null;
+  status?: ('pending' | 'completed' | 'partial' | 'failed') | null;
+  summary?: {
+    imported?: number | null;
+    updated?: number | null;
+    total?: number | null;
+    issues?: number | null;
+    issueDetails?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv".
+ */
+export interface PayloadKv {
+  id: string;
+  key: string;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -482,7 +566,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'createCollectionExport';
+        taskSlug: 'inline' | 'createCollectionExport' | 'createCollectionImport';
         taskID: string;
         input?:
           | {
@@ -515,7 +599,7 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?: ('inline' | 'createCollectionExport') | null;
+  taskSlug?: ('inline' | 'createCollectionExport' | 'createCollectionImport') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -570,8 +654,8 @@ export interface PayloadLockedDocument {
         value: string | ExecutiveCommittee;
       } | null)
     | ({
-        relationTo: 'bulletin-committee';
-        value: string | BulletinCommittee;
+        relationTo: 'executive-subteams';
+        value: string | ExecutiveSubteam;
       } | null)
     | ({
         relationTo: 'events';
@@ -584,14 +668,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'sponsors';
         value: string | Sponsor;
-      } | null)
-    | ({
-        relationTo: 'exports';
-        value: string | Export;
-      } | null)
-    | ({
-        relationTo: 'payload-jobs';
-        value: string | PayloadJob;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -660,6 +736,13 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -790,18 +873,22 @@ export interface ExecutiveCommitteeSelect<T extends boolean = true> {
   name?: T;
   title?: T;
   degree?: T;
+  linkedinUrl?: T;
   image?: T;
-  subteam?: T;
+  team?: T;
+  displayOrder?: T;
   updatedAt?: T;
   createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "bulletin-committee_select".
+ * via the `definition` "executive-subteams_select".
  */
-export interface BulletinCommitteeSelect<T extends boolean = true> {
+export interface ExecutiveSubteamsSelect<T extends boolean = true> {
   name?: T;
-  role?: T;
+  sectionTitle?: T;
+  filterLabel?: T;
+  displayOrder?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -853,7 +940,9 @@ export interface ExportsSelect<T extends boolean = true> {
   name?: T;
   format?: T;
   limit?: T;
+  page?: T;
   sort?: T;
+  sortOrder?: T;
   drafts?: T;
   selectionToUse?: T;
   fields?: T;
@@ -870,6 +959,44 @@ export interface ExportsSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imports_select".
+ */
+export interface ImportsSelect<T extends boolean = true> {
+  collectionSlug?: T;
+  importMode?: T;
+  matchField?: T;
+  status?: T;
+  summary?:
+    | T
+    | {
+        imported?: T;
+        updated?: T;
+        total?: T;
+        issues?: T;
+        issueDetails?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv_select".
+ */
+export interface PayloadKvSelect<T extends boolean = true> {
+  key?: T;
+  data?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -936,18 +1063,51 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TaskCreateCollectionExport".
  */
 export interface TaskCreateCollectionExport {
   input: {
-    name?: string | null;
+    id: string;
+    name: string;
+    batchSize?: number | null;
+    collectionSlug:
+      | 'FAQ'
+      | 'users'
+      | 'media'
+      | 'investment-committee-images'
+      | 'landing-page-images'
+      | 'hero-section-carousel'
+      | 'bulletin'
+      | 'member'
+      | 'executive'
+      | 'executive-committee'
+      | 'executive-subteams'
+      | 'events'
+      | 'portfolio'
+      | 'sponsors'
+      | 'exports'
+      | 'imports';
+    drafts?: ('yes' | 'no') | null;
+    exportCollection: string;
+    fields?: string[] | null;
     format: 'csv' | 'json';
     limit?: number | null;
+    locale?: string | null;
+    maxLimit?: number | null;
+    page?: number | null;
     sort?: string | null;
-    drafts?: ('yes' | 'no') | null;
-    selectionToUse?: ('currentSelection' | 'currentFilters' | 'all') | null;
-    fields?: string[] | null;
-    collectionSlug: string;
+    userCollection?: string | null;
+    userID?: string | null;
     where?:
       | {
           [k: string]: unknown;
@@ -957,13 +1117,25 @@ export interface TaskCreateCollectionExport {
       | number
       | boolean
       | null;
-    user?: string | null;
+  };
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskCreateCollectionImport".
+ */
+export interface TaskCreateCollectionImport {
+  input: {
+    importId: string;
+    importCollection: string;
+    userID?: string | null;
     userCollection?: string | null;
-    exportsCollection?: string | null;
+    batchSize?: number | null;
+    debug?: boolean | null;
+    defaultVersionStatus?: ('draft' | 'published') | null;
+    maxLimit?: number | null;
   };
-  output: {
-    success?: boolean | null;
-  };
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

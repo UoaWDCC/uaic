@@ -1,81 +1,62 @@
 "use server";
 
-import type { CollectionSlug } from "payload";
 import { getPayload } from "payload";
 import config from "@payload-config";
+import type { ExecutiveCommitteeData } from "@/features/about/types";
 
-const executiveSubteams = [
-  "Leadership Team",
-  "Bulletin and Investment Committee Chairperson",
-  "Secretary & Treasurer",
-  "Diversity and Inclusion Team",
-  "Education Team",
-  "Competitions Team 1",
-  "Competitions Team 2",
-  "Marketing Team",
-  "Social Team",
-] as const;
-
-type ExecutiveCommitteeMember = {
-  name: string;
-  title: string;
-  degree: string;
-  imageSrc: string;
-};
-
-type ExecutiveCommitteeDoc = {
-  name?: string | null;
-  title?: string | null;
-  degree?: string | null;
-  subteam?: string | null;
-  image?: {
-    url?: string | null;
-  } | null;
-};
-
-const getImageSrc = (image: unknown) => {
-  if (!image || typeof image !== "object") {
-    return "";
-  }
-
-  const imageRecord = image as { url?: string | null };
-
-  return imageRecord.url || "";
-};
-
-export const getExecutiveCommittee = async (): Promise<{
-  executiveSubteams: readonly string[];
-  teamProfiles: Record<string, ExecutiveCommitteeMember[]>;
-}> => {
+export const getExecutiveCommittee = async (): Promise<ExecutiveCommitteeData> => {
   const payload = await getPayload({ config });
+  const [subteams, committee] = await Promise.all([
+    payload.find({
+      collection: "executive-subteams",
+      depth: 0,
+      pagination: false,
+      sort: "displayOrder",
+    }),
+    payload.find({
+      collection: "executive-committee",
+      depth: 1,
+      pagination: false,
+      sort: "displayOrder",
+    }),
+  ]);
 
-  const result = await payload.find({
-    collection: "executive-committee" as CollectionSlug,
-    depth: 1,
-    pagination: false,
-  });
-
-  const docs = result.docs as ExecutiveCommitteeDoc[];
-
-  const teamProfiles = Object.fromEntries(
-    executiveSubteams.map((team) => [team, [] as ExecutiveCommitteeMember[]]),
-  ) as Record<string, ExecutiveCommitteeMember[]>;
-
-  for (const team of executiveSubteams) {
-    const members = docs
-      .filter((doc) => doc.subteam === team)
-      .map((doc) => ({
-        name: doc.name || "",
-        title: doc.title || "",
-        degree: doc.degree || "",
-        imageSrc: getImageSrc(doc.image),
-      }));
-
-    teamProfiles[team] = members;
-  }
+  const compareNames = (a: string, b: string) => a.localeCompare(b, "en-NZ");
+  const sortedTeams = [...subteams.docs].sort(
+    (a, b) =>
+      (a.displayOrder ?? 0) - (b.displayOrder ?? 0) ||
+      compareNames(a.name, b.name) ||
+      a.id.localeCompare(b.id),
+  );
 
   return {
-    executiveSubteams,
-    teamProfiles,
+    teams: sortedTeams.map((team) => {
+      const members = committee.docs
+        .filter((member) => {
+          const teamId = typeof member.team === "object" ? member.team?.id : member.team;
+          return teamId === team.id;
+        })
+        .sort(
+          (a, b) =>
+            (a.displayOrder ?? 0) - (b.displayOrder ?? 0) ||
+            compareNames(a.name, b.name) ||
+            a.id.localeCompare(b.id),
+        );
+
+      return {
+        id: team.id,
+        name: team.name,
+        sectionTitle: team.sectionTitle,
+        filterLabel: team.filterLabel.trim(),
+        members: members.map((member) => ({
+          id: member.id,
+          name: member.name,
+          title: member.title,
+          degree: member.degree,
+          imageSrc: typeof member.image === "object" ? member.image?.url || "" : "",
+          linkedinUrl: member.linkedinUrl?.trim() || undefined,
+        })),
+      };
+    }),
   };
 };
