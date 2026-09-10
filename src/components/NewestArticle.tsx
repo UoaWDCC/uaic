@@ -41,7 +41,7 @@ const NewestArticle = async () => {
                 day: "numeric",
               })}
               {" | "}
-              {newest[0].readTime ? `${(newest[0].readTime / 100).toFixed(2)} min read` : "read"}
+              {newest[0].readTime ? `${newest[0].readTime} min read` : "read"}
             </p>
           </Link>
         )}
@@ -75,7 +75,7 @@ const NewestArticle = async () => {
                     day: "numeric",
                   })}
                   {" | "}
-                  {b.readTime ? `${(b.readTime / 100).toFixed(2)} min read` : "read"}
+                  {b.readTime ? `${b.readTime} min read` : "read"}
                 </p>
               </div>
             </Link>
