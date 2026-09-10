@@ -74,8 +74,7 @@ const NewestArticle = async () => {
                     month: "short",
                     day: "numeric",
                   })}
-                  {" | "}
-                  {b.readTime ? `${b.readTime} min read` : "read"}
+                  {b.readTime ? ` | ${b.readTime} min read` : ""}
                 </p>
               </div>
             </Link>
