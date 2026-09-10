@@ -1,4 +1,8 @@
-import type { CollectionConfig } from "payload";
+import type { CollectionConfig, TextFieldSingleValidation } from "payload";
+import { validateUrl } from "@payloadcms/richtext-lexical";
+
+const validateLinkedinUrl: TextFieldSingleValidation = (value) =>
+  !value || validateUrl(value) || "Please enter a valid URL.";
 
 export const ExecutiveCommittee: CollectionConfig = {
   slug: "executive-committee",
@@ -8,6 +12,7 @@ export const ExecutiveCommittee: CollectionConfig = {
   },
   admin: {
     useAsTitle: "name",
+    defaultColumns: ["name", "title", "team", "displayOrder"],
   },
   access: {
     read: () => true,
@@ -29,6 +34,16 @@ export const ExecutiveCommittee: CollectionConfig = {
       required: true,
     },
     {
+      name: "linkedinUrl",
+      type: "text",
+      label: "LinkedIn URL",
+      required: false,
+      admin: {
+        description: "Include https:// at the start, e.g. https://www.linkedin.com/in/your-name/.",
+      },
+      validate: validateLinkedinUrl,
+    },
+    {
       name: "image",
       type: "upload",
       relationTo: "media",
@@ -38,23 +53,27 @@ export const ExecutiveCommittee: CollectionConfig = {
       },
     },
     {
-      name: "subteam",
-      type: "select",
+      name: "team",
+      label: "Executive Subteam",
+      type: "relationship",
+      relationTo: "executive-subteams",
+      hasMany: false,
       required: true,
-      options: [
-        { label: "Leadership Team", value: "Leadership Team" },
-        {
-          label: "Bulletin and Investment Committee Chairperson",
-          value: "Bulletin and Investment Committee Chairperson",
-        },
-        { label: "Secretary & Treasurer", value: "Secretary & Treasurer" },
-        { label: "Diversity and Inclusion Team", value: "Diversity and Inclusion Team" },
-        { label: "Education Team", value: "Education Team" },
-        { label: "Competitions Team 1", value: "Competitions Team 1" },
-        { label: "Competitions Team 2", value: "Competitions Team 2" },
-        { label: "Marketing Team", value: "Marketing Team" },
-        { label: "Social Team", value: "Social Team" },
-      ],
+      admin: {
+        description: "Select the team created in Executive Subteams.",
+      },
+    },
+    {
+      name: "displayOrder",
+      label: "Display Order",
+      type: "number",
+      required: true,
+      defaultValue: 0,
+      min: 0,
+      admin: {
+        description:
+          "Order within this member's team. Lower numbers appear first; equal numbers are sorted by name.",
+      },
     },
   ],
 };
