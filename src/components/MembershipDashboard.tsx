@@ -12,7 +12,8 @@ type SessionUser = {
 export type MemberProfile = {
   studentId: string;
   universityYear: "year1" | "year2" | "year3" | "year4" | "year5Plus" | "postgraduate";
-  degrees: string;
+  phoneNumber: string;
+  degree: string;
   hasPaid: boolean;
   paymentDate?: string | null;
 };
@@ -114,18 +115,164 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
   const router = useRouter();
   const [signingOut, setSigningOut] = useState(false);
 
+  const [isEditingDetails, setIsEditingDetails] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [studentId, setStudentId] = useState(member?.studentId ?? "");
+  const [phoneNumber, setPhoneNumber] = useState(member?.phoneNumber ?? "");
+  const [degree, setDegree] = useState(member?.degree ?? "");
+  const [universityYear, setUniversityYear] = useState<MemberProfile["universityYear"] | "">(
+    member?.universityYear ?? "",
+  );
+
   const handleSignOut = async () => {
     setSigningOut(true);
     await signOut();
     router.push("/login");
   };
 
+  const handleCancelEdit = () => {
+    setName(user.name);
+    setStudentId(member?.studentId ?? "");
+    setPhoneNumber(member?.phoneNumber ?? "");
+    setDegree(member?.degree ?? "");
+    setUniversityYear(member?.universityYear ?? "");
+    setError(null);
+    setIsEditingDetails(false);
+  };
+
+  const handleSaveDetails = async () => {
+    if (!name.trim()) {
+      setError("Name can't be empty.");
+      return;
+    }
+
+    setSaving(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/account/details", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          studentId: studentId.trim(),
+          degrees: degree.trim(),
+          universityYear,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to update details");
+      setIsEditingDetails(false);
+      router.refresh();
+    } catch (err) {
+      console.error("Failed to save details:", err);
+      setError("Couldn't save your details. Try again.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const personalDetails = [
-    { label: "Full Name", value: user.name || "Not provided" },
-    { label: "Student ID", value: member?.studentId ?? "—" },
-    { label: "University Email", value: user.email },
-    { label: "Degree / Programme", value: member?.degrees ?? "—" },
-    { label: "Year of Study", value: member ? YEAR_LABELS[member.universityYear] : "—" },
+    {
+      label: "Full Name",
+      value: isEditingDetails ? (
+        <div className="flex items-center gap-2">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+            autoFocus
+          />
+        </div>
+      ) : (
+        user.name || "—"
+      ),
+    },
+    {
+      label: "Student ID",
+      value: isEditingDetails ? (
+        <div className="flex items-center gap-2">
+          <input
+            value={studentId}
+            onChange={(e) => setStudentId(e.target.value)}
+            className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+            autoFocus
+          />
+        </div>
+      ) : (
+        member?.studentId || "—"
+      ),
+    },
+    {
+      label: "University Email",
+      value: isEditingDetails ? (
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+        />
+      ) : (
+        user.email
+      ),
+    },
+    {
+      label: "Phone Number",
+      value: isEditingDetails ? (
+        <div className="flex items-center gap-2">
+          <input
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+            autoFocus
+          />
+        </div>
+      ) : (
+        member?.phoneNumber || "—"
+      ),
+    },
+    {
+      label: "Degree / Programme",
+      value: isEditingDetails ? (
+        <div className="flex items-center gap-2">
+          <input
+            value={degree}
+            onChange={(e) => setDegree(e.target.value)}
+            className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+            autoFocus
+          />
+        </div>
+      ) : (
+        member?.degree || "—"
+      ),
+    },
+    {
+      label: "Year of Study",
+      value: isEditingDetails ? (
+        <div className="flex items-center gap-2">
+          <select
+            value={universityYear}
+            onChange={(e) =>
+              setUniversityYear(e.target.value as MemberProfile["universityYear"] | "")
+            }
+            className="w-full appearance-none rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+          >
+            <option value="">—</option>
+            {Object.entries(YEAR_LABELS).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </div>
+      ) : member?.universityYear && YEAR_LABELS[member.universityYear] ? (
+        YEAR_LABELS[member.universityYear]
+      ) : (
+        "—"
+      ),
+    },
   ];
 
   return (
@@ -148,7 +295,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
             <CardHeader
               title="Personal details"
               subtitle="Visible to club admin only"
-              onEdit={() => {}}
+              onEdit={() => setIsEditingDetails(true)}
             />
             <div className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
               {personalDetails.map((field) => (
@@ -160,10 +307,33 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                 </div>
               ))}
             </div>
-            <hr className="border-grey-200 my-6 border-t" />
-            <button className="font-medium text-blue-600 hover:cursor-pointer hover:underline">
-              Change Password
-            </button>
+
+            <hr className="mt-5 mb-4 border-t border-[#E2E9F2]" />
+            {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
+            <div className="flex justify-between">
+              <button className="text-sm font-medium text-[#005EAF] hover:cursor-pointer hover:underline">
+                Change Password
+              </button>
+
+              {isEditingDetails && (
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={handleCancelEdit}
+                    disabled={saving}
+                    className="rounded-[8px] border-2 border-[#E2E9F2] px-5 py-2 text-sm font-medium text-slate-500 hover:cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleSaveDetails}
+                    disabled={saving}
+                    className="rounded-[8px] bg-gradient-to-r from-[#249AFF] to-[#005EAF] px-5 py-2 text-sm font-semibold text-white hover:cursor-pointer disabled:opacity-50"
+                  >
+                    {saving ? "Saving..." : "Save Changes"}
+                  </button>
+                </div>
+              )}
+            </div>
           </Card>
 
           {/* Membership */}
