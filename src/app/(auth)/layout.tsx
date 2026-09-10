@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   description: "Investment Club Website",
 };
 
+// Match Fly behaviour: rendered on demand, never prerendered at build.
+export const dynamic = "force-dynamic";
+
 export default function RootLayout({
   children,
 }: Readonly<{
