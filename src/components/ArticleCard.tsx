@@ -21,7 +21,6 @@ const ArticleCard = ({ contentToDisplay }: { contentToDisplay: ArticleCardConten
       rel={contentToDisplay.openInNewTab ? "noopener noreferrer" : undefined}
       className="group flex h-full w-full flex-col overflow-hidden rounded-[16px] bg-white shadow-[0_2.5px_10px_rgba(0,0,0,0.25)]"
     >
-      {/* Cover runs edge to edge, flush with the top of the card */}
       <div className="aspect-[400/161] w-full overflow-hidden">
         <Image
           src={contentToDisplay.image}
