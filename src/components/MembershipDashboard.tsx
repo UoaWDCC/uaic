@@ -13,7 +13,9 @@ export type MemberProfile = {
   studentId: string;
   universityYear: "year1" | "year2" | "year3" | "year4" | "year5Plus" | "postgraduate";
   phoneNumber: string;
-  degree: string;
+  degrees: string;
+  firstName: string;
+  lastName: string;
   hasPaid: boolean;
   paymentDate?: string | null;
 };
@@ -119,14 +121,17 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [name, setName] = useState(user.name);
+  const [name, setName] = useState(`${member?.firstName ?? ""} ${member?.lastName ?? ""}`.trim());
   const [email, setEmail] = useState(user.email);
   const [studentId, setStudentId] = useState(member?.studentId ?? "");
   const [phoneNumber, setPhoneNumber] = useState(member?.phoneNumber ?? "");
-  const [degree, setDegree] = useState(member?.degree ?? "");
+  const [degrees, setDegrees] = useState(member?.degrees ?? "");
   const [universityYear, setUniversityYear] = useState<MemberProfile["universityYear"] | "">(
     member?.universityYear ?? "",
   );
+
+  // checks if the email has a valid abc@xyz format with only one '@'
+  const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
   const handleSignOut = async () => {
     setSigningOut(true);
@@ -134,14 +139,22 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
     router.push("/login");
   };
 
+  //resets the input fields
   const handleCancelEdit = () => {
-    setName(user.name);
+    setName(`${member?.firstName ?? ""} ${member?.lastName ?? ""}`.trim());
     setStudentId(member?.studentId ?? "");
     setPhoneNumber(member?.phoneNumber ?? "");
-    setDegree(member?.degree ?? "");
+    setDegrees(member?.degrees ?? "");
     setUniversityYear(member?.universityYear ?? "");
     setError(null);
+    setEmail(user.email);
     setIsEditingDetails(false);
+  };
+
+  //splits users full name from input field to fit into first and last name field
+  const splitName = (fullName: string) => {
+    const [first, ...rest] = fullName.trim().split(" ");
+    return { firstName: first ?? "", lastName: rest.join(" ") };
   };
 
   const handleSaveDetails = async () => {
@@ -150,20 +163,30 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
       return;
     }
 
+    if (!isValidEmail(email.trim())) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    const { firstName, lastName } = splitName(name);
+
     setSaving(true);
     setError(null);
     try {
-      const res = await fetch("/api/account/details", {
+      const response = await fetch("/api/accounts/details", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: name.trim(),
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          email: email.trim(),
           studentId: studentId.trim(),
-          degrees: degree.trim(),
+          degrees: degrees.trim(),
           universityYear,
+          phoneNumber: phoneNumber.trim(),
         }),
       });
-      if (!res.ok) throw new Error("Failed to update details");
+      if (!response.ok) throw new Error("Failed to update details");
       setIsEditingDetails(false);
       router.refresh();
     } catch (err) {
@@ -178,29 +201,24 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
     {
       label: "Full Name",
       value: isEditingDetails ? (
-        <div className="flex items-center gap-2">
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
-            autoFocus
-          />
-        </div>
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="flex w-full items-center gap-2 rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+          autoFocus
+        />
       ) : (
-        user.name || "—"
+        `${member?.firstName ?? ""} ${member?.lastName ?? ""}`.trim() || "—"
       ),
     },
     {
       label: "Student ID",
       value: isEditingDetails ? (
-        <div className="flex items-center gap-2">
-          <input
-            value={studentId}
-            onChange={(e) => setStudentId(e.target.value)}
-            className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
-            autoFocus
-          />
-        </div>
+        <input
+          value={studentId}
+          onChange={(e) => setStudentId(e.target.value)}
+          className="flex w-full items-center gap-2 rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+        />
       ) : (
         member?.studentId || "—"
       ),
@@ -221,14 +239,11 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
     {
       label: "Phone Number",
       value: isEditingDetails ? (
-        <div className="flex items-center gap-2">
-          <input
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
-            autoFocus
-          />
-        </div>
+        <input
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+        />
       ) : (
         member?.phoneNumber || "—"
       ),
@@ -236,37 +251,32 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
     {
       label: "Degree / Programme",
       value: isEditingDetails ? (
-        <div className="flex items-center gap-2">
-          <input
-            value={degree}
-            onChange={(e) => setDegree(e.target.value)}
-            className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
-            autoFocus
-          />
-        </div>
+        <input
+          value={degrees}
+          onChange={(e) => setDegrees(e.target.value)}
+          className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+        />
       ) : (
-        member?.degree || "—"
+        member?.degrees || "—"
       ),
     },
     {
       label: "Year of Study",
       value: isEditingDetails ? (
-        <div className="flex items-center gap-2">
-          <select
-            value={universityYear}
-            onChange={(e) =>
-              setUniversityYear(e.target.value as MemberProfile["universityYear"] | "")
-            }
-            className="w-full appearance-none rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
-          >
-            <option value="">—</option>
-            {Object.entries(YEAR_LABELS).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </div>
+        <select
+          value={universityYear}
+          onChange={(e) =>
+            setUniversityYear(e.target.value as MemberProfile["universityYear"] | "")
+          }
+          className="w-full appearance-none rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+        >
+          <option value=""></option>
+          {Object.entries(YEAR_LABELS).map(([value, label]) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
       ) : member?.universityYear && YEAR_LABELS[member.universityYear] ? (
         YEAR_LABELS[member.universityYear]
       ) : (
@@ -300,10 +310,10 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
             <div className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
               {personalDetails.map((field) => (
                 <div key={field.label}>
-                  <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+                  <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                     {field.label}
-                  </p>
-                  <p className="text-darkBlue mt-1">{field.value}</p>
+                  </div>
+                  <div className="text-darkBlue mt-1">{field.value}</div>
                 </div>
               ))}
             </div>

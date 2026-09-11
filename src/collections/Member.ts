@@ -37,6 +37,15 @@ export const Member: CollectionConfig = {
       },
     },
     {
+      name: "phoneNumber",
+      type: "text",
+      label: "Phone Number",
+      required: false,
+      admin: {
+        readOnly: true,
+      },
+    },
+    {
       name: "upi",
       type: "text",
       label: "UPI",
