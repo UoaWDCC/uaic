@@ -1,4 +1,3 @@
-// app/api/account/details/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { getPayload } from "payload";
 import config from "@payload-config";
@@ -42,10 +41,6 @@ export async function PATCH(req: NextRequest) {
       universityYear === "" || universityYear === undefined
         ? undefined
         : (universityYear as (typeof VALID_YEARS)[number]),
-    /*experienceLevel:
-      experienceLevel === "" || experienceLevel === undefined
-        ? undefined
-        : (experienceLevel as (typeof VALID_EXPERIENCE)[number]),*/
   };
 
   if (

@@ -258,6 +258,11 @@ export interface Member {
   paymentDate?: string | null;
   updatedAt: string;
   createdAt: string;
+  experienceLevel: 'Beginner' | 'Intermediate'| 'Advanced';
+  areasOfInterest: 'Equities' | 'Crypto' | 'Macro' | 'Options' | 'ESG' | 'Fixed Income' | 'Venture / Startups';
+  linkedinHandle: string;
+  caseCompetitionInterest: boolean;
+
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

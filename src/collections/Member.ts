@@ -87,27 +87,6 @@ export const Member: CollectionConfig = {
       ],
     },
     {
-      name: "experienceLevel",
-      type: "select",
-      label: "Experience Level",
-      required: false,
-      options: [
-        { label: "Beginner", value: "beginner" },
-        { label: "Intermediate", value: "intermediate" },
-        { label: "Advanced", value: "advanced" },
-      ],
-    },
-    {
-      name: "memberType",
-      type: "select",
-      label: "Member Type",
-      required: true,
-      options: [
-        { label: "Returning", value: "returning" },
-        { label: "New Member", value: "newMember" },
-      ],
-    },
-    {
       name: "degrees",
       type: "text",
       label: "Degrees",
@@ -167,6 +146,34 @@ export const Member: CollectionConfig = {
 
         return true;
       },
+    },
+    {
+      name: "experienceLevel",
+      type: "select",
+      options: ["beginner", "intermediate", "advanced"],
+    },
+    {
+      name: "areasOfInterest",
+      type: "select",
+      hasMany: true,
+      options: [
+        "Equities",
+        "Crypto",
+        "Macro",
+        "Options",
+        "ESG",
+        "Fixed Income",
+        "Venture / Startups",
+      ],
+    },
+    {
+      name: "linkedinHandle",
+      type: "text",
+    },
+    {
+      name: "caseCompetitionInterest",
+      type: "checkbox",
+      defaultValue: false,
     },
   ],
   access: {
