@@ -115,7 +115,7 @@ const InvestmentProfile = ({ member }: InvestmentProfileProps) => {
               type="button"
               disabled={!isEditingProfile}
               onClick={() => setExperienceLevel(level.value)}
-              className={`rounded-lg border px-4 py-3 text-sm font-semibold transition-colors ${
+              className={`w-full rounded-lg border px-3 py-3 text-xs font-semibold transition-colors md:px-4 md:text-sm ${
                 isSelected
                   ? "border-[#005EAF] bg-[#EAF3FF] text-[#005EAF]"
                   : "border-transparent bg-[#F3F7FC] text-[#6B7A8D]"
@@ -161,7 +161,7 @@ const InvestmentProfile = ({ member }: InvestmentProfileProps) => {
               value={linkedinHandle}
               onChange={(e) => setLinkedinHandle(e.target.value)}
               placeholder="in/yourname"
-              className="mt-1 w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+              className="mt-1 w-full rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
             />
           ) : (
             <p className="text-[#0B1A2B]mt-1">{member?.linkedinHandle || "—"}</p>
@@ -175,7 +175,7 @@ const InvestmentProfile = ({ member }: InvestmentProfileProps) => {
             <select
               value={caseCompetitionInterest ? "yes" : "no"}
               onChange={(e) => setCaseCompetitionInterest(e.target.value === "yes")}
-              className="mt-1 w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+              className="mt-1 w-full rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
             >
               <option value="yes">Yes — notify me</option>
               <option value="no">No thanks</option>
@@ -195,14 +195,14 @@ const InvestmentProfile = ({ member }: InvestmentProfileProps) => {
           <button
             onClick={handleCancelProfileEdit}
             disabled={savingProfile}
-            className="rounded-[8px] border-2 border-[#E2E9F2] px-5 py-2 text-sm font-medium text-slate-500 hover:cursor-pointer"
+            className="rounded-lg border-2 border-[#E2E9F2] px-5 py-2 text-sm font-medium text-slate-500 hover:cursor-pointer"
           >
             Cancel
           </button>
           <button
             onClick={handleSaveProfile}
             disabled={savingProfile}
-            className="rounded-[8px] bg-gradient-to-r from-[#249AFF] to-[#005EAF] px-5 py-2 text-sm font-semibold text-white hover:cursor-pointer disabled:opacity-50"
+            className="rounded-lg bg-linear-to-r from-[#249AFF] to-[#005EAF] px-5 py-2 text-sm font-semibold text-white hover:cursor-pointer disabled:opacity-50"
           >
             {savingProfile ? "Saving..." : "Save Changes"}
           </button>

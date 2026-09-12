@@ -231,7 +231,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="flex w-full items-center gap-2 rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+          className="flex w-full items-center gap-2 rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
           autoFocus
         />
       ) : (
@@ -244,7 +244,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
         <input
           value={studentId}
           onChange={(e) => setStudentId(e.target.value)}
-          className="flex w-full items-center gap-2 rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+          className="flex w-full items-center gap-2 rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
         />
       ) : (
         maskStudentID(member?.studentId ?? "")
@@ -257,7 +257,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+          className="w-full rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
         />
       ) : (
         user.email
@@ -269,7 +269,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
         <input
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
-          className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+          className="w-full rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
         />
       ) : (
         maskPhoneNumber(member?.phoneNumber ?? "")
@@ -281,7 +281,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
         <input
           value={degrees}
           onChange={(e) => setDegrees(e.target.value)}
-          className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+          className="w-full rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
         />
       ) : (
         member?.degrees || "—"
@@ -295,7 +295,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           onChange={(e) =>
             setUniversityYear(e.target.value as MemberProfile["universityYear"] | "")
           }
-          className="w-full appearance-none rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
+          className="w-full appearance-none rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
         >
           <option value=""></option>
           {Object.entries(YEAR_LABELS).map(([value, label]) => (
@@ -319,11 +319,11 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           Membership Dashboard
         </div>
         <div className="inline-flex items-center gap-2">
-          <div className="mt-1 text-2xl font-extrabold text-[#0B1A2B]">
+          <div className="mt-1 text-xl font-extrabold text-[#0B1A2B] md:text-2xl">
             Welcome Back, {member?.firstName || "Member"}
           </div>
           {member?.hasPaid && (
-            <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-[#E7F7EE] px-3 py-2 text-xs font-semibold text-[#1B7A43]">
+            <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-[#E7F7EE] px-3 py-2 text-[2vw] font-semibold text-[#1B7A43] md:text-xs">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#1B7A43]" />
               Active member
             </div>
@@ -365,14 +365,14 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                   <button
                     onClick={handleCancelEdit}
                     disabled={saving}
-                    className="rounded-[8px] border-2 border-[#E2E9F2] px-5 py-2 text-sm font-medium text-slate-500 hover:cursor-pointer"
+                    className="rounded-lg border-2 border-[#E2E9F2] px-5 py-2 text-sm font-medium text-slate-500 hover:cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleSaveDetails}
                     disabled={saving}
-                    className="rounded-[8px] bg-gradient-to-r from-[#249AFF] to-[#005EAF] px-5 py-2 text-sm font-semibold text-white hover:cursor-pointer disabled:opacity-50"
+                    className="rounded-lg bg-linear-to-r from-[#249AFF] to-[#005EAF] px-5 py-2 text-sm font-semibold text-white hover:cursor-pointer disabled:opacity-50"
                   >
                     {saving ? "Saving..." : "Save Changes"}
                   </button>
@@ -384,7 +384,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           {/* Membership */}
           <Card>
             <CardHeader title="Membership" />
-            <div className="flex justify-between rounded-2xl bg-gradient-to-r from-[#249AFF] to-[#005EAF] p-5 text-white">
+            <div className="flex justify-between rounded-2xl bg-linear-to-r from-[#249AFF] to-[#005EAF] p-5 text-white">
               <div className="flex-col">
                 <div className="text-m text-xl font-bold">
                   {member?.hasPaid ? "General Member" : "Membership Pending"}
@@ -413,19 +413,19 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                     <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                       Member Since
                     </div>
-                    <p className="text-darkBlue mt-1">{formatMemberSince(member?.paymentDate)}</p>
+                    <p className="mt-1 text-[#0B1A2B]">{formatMemberSince(member?.paymentDate)}</p>
                   </div>
                   <div className="w-1/2 flex-col">
                     <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                       Chapter
                     </div>
-                    <p className="text-darkBlue mt-1">Auckland CBD</p>
+                    <p className="mt-1 text-[#0B1A2B]">Auckland CBD</p>
                   </div>
                 </div>
                 <hr className="mt-6 mb-4 border-t border-[#E2E9F2]" />
                 <div className="pb-4">
                   <Link href="/">
-                    <button className="inline-flex items-center gap-2 rounded-4xl bg-[#EAF3FF] px-4 py-3 text-[1vw] font-semibold text-[#005EAF]">
+                    <button className="inline-flex items-center gap-2 rounded-4xl bg-[#EAF3FF] px-4 py-3 text-[3vw] font-semibold text-[#005EAF] md:text-[1vw]">
                       Upgrade to Executive
                       <FiExternalLink size={14} />
                     </button>
@@ -465,7 +465,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                 </div>
               ))}
             </div>
-            <button className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#249AFF] to-[#005EAF] px-6 py-3 font-semibold text-white hover:cursor-pointer">
+            <button className="mt-6 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-[#249AFF] to-[#005EAF] px-6 py-3 font-semibold text-white hover:cursor-pointer">
               <FiArrowUpRight size={18} />
               View All events
             </button>

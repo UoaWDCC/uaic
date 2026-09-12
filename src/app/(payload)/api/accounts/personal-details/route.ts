@@ -4,7 +4,6 @@ import config from "@payload-config";
 import { auth } from "@/lib/auth";
 
 const VALID_YEARS = ["year1", "year2", "year3", "year4", "year5Plus", "postgraduate"] as const;
-/* const VALID_EXPERIENCE = ["beginner", "intermediate", "advanced"] as const; */
 
 export async function PATCH(req: NextRequest) {
   const session = await auth.api.getSession({ headers: req.headers });
