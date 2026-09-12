@@ -7,7 +7,7 @@ placed here - this folder is only for tests that don't belong to one file.
 ## Unit tests
 
 Colocated with the code they cover, as `*.test.ts(x)` next to the source
-file (e.g. `src/components/bulletin/AllArticles.test.tsx` next to
+file (e.g. `src/features/bulletins/components/AllArticles.test.tsx` next to
 `AllArticles.tsx`). A unit test covers a plain function - deterministic, no
 rendering, no database, no network. See that file for an example.
 
