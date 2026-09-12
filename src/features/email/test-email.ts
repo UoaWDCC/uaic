@@ -1,4 +1,4 @@
-import "dotenv";
+import "dotenv/config";
 import { sendEmail } from "./lib/send-email"; // adjust path if needed
 
 const EMAIL_RECIPIENT = process.env.EMAIL_RECIPIENT;
