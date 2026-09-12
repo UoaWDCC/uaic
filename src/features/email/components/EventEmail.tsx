@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
-import ArrowButton from "./ArrowButton";
+import ArrowButton from "@/components/ArrowButton";
 
-const MembershipEmail = () => {
+const EventEmail = () => {
   return (
     <div className="w-full">
       {/* Container */}
@@ -10,10 +10,10 @@ const MembershipEmail = () => {
         <div className="flex min-h-[600px] w-full max-w-[472px] flex-col gap-[30px] rounded-[8px] bg-white px-[24px] py-[30px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
           <div className="w-full flex-col gap-[8px]">
             <div className="w-full text-[5vw] font-semibold text-[#00529B] md:text-[1.7vw]">
-              Welcome to the Club!
+              You're all set!
             </div>
             <div className="w-full text-[4vw] text-[rgba(0,0,0,0.20)] md:text-[1.2vw]">
-              Your membership has been confirmed.
+              Your attendance has been confirmed.
             </div>
           </div>
           {/* intro */}
@@ -21,32 +21,32 @@ const MembershipEmail = () => {
             Hi [First Name],
             <p>
               <br />
-              You're officially a member of the UoA Investment Club. Whether you're here to learn
-              the basics, build on what you know, or go deep on markets — there's a place for you
-              here.
+              You've successfully signed up for one of our upcoming events and your name has been
+              added to our list of attendees. We can't wait to see you there.
             </p>
           </div>
           {/* Membership Details */}
           <div className="w-full flex-col gap-[24px]">
             <div className="font-600 gap-[24px] text-[3.5vw] text-[#249AFF] md:text-[1.3vw]">
-              MEMBERSHIP DETAILS
+              EVENT DETAILS
               <div className="w-full flex-row">
                 <div className="flex w-full justify-between pt-5">
-                  <div className="left-0 text-[3vw] text-[#A1A1A1] md:text-[1vw]">Name</div>
-                  <div className="left-0 text-[3vw] text-[#005EAF] md:text-[1vw]">[Full Name]</div>
+                  <div className="left-0 text-[3vw] text-[#A1A1A1] md:text-[1vw]">Event Name</div>
+                  <div className="left-0 text-[3vw] text-[#005EAF] md:text-[1vw]">[Event Name]</div>
                 </div>
                 <div className="h-[24px] w-full border-b-[0.8px] border-[#A1A1A1] bg-white"></div>
                 <div className="flex w-full justify-between pt-4">
-                  <div className="left-0 text-[3vw] text-[#A1A1A1] md:text-[1vw]">Member ID</div>
-                  <div className="left-0 text-[3vw] text-[#005EAF] md:text-[1vw]">
-                    #UAIC-2025-[ID]
+                  <div className="left-0 text-[3vw] text-[#A1A1A1] md:text-[1vw]">Date</div>
+                  <div className="left-0 text-right text-[3vw] text-[#005EAF] md:text-[1vw]">
+                    [Date]
+                    <p>[Start Time - End Time]</p>
                   </div>
                 </div>
                 <div className="h-[24px] w-full border-b-[0.8px] border-[#A1A1A1] bg-white"></div>
               </div>
               <div className="flex w-full justify-between pt-4">
-                <div className="left-0 text-[3vw] text-[#A1A1A1] md:text-[1vw]">Joined</div>
-                <div className="left-0 text-[3vw] text-[#005EAF] md:text-[1vw]">[Date]</div>
+                <div className="left-0 text-[3vw] text-[#A1A1A1] md:text-[1vw]">Location</div>
+                <div className="left-0 text-[3vw] text-[#005EAF] md:text-[1vw]">[Address]</div>
               </div>
               <div className="h-[24px] w-full border-b-[0.8px] border-[#A1A1A1] bg-white"></div>
             </div>
@@ -62,11 +62,9 @@ const MembershipEmail = () => {
                     1
                   </div>
                   <div className="flex flex-col">
-                    <div className="w-full text-[3vw] text-black md:text-[1vw]">
-                      Join the member portal
-                    </div>
+                    <div className="w-full text-[3vw] text-black md:text-[1vw]">Save the date</div>
                     <div className="w-full text-[2.5vw] text-black opacity-50 md:text-[0.9vw]">
-                      Access research, meeting notes, and resources through the UAIC member hub.
+                      Mark your calendars, organise your schedules and find the location, if needed.
                     </div>
                   </div>
                 </div>
@@ -77,10 +75,11 @@ const MembershipEmail = () => {
                   </div>
                   <div className="flex flex-col">
                     <div className="w-full text-[3vw] text-black md:text-[1vw]">
-                      Attend your first session
+                      Can't make it anymore?
                     </div>
                     <div className="w-full text-[2.5vw] text-black opacity-50 md:text-[0.9vw]">
-                      We meet weekly — check your email for the schedule and location.
+                      We totally understand — just make sure to cancel your spot by emailing us, so
+                      we can offer your spot to someone else.
                     </div>
                   </div>
                 </div>
@@ -91,10 +90,10 @@ const MembershipEmail = () => {
                   </div>
                   <div className="flex flex-col">
                     <div className="w-full text-[3vw] text-black md:text-[1vw]">
-                      Connect on our socials
+                      Keep an eye on your inbox
                     </div>
                     <div className="w-full text-[2.5vw] text-black opacity-50 md:text-[0.9vw]">
-                      Our main channel for discussion, opportunities, and announcements.
+                      We may email you additional details closer to the event.
                     </div>
                   </div>
                 </div>
@@ -125,4 +124,4 @@ const MembershipEmail = () => {
     </div>
   );
 };
-export default MembershipEmail;
+export default EventEmail;
