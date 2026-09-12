@@ -5,6 +5,7 @@ import config from "@payload-config";
 import { auth } from "@/lib/auth";
 
 const VALID_YEARS = ["year1", "year2", "year3", "year4", "year5Plus", "postgraduate"] as const;
+/* const VALID_EXPERIENCE = ["beginner", "intermediate", "advanced"] as const; */
 
 export async function PATCH(req: NextRequest) {
   const session = await auth.api.getSession({ headers: req.headers });
@@ -19,11 +20,21 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const { firstName, lastName, studentId, phoneNumber, degrees, universityYear } = body;
+  const {
+    firstName,
+    lastName,
+    email,
+    studentId,
+    phoneNumber,
+    degrees,
+    universityYear,
+    //experienceLevel,
+  } = body;
 
   const memberData = {
     firstName: typeof firstName === "string" ? firstName.trim() : undefined,
     lastName: typeof lastName === "string" ? lastName.trim() : undefined,
+    email: typeof email === "string" ? email.trim() : undefined,
     studentId: typeof studentId === "string" ? studentId.trim() : undefined,
     phoneNumber: typeof phoneNumber === "string" ? phoneNumber.trim() : undefined,
     degrees: typeof degrees === "string" ? degrees.trim() : undefined,
@@ -31,6 +42,10 @@ export async function PATCH(req: NextRequest) {
       universityYear === "" || universityYear === undefined
         ? undefined
         : (universityYear as (typeof VALID_YEARS)[number]),
+    /*experienceLevel:
+      experienceLevel === "" || experienceLevel === undefined
+        ? undefined
+        : (experienceLevel as (typeof VALID_EXPERIENCE)[number]),*/
   };
 
   if (
@@ -63,20 +78,6 @@ export async function PATCH(req: NextRequest) {
       id: memberResult.docs[0].id,
       data: memberData,
     });
-
-    const incomplete = await payload.find({
-      collection: "member",
-      where: {
-        or: [
-          { gender: { exists: false } },
-          { memberType: { exists: false } },
-          { majors: { exists: false } },
-          { ethnicity: { exists: false } },
-          { upi: { exists: false } },
-        ],
-      },
-    });
-    console.log(`${incomplete.docs.length} incomplete member records found`);
 
     return NextResponse.json({ success: true });
   } catch (err) {

@@ -87,6 +87,17 @@ export const Member: CollectionConfig = {
       ],
     },
     {
+      name: "experienceLevel",
+      type: "select",
+      label: "Experience Level",
+      required: false,
+      options: [
+        { label: "Beginner", value: "beginner" },
+        { label: "Intermediate", value: "intermediate" },
+        { label: "Advanced", value: "advanced" },
+      ],
+    },
+    {
       name: "memberType",
       type: "select",
       label: "Member Type",

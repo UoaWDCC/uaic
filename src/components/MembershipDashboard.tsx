@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FiEdit2, FiArrowUpRight, FiLogOut } from "react-icons/fi";
+import { FiEdit2, FiLogOut, FiExternalLink, FiArrowUpRight } from "react-icons/fi";
 import { signOut } from "@/lib/auth-client";
+import Link from "next/link";
 
 type SessionUser = {
   name: string;
@@ -12,6 +13,7 @@ type SessionUser = {
 export type MemberProfile = {
   studentId: string;
   universityYear: "year1" | "year2" | "year3" | "year4" | "year5Plus" | "postgraduate";
+  experienceLevel: "beginner" | "intermediate" | "advanced";
   phoneNumber: string;
   degrees: string;
   firstName: string;
@@ -24,6 +26,11 @@ interface MembershipDashboardProps {
   user: SessionUser;
   member: MemberProfile | null;
 }
+
+export type Membership = {
+  membershipType: "General Membership";
+  validYear: string;
+};
 
 const YEAR_LABELS: Record<MemberProfile["universityYear"], string> = {
   year1: "1st Year",
@@ -43,6 +50,7 @@ type UpcomingEvent = {
 
 interface CardProps {
   children: React.ReactNode;
+  className?: string;
 }
 
 interface CardHeaderProps {
@@ -66,8 +74,8 @@ const upcomingEvents: UpcomingEvent[] = [
   },
 ];
 
-const Card = ({ children }: CardProps) => {
-  return <div className="rounded-2xl bg-white p-6 shadow-sm">{children}</div>;
+const Card = ({ children, className }: CardProps) => {
+  return <div className={`rounded-2xl bg-white p-6 shadow-sm ${className ?? ""}`}>{children} </div>;
 };
 
 const CardHeader = ({ title, subtitle, onEdit }: CardHeaderProps) => {
@@ -89,28 +97,41 @@ const CardHeader = ({ title, subtitle, onEdit }: CardHeaderProps) => {
   );
 };
 
-const Toggle = () => {
-  const [isOn, setIsOn] = useState(false);
-
-  return (
-    <button
-      onClick={() => setIsOn(!isOn)}
-      className={`relative h-6 w-11 shrink-0 rounded-full transition-colors hover:cursor-pointer ${
-        isOn ? "bg-blue-600" : "bg-slate-300"
-      }`}
-    >
-      <span
-        className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
-          isOn ? "translate-x-5" : "translate-x-0.5"
-        }`}
-      />
-    </button>
-  );
-};
-
 const formatMemberSince = (paymentDate?: string | null) => {
   if (!paymentDate) return "—";
   return new Date(paymentDate).toLocaleDateString("en-NZ", { month: "long", year: "numeric" });
+};
+
+const maskStudentID = (value: string, visibleChars = 2) => {
+  if (!value) {
+    return "—";
+  }
+  const studentID = value.trim();
+  const masked = "•".repeat(studentID.length - visibleChars);
+  return masked + studentID.slice(-visibleChars);
+};
+
+const maskPhoneNumber = (value: string, visibleDigits = 2) => {
+  if (!value) {
+    return "—";
+  }
+  const digitsOnly = value.replace(/\D/g, ""); /* strip non-digits */
+  if (digitsOnly.length <= visibleDigits) return value;
+
+  const visible = digitsOnly.slice(-visibleDigits);
+  const maskedLength = digitsOnly.length - visibleDigits;
+
+  const groups: string[] = [];
+  let remaining = maskedLength;
+  const chunkSizes = [4, 3, 3]; /* adjust to match typical NZ mobile format: 0XX XXX XXXX */
+  for (const size of chunkSizes) {
+    if (remaining <= 0) break;
+    const take = Math.min(size, remaining);
+    groups.push("•".repeat(take));
+    remaining -= take;
+  }
+
+  return groups.join(" ") + " " + visible;
 };
 
 const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
@@ -130,7 +151,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
     member?.universityYear ?? "",
   );
 
-  // checks if the email has a valid abc@xyz format with only one '@'
+  /* Checks if the email has a valid abc@xyz format with only one '@' */
   const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
   const handleSignOut = async () => {
@@ -139,7 +160,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
     router.push("/login");
   };
 
-  //resets the input fields
+  /* Resets the input fields */
   const handleCancelEdit = () => {
     setName(`${member?.firstName ?? ""} ${member?.lastName ?? ""}`.trim());
     setStudentId(member?.studentId ?? "");
@@ -151,7 +172,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
     setIsEditingDetails(false);
   };
 
-  //splits users full name from input field to fit into first and last name field
+  /* splits users full name from input field to fit into first and last name field */
   const splitName = (fullName: string) => {
     const [first, ...rest] = fullName.trim().split(" ");
     return { firstName: first ?? "", lastName: rest.join(" ") };
@@ -220,7 +241,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           className="flex w-full items-center gap-2 rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
         />
       ) : (
-        member?.studentId || "—"
+        maskStudentID(member?.studentId ?? "")
       ),
     },
     {
@@ -245,7 +266,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           className="w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
         />
       ) : (
-        member?.phoneNumber || "—"
+        maskPhoneNumber(member?.phoneNumber ?? "")
       ),
     },
     {
@@ -288,16 +309,16 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
   return (
     <div className="min-h-screen bg-slate-100 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto w-full max-w-6xl">
-        <p className="text-sm font-bold tracking-wide text-blue-500 uppercase">
+        <div className="text-sm font-bold tracking-wide text-blue-500 uppercase">
           Membership Dashboard
-        </p>
+        </div>
         <h1 className="text-header text-darkBlue mt-1 font-bold">
-          Welcome Back, {user.name?.split(" ")[0] || "Member"}
+          Welcome Back, {member?.firstName || "Member"}
         </h1>
-        <p className="text-body mt-2 max-w-2xl text-slate-500">
+        <div className="text-body mt-2 max-w-2xl text-slate-500">
           Manage your details, track your event RSVPs, and tell us what kind of investing content
           you want more of.
-        </p>
+        </div>
 
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Personal details */}
@@ -321,7 +342,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
             <hr className="mt-5 mb-4 border-t border-[#E2E9F2]" />
             {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
             <div className="flex justify-between">
-              <button className="text-sm font-medium text-[#005EAF] hover:cursor-pointer hover:underline">
+              <button className="text-sm font-semibold text-[#005EAF] hover:cursor-pointer hover:underline">
                 Change Password
               </button>
 
@@ -349,21 +370,67 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           {/* Membership */}
           <Card>
             <CardHeader title="Membership" />
-            <div className="rounded-xl bg-gradient-to-r from-blue-500 to-blue-700 p-5 text-white">
-              <p className="text-lg font-bold">
-                {member?.hasPaid ? "Active Member" : "Membership Pending"}
-              </p>
-              {!member && <p className="mt-1 text-sm text-blue-100">No membership on file yet</p>}
+            <div className="flex justify-between rounded-2xl bg-gradient-to-r from-[#249AFF] to-[#005EAF] p-5 text-white">
+              <div className="flex-col">
+                <div className="text-m text-xl font-bold">
+                  {member?.hasPaid ? "General Member" : "Membership Pending"}
+                  {!member && (
+                    <p className="mt-1 text-sm text-blue-100">No membership on file yet</p>
+                  )}
+                </div>
+                <div className="text-s">{member?.hasPaid ? "Valid until" : ""}</div>
+              </div>
+              <div className="my-auto">
+                <Link href="/">
+                  {" "}
+                  {/* empty link ?*/}
+                  <button className="rounded-4xl bg-[#FFFFFF2E] px-3 py-2 text-xs font-semibold">
+                    Renews auto.
+                  </button>
+                </Link>
+              </div>
             </div>
-            <hr className="border-grey-200 my-6 border-t" />
-            <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
-              Member Since
-            </p>
-            <p className="text-darkBlue mt-1">{formatMemberSince(member?.paymentDate)}</p>
+            <div className="flex w-full pt-7">
+              <div className="w-1/2 flex-col">
+                <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+                  Member Since
+                </div>
+                <p className="text-darkBlue mt-1">{formatMemberSince(member?.paymentDate)}</p>
+              </div>
+              <div className="w-1/2 flex-col">
+                <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+                  Chapter
+                </div>
+                <p className="text-darkBlue mt-1">Auckland CBD</p>
+              </div>
+            </div>
+            <hr className="mt-6 mb-4 border-t border-[#E2E9F2]" />
+            <div className="pb-4">
+              <Link href="/">
+                {" "}
+                {/* empty link ?*/}
+                <button className="inline-flex items-center gap-2 rounded-4xl bg-[#EAF3FF] px-4 py-3 text-[1vw] font-semibold text-[#005EAF]">
+                  Upgrade to Executive
+                  <FiExternalLink size={14} />
+                </button>
+              </Link>
+            </div>
+          </Card>
+
+          <Card className="lg:col-span-2">
+            <CardHeader
+              title="Investment Profile"
+              subtitle="Helps us match you to events, mentors and case teams"
+            />
+            <div className="w-full flex-row">
+              <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+                Experience Level
+              </div>
+            </div>
           </Card>
 
           {/* Upcoming events */}
-          <Card>
+          <Card className="lg:col-span-2">
             <CardHeader
               title="Your upcoming events"
               subtitle={`${upcomingEvents.length} events confirmed`}
@@ -394,25 +461,6 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
               <FiArrowUpRight size={18} />
               View All events
             </button>
-          </Card>
-
-          {/* Bulletin preferences */}
-          <Card>
-            <CardHeader
-              title="Bulletin Preferences"
-              subtitle="Adjust your notification preferences here."
-            />
-            <div>
-              {[1, 2, 3, 4].map((preference) => (
-                <div
-                  key={preference}
-                  className="border-grey-200 flex items-center justify-between border-b py-4 last:border-0"
-                >
-                  <p className="text-darkBlue font-semibold">Preference</p>
-                  <Toggle />
-                </div>
-              ))}
-            </div>
           </Card>
         </div>
 
