@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import ArrowButton from "./ArrowButton";
+import ArrowButton from "@/components/ArrowButton";
 import StockTicker from "./StockTicker";
 import { GoArrowUpRight } from "react-icons/go";
 import { CgProfile } from "react-icons/cg";
-import Button from "./Button";
+import Button from "@/components/Button";
 import { useSession } from "@/lib/auth-client";
 
 interface NavbarProps {

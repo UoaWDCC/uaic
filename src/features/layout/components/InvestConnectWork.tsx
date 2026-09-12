@@ -1,4 +1,4 @@
-import ArrowButton from "./ArrowButton";
+import ArrowButton from "@/components/ArrowButton";
 
 const InvestConnectWork = () => {
   return (
