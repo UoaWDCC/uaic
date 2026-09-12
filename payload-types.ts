@@ -321,8 +321,8 @@ export interface Member {
   paymentDate?: string | null;
   updatedAt: string;
   createdAt: string;
-  experienceLevel: 'Beginner' | 'Intermediate'| 'Advanced';
-  areasOfInterest: 'Equities' | 'Crypto' | 'Macro' | 'Options' | 'ESG' | 'Fixed Income' | 'Venture / Startups';
+  experienceLevel: 'Beginner' | 'Intermediate'| 'Advanced' | unknown;
+  areasOfInterest: 'Equities' | 'Crypto' | 'Macro' | 'Options' | 'ESG' | 'Fixed Income' | 'Venture / Startups' | unknown;
   linkedinHandle: string;
   caseCompetitionInterest: boolean;
 

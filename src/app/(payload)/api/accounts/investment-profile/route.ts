@@ -20,7 +20,7 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  let body: Record<string, undefined>;
+  let body: Record<string, unknown>;
   try {
     body = await req.json();
   } catch {
