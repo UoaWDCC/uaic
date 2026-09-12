@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { getLandingPageImage } from "@/features/users/data/getLandingPageImage";
-import Button from "../Button";
+import Button from "@/components/Button";
 
 const BulletinHeroSection = () => {
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);

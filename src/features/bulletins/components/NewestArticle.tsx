@@ -2,7 +2,7 @@ import { getBulletins } from "@/features/bulletins/data/getBulletins";
 import type { Bulletin } from "@/features/bulletins/data/getBulletins";
 import Image from "next/image";
 import Link from "next/link";
-import ArrowButton from "./ArrowButton";
+import ArrowButton from "@/components/ArrowButton";
 
 const NewestArticle = async () => {
   const bulletins: Bulletin[] = await getBulletins();

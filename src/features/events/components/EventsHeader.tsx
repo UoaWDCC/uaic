@@ -1,6 +1,6 @@
 import ArrowButton from "@/components/ArrowButton";
 import PageHeader from "@/components/PageHeader";
-import type { EventsTab } from "@/components/events/EventsPageContent";
+import type { EventsTab } from "@/features/events/components/EventsPageContent";
 
 const EVENTS_DESCRIPTION =
   "Connect with the team behind New Zealand's sovereign wealth fund and gain firsthand insights into long-term investing, portfolio management, and the role the Fund plays in shaping New Zealand's financial future.";

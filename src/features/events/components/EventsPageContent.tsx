@@ -1,10 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import EventCardList from "@/components/events/EventCardList";
-import EventsFilterBar from "@/components/events/EventsFilterBar";
-import EventsHeader from "@/components/events/EventsHeader";
-import type { Event as PayloadEvent } from "../../../payload-types";
+import EventCardList from "@/features/events/components/EventCardList";
+import EventsFilterBar from "@/features/events/components/EventsFilterBar";
+import EventsHeader from "@/features/events/components/EventsHeader";
+import type { Event as PayloadEvent } from "../../../../payload-types";
 
 export type EventsTab = "upcoming" | "past";
 

@@ -2,8 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { GoChevronDown, GoChevronLeft, GoChevronRight, GoSearch } from "react-icons/go";
-import ArticleCard from "@/components/ArticleCard";
-import type { ArticleCardContent } from "@/components/ArticleCard";
+import ArticleCard from "@/features/bulletins/components/ArticleCard";
+import type { ArticleCardContent } from "@/features/bulletins/components/ArticleCard";
 import PageHeader from "@/components/PageHeader";
 import type { Bulletin } from "@/features/bulletins/data/getBulletins";
 

@@ -9,7 +9,7 @@ import { useEffect } from "react";
 // coming up empty. Pinned to plugin-import-export@3.33.0's file layout; if that
 // package is upgraded and this import starts failing, check whether the plugin
 // added a public way to open/pre-fill an export drawer for a given collection.
-import { useImportExport } from "../../../node_modules/@payloadcms/plugin-import-export/dist/components/ImportExportProvider/index.js";
+import { useImportExport } from "../../../../node_modules/@payloadcms/plugin-import-export/dist/components/ImportExportProvider/index.js";
 
 export const MemberExportButton = () => {
   const [DocumentDrawer, , { openDrawer }] = useDocumentDrawer({ collectionSlug: "exports" });

@@ -1,4 +1,4 @@
-import EventsSection from "@/components/EventsSection";
+import EventsSection from "@/features/home/components/EventsSection";
 import { getUpcomingEvents } from "@/features/users/data/getEvents";
 
 const UpcomingEventsSection = async () => {

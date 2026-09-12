@@ -1,5 +1,5 @@
 import React from "react";
-import EventsPageContent from "@/components/events/EventsPageContent";
+import EventsPageContent from "@/features/events/components/EventsPageContent";
 import { getUpcomingEvents, getRecentEvents } from "@/features/users/data/getEvents";
 
 const page = async () => {

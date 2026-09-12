@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Button from "../Button";
+import Button from "@/components/Button";
 import { getLatestBulletin } from "@/features/bulletins/data/getBulletins";
 
 export default async function LatestArticle() {

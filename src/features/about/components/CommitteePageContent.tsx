@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import CommitteeCardList from "@/components/about/CommitteeCardList";
-import CommitteeFilterBar from "@/components/about/CommitteeFilterBar";
-import CommitteeHeader from "@/components/about/CommitteeHeader";
+import CommitteeCardList from "@/features/about/components/CommitteeCardList";
+import CommitteeFilterBar from "@/features/about/components/CommitteeFilterBar";
+import CommitteeHeader from "@/features/about/components/CommitteeHeader";
 
 import type { ExecutiveCommitteeData } from "@/features/about/types";
 

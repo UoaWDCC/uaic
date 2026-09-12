@@ -1,7 +1,7 @@
 import React from "react";
-import EventCardList from "@/components/events/EventCardList";
-import ArrowButton from "./ArrowButton";
-import type { Event } from "../../payload-types";
+import EventCardList from "@/features/events/components/EventCardList";
+import ArrowButton from "@/components/ArrowButton";
+import type { Event } from "../../../../payload-types";
 
 interface EventsSectionProps {
   events: Event[];

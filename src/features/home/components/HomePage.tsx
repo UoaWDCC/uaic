@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import type { Swiper as SwiperType } from "swiper";
-import ArrowButton from "../ArrowButton";
+import ArrowButton from "@/components/ArrowButton";
 import HeroCarousel from "./HeroCarousel";
 import HeroSlideIndicator from "./HeroSlideIndicator";
 

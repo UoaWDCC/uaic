@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { VscClose } from "react-icons/vsc";
 import Image from "next/image";
 import Link from "next/link";
-import type { Event as PayloadEvent } from "../../../payload-types";
-import ArrowButton from "../ArrowButton";
+import type { Event as PayloadEvent } from "../../../../payload-types";
+import ArrowButton from "@/components/ArrowButton";
 
 interface Event {
   id: string;

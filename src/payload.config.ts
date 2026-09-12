@@ -86,7 +86,8 @@ export default buildConfig({
               // plugin's ExportSaveButton because that renders a "Save" button
               // alongside Download — Save just queues a background job, and this
               // project doesn't run the Jobs Queue, so Save silently does nothing.
-              SaveButton: "/src/components/admin/ExportDownloadButton#ExportDownloadButton",
+              SaveButton:
+                "/src/features/admin/components/ExportDownloadButton#ExportDownloadButton",
             },
           },
         },
