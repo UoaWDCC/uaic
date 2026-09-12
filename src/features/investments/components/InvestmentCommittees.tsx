@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getICGroupPhoto } from "@/features/users/data/getICGroupPhoto";
+import { getICGroupPhoto } from "@/features/investments/data/getICGroupPhoto";
 
 export default async function InvestmentCommittee() {
   let imageUrl: string | null = null;

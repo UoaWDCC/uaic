@@ -1,5 +1,5 @@
 import EventsSection from "@/features/home/components/EventsSection";
-import { getUpcomingEvents } from "@/features/users/data/getEvents";
+import { getUpcomingEvents } from "@/features/events/data/getEvents";
 
 const UpcomingEventsSection = async () => {
   const upcomingEvents = await getUpcomingEvents();

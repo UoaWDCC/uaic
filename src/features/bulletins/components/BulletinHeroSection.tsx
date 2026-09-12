@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getLandingPageImage } from "@/features/users/data/getLandingPageImage";
+import { getLandingPageImage } from "@/features/bulletins/data/getLandingPageImage";
 import Button from "@/components/Button";
 
 const BulletinHeroSection = () => {
