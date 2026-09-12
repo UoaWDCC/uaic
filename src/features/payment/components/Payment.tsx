@@ -615,7 +615,8 @@ export default function Payment() {
                       value="Other"
                       checked={checkButton5}
                       onChange={() => {
-                        (setCheck5(!checkButton5), setSpecifyInput(!checkButton5));
+                        setCheck5(!checkButton5);
+                        setSpecifyInput(!checkButton5);
                       }}
                       className="h-4 w-4 cursor-pointer appearance-none rounded-full border border-blue-500 bg-white transition-all focus:ring-2 focus:ring-blue-200 focus:outline-none"
                     />
