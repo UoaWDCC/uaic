@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ArrowButton from "./ArrowButton";
 import StockTicker from "./StockTicker";
-import { GoArrowUpRight, GoArrowLeft } from "react-icons/go";
+import { GoArrowUpRight } from "react-icons/go";
 import { CgProfile } from "react-icons/cg";
 import Button from "./Button";
 import { useSession } from "@/lib/auth-client";
@@ -20,11 +20,9 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const [showAboutSubpage, setShowAboutSubpage] = useState(false);
-  const [showCommitteeSubpage, setShowCommitteeSubpage] = useState(false);
 
   const handleLinkClick = () => {
     setIsOpen(false);
-    setShowCommitteeSubpage(false);
     setShowAboutSubpage(false);
   };
 
@@ -66,7 +64,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
 
         {/* Hamburger to X icon */}
         <button
-          className={`fixed top-6 right-2 z-50 cursor-pointer rounded-full bg-transparent p-3 transition-all lg:hidden ${showCommitteeSubpage ? "pointer-events-none opacity-0" : "pointer-events-auto opacity-100"}`}
+          className="fixed top-6 right-2 z-50 cursor-pointer rounded-full bg-transparent p-3 transition-all lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
         >
           <div className="z-50 flex h-10 w-10 flex-col items-center justify-center gap-2">
@@ -114,7 +112,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
                     href="/about"
                     className="flex flex-1 cursor-pointer items-center rounded-t-lg px-4 py-2 text-sm font-[300] hover:bg-blue-700"
                   >
-                    The Committees
+                    Executive Committees
                   </Link>
                   <Link
                     href="/FAQ"
@@ -172,7 +170,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
       <StockTicker className="hidden lg:block" isTransparent={!hasBlueTheme} />
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 z-30 w-full overflow-hidden transition-all transition-discrete duration-600 ease-in-out lg:hidden ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}
+        className={`fixed top-0 z-30 w-full overflow-hidden transition-[translate,opacity] duration-600 ease-in-out lg:hidden ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}
       >
         <ul className="flex w-full flex-col rounded-b-3xl bg-white pb-5 text-[#005EAF] shadow-xl/20">
           <div className="flex items-center justify-between pr-2 pb-7 pl-6">
@@ -188,37 +186,28 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
             </Link>
           </li>
           <li
-            className={`hover:bg-whiteHover mx-auto flex w-14/16 cursor-pointer items-center justify-between text-xl font-normal transition-all ${isOpen ? "opacity-100" : "opacity-0"} `}
+            className="hover:bg-whiteHover mx-auto flex w-14/16 cursor-pointer items-center justify-between pt-3 pb-1 text-3xl font-normal sm:py-8 sm:pl-16"
             onClick={() => {
               setShowAboutSubpage(!showAboutSubpage);
             }}
           >
-            <div className="flex w-[100vw] cursor-pointer justify-between pt-3 pb-1 text-3xl font-normal">
-              <span>About</span>
-              <GoArrowUpRight
-                size={40}
-                className={`right-1 transition-transform duration-200 ${showAboutSubpage ? "rotate-45" : ""}`}
-              />
-            </div>
+            <span>About</span>
+            <GoArrowUpRight
+              size={40}
+              className={`transition-transform duration-200 ${showAboutSubpage ? "rotate-45" : ""}`}
+            />
           </li>
           {/* Sub-menu Items */}
           <li
-            className={`block overflow-hidden bg-white transition-all duration-500 ease-in-out lg:hidden ${showAboutSubpage ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}
+            className={`block overflow-hidden bg-white transition-[max-height,opacity] duration-500 ease-in-out lg:hidden ${showAboutSubpage ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}
           >
-            <ul className="font-light text-black">
-              <li className="hover:bg-whiteHover flex cursor-pointer pb-2 pl-6 text-xl sm:p-8 sm:pl-16">
-                <Link
-                  href=""
-                  className="block w-full"
-                  onClick={() => {
-                    setShowAboutSubpage(!showAboutSubpage);
-                    setShowCommitteeSubpage(!showCommitteeSubpage);
-                  }}
-                >
-                  The Committees
+            <ul className="mx-auto w-14/16 font-light text-black">
+              <li className="hover:bg-whiteHover flex cursor-pointer pb-2 text-xl sm:pl-16">
+                <Link href="/about" className="block w-full" onClick={handleLinkClick}>
+                  Executive Committees
                 </Link>
               </li>
-              <li className="hover:bg-whiteHover flex cursor-pointer pb-2 pl-6 text-xl sm:p-8 sm:pl-16">
+              <li className="hover:bg-whiteHover flex cursor-pointer pb-2 text-xl sm:pl-16">
                 <Link href="/FAQ" className="block w-full" onClick={handleLinkClick}>
                   FAQ
                 </Link>
@@ -248,51 +237,6 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           </li>
         </ul>
 
-        {/* Committee Menu */}
-        <ul
-          className={`pb-4vw fixed top-0 z-40 flex w-[100vw] max-w-full transform flex-col overflow-y-hidden rounded-b-3xl bg-white text-lg text-[#005EAF] transition-all duration-500 ease-in-out sm:bottom-[16%] lg:hidden ${showCommitteeSubpage ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
-        >
-          <div className="flex items-center justify-between p-4 px-6 pt-8">
-            <div
-              className={`bg-[#00529B] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat transition-opacity duration-600 ease-in-out lg:ml-10 lg:h-[100px] lg:w-[140px]`}
-            ></div>
-            <GoArrowLeft
-              size={40}
-              onClick={() => {
-                setShowCommitteeSubpage(!showCommitteeSubpage);
-                setShowAboutSubpage(true);
-              }}
-            ></GoArrowLeft>
-          </div>
-          <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b py-3 text-3xl font-normal sm:p-8 sm:pl-16">
-            <Link
-              href="/about#ExecutiveCommittee"
-              className="block w-full"
-              onClick={handleLinkClick}
-            >
-              Exec Commitee
-            </Link>
-          </li>
-          <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b py-3 text-3xl font-normal sm:p-8 sm:pl-16">
-            <Link href="/about#BulletinComittee" className="block w-full" onClick={handleLinkClick}>
-              Bulletin Comittee
-            </Link>
-          </li>
-          <li className="hover:bg-whiteHover border-grey-100 mx-auto flex w-14/16 cursor-pointer border-b py-3 text-3xl font-normal sm:p-8 sm:pl-16">
-            <Link
-              href="/about#InvestmentComittee"
-              className="block w-full"
-              onClick={handleLinkClick}
-            >
-              Investment Comittee
-            </Link>
-          </li>
-          <li className="mx-auto my-auto flex justify-center p-5 pt-35 text-lg font-[600] sm:text-xl lg:mr-[30px]">
-            <div className="text-3xl [&_a]:px-26 [&_a]:py-4 sm:[&_a]:w-[249.36px] sm:[&_svg]:hidden">
-              <ArrowButton text="Become A Member" link="/login" />
-            </div>
-          </li>
-        </ul>
         <StockTicker className="m-0 block w-full" isTransparent={true} />
       </div>
       {/* Stock Ticker - Mobile */}

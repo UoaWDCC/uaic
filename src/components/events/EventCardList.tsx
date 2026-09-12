@@ -242,7 +242,7 @@ const EventCardList = ({
                 <VscClose size={30} aria-hidden="true" />
               </button>
 
-              <div className="flex min-h-0 w-full flex-auto flex-col items-stretch gap-[clamp(24px,4vw,36px)] overflow-y-auto overscroll-contain lg:min-h-[var(--modal-media-size)] lg:flex-row lg:items-center lg:gap-[clamp(28px,5vw,88px)] lg:overflow-x-hidden lg:overflow-y-auto lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden">
+              <div className="flex min-h-0 w-full flex-auto flex-col items-stretch gap-[clamp(24px,4vw,36px)] overflow-y-auto overscroll-contain lg:min-h-[var(--modal-media-size)] lg:[scrollbar-width:none] lg:flex-row lg:items-center lg:gap-[clamp(28px,5vw,88px)] lg:overflow-x-hidden lg:overflow-y-auto lg:[&::-webkit-scrollbar]:hidden">
                 <div className="relative mx-auto aspect-square w-full flex-shrink-0 overflow-hidden rounded-[16px] lg:mx-0 lg:h-[var(--modal-media-size)] lg:w-[var(--modal-media-size)]">
                   <Image
                     src={selectedEvent.photo}
@@ -268,7 +268,7 @@ const EventCardList = ({
                     </h2>
                   </div>
 
-                  <p className="mt-[clamp(16px,2vw,25px)] h-[158px] w-full flex-none overflow-y-scroll pr-[8px] text-[16px] leading-[20px] font-normal text-black [scrollbar-color:#DCE6F2_transparent] [scrollbar-gutter:stable] [scrollbar-width:thin] sm:text-[20px] sm:leading-[22.5px] [&::-webkit-scrollbar]:w-[6px] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#DCE6F2] [&::-webkit-scrollbar-track]:bg-transparent">
+                  <p className="mt-[clamp(16px,2vw,25px)] h-[158px] w-full flex-none [scrollbar-width:thin] [scrollbar-color:#DCE6F2_transparent] [scrollbar-gutter:stable] overflow-y-scroll pr-[8px] text-[16px] leading-[20px] font-normal text-black sm:text-[20px] sm:leading-[22.5px] [&::-webkit-scrollbar]:w-[6px] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#DCE6F2] [&::-webkit-scrollbar-track]:bg-transparent">
                     {selectedEvent.description}
                   </p>
 
