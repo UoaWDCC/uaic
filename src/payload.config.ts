@@ -15,7 +15,7 @@ import { Member } from "./collections/Member";
 import { Events } from "./collections/Events";
 import { Executive } from "./collections/Executive";
 import { ExecutiveCommittee } from "./collections/ExecutiveCommittee";
-import { BulletinCommittee } from "./collections/BulletinCommittee";
+import { ExecutiveSubteams } from "./collections/ExecutiveSubteams";
 import { Portfolio } from "./collections/Portfolio";
 import { LandingPageImages } from "./collections/LandingPageImages";
 import { HeroSectionCarousel } from "./collections/HeroSectionCarousel";
@@ -50,7 +50,7 @@ export default buildConfig({
     Member,
     Executive,
     ExecutiveCommittee,
-    BulletinCommittee,
+    ExecutiveSubteams,
     Events,
     Portfolio,
     Sponsors,
@@ -70,8 +70,8 @@ export default buildConfig({
 
   plugins: [
     importExportPlugin({
-      collections: ["member"],
-      overrideExportCollection: (collection) => ({
+      collections: [{ slug: "member" }],
+      overrideExportCollection: ({ collection }) => ({
         ...collection,
         admin: {
           ...collection.admin,

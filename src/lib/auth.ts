@@ -10,9 +10,8 @@ export const auth = betterAuth({
   database: mongodbAdapter(db),
   advanced: {
     database: {
-      tablePrefix: "",
+      generateId: false,
     },
-    generateId: false,
   },
   user: {
     modelName: "members",
