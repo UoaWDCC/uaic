@@ -406,31 +406,33 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                 </Link>
               </div>
             </div>
-            <div className="flex w-full pt-7">
-              <div className="w-1/2 flex-col">
-                <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
-                  Member Since
+            {member?.hasPaid && (
+              <>
+                <div className="flex w-full pt-7">
+                  <div className="w-1/2 flex-col">
+                    <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+                      Member Since
+                    </div>
+                    <p className="text-darkBlue mt-1">{formatMemberSince(member?.paymentDate)}</p>
+                  </div>
+                  <div className="w-1/2 flex-col">
+                    <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+                      Chapter
+                    </div>
+                    <p className="text-darkBlue mt-1">Auckland CBD</p>
+                  </div>
                 </div>
-                <p className="text-darkBlue mt-1">{formatMemberSince(member?.paymentDate)}</p>
-              </div>
-              <div className="w-1/2 flex-col">
-                <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
-                  Chapter
+                <hr className="mt-6 mb-4 border-t border-[#E2E9F2]" />
+                <div className="pb-4">
+                  <Link href="/">
+                    <button className="inline-flex items-center gap-2 rounded-4xl bg-[#EAF3FF] px-4 py-3 text-[1vw] font-semibold text-[#005EAF]">
+                      Upgrade to Executive
+                      <FiExternalLink size={14} />
+                    </button>
+                  </Link>
                 </div>
-                <p className="text-darkBlue mt-1">Auckland CBD</p>
-              </div>
-            </div>
-            <hr className="mt-6 mb-4 border-t border-[#E2E9F2]" />
-            <div className="pb-4">
-              <Link href="/">
-                {" "}
-                {/* empty link ?*/}
-                <button className="inline-flex items-center gap-2 rounded-4xl bg-[#EAF3FF] px-4 py-3 text-[1vw] font-semibold text-[#005EAF]">
-                  Upgrade to Executive
-                  <FiExternalLink size={14} />
-                </button>
-              </Link>
-            </div>
+              </>
+            )}
           </Card>
 
           <InvestmentProfile member={member} />
