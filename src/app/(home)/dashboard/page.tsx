@@ -21,8 +21,8 @@ export default async function DashboardPage() {
     limit: 1,
   });
 
-  // payload-types.ts is stale relative to src/collections/Member.ts, so the
-  // generated `Member` type doesn't reflect the fields this collection actually has.
+  // payload.find() isn't generic over the collection slug, so its return type
+  // doesn't narrow to the generated `Member` type - hence the cast.
   const member = (docs[0] as unknown as MemberProfile) ?? null;
 
   return <MembershipDashboard user={session.user} member={member} />;
