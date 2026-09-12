@@ -33,7 +33,6 @@ interface MembershipDashboardProps {
 
 export type Membership = {
   membershipType: "General Membership";
-  validYear: string;
 };
 
 const YEAR_LABELS: Record<MemberProfile["universityYear"], string> = {
@@ -88,7 +87,7 @@ const CardHeader = ({ title, subtitle, onEdit }: CardHeaderProps) => {
   return (
     <div className="mb-5 flex items-start justify-between">
       <div>
-        <p className="text-darkBlue text-xl font-bold">{title}</p>
+        <p className="text-xl font-bold text-[#0B1A2B]">{title}</p>
         {subtitle && <p className="mt-1 text-sm text-slate-500">{subtitle}</p>}
       </div>
       {onEdit && (
@@ -316,13 +315,21 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
   return (
     <div className="min-h-screen bg-slate-100 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto w-full max-w-6xl">
-        <div className="text-sm font-bold tracking-wide text-blue-500 uppercase">
+        <div className="text-sm font-bold tracking-wide text-[#249AFF] uppercase">
           Membership Dashboard
         </div>
-        <h1 className="text-header text-darkBlue mt-1 font-bold">
-          Welcome Back, {member?.firstName || "Member"}
-        </h1>
-        <div className="text-body mt-2 max-w-2xl text-slate-500">
+        <div className="inline-flex items-center gap-2">
+          <div className="mt-1 text-2xl font-extrabold text-[#0B1A2B]">
+            Welcome Back, {member?.firstName || "Member"}
+          </div>
+          {member?.hasPaid && (
+            <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-[#E7F7EE] px-3 py-2 text-xs font-semibold text-[#1B7A43]">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#1B7A43]" />
+              Active member
+            </div>
+          )}
+        </div>
+        <div className="mt-2 max-w-2xl text-sm text-slate-500">
           Manage your details, track your event RSVPs, and tell us what kind of investing content
           you want more of.
         </div>
@@ -341,7 +348,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                   <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                     {field.label}
                   </div>
-                  <div className="text-darkBlue mt-1">{field.value}</div>
+                  <div className="mt-1 text-[#0B1A2B]">{field.value}</div>
                 </div>
               ))}
             </div>
@@ -385,7 +392,9 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                     <p className="mt-1 text-sm text-blue-100">No membership on file yet</p>
                   )}
                 </div>
-                <div className="text-s">{member?.hasPaid ? "Valid until" : ""}</div>
+                <div className="text-#FFFFFF text-#FFFFFF text-xs">
+                  {member?.hasPaid ? "Valid until end of 2026" : ""}
+                </div>
               </div>
               <div className="my-auto">
                 <Link href="/">
@@ -454,7 +463,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                 </div>
               ))}
             </div>
-            <button className="mt-6 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 font-semibold text-white hover:cursor-pointer">
+            <button className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#249AFF] to-[#005EAF] px-6 py-3 font-semibold text-white hover:cursor-pointer">
               <FiArrowUpRight size={18} />
               View All events
             </button>

@@ -117,8 +117,8 @@ const InvestmentProfile = ({ member }: InvestmentProfileProps) => {
               onClick={() => setExperienceLevel(level.value)}
               className={`rounded-lg border px-4 py-3 text-sm font-semibold transition-colors ${
                 isSelected
-                  ? "border-[#005EAF] bg-blue-50 text-[#005EAF]"
-                  : "border-transparent bg-slate-100 text-slate-600"
+                  ? "border-[#005EAF] bg-[#EAF3FF] text-[#005EAF]"
+                  : "border-transparent bg-[#F3F7FC] text-[#6B7A8D]"
               } ${isEditingProfile ? "hover:cursor-pointer" : "cursor-default"}`}
             >
               {level.label}
@@ -141,8 +141,8 @@ const InvestmentProfile = ({ member }: InvestmentProfileProps) => {
               type="button"
               disabled={!isEditingProfile}
               onClick={() => toggleInterest(interest)}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
-                isSelected ? "bg-[#005EAF] text-white" : "bg-blue-50 text-[#005EAF]"
+              className={`font-600 rounded-full px-4 py-2 text-sm transition-colors ${
+                isSelected ? "bg-[#005EAF] text-white" : "bg-[#EAF3FF] text-[#005EAF]"
               } ${isEditingProfile ? "hover:cursor-pointer" : "cursor-default"}`}
             >
               {interest}
@@ -153,7 +153,7 @@ const InvestmentProfile = ({ member }: InvestmentProfileProps) => {
 
       <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
         <div>
-          <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+          <div className="text-xs font-medium tracking-wide text-[#0B1A2B] uppercase">
             LinkedIn Handle
           </div>
           {isEditingProfile ? (
@@ -164,11 +164,11 @@ const InvestmentProfile = ({ member }: InvestmentProfileProps) => {
               className="mt-1 w-full rounded-[8px] border border-[#005EAF] px-2 py-2 text-sm"
             />
           ) : (
-            <p className="text-darkBlue mt-1">{member?.linkedinHandle || "—"}</p>
+            <p className="text-[#0B1A2B]mt-1">{member?.linkedinHandle || "—"}</p>
           )}
         </div>
         <div>
-          <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+          <div className="text-xs font-medium tracking-wide text-[#0B1A2B] uppercase">
             Case Competition Interest
           </div>
           {isEditingProfile ? (
@@ -181,7 +181,7 @@ const InvestmentProfile = ({ member }: InvestmentProfileProps) => {
               <option value="no">No thanks</option>
             </select>
           ) : (
-            <p className="text-darkBlue mt-1">
+            <p className="mt-1 text-[#0B1A2B]">
               {member?.caseCompetitionInterest ? "Yes — notify me" : "No thanks"}
             </p>
           )}
