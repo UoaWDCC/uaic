@@ -1,6 +1,6 @@
-import OurInvestments from "@/components/investments/OurInvestments";
-import InvestmentCommittees from "@/components/investments/InvestmentCommittees";
-import StockView from "@/components/investments/StockView";
+import OurInvestments from "@/features/investments/components/OurInvestments";
+import InvestmentCommittees from "@/features/investments/components/InvestmentCommittees";
+import StockView from "@/features/investments/components/StockView";
 
 const InvestmentPortfolio = () => {
   return (

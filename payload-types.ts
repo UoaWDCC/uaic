@@ -342,6 +342,9 @@ export interface ExecutiveCommittee {
   name: string;
   title: string;
   degree: string;
+  /**
+   * Include https:// at the start, e.g. https://www.linkedin.com/in/your-name/.
+   */
   linkedinUrl?: string | null;
   image: string | Media;
   /**

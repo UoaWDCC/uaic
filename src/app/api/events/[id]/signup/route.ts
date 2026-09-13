@@ -1,7 +1,7 @@
 import { getPayload } from "@/lib/payload";
-import { generateGoogleCalendar } from "@/lib/generateGoogleCalendar";
-import { generateICS } from "@/lib/generateICS";
-import { sendEmail } from "@/lib/send-email";
+import { generateGoogleCalendar } from "@/features/email/lib/generateGoogleCalendar";
+import { generateICS } from "@/features/email/lib/generateICS";
+import { sendEmail } from "@/features/email/lib/send-email";
 
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {

@@ -1,5 +1,5 @@
 //import React, { useState } from "react";
-import MembershipEmail from "@/components/MembershipEmail";
+import MembershipEmail from "@/features/email/components/MembershipEmail";
 
 export default function membershipConfirmationPage() {
   return (

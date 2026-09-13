@@ -1,5 +1,5 @@
 //import React, { useState } from "react";
-import EventEmail from "@/components/EventEmail";
+import EventEmail from "@/features/email/components/EventEmail";
 
 export default function eventConfirmationPage() {
   return (

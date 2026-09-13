@@ -1,6 +1,6 @@
 import React from "react";
-import EventsPageContent from "@/components/events/EventsPageContent";
-import { getUpcomingEvents, getRecentEvents } from "@/features/users/data/getEvents";
+import EventsPageContent from "@/features/events/components/EventsPageContent";
+import { getUpcomingEvents, getRecentEvents } from "@/features/events/data/getEvents";
 
 const page = async () => {
   // Fetch data server-side
