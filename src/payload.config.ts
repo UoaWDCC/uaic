@@ -164,7 +164,7 @@ export default buildConfig({
         "investment-committee-images": {
           prefix: "investment-committee-images",
         },
-      } as any,
+      },
       bucket: process.env.S3_BUCKET || "",
       config: {
         credentials: {
