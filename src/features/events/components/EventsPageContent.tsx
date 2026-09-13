@@ -35,7 +35,7 @@ const EventsPageContent = ({ upcomingEvents, pastEvents }: EventsPageContentProp
   }, [activeTab, upcomingEvents, pastEvents, searchQuery]);
 
   return (
-    <div className="w-full bg-[#F4F8FE]">
+    <div className="bg-surface-faint w-full">
       <EventsHeader
         activeTab={activeTab}
         onToggleTab={() => setActiveTab((tab) => (tab === "upcoming" ? "past" : "upcoming"))}

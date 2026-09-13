@@ -230,12 +230,12 @@ const CheckoutPage = ({
 
       <button
         disabled={isLoading}
-        className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white hover:from-blue-700 hover:to-blue-900"
+        className="from-cobalt-400 to-cobalt-700 w-full rounded-full bg-gradient-to-r px-4 py-2 font-bold text-white hover:from-blue-700 hover:to-blue-900"
       >
         {isLoading ? "Processing..." : "Pay"}
       </button>
 
-      {errMessage && <div className="mt-4 font-bold text-red-500">{errMessage}</div>}
+      {errMessage && <div className="text-destructive mt-4 font-bold">{errMessage}</div>}
     </form>
   );
 };

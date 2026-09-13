@@ -13,7 +13,7 @@ const SponsorsBanner = async () => {
 
   return (
     <div className="relative mb-4 h-full overflow-hidden bg-white py-8 lg:h-full lg:py-14">
-      <h3 className="text-darkBlue mt-[0px] text-center text-[19.04px] leading-[19.04px] font-[300] lg:mt-[40px] lg:text-[28px] lg:leading-[22px]">
+      <h3 className="text-primary mt-[0px] text-center text-[19.04px] leading-[19.04px] font-[300] lg:mt-[40px] lg:text-[28px] lg:leading-[22px]">
         Our 2026 Sponsors and Partners
       </h3>
       <Marquee speed={120} autoFill gradient={true} gradientColor="#ffffff">
@@ -29,7 +29,7 @@ const SponsorsBanner = async () => {
                     : "1 / 1",
               }}
             >
-              <LogoTint src={sponsor.logo} colorClass="bg-darkBlue" className="h-full w-full" />
+              <LogoTint src={sponsor.logo} colorClass="bg-primary" className="h-full w-full" />
             </div>
           ))}
         </div>
@@ -47,7 +47,7 @@ const SponsorsBanner = async () => {
                     : "1 / 1",
               }}
             >
-              <LogoTint src={sponsor.logo} colorClass="bg-darkBlue" className="h-full w-full" />
+              <LogoTint src={sponsor.logo} colorClass="bg-primary" className="h-full w-full" />
             </div>
           ))}
         </div>

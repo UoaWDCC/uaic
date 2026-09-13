@@ -15,15 +15,15 @@ const EventsSection = ({
   title = "Events & Workshops",
 }: EventsSectionProps) => {
   return (
-    <div className="my-[200px] flex flex-col items-center gap-[36px] px-[16px] lg:px-[120px]">
+    <div className="px-cozy my-[200px] flex flex-col items-center gap-[36px] lg:px-[120px]">
       <div className="flex w-full flex-col gap-[20px]">
-        <hr className="h-[2px] w-full border-0 bg-[#DCE6F2]" />
+        <hr className="bg-surface-muted h-[2px] w-full border-0" />
         <div className="flex w-full flex-row items-center justify-between">
-          <div className="flex flex-col gap-[8px]">
-            <h1 className="text-[20px] leading-[20px] font-bold tracking-[0px] text-[#249AFF]">
+          <div className="gap-tight flex flex-col">
+            <h1 className="text-primary-light text-[20px] leading-[20px] font-bold tracking-[0px]">
               {subtitle}
             </h1>
-            <h1 className="text-[38px] leading-[34px] font-bold tracking-[0px] text-[#0B1A2B]">
+            <h1 className="text-ink text-[38px] leading-[34px] font-bold tracking-[0px]">
               {title}
             </h1>
           </div>
