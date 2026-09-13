@@ -59,11 +59,20 @@ const EventCardList = ({
   useEffect(() => {
     if (!selectedEvent) return;
 
+    // Compensate for the scrollbar that overflow:hidden removes, so the page
+    // width doesn't shift when the modal opens/closes.
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     const previousOverflow = document.body.style.overflow;
+    const previousPaddingRight = document.body.style.paddingRight;
+
     document.body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
 
     return () => {
       document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPaddingRight;
     };
   }, [selectedEvent]);
 
