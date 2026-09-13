@@ -1,8 +1,8 @@
-import HomePage from "@/components/home/HomePage";
-import UpcomingEventsSection from "@/components/home/UpcomingEventsSection";
-import RecentEventsSection from "@/components/home/RecentEventsSection";
-import NewestArticle from "@/components/NewestArticle";
-import SponsorsBanner from "@/components/home/SponsorsBanner";
+import HomePage from "@/features/home/components/HomePage";
+import UpcomingEventsSection from "@/features/home/components/UpcomingEventsSection";
+import RecentEventsSection from "@/features/home/components/RecentEventsSection";
+import NewestArticle from "@/features/bulletins/components/NewestArticle";
+import SponsorsBanner from "@/features/home/components/SponsorsBanner";
 
 import { getHeroSectionCarousel } from "@/features/home/data/getHeroSectionCarousel";
 

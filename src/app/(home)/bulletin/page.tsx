@@ -1,4 +1,4 @@
-import AllArticles from "@/components/bulletin/AllArticles";
+import AllArticles from "@/features/bulletins/components/AllArticles";
 import { getBulletins } from "@/features/bulletins/data/getBulletins";
 
 const page = async () => {

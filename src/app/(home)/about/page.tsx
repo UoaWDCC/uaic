@@ -1,5 +1,5 @@
 import React from "react";
-import CommitteePageContent from "@/components/about/CommitteePageContent";
+import CommitteePageContent from "@/features/about/components/CommitteePageContent";
 import { getExecutiveCommittee } from "@/features/about/data/getExecutiveCommittee";
 
 // Read current CMS content on every page request.

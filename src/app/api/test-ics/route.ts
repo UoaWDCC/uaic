@@ -1,5 +1,5 @@
-import { generateICS } from "@/lib/generateICS";
-import { generateGoogleCalendar } from "../../../lib/generateGoogleCalendar";
+import { generateICS } from "@/features/email/lib/generateICS";
+import { generateGoogleCalendar } from "@/features/email/lib/generateGoogleCalendar";
 
 export function GET() {
   const inputEvent = {

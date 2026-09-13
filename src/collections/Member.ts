@@ -5,7 +5,7 @@ export const Member: CollectionConfig = {
   admin: {
     useAsTitle: "email",
     components: {
-      Description: "/src/components/admin/MemberExportButton#MemberExportButton",
+      Description: "/src/features/admin/components/MemberExportButton#MemberExportButton",
     },
   },
   fields: [

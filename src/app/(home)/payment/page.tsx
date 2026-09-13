@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Payment from "@/components/payment/Payment";
+import Payment from "@/features/payment/components/Payment";
 
 const PaymentPage = () => {
   return (
