@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FiEdit2 } from "react-icons/fi";
-import type { MemberProfile } from "./MembershipDashboard";
+import { MemberProfile } from "@/features/membership/components/MembershipDashboard";
 
 type ExperienceLevel = "beginner" | "intermediate" | "advanced";
 

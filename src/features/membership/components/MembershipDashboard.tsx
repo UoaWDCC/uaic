@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { FiEdit2, FiLogOut, FiArrowUpRight } from "react-icons/fi";
 import { signOut } from "@/lib/auth-client";
 import Link from "next/link";
-import InvestmentProfile from "./InvesmentProfile";
+import InvestmentProfile from "@/components/InvesmentProfile";
 
 type SessionUser = {
   name: string;
