@@ -87,6 +87,16 @@ export const Member: CollectionConfig = {
       ],
     },
     {
+      name: "memberType",
+      type: "select",
+      label: "Member Type",
+      required: true,
+      options: [
+        { label: "Returning", value: "returning" },
+        { label: "New Member", value: "newMember" },
+      ],
+    },
+    {
       name: "degrees",
       type: "text",
       label: "Degrees",
@@ -155,6 +165,7 @@ export const Member: CollectionConfig = {
     {
       name: "areasOfInterest",
       type: "select",
+      label: "Areas of Interest",
       hasMany: true,
       options: [
         "Equities",
@@ -168,10 +179,12 @@ export const Member: CollectionConfig = {
     },
     {
       name: "linkedinHandle",
+      label: "Areas of Interest",
       type: "text",
     },
     {
       name: "caseCompetitionInterest",
+      label: "Case competition interest",
       type: "checkbox",
       defaultValue: false,
     },
