@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FiEdit2, FiLogOut, FiExternalLink, FiArrowUpRight } from "react-icons/fi";
+import { FiEdit2, FiLogOut, FiArrowUpRight } from "react-icons/fi";
 import { signOut } from "@/lib/auth-client";
 import Link from "next/link";
 import InvestmentProfile from "./InvesmentProfile";
@@ -422,15 +422,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                     <p className="mt-1 text-[#0B1A2B]">Auckland CBD</p>
                   </div>
                 </div>
-                <hr className="mt-6 mb-4 border-t border-[#E2E9F2]" />
-                <div className="pb-4">
-                  <Link href="/">
-                    <button className="inline-flex items-center gap-2 rounded-4xl bg-[#EAF3FF] px-4 py-3 text-[3vw] font-semibold text-[#005EAF] md:text-[1vw]">
-                      Upgrade to Executive
-                      <FiExternalLink size={14} />
-                    </button>
-                  </Link>
-                </div>
+                <hr className="mt-4 border-t border-[#E2E9F2] pb-6 md:mt-15 md:pb-0" />
               </>
             )}
           </Card>
