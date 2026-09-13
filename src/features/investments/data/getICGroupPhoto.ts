@@ -7,14 +7,13 @@ export const getICGroupPhoto = async (): Promise<string | null> => {
 
   try {
     const result = await payload.find({
-      collection: "investment-committee-images" as any,
+      collection: "investment-committee-images",
       limit: 1,
       depth: 1,
     });
 
     if (result.docs.length > 0) {
-      const image = result.docs[0] as any;
-      return image.url || null;
+      return result.docs[0].url || null;
     }
 
     return null;

@@ -14,7 +14,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
 
     const payload = await getPayload();
 
-    const event = await payload.findByID({ collection: "events" as any, id }).catch(() => null);
+    const event = await payload.findByID({ collection: "events", id }).catch(() => null);
 
     if (!event) {
       return Response.json({ error: "Event not found" }, { status: 404 });

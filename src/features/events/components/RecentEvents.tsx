@@ -4,6 +4,8 @@ import { TiLocation } from "react-icons/ti";
 import { IoCalendar } from "react-icons/io5";
 import { LuClock9 } from "react-icons/lu";
 import Image from "next/image";
+import type { Event as PayloadEvent } from "../../../../payload-types";
+import { resolveMedia } from "@/lib/payload/media";
 
 interface Event {
   id: string;
@@ -19,7 +21,7 @@ interface Event {
 }
 
 interface RecentEventsProps {
-  events: any[]; // Raw events from database
+  events: PayloadEvent[];
 }
 
 const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
@@ -63,7 +65,7 @@ const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
       title: dbEvent.event,
       location: dbEvent.location,
       type: "Event",
-      photo: dbEvent.image?.url || "/assets/logos/uaic.webp",
+      photo: resolveMedia(dbEvent.image)?.url || "/assets/logos/uaic.webp",
       description: dbEvent.description,
     };
   });
