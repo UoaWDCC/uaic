@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FiEdit2, FiArrowUpRight, FiLogOut } from "react-icons/fi";
+import { FiEdit2, FiLogOut, FiExternalLink, FiArrowUpRight } from "react-icons/fi";
 import { signOut } from "@/lib/auth-client";
+import Link from "next/link";
+import InvestmentProfile from "./InvesmentProfile";
 
 type SessionUser = {
   name: string;
@@ -12,15 +14,26 @@ type SessionUser = {
 export type MemberProfile = {
   studentId: string;
   universityYear: "year1" | "year2" | "year3" | "year4" | "year5Plus" | "postgraduate";
+  phoneNumber: string;
   degrees: string;
+  firstName: string;
+  lastName: string;
   hasPaid: boolean;
   paymentDate?: string | null;
+  experienceLevel?: ExperienceLevel | null;
+  areasOfInterest?: string[] | null;
+  linkedinHandle?: string | null;
+  caseCompetitionInterest?: boolean | null;
 };
 
 interface MembershipDashboardProps {
   user: SessionUser;
   member: MemberProfile | null;
 }
+
+export type Membership = {
+  membershipType: "General Membership";
+};
 
 const YEAR_LABELS: Record<MemberProfile["universityYear"], string> = {
   year1: "1st Year",
@@ -31,6 +44,8 @@ const YEAR_LABELS: Record<MemberProfile["universityYear"], string> = {
   postgraduate: "Postgraduate",
 };
 
+type ExperienceLevel = "beginner" | "intermediate" | "advanced";
+
 type UpcomingEvent = {
   day: string;
   month: string;
@@ -40,6 +55,7 @@ type UpcomingEvent = {
 
 interface CardProps {
   children: React.ReactNode;
+  className?: string;
 }
 
 interface CardHeaderProps {
@@ -63,15 +79,15 @@ const upcomingEvents: UpcomingEvent[] = [
   },
 ];
 
-const Card = ({ children }: CardProps) => {
-  return <div className="rounded-2xl bg-white p-6 shadow-sm">{children}</div>;
+const Card = ({ children, className }: CardProps) => {
+  return <div className={`rounded-2xl bg-white p-6 shadow-sm ${className ?? ""}`}>{children} </div>;
 };
 
 const CardHeader = ({ title, subtitle, onEdit }: CardHeaderProps) => {
   return (
     <div className="mb-5 flex items-start justify-between">
       <div>
-        <p className="text-darkBlue text-xl font-bold">{title}</p>
+        <p className="text-xl font-bold text-[#0B1A2B]">{title}</p>
         {subtitle && <p className="mt-1 text-sm text-slate-500">{subtitle}</p>}
       </div>
       {onEdit && (
@@ -86,33 +102,63 @@ const CardHeader = ({ title, subtitle, onEdit }: CardHeaderProps) => {
   );
 };
 
-const Toggle = () => {
-  const [isOn, setIsOn] = useState(false);
-
-  return (
-    <button
-      onClick={() => setIsOn(!isOn)}
-      className={`relative h-6 w-11 shrink-0 rounded-full transition-colors hover:cursor-pointer ${
-        isOn ? "bg-blue-600" : "bg-slate-300"
-      }`}
-    >
-      <span
-        className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
-          isOn ? "translate-x-5" : "translate-x-0.5"
-        }`}
-      />
-    </button>
-  );
-};
-
 const formatMemberSince = (paymentDate?: string | null) => {
   if (!paymentDate) return "—";
   return new Date(paymentDate).toLocaleDateString("en-NZ", { month: "long", year: "numeric" });
 };
 
+const maskStudentID = (value: string, visibleChars = 2) => {
+  if (!value) {
+    return "—";
+  }
+  const studentID = value.trim();
+  const masked = "•".repeat(studentID.length - visibleChars);
+  return masked + studentID.slice(-visibleChars);
+};
+
+const maskPhoneNumber = (value: string, visibleDigits = 2) => {
+  if (!value) {
+    return "—";
+  }
+  const digitsOnly = value.replace(/\D/g, ""); /* strip non-digits */
+  if (digitsOnly.length <= visibleDigits) return value;
+
+  const visible = digitsOnly.slice(-visibleDigits);
+  const maskedLength = digitsOnly.length - visibleDigits;
+
+  const groups: string[] = [];
+  let remaining = maskedLength;
+  const chunkSizes = [4, 3, 3]; /* adjust to match typical NZ mobile format: 0XX XXX XXXX */
+  for (const size of chunkSizes) {
+    if (remaining <= 0) break;
+    const take = Math.min(size, remaining);
+    groups.push("•".repeat(take));
+    remaining -= take;
+  }
+
+  return groups.join(" ") + " " + visible;
+};
+
 const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
   const router = useRouter();
   const [signingOut, setSigningOut] = useState(false);
+
+  /* Personal Details */
+  const [isEditingDetails, setIsEditingDetails] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const [name, setName] = useState(`${member?.firstName ?? ""} ${member?.lastName ?? ""}`.trim());
+  const [email, setEmail] = useState(user.email);
+  const [studentId, setStudentId] = useState(member?.studentId ?? "");
+  const [phoneNumber, setPhoneNumber] = useState(member?.phoneNumber ?? "");
+  const [degrees, setDegrees] = useState(member?.degrees ?? "");
+  const [universityYear, setUniversityYear] = useState<MemberProfile["universityYear"] | "">(
+    member?.universityYear ?? "",
+  );
+
+  /* Checks if the email has a valid abc@xyz format with only one '@' */
+  const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
   const handleSignOut = async () => {
     setSigningOut(true);
@@ -120,27 +166,173 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
     router.push("/login");
   };
 
+  /* Resets the input fields */
+  const handleCancelEdit = () => {
+    setName(`${member?.firstName ?? ""} ${member?.lastName ?? ""}`.trim());
+    setStudentId(member?.studentId ?? "");
+    setPhoneNumber(member?.phoneNumber ?? "");
+    setDegrees(member?.degrees ?? "");
+    setUniversityYear(member?.universityYear ?? "");
+    setError(null);
+    setEmail(user.email);
+    setIsEditingDetails(false);
+  };
+
+  /* splits users full name from input field to fit into first and last name field */
+  const splitName = (fullName: string) => {
+    const [first, ...rest] = fullName.trim().split(" ");
+    return { firstName: first ?? "", lastName: rest.join(" ") };
+  };
+
+  const handleSaveDetails = async () => {
+    if (!name.trim()) {
+      setError("Name can't be empty.");
+      return;
+    }
+
+    if (!isValidEmail(email.trim())) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    const { firstName, lastName } = splitName(name);
+
+    setSaving(true);
+    setError(null);
+    try {
+      const response = await fetch("/api/accounts/personal-details", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          email: email.trim(),
+          studentId: studentId.trim(),
+          degrees: degrees.trim(),
+          universityYear,
+          phoneNumber: phoneNumber.trim(),
+        }),
+      });
+      if (!response.ok) throw new Error("Failed to update details");
+      setIsEditingDetails(false);
+      router.refresh();
+    } catch (err) {
+      console.error("Failed to save details:", err);
+      setError("Couldn't save your details. Try again.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const personalDetails = [
-    { label: "Full Name", value: user.name || "Not provided" },
-    { label: "Student ID", value: member?.studentId ?? "—" },
-    { label: "University Email", value: user.email },
-    { label: "Degree / Programme", value: member?.degrees ?? "—" },
-    { label: "Year of Study", value: member ? YEAR_LABELS[member.universityYear] : "—" },
+    {
+      label: "Full Name",
+      value: isEditingDetails ? (
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="flex w-full items-center gap-2 rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+          autoFocus
+        />
+      ) : (
+        `${member?.firstName ?? ""} ${member?.lastName ?? ""}`.trim() || "—"
+      ),
+    },
+    {
+      label: "Student ID",
+      value: isEditingDetails ? (
+        <input
+          value={studentId}
+          onChange={(e) => setStudentId(e.target.value)}
+          className="flex w-full items-center gap-2 rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+        />
+      ) : (
+        maskStudentID(member?.studentId ?? "")
+      ),
+    },
+    {
+      label: "University Email",
+      value: isEditingDetails ? (
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+        />
+      ) : (
+        user.email
+      ),
+    },
+    {
+      label: "Phone Number",
+      value: isEditingDetails ? (
+        <input
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          className="w-full rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+        />
+      ) : (
+        maskPhoneNumber(member?.phoneNumber ?? "")
+      ),
+    },
+    {
+      label: "Degree / Programme",
+      value: isEditingDetails ? (
+        <input
+          value={degrees}
+          onChange={(e) => setDegrees(e.target.value)}
+          className="w-full rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+        />
+      ) : (
+        member?.degrees || "—"
+      ),
+    },
+    {
+      label: "Year of Study",
+      value: isEditingDetails ? (
+        <select
+          value={universityYear}
+          onChange={(e) =>
+            setUniversityYear(e.target.value as MemberProfile["universityYear"] | "")
+          }
+          className="w-full appearance-none rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+        >
+          <option value=""></option>
+          {Object.entries(YEAR_LABELS).map(([value, label]) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+      ) : member?.universityYear && YEAR_LABELS[member.universityYear] ? (
+        YEAR_LABELS[member.universityYear]
+      ) : (
+        "—"
+      ),
+    },
   ];
 
   return (
     <div className="min-h-screen bg-slate-100 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto w-full max-w-6xl">
-        <p className="text-sm font-bold tracking-wide text-blue-500 uppercase">
+        <div className="text-sm font-bold tracking-wide text-[#249AFF] uppercase">
           Membership Dashboard
-        </p>
-        <h1 className="text-header text-darkBlue mt-1 font-bold">
-          Welcome Back, {user.name?.split(" ")[0] || "Member"}
-        </h1>
-        <p className="text-body mt-2 max-w-2xl text-slate-500">
+        </div>
+        <div className="inline-flex items-center gap-2">
+          <div className="mt-1 text-xl font-extrabold text-[#0B1A2B] md:text-2xl">
+            Welcome Back, {member?.firstName || "Member"}
+          </div>
+          {member?.hasPaid && (
+            <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-[#E7F7EE] px-3 py-2 text-[2vw] font-semibold text-[#1B7A43] md:text-xs">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#1B7A43]" />
+              Active member
+            </div>
+          )}
+        </div>
+        <div className="mt-2 max-w-2xl text-sm text-slate-500">
           Manage your details, track your event RSVPs, and tell us what kind of investing content
           you want more of.
-        </p>
+        </div>
 
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Personal details */}
@@ -148,42 +340,105 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
             <CardHeader
               title="Personal details"
               subtitle="Visible to club admin only"
-              onEdit={() => {}}
+              onEdit={() => setIsEditingDetails(true)}
             />
             <div className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
               {personalDetails.map((field) => (
                 <div key={field.label}>
-                  <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+                  <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                     {field.label}
-                  </p>
-                  <p className="text-darkBlue mt-1">{field.value}</p>
+                  </div>
+                  <div className="mt-1 text-[#0B1A2B]">{field.value}</div>
                 </div>
               ))}
             </div>
-            <hr className="border-grey-200 my-6 border-t" />
-            <button className="font-medium text-blue-600 hover:cursor-pointer hover:underline">
-              Change Password
-            </button>
+
+            <hr className="mt-5 mb-4 border-t border-[#E2E9F2]" />
+            {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
+            <div className="flex justify-between">
+              <button className="text-sm font-semibold text-[#005EAF] hover:cursor-pointer hover:underline">
+                Change Password
+              </button>
+
+              {isEditingDetails && (
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={handleCancelEdit}
+                    disabled={saving}
+                    className="rounded-lg border-2 border-[#E2E9F2] px-5 py-2 text-sm font-medium text-slate-500 hover:cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleSaveDetails}
+                    disabled={saving}
+                    className="rounded-lg bg-linear-to-r from-[#249AFF] to-[#005EAF] px-5 py-2 text-sm font-semibold text-white hover:cursor-pointer disabled:opacity-50"
+                  >
+                    {saving ? "Saving..." : "Save Changes"}
+                  </button>
+                </div>
+              )}
+            </div>
           </Card>
 
           {/* Membership */}
           <Card>
             <CardHeader title="Membership" />
-            <div className="rounded-xl bg-gradient-to-r from-blue-500 to-blue-700 p-5 text-white">
-              <p className="text-lg font-bold">
-                {member?.hasPaid ? "Active Member" : "Membership Pending"}
-              </p>
-              {!member && <p className="mt-1 text-sm text-blue-100">No membership on file yet</p>}
+            <div className="flex justify-between rounded-2xl bg-linear-to-r from-[#249AFF] to-[#005EAF] p-5 text-white">
+              <div className="flex-col">
+                <div className="text-m text-xl font-bold">
+                  {member?.hasPaid ? "General Member" : "Membership Pending"}
+                  {!member && (
+                    <p className="mt-1 text-sm text-blue-100">No membership on file yet</p>
+                  )}
+                </div>
+                <div className="text-#FFFFFF text-#FFFFFF text-xs">
+                  {member?.hasPaid ? "Valid until end of 2026" : ""}
+                </div>
+              </div>
+              <div className="my-auto">
+                <Link href="/">
+                  {" "}
+                  {/* empty link ?*/}
+                  <button className="rounded-4xl bg-[#FFFFFF2E] px-3 py-2 text-xs font-semibold">
+                    Renews auto.
+                  </button>
+                </Link>
+              </div>
             </div>
-            <hr className="border-grey-200 my-6 border-t" />
-            <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
-              Member Since
-            </p>
-            <p className="text-darkBlue mt-1">{formatMemberSince(member?.paymentDate)}</p>
+            {member?.hasPaid && (
+              <>
+                <div className="flex w-full pt-7">
+                  <div className="w-1/2 flex-col">
+                    <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+                      Member Since
+                    </div>
+                    <p className="mt-1 text-[#0B1A2B]">{formatMemberSince(member?.paymentDate)}</p>
+                  </div>
+                  <div className="w-1/2 flex-col">
+                    <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+                      Chapter
+                    </div>
+                    <p className="mt-1 text-[#0B1A2B]">Auckland CBD</p>
+                  </div>
+                </div>
+                <hr className="mt-6 mb-4 border-t border-[#E2E9F2]" />
+                <div className="pb-4">
+                  <Link href="/">
+                    <button className="inline-flex items-center gap-2 rounded-4xl bg-[#EAF3FF] px-4 py-3 text-[3vw] font-semibold text-[#005EAF] md:text-[1vw]">
+                      Upgrade to Executive
+                      <FiExternalLink size={14} />
+                    </button>
+                  </Link>
+                </div>
+              </>
+            )}
           </Card>
 
+          <InvestmentProfile member={member} />
+
           {/* Upcoming events */}
-          <Card>
+          <Card className="lg:col-span-2">
             <CardHeader
               title="Your upcoming events"
               subtitle={`${upcomingEvents.length} events confirmed`}
@@ -210,29 +465,10 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                 </div>
               ))}
             </div>
-            <button className="mt-6 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 font-semibold text-white hover:cursor-pointer">
+            <button className="mt-6 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-[#249AFF] to-[#005EAF] px-6 py-3 font-semibold text-white hover:cursor-pointer">
               <FiArrowUpRight size={18} />
               View All events
             </button>
-          </Card>
-
-          {/* Bulletin preferences */}
-          <Card>
-            <CardHeader
-              title="Bulletin Preferences"
-              subtitle="Adjust your notification preferences here."
-            />
-            <div>
-              {[1, 2, 3, 4].map((preference) => (
-                <div
-                  key={preference}
-                  className="border-grey-200 flex items-center justify-between border-b py-4 last:border-0"
-                >
-                  <p className="text-darkBlue font-semibold">Preference</p>
-                  <Toggle />
-                </div>
-              ))}
-            </div>
           </Card>
         </div>
 
