@@ -2,6 +2,38 @@ import React, { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
+import type { Member } from "../../../../payload-types";
+
+// The `/api/update-member` route passes this straight into `payload.update()`
+// for the `member` collection, so it's derived from the generated `Member`
+// type rather than hand-typed - keeps the select-field unions (ethnicity,
+// gender, universityYear, memberType) from drifting out of sync with the
+// actual schema in src/collections/Member.ts.
+type MemberSignupPayload = Pick<
+  Member,
+  | "firstName"
+  | "lastName"
+  | "upi"
+  | "studentId"
+  | "degrees"
+  | "majors"
+  | "paymentDate"
+  | "memberType"
+  | "hasPaid"
+> &
+  Partial<Pick<Member, "email">> & {
+    // NOT Pick<Member, ...> for these three - the real `Member` type
+    // constrains them to Payload's select-field enum values (e.g.
+    // "european" | "maori" | ...), but this component's dropdowns actually
+    // send their display labels ("European", "Male", "Year 1", ...), which
+    // don't match any of those enum values. That's a pre-existing data bug
+    // (see issue filed for it), not something to paper over with a cast here
+    // - typed as plain `string` to reflect what this component actually
+    // produces today.
+    ethnicity: string;
+    gender: string;
+    universityYear: string;
+  };
 
 const CheckoutPage = ({
   amount,
@@ -102,7 +134,7 @@ const CheckoutPage = ({
           const lastName = nameParts.slice(1).join(" ") || firstName;
 
           // 2. Build payload object dynamically
-          const payloadData: Record<string, any> = {
+          const payloadData: MemberSignupPayload = {
             firstName,
             lastName,
             upi,
