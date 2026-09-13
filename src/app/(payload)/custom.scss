@@ -1,0 +1,159 @@
+// =============================================================================
+// UAIC brand theme for the Payload admin panel
+// =============================================================================
+// Sass-compiled, imported last in src/app/(payload)/layout.tsx (after
+// "@payloadcms/next/css") - see that file for import order.
+//
+// Bridges our design tokens into Payload's own admin theme rather than
+// repainting components with hardcoded hex a second time:
+// - The (payload) route group has its own root layout/document and never
+//   loads globals.css or Tailwind's output, so a few primitives are mirrored
+//   below as plain :root custom properties ("--uaic-*"). Keep them in sync
+//   with globals.css by hand if the palette changes.
+// - Payload themes its admin UI via its own CSS custom-property scale
+//   (--theme-elevation-*, --color-success-*, --color-error-*,
+//   --style-radius-*, etc. - see @payloadcms/ui/dist/scss/{app,colors}.scss).
+//   Every override below targets one of those existing, verified names,
+//   never one we invented, so it reaches every component built on that scale
+//   automatically. Our own primitives use the "--uaic-" prefix so they can
+//   never collide with a name Payload reserves.
+// - Payload wraps its own CSS in `@layer payload-default, payload;`. Nothing
+//   here is layered, so per the CSS Cascading Layers spec it wins the
+//   cascade unconditionally, no `!important` needed - re-verify if a future
+//   @payloadcms/ui upgrade changes its layer structure.
+//
+// Deliberately NOT touched: --color-base-*/--theme-elevation-* (Payload's
+// 21-step neutral scale - too much surface area to re-derive safely without
+// a browser to check contrast at every step); --color-warning-* (not part of
+// the brand palette); .btn--disabled (should stay neutral, not branded).
+
+// Mirrors globals.css's Figtree @font-face (same font file under
+// /public/fonts) - not a duplicated design token, just a resource path.
+@font-face {
+  font-family: "Figtree";
+  src: url("/fonts/Figtree-VariableFont_wght.ttf") format("truetype");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Mirrored from src/app/globals.css's `@theme` block.
+:root {
+  --uaic-blue-100: #eff4fa; // globals.css --color-blue-100
+  --uaic-blue-200: #dce6f2; // globals.css --color-blue-200
+  --uaic-blue-500: #249aff; // globals.css --color-blue-500
+  --uaic-blue-900: #005eaf; // globals.css --color-blue-900
+  --uaic-ink: #0b1a2b; // globals.css --color-ink
+  --uaic-destructive: #dc2626; // globals.css --destructive (placeholder - no confirmed error-red in Figma yet)
+}
+
+// Payload derives --theme-success-*/--theme-error-* from these --color-*
+// primitives (see colors.scss), reversing stop order in dark mode - so
+// overriding just the primitives, once, re-themes both light and dark
+// automatically. "success" is really Payload's general accent color despite
+// the name (its own default success/blue scales are identical), hence
+// recoloring it to our brand blue; error is a real semantic, remapped to
+// --destructive. Both ramps are HSL-interpolated at a fixed hue (avoids
+// rainbow artifacts from interpolating hue itself); stops that map 1:1 to a
+// globals.css token are pinned to its exact hex. Contrast-checked per WCAG
+// 2.1: white text on --color-success-900 is 6.52:1.
+:root {
+  --color-success-50: #f8fafc;
+  --color-success-100: #eff4fa; // = globals.css --color-blue-100
+  --color-success-150: #e6eef6;
+  --color-success-200: #dce6f2; // = globals.css --color-blue-200
+  --color-success-250: #bad6ee;
+  --color-success-300: #92c4ef;
+  --color-success-350: #66b3f5;
+  --color-success-400: #50abf8;
+  --color-success-450: #3aa2fb;
+  --color-success-500: #249aff; // = globals.css --color-blue-500
+  --color-success-550: #1290fd;
+  --color-success-600: #0586f5;
+  --color-success-650: #077bdf;
+  --color-success-700: #0870c9;
+  --color-success-750: #066bc2;
+  --color-success-800: #0467bb;
+  --color-success-850: #0262b5;
+  --color-success-900: #005eaf; // = globals.css --color-blue-900
+  --color-success-950: #0c1d2d;
+
+  --color-error-50: #fdf2f2;
+  --color-error-100: #f8dddd;
+  --color-error-150: #f6cbcb;
+  --color-error-200: #f3baba;
+  --color-error-250: #efa3a3;
+  --color-error-300: #eb8b8b;
+  --color-error-350: #e87474;
+  --color-error-400: #e55d5d;
+  --color-error-450: #e04242;
+  --color-error-500: #dc2626; // = globals.css --destructive
+  --color-error-550: #d32222;
+  --color-error-600: #c52020;
+  --color-error-650: #b81e1e;
+  --color-error-700: #ab1c1c;
+  --color-error-750: #971a1a;
+  --color-error-800: #831818;
+  --color-error-850: #701616;
+  --color-error-900: #5d1414;
+  --color-error-950: #2f0e0e;
+}
+
+// --theme-bg/--theme-input-bg/--theme-border-color/--theme-overlay are
+// Payload's own per-mode hooks (set directly in app.scss, not derived from a
+// reversible scale), so overridden the same way here, once per mode.
+// --theme-text is left alone - Payload's default already reads 12:1+ against
+// every background below.
+:root,
+html[data-theme="light"] {
+  --theme-bg: #f7fafd; // blue-tinted page background instead of pure white
+  --theme-input-bg: #ffffff; // crisp white, so inputs/cards lift off the page bg
+  --theme-border-color: var(--uaic-blue-200); // = globals.css --border
+  --theme-overlay: rgba(11, 26, 43, 0.5); // ink-tinted, not neutral black
+}
+
+html[data-theme="dark"] {
+  --theme-bg: var(--uaic-ink);
+  --theme-input-bg: #16233a; // a step lighter, so inputs/cards read as raised
+  --theme-border-color: #3a4a68;
+  --theme-overlay: rgba(5, 8, 14, 0.75);
+}
+
+// Payload's --style-radius-s/m/l default to 3/4/8px; remapped to our
+// --radius-sm/md/lg.
+:root {
+  --style-radius-s: 8px; // globals.css --radius-sm
+  --style-radius-m: 12px; // globals.css --radius-md
+  --style-radius-l: 16px; // globals.css --radius-lg
+}
+
+// .card (@payloadcms/ui's Card element, the only thing rendering that
+// class) pushed rounder than --style-radius-m, per design feedback.
+.card {
+  border-radius: 24px; // globals.css --radius-xl
+}
+
+// Swaps Payload's system-font stack for our brand typeface.
+:root {
+  --font-body:
+    "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+}
+
+// Button/index.scss scopes colors to local custom properties per style
+// (--bg-color/--color/--btn-border/--hover-*), so these stay contained to
+// .btn--style-primary/-secondary. Hover uses color-mix() to darken rather
+// than a separate token; darkening (not lightening toward success-500, only
+// 2.94:1 against white) keeps hover contrast above WCAG's 3:1 non-text
+// minimum.
+.btn--style-primary {
+  --bg-color: var(--color-success-900);
+  --hover-bg: color-mix(in srgb, var(--color-success-900) 85%, black);
+}
+
+.btn--style-secondary {
+  --color: var(--color-success-900);
+  --btn-border: 1px solid var(--color-success-900);
+  --hover-color: var(--color-success-700);
+  --hover-btn-border: 1px solid var(--color-success-700);
+}
