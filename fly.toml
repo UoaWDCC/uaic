@@ -8,9 +8,11 @@ primary_region = 'syd'
 swap_size_mb = 512
 
 [env]
-  BETTER_AUTH_URL = 'https://uaic.wdcc.co.nz'
+  NEXT_PUBLIC_BETTER_AUTH_URL = 'https://uaic.wdcc.co.nz'
 
 [build]
+  [build.args]
+    NEXT_PUBLIC_BETTER_AUTH_URL = 'https://uaic.wdcc.co.nz'
 
 [http_service]
   internal_port = 3000

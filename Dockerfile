@@ -30,6 +30,12 @@ RUN pnpm install --frozen-lockfile --prod=false
 # Copy application code
 COPY . .
 
+# NEXT_PUBLIC_* vars are inlined into the client bundle at build time, not read
+# at container runtime - fly.toml's [env] block never reaches this stage, so
+# this must come from a build arg (see fly.toml's [build.args]) instead.
+ARG NEXT_PUBLIC_BETTER_AUTH_URL
+ENV NEXT_PUBLIC_BETTER_AUTH_URL=$NEXT_PUBLIC_BETTER_AUTH_URL
+
 # Build application
 RUN npx next build --experimental-build-mode compile
 
