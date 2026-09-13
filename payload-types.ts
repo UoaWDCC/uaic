@@ -321,10 +321,10 @@ export interface Member {
   paymentDate?: string | null;
   updatedAt: string;
   createdAt: string;
-  experienceLevel: 'Beginner' | 'Intermediate'| 'Advanced' | unknown;
-  areasOfInterest: 'Equities' | 'Crypto' | 'Macro' | 'Options' | 'ESG' | 'Fixed Income' | 'Venture / Startups' | unknown;
-  linkedinHandle: string;
-  caseCompetitionInterest: boolean;
+  experienceLevel?: 'Beginner' | 'Intermediate'| 'Advanced' | unknown;
+  areasOfInterest?: 'Equities' | 'Crypto' | 'Macro' | 'Options' | 'ESG' | 'Fixed Income' | 'Venture / Startups' | unknown;
+  linkedinHandle?: string;
+  caseCompetitionInterest?: boolean;
 
 }
 /**
@@ -857,6 +857,10 @@ export interface MemberSelect<T extends boolean = true> {
   howDidYouFindUs?: T;
   hasPaid?: T;
   paymentDate?: T;
+  experienceLevel?: T;
+  areasOfInterest?: T;
+  linkedinHandle?: T;
+  caseCompetitionInterest?: T;
   updatedAt?: T;
   createdAt?: T;
 }
