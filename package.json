@@ -67,6 +67,7 @@
     "mongodb-memory-server": "^11.2.0",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
+    "sass": "1.77.4",
     "tailwindcss": "^4",
     "tsx": "^4.23.13",
     "typescript": "^5",
