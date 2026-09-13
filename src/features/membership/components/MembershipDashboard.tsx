@@ -71,13 +71,13 @@ const CardHeader = ({ title, subtitle, onEdit }: CardHeaderProps) => {
   return (
     <div className="mb-5 flex items-start justify-between">
       <div>
-        <p className="text-darkBlue text-xl font-bold">{title}</p>
+        <p className="text-primary text-xl font-bold">{title}</p>
         {subtitle && <p className="mt-1 text-sm text-slate-500">{subtitle}</p>}
       </div>
       {onEdit && (
         <button
           onClick={onEdit}
-          className="bg-lightBlue grid h-9 w-9 shrink-0 place-items-center rounded-full text-blue-600 hover:cursor-pointer"
+          className="bg-surface-faint grid h-9 w-9 shrink-0 place-items-center rounded-full text-blue-600 hover:cursor-pointer"
         >
           <FiEdit2 size={16} />
         </button>
@@ -134,7 +134,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
         <p className="text-sm font-bold tracking-wide text-blue-500 uppercase">
           Membership Dashboard
         </p>
-        <h1 className="text-header text-darkBlue mt-1 font-bold">
+        <h1 className="text-header text-primary mt-1 font-bold">
           Welcome Back, {user.name?.split(" ")[0] || "Member"}
         </h1>
         <p className="text-body mt-2 max-w-2xl text-slate-500">
@@ -156,7 +156,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                   <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                     {field.label}
                   </p>
-                  <p className="text-darkBlue mt-1">{field.value}</p>
+                  <p className="text-primary mt-1">{field.value}</p>
                 </div>
               ))}
             </div>
@@ -179,7 +179,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
             <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
               Member Since
             </p>
-            <p className="text-darkBlue mt-1">{formatMemberSince(member?.paymentDate)}</p>
+            <p className="text-primary mt-1">{formatMemberSince(member?.paymentDate)}</p>
           </Card>
 
           {/* Upcoming events */}
@@ -195,16 +195,14 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                   key={index}
                   className="border-grey-200 flex items-center gap-4 border-b py-4 last:border-0"
                 >
-                  <div className="bg-lightBlue grid h-14 w-14 shrink-0 place-items-center rounded-lg">
-                    <span className="text-darkBlue text-lg leading-none font-bold">
-                      {event.day}
-                    </span>
+                  <div className="bg-surface-faint grid h-14 w-14 shrink-0 place-items-center rounded-lg">
+                    <span className="text-primary text-lg leading-none font-bold">{event.day}</span>
                     <span className="mt-0.5 text-[10px] font-medium tracking-wide text-slate-500 uppercase">
                       {event.month}
                     </span>
                   </div>
                   <div className="min-w-0">
-                    <p className="text-darkBlue font-semibold">{event.title}</p>
+                    <p className="text-primary font-semibold">{event.title}</p>
                     <p className="mt-0.5 text-sm text-slate-500">{event.detail}</p>
                   </div>
                 </div>
@@ -228,7 +226,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                   key={preference}
                   className="border-grey-200 flex items-center justify-between border-b py-4 last:border-0"
                 >
-                  <p className="text-darkBlue font-semibold">Preference</p>
+                  <p className="text-primary font-semibold">Preference</p>
                   <Toggle />
                 </div>
               ))}

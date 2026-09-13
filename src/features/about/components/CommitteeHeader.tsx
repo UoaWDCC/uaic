@@ -10,7 +10,7 @@ const CommitteeHeader = () => {
   }).format(new Date());
 
   return (
-    <section className="w-full bg-[#F4F8FE]">
+    <section className="bg-surface-faint w-full">
       <div className="flex w-full flex-col px-6 pt-12 lg:px-16 lg:pt-20">
         <PageHeader
           kicker={currentNztYear}

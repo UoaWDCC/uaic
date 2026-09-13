@@ -71,7 +71,7 @@ export default function SignUpForm() {
   return (
     <div className="w-full">
       {/* Navbar */}
-      <div className="fixed top-0 left-0 z-50 w-full px-6">
+      <div className="z-modal fixed top-0 left-0 w-full px-6">
         <Link href="/" className="inline-block">
           <div
             className={`m-0 h-[86px] w-[140px] bg-white mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat lg:ml-10 lg:h-[100px] lg:w-[140px]`}
@@ -80,8 +80,8 @@ export default function SignUpForm() {
       </div>
       {/* Sign up form container*/}
       <div className="flex justify-center px-6">
-        <div className="flex min-h-[527px] w-full max-w-[512px] flex-col gap-[44px] rounded-[16px] bg-white px-[24px] py-[28px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
-          <h2 className="text-left text-2xl text-[30px] font-bold text-[#145BA7]">Sign Up</h2>
+        <div className="px-comfortable shadow-card flex min-h-[527px] w-full max-w-[512px] flex-col gap-[44px] rounded-lg bg-white py-[28px]">
+          <h2 className="text-primary text-left text-2xl text-[30px] font-bold">Sign Up</h2>
 
           {error && (
             <div className="mb-4 rounded border border-red-400 bg-red-100 p-3 text-red-700">
@@ -89,10 +89,10 @@ export default function SignUpForm() {
             </div>
           )}
 
-          <div className="flex flex-col gap-[32px]">
+          <div className="gap-roomy flex flex-col">
             {/* Input fields, sign up button */}
             <form onSubmit={handleSignUp} className="flex flex-col gap-[44px]">
-              <div className="flex flex-col gap-[32px]">
+              <div className="gap-roomy flex flex-col">
                 <div>
                   <input
                     type="text"
@@ -100,7 +100,7 @@ export default function SignUpForm() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Full Name"
-                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] placeholder:font-light placeholder:text-[#9AA0B6] focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
+                    className="px-cozy h-[52px] w-full rounded-[40px] border-[0.5px] border-slate-200 placeholder:font-light placeholder:text-slate-300 focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -112,7 +112,7 @@ export default function SignUpForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
-                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] placeholder:font-light placeholder:text-[#9AA0B6] focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
+                    className="px-cozy h-[52px] w-full rounded-[40px] border-[0.5px] border-slate-200 placeholder:font-light placeholder:text-slate-300 focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -124,7 +124,7 @@ export default function SignUpForm() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
-                    className="h-[52px] w-full rounded-[40px] border-[0.5px] border-[#C5CBDE] px-[16px] placeholder:font-light placeholder:text-[#9AA0B6] focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
+                    className="px-cozy h-[52px] w-full rounded-[40px] border-[0.5px] border-slate-200 placeholder:font-light placeholder:text-slate-300 focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
                     required
                     minLength={8}
                   />
@@ -134,10 +134,12 @@ export default function SignUpForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group relative flex h-[52px] cursor-pointer items-center justify-center overflow-hidden rounded-[37px] bg-white text-[20px] font-medium text-white shadow-[inset_0_0_0_1px_transparent] transition-colors duration-200 enabled:hover:text-[#005EAF] enabled:hover:shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)] disabled:cursor-not-allowed disabled:opacity-50"
+                className="group duration-fast enabled:hover:text-primary relative flex h-[52px] cursor-pointer items-center justify-center overflow-hidden rounded-[37px] bg-white text-[20px] font-medium text-white shadow-[inset_0_0_0_1px_transparent] transition-colors enabled:hover:shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)] disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <span className="absolute inset-0 rounded-[37px] bg-gradient-to-l from-[#005eaf] to-[#249AFF] transition-opacity duration-200 group-enabled:group-hover:opacity-0" />
-                <span className="relative z-10">{loading ? "Creating account..." : "Sign Up"}</span>
+                <span className="from-primary to-primary-light duration-fast absolute inset-0 rounded-[37px] bg-gradient-to-l transition-opacity group-enabled:group-hover:opacity-0" />
+                <span className="z-dropdown relative">
+                  {loading ? "Creating account..." : "Sign Up"}
+                </span>
               </button>
             </form>
 
@@ -157,7 +159,7 @@ export default function SignUpForm() {
               <button
                 onClick={handleGoogleSignUp}
                 disabled={loading}
-                className="flex h-[51px] cursor-pointer items-center justify-center gap-[8px] rounded-[37px] border-[1px] border-black/25 bg-white py-[15px] font-[Roboto] text-[14px] font-medium tracking-[0.25px] enabled:hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="gap-tight flex h-[51px] cursor-pointer items-center justify-center rounded-[37px] border-[1px] border-black/25 bg-white py-[15px] font-[Roboto] text-[14px] font-medium tracking-[0.25px] enabled:hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <svg className="h-[20px] w-[20px]" viewBox="0 0 24 24">
                   <path
@@ -180,9 +182,9 @@ export default function SignUpForm() {
                 Continue with Google
               </button>
 
-              <div className="flex justify-center gap-[8px]">
+              <div className="gap-tight flex justify-center">
                 <p className="text-[16px] font-light text-black/20">Have an account?</p>
-                <Link href="/login" className="text-[16px] font-light text-[#005EAF] underline">
+                <Link href="/login" className="text-primary text-[16px] font-light underline">
                   Log in here
                 </Link>
               </div>

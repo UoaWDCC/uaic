@@ -52,7 +52,7 @@ const CommitteePageContent = ({ executiveCommittee }: CommitteePageContentProps)
   }, [teams, searchQuery, activeCategory]);
 
   return (
-    <div className="w-full bg-[#F4F8FE]">
+    <div className="bg-surface-faint w-full">
       <CommitteeHeader />
 
       <div className="flex w-full flex-col px-6 pt-10 pb-12 lg:px-16 lg:pt-8 lg:pb-20">

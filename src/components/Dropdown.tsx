@@ -20,7 +20,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange, ariaLabel
   };
 
   return (
-    <div className="text-darkBlue relative block w-full text-sm font-light lg:text-base">
+    <div className="text-primary relative block w-full text-sm font-light lg:text-base">
       {/* Expanding container */}
       <div
         className={`overflow-hidden rounded-2xl bg-white transition-[max-height] duration-500 ease-in-out ${isOpen ? "shadow-sm" : "shadow-none"} ${isOpen ? "max-h-[500px]" : "max-h-[44px] lg:max-h-[56px]"} `}
@@ -34,13 +34,13 @@ const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange, ariaLabel
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <span>{value}</span>
-          <span className={`ml-2 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}>
+          <span className={`duration-fast ml-2 transition-transform ${isOpen ? "rotate-180" : ""}`}>
             ▼
           </span>
         </button>
 
         {/* Options */}
-        <div role="listbox" aria-label={ariaLabel} className="transition-opacity duration-200">
+        <div role="listbox" aria-label={ariaLabel} className="duration-fast transition-opacity">
           {isOpen &&
             options.map((option, i) => (
               <button
@@ -49,7 +49,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange, ariaLabel
                 aria-selected={option === value}
                 key={option + i}
                 onClick={() => handleSelect(option)}
-                className={`hover:bg-lightBlue block w-full cursor-pointer px-4 py-2 text-left ${option === value ? "cursor-default text-gray-400" : ""} `}
+                className={`hover:bg-surface-faint block w-full cursor-pointer px-4 py-2 text-left ${option === value ? "cursor-default text-gray-400" : ""} `}
               >
                 {option}
               </button>

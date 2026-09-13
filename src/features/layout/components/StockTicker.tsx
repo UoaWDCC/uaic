@@ -43,14 +43,14 @@ const StockTicker = ({ className = "", isTransparent = false }: StockTickerProps
 
   return (
     <div
-      className={`tradingview-widget-container relative transition-colors duration-300 ease-in-out ${isTransparent ? "bg-transparent" : "bg-white"} ${className}`}
+      className={`tradingview-widget-container duration-base relative transition-colors ease-in-out ${isTransparent ? "bg-transparent" : "bg-white"} ${className}`}
     >
       <div
-        className={`tradingview-widget-container__widget transition-opacity duration-300 ease-in-out ${isTransparent ? "pointer-events-none opacity-0" : "opacity-100"}`}
+        className={`tradingview-widget-container__widget duration-base transition-opacity ease-in-out ${isTransparent ? "pointer-events-none opacity-0" : "opacity-100"}`}
         ref={lightRef}
       />
       <div
-        className={`tradingview-widget-container__widget absolute inset-0 h-full w-full transition-opacity duration-300 ease-in-out ${isTransparent ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        className={`tradingview-widget-container__widget duration-base absolute inset-0 h-full w-full transition-opacity ease-in-out ${isTransparent ? "opacity-100" : "pointer-events-none opacity-0"}`}
         ref={darkRef}
       />
     </div>

@@ -5,7 +5,7 @@ export default async function FAQ() {
   const faqs = await getFAQs();
 
   return (
-    <div className="min-h-[90vh] bg-[#F4F8FE]">
+    <div className="bg-surface-faint min-h-[90vh]">
       <FAQPage faqs={faqs} />
     </div>
   );
