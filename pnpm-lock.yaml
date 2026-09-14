@@ -84,8 +84,8 @@ importers:
         specifier: ^18.5.0
         version: 18.5.0(@types/node@26.5.1)
       swiper:
-        specifier: ^12.1.4
-        version: 12.1.4
+        specifier: ^14.2.0
+        version: 14.2.0
     devDependencies:
       '@commitlint/cli':
         specifier: ^21.2.2
@@ -4880,8 +4880,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  swiper@12.1.4:
-    resolution: {integrity: sha512-bihiwoKMOQwW8FfdUbo1DgkVH25E+4ZELIq0oopL1KTKBteLuaTMi/wwFjMxtlhTkk45k3XQ89D1Fvv0spSqBA==}
+  swiper@14.2.0:
+    resolution: {integrity: sha512-GsL4M9Fq7Sg22OyL3SjdNj/0bxTfIxPJJHHW394Li0u5vYtExi0a09iBUc8CuLafJi5pAlH2AHUe1PocxHl45g==}
     engines: {node: '>= 4.7.0'}
 
   symbol-tree@3.2.4:
@@ -10561,7 +10561,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  swiper@12.1.4: {}
+  swiper@14.2.0: {}
 
   symbol-tree@3.2.4: {}
 
