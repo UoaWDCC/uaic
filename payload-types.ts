@@ -308,6 +308,7 @@ export interface Member {
   firstName: string;
   lastName: string;
   email: string;
+  phoneNumber?: string | null;
   upi: string;
   studentId: string;
   gender: 'male' | 'female' | 'nonBinary' | 'preferNotToSay';
@@ -319,13 +320,9 @@ export interface Member {
   howDidYouFindUs?: string | null;
   hasPaid: boolean;
   paymentDate?: string | null;
+  experienceLevel?: ('beginner' | 'intermediate' | 'advanced') | null;
   updatedAt: string;
   createdAt: string;
-  experienceLevel?: 'Beginner' | 'Intermediate'| 'Advanced' | unknown;
-  areasOfInterest?: 'Equities' | 'Crypto' | 'Macro' | 'Options' | 'ESG' | 'Fixed Income' | 'Venture / Startups' | unknown;
-  linkedinHandle?: string;
-  caseCompetitionInterest?: boolean;
-
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -849,6 +846,7 @@ export interface MemberSelect<T extends boolean = true> {
   firstName?: T;
   lastName?: T;
   email?: T;
+  phoneNumber?: T;
   upi?: T;
   studentId?: T;
   gender?: T;
@@ -861,9 +859,6 @@ export interface MemberSelect<T extends boolean = true> {
   hasPaid?: T;
   paymentDate?: T;
   experienceLevel?: T;
-  areasOfInterest?: T;
-  linkedinHandle?: T;
-  caseCompetitionInterest?: T;
   updatedAt?: T;
   createdAt?: T;
 }

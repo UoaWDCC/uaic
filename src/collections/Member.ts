@@ -162,32 +162,6 @@ export const Member: CollectionConfig = {
       type: "select",
       options: ["beginner", "intermediate", "advanced"],
     },
-    {
-      name: "areasOfInterest",
-      type: "select",
-      label: "Areas of Interest",
-      hasMany: true,
-      options: [
-        "Equities",
-        "Crypto",
-        "Macro",
-        "Options",
-        "ESG",
-        "Fixed Income",
-        "Venture / Startups",
-      ],
-    },
-    {
-      name: "linkedinHandle",
-      label: "Areas of Interest",
-      type: "text",
-    },
-    {
-      name: "caseCompetitionInterest",
-      label: "Case competition interest",
-      type: "checkbox",
-      defaultValue: false,
-    },
   ],
   access: {
     read: () => true,
