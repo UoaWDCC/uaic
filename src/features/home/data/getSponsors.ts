@@ -2,6 +2,7 @@
 
 import { getPayload } from "payload";
 import config from "@payload-config";
+import { resolveMedia } from "@/lib/payload/media";
 
 export const getSponsors = async () => {
   const payload = await getPayload({ config });
@@ -11,10 +12,8 @@ export const getSponsors = async () => {
     depth: 1,
   });
 
-  console.log("Sponsors fetched from Payload CMS:", result);
-
-  return result.docs.map((doc: any) => {
-    const logo = doc.logo as any;
+  return result.docs.map((doc) => {
+    const logo = resolveMedia(doc.logo);
 
     return {
       id: doc.id,

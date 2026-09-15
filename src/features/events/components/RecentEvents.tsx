@@ -1,9 +1,12 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { TiLocation } from "react-icons/ti";
 import { IoCalendar } from "react-icons/io5";
 import { LuClock9 } from "react-icons/lu";
 import Image from "next/image";
+import type { Event as PayloadEvent } from "../../../../payload-types";
+import { resolveMedia } from "@/lib/payload/media";
 
 interface Event {
   id: string;
@@ -19,10 +22,11 @@ interface Event {
 }
 
 interface RecentEventsProps {
-  events: any[]; // Raw events from database
+  events: PayloadEvent[];
 }
 
 const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
+  const router = useRouter();
   const [selectedEvent, setSelectedEvent] = useState<null | Event>(null);
 
   // Transform database events to component format
@@ -63,7 +67,7 @@ const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
       title: dbEvent.event,
       location: dbEvent.location,
       type: "Event",
-      photo: dbEvent.image?.url || "/assets/logos/uaic.webp",
+      photo: resolveMedia(dbEvent.image)?.url || "/assets/logos/uaic.webp",
       description: dbEvent.description,
     };
   });
@@ -108,7 +112,7 @@ const RecentEvents = ({ events: rawEvents }: RecentEventsProps) => {
 
                   <div className="mt-[14px] flex w-full gap-5">
                     <button
-                      onClick={() => (window.location.href = "/events")}
+                      onClick={() => router.push("/events")}
                       className="from-primary to-primary-light hover:text-primary mb-6 w-full min-w-0 transform cursor-pointer rounded-[20px] border bg-gradient-to-l px-2 text-center text-[10px] text-white transition duration-500 ease-in-out hover:scale-102 hover:cursor-pointer hover:border-gray-200 hover:from-blue-50 hover:to-blue-50 lg:px-4 lg:text-[15px]"
                     >
                       Register now

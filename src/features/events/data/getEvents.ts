@@ -1,13 +1,14 @@
 "use server";
 import { getPayload } from "payload";
 import config from "@payload-config";
+import type { Event } from "../../../../payload-types";
 
 // Get all events
-export const getEvents = async (): Promise<any[]> => {
+export const getEvents = async (): Promise<Event[]> => {
   const payload = await getPayload({ config });
 
   const events = await payload.find({
-    collection: "events" as any,
+    collection: "events",
     depth: 1,
     pagination: false,
     sort: "-startDate",
@@ -17,11 +18,11 @@ export const getEvents = async (): Promise<any[]> => {
 };
 
 // Get only upcoming events (startDate >= today)
-export const getUpcomingEvents = async (): Promise<any[]> => {
+export const getUpcomingEvents = async (): Promise<Event[]> => {
   const payload = await getPayload({ config });
 
   const events = await payload.find({
-    collection: "events" as any,
+    collection: "events",
     depth: 1,
     pagination: false,
     sort: "startDate", // Ascending - soonest first
@@ -36,11 +37,11 @@ export const getUpcomingEvents = async (): Promise<any[]> => {
 };
 
 // Get only past events (endDate < today), optionally capped to the `limit` most recent
-export const getRecentEvents = async (limit?: number): Promise<any[]> => {
+export const getRecentEvents = async (limit?: number): Promise<Event[]> => {
   const payload = await getPayload({ config });
 
   const events = await payload.find({
-    collection: "events" as any,
+    collection: "events",
     depth: 1,
     pagination: false,
     sort: "-endDate", // Descending - most recent first
