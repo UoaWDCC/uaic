@@ -35,7 +35,7 @@ const BulletinHeroSection = () => {
 
         {/* Foreground content */}
         <div className="relative mx-auto mt-[80px] flex h-[324] w-[305px] flex-col gap-[70px] text-center lg:mt-[118px] lg:ml-[112px] lg:h-[384] lg:w-[494px] lg:gap-[45px] lg:text-left">
-          <h1 className="mx-[20px] bg-gradient-to-r from-[#145CA9] to-[#5FB4FF] bg-clip-text text-[41.65px] leading-[45px] font-[900] tracking-[0px] text-transparent lg:mx-0 lg:text-[75.65px] lg:leading-[85px]">
+          <h1 className="from-primary to-primary-light mx-[20px] bg-gradient-to-r bg-clip-text text-[41.65px] leading-[45px] font-[900] tracking-[0px] text-transparent lg:mx-0 lg:text-[75.65px] lg:leading-[85px]">
             Bulletin
           </h1>
 
@@ -44,7 +44,7 @@ const BulletinHeroSection = () => {
             publish the recurring news bulletin
           </h3>
 
-          <div className="flex h-[53px] w-[320px] gap-[8px]">
+          <div className="gap-tight flex h-[53px] w-[320px]">
             <Button link="/about" variant="secondary">
               About Us
             </Button>

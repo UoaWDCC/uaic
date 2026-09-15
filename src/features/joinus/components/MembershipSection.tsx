@@ -6,11 +6,11 @@ const MembershipSection = () => {
   return (
     <div className="bg-[radial-gradient(70%_60%_at_50%_50%,rgba(20,92,169,0.2)_60%,rgba(255,255,255,0.2)_80%)] pr-3 pl-3 sm:bg-[radial-gradient(70%_60%_at_50%_55%,rgba(20,92,169,0.4)_0%,rgba(255,255,255,0.2)_80%)] sm:pr-10 sm:pl-10">
       {/* Membership Title */}
-      <h1 className="text-header text-darkBlue mt-10 px-4 font-bold md:pl-10">Membership</h1>
+      <h1 className="text-header text-primary mt-10 px-4 font-bold md:pl-10">Membership</h1>
       <hr className="border-grey-200 mx-auto w-[95%] border-t" />
 
       {/* Membership Description */}
-      <div className="text-body text-darkBlue mt-6 self-center px-4 leading-relaxed font-normal md:pl-10">
+      <div className="text-body text-primary mt-6 self-center px-4 leading-relaxed font-normal md:pl-10">
         <p>
           Memberships for 2025 will be active from the sign-up date to the end of the year. To
           become a member of UAIC for 2025, click the image below and fill in the form!
