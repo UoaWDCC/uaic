@@ -1,9 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FiEdit2, FiLogOut, FiArrowUpRight } from "react-icons/fi";
+import { FiEdit2, FiLogOut } from "react-icons/fi";
 import { signOut } from "@/lib/auth-client";
 import Link from "next/link";
+import ArrowButton from "@/components/ArrowButton";
+import { maskPhoneNumber } from "../utils/maskPhoneNumber";
+import { maskStudentID } from "../utils/maskStudentID";
 
 type SessionUser = {
   name: string;
@@ -104,38 +107,6 @@ const CardHeader = ({ title, subtitle, onEdit }: CardHeaderProps) => {
 const formatMemberSince = (paymentDate?: string | null) => {
   if (!paymentDate) return "—";
   return new Date(paymentDate).toLocaleDateString("en-NZ", { month: "long", year: "numeric" });
-};
-
-const maskStudentID = (value: string, visibleChars = 2) => {
-  if (!value) {
-    return "—";
-  }
-  const studentID = value.trim();
-  const masked = "•".repeat(studentID.length - visibleChars);
-  return masked + studentID.slice(-visibleChars);
-};
-
-const maskPhoneNumber = (value: string, visibleDigits = 2) => {
-  if (!value) {
-    return "—";
-  }
-  const digitsOnly = value.replace(/\D/g, ""); /* strip non-digits */
-  if (digitsOnly.length <= visibleDigits) return value;
-
-  const visible = digitsOnly.slice(-visibleDigits);
-  const maskedLength = digitsOnly.length - visibleDigits;
-
-  const groups: string[] = [];
-  let remaining = maskedLength;
-  const chunkSizes = [4, 3, 3]; /* adjust to match typical NZ mobile format: 0XX XXX XXXX */
-  for (const size of chunkSizes) {
-    if (remaining <= 0) break;
-    const take = Math.min(size, remaining);
-    groups.push("•".repeat(take));
-    remaining -= take;
-  }
-
-  return groups.join(" ") + " " + visible;
 };
 
 const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
@@ -437,7 +408,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
               {upcomingEvents.map((event, index) => (
                 <div
                   key={index}
-                  className="border-grey-200 flex items-center gap-4 border-b py-4 last:border-0"
+                  className="flex items-center gap-4 border-b border-[#E2E9F2] py-4 last:border-0"
                 >
                   <div className="bg-lightBlue grid h-14 w-14 shrink-0 place-items-center rounded-lg">
                     <span className="text-darkBlue text-lg leading-none font-bold">
@@ -447,6 +418,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                       {event.month}
                     </span>
                   </div>
+                  <hr className="mt-4 border-t border-[#E2E9F2] pb-6 md:mt-15 md:pb-0" />
                   <div className="min-w-0">
                     <p className="text-darkBlue font-semibold">{event.title}</p>
                     <p className="mt-0.5 text-sm text-slate-500">{event.detail}</p>
@@ -454,10 +426,10 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                 </div>
               ))}
             </div>
-            <button className="mt-6 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-[#249AFF] to-[#005EAF] px-6 py-3 font-semibold text-white hover:cursor-pointer">
-              <FiArrowUpRight size={18} />
-              View All events
-            </button>
+            <hr className="border-t border-[#E2E9F2]" />
+            <div className="w-1/4 pt-4">
+              <ArrowButton text="View All Events" openInNewTab={true} link="/events" />
+            </div>
           </Card>
         </div>
 
