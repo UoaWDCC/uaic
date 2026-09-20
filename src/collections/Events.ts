@@ -1,7 +1,9 @@
 import type { CollectionConfig, CollectionSlug } from "payload";
+import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 
 export const Events: CollectionConfig = {
   slug: "events",
+  hooks: revalidateOnChange(["/", "/events"]),
   labels: {
     singular: "Event",
     plural: "Events",

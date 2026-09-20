@@ -1,7 +1,9 @@
+import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 import type { CollectionConfig } from "payload";
 
 export const LandingPageImages: CollectionConfig = {
   slug: "landing-page-images",
+  hooks: revalidateOnChange("/bulletin"),
   labels: {
     singular: "Landing Page Image",
     plural: "Landing Page Images",

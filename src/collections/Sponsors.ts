@@ -1,7 +1,9 @@
+import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 import { CollectionConfig } from "payload";
 
 export const Sponsors: CollectionConfig = {
   slug: "sponsors",
+  hooks: revalidateOnChange("/"),
   labels: {
     singular: "Sponsor",
     plural: "Sponsors",

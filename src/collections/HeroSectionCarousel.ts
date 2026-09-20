@@ -1,7 +1,9 @@
+import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 import type { CollectionConfig } from "payload";
 
 export const HeroSectionCarousel: CollectionConfig = {
   slug: "hero-section-carousel",
+  hooks: revalidateOnChange("/"),
   labels: {
     singular: "Hero Section Carousel Slide",
     plural: "Hero Section Carousel Slides",
