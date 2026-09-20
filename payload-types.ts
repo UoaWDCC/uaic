@@ -79,6 +79,7 @@ export interface Config {
     'executive-committee': ExecutiveCommittee;
     'executive-subteams': ExecutiveSubteam;
     events: Event;
+    'event-signups': EventSignup;
     portfolio: Portfolio;
     sponsors: Sponsor;
     exports: Export;
@@ -103,6 +104,7 @@ export interface Config {
     'executive-committee': ExecutiveCommitteeSelect<false> | ExecutiveCommitteeSelect<true>;
     'executive-subteams': ExecutiveSubteamsSelect<false> | ExecutiveSubteamsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    'event-signups': EventSignupsSelect<false> | EventSignupsSelect<true>;
     portfolio: PortfolioSelect<false> | PortfolioSelect<true>;
     sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
     exports: ExportsSelect<false> | ExportsSelect<true>;
@@ -402,6 +404,28 @@ export interface Event {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-signups".
+ */
+export interface EventSignup {
+  id: string;
+  event: string | Event;
+  member: string | Member;
+  /**
+   * Answers to the event's sign-up questions, captured at sign-up time.
+   */
+  responses?:
+    | {
+        fieldLabel: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  status: 'confirmed' | 'cancelled';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "portfolio".
  */
 export interface Portfolio {
@@ -665,6 +689,10 @@ export interface PayloadLockedDocument {
         value: string | Event;
       } | null)
     | ({
+        relationTo: 'event-signups';
+        value: string | EventSignup;
+      } | null)
+    | ({
         relationTo: 'portfolio';
         value: string | Portfolio;
       } | null)
@@ -913,6 +941,24 @@ export interface EventsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-signups_select".
+ */
+export interface EventSignupsSelect<T extends boolean = true> {
+  event?: T;
+  member?: T;
+  responses?:
+    | T
+    | {
+        fieldLabel?: T;
+        value?: T;
+        id?: T;
+      };
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "portfolio_select".
  */
 export interface PortfolioSelect<T extends boolean = true> {
@@ -1096,6 +1142,7 @@ export interface TaskCreateCollectionExport {
       | 'executive-committee'
       | 'executive-subteams'
       | 'events'
+      | 'event-signups'
       | 'portfolio'
       | 'sponsors'
       | 'exports'
