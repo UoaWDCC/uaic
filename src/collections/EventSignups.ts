@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
-import { isAdminOrExec } from "../lib/isAdminOrExec";
+import { isAdminOrExec, isStaffUser } from "../lib/isAdminOrExec";
+import { getMemberIdFromRequest } from "../lib/memberSession";
 
 export const EventSignups: CollectionConfig = {
   slug: "event-signups",
@@ -13,10 +14,27 @@ export const EventSignups: CollectionConfig = {
   },
   defaultSort: "-createdAt",
   access: {
-    // Staff-only for now. Member-scoped reads (returning a `where` clause built
-    // from the Better Auth session) land in a follow-up — see the read-access
-    // callout on #375.
-    read: isAdminOrExec,
+    // Staff see everything. Anyone else is narrowed to their own rows by the
+    // `where` clause below rather than being allowed or denied outright, so a
+    // member can never read another member's signup.
+    //
+    // Note this only guards the REST/GraphQL endpoints Payload mounts at
+    // /api/event-signups. Local API calls (payload.find() in a route handler or
+    // server component) default to overrideAccess: true and skip this entirely -
+    // those callers have to scope by member themselves.
+    read: async ({ req }) => {
+      if (isStaffUser(req.user)) {
+        return true;
+      }
+
+      const memberId = await getMemberIdFromRequest(req);
+
+      if (!memberId) {
+        return false;
+      }
+
+      return { member: { equals: memberId } };
+    },
     create: isAdminOrExec,
     update: isAdminOrExec,
     delete: isAdminOrExec,
