@@ -1,3 +1,6 @@
+// CMS edits invalidate this page; refresh event dates between edits too.
+export const revalidate = 60;
+
 import React from "react";
 import EventsPageContent from "@/features/events/components/EventsPageContent";
 import { getUpcomingEvents, getRecentEvents } from "@/features/events/data/getEvents";
