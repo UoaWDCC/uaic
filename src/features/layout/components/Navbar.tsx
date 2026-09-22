@@ -3,19 +3,20 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ArrowButton from "@/components/ArrowButton";
-import StockTicker from "./StockTicker";
 import { GoArrowUpRight } from "react-icons/go";
 import { CgProfile } from "react-icons/cg";
 import Button from "@/components/Button";
 import { useSession } from "@/lib/auth-client";
+import StockTicker, { type TickerSymbol } from "./StockTicker";
 
 interface NavbarProps {
   theme?: "auto" | "blue";
+  symbols?: TickerSymbol[];
 }
 
 const NAVBAR_HEIGHT = 131.75;
 
-const Navbar = ({ theme = "auto" }: NavbarProps) => {
+const Navbar = ({ theme = "auto", symbols = [] }: NavbarProps) => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
@@ -167,7 +168,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
       </div>
 
       {/* Stock Ticker - Desktop */}
-      <StockTicker className="hidden lg:block" isTransparent={!hasBlueTheme} />
+      <StockTicker symbols={symbols} className="hidden lg:block" isTransparent={!hasBlueTheme} />
       {/* Mobile Menu */}
       <div
         className={`fixed top-0 z-30 w-full overflow-hidden transition-[translate,opacity] duration-600 ease-in-out lg:hidden ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}
@@ -237,10 +238,10 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           </li>
         </ul>
 
-        <StockTicker className="m-0 block w-full" isTransparent={true} />
+        <StockTicker symbols={symbols} className="m-0 block w-full" isTransparent={true} />
       </div>
       {/* Stock Ticker - Mobile */}
-      <StockTicker className="lg:hidden" isTransparent={!hasBlueTheme} />
+      <StockTicker symbols={symbols} className="lg:hidden" isTransparent={!hasBlueTheme} />
     </nav>
   );
 };

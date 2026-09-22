@@ -119,8 +119,12 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    ticker: Ticker;
+  };
+  globalsSelect: {
+    ticker: TickerSelect<false> | TickerSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -1109,6 +1113,36 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ticker".
+ */
+export interface Ticker {
+  id: string;
+  tickers: {
+    proName: string;
+    title: string;
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ticker_select".
+ */
+export interface TickerSelect<T extends boolean = true> {
+  tickers?:
+    | T
+    | {
+        proName?: T;
+        title?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
