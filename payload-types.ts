@@ -79,6 +79,7 @@ export interface Config {
     'executive-committee': ExecutiveCommittee;
     'executive-subteams': ExecutiveSubteam;
     events: Event;
+    'event-signups': EventSignup;
     portfolio: Portfolio;
     sponsors: Sponsor;
     exports: Export;
@@ -103,6 +104,7 @@ export interface Config {
     'executive-committee': ExecutiveCommitteeSelect<false> | ExecutiveCommitteeSelect<true>;
     'executive-subteams': ExecutiveSubteamsSelect<false> | ExecutiveSubteamsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    'event-signups': EventSignupsSelect<false> | EventSignupsSelect<true>;
     portfolio: PortfolioSelect<false> | PortfolioSelect<true>;
     sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
     exports: ExportsSelect<false> | ExportsSelect<true>;
@@ -397,6 +399,74 @@ export interface Event {
   registrationLink?: string | null;
   image?: (string | null) | Media;
   attendees?: (string | Member)[] | null;
+  /**
+   * Turn on to let members register for this event on the website.
+   */
+  requiresSignup?: boolean | null;
+  /**
+   * Only paid members can sign up for this event.
+   */
+  requiresMembership?: boolean | null;
+  /**
+   * Maximum number of sign-ups. Leave empty for unlimited.
+   */
+  capacity?: number | null;
+  /**
+   * Release the slot back to the pool when someone cancels their sign-up.
+   */
+  freeSlotOnCancel?: boolean | null;
+  /**
+   * Sign-ups cannot be edited after this time. Defaults to the event start date.
+   */
+  editCutoff?: string | null;
+  /**
+   * Sign-ups cannot be cancelled after this time. Defaults to the edit cut-off.
+   */
+  cancelCutoff?: string | null;
+  /**
+   * Editing this form after sign-ups already exist will NOT update existing submitted responses.
+   */
+  signupForm?:
+    | {
+        label: string;
+        fieldType: 'shortText' | 'paragraph' | 'multipleChoice' | 'checkboxes' | 'dropdown';
+        required?: boolean | null;
+        /**
+         * Only used by Multiple Choice, Checkboxes and Dropdown field types.
+         */
+        options?:
+          | {
+              option: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'formField';
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-signups".
+ */
+export interface EventSignup {
+  id: string;
+  event: string | Event;
+  member: string | Member;
+  /**
+   * Answers to the event's sign-up questions, captured at sign-up time.
+   */
+  responses?:
+    | {
+        fieldLabel: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  status: 'confirmed' | 'cancelled';
   updatedAt: string;
   createdAt: string;
 }
@@ -665,6 +735,10 @@ export interface PayloadLockedDocument {
         value: string | Event;
       } | null)
     | ({
+        relationTo: 'event-signups';
+        value: string | EventSignup;
+      } | null)
+    | ({
         relationTo: 'portfolio';
         value: string | Portfolio;
       } | null)
@@ -908,6 +982,49 @@ export interface EventsSelect<T extends boolean = true> {
   registrationLink?: T;
   image?: T;
   attendees?: T;
+  requiresSignup?: T;
+  requiresMembership?: T;
+  capacity?: T;
+  freeSlotOnCancel?: T;
+  editCutoff?: T;
+  cancelCutoff?: T;
+  signupForm?:
+    | T
+    | {
+        formField?:
+          | T
+          | {
+              label?: T;
+              fieldType?: T;
+              required?: T;
+              options?:
+                | T
+                | {
+                    option?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-signups_select".
+ */
+export interface EventSignupsSelect<T extends boolean = true> {
+  event?: T;
+  member?: T;
+  responses?:
+    | T
+    | {
+        fieldLabel?: T;
+        value?: T;
+        id?: T;
+      };
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1096,6 +1213,7 @@ export interface TaskCreateCollectionExport {
       | 'executive-committee'
       | 'executive-subteams'
       | 'events'
+      | 'event-signups'
       | 'portfolio'
       | 'sponsors'
       | 'exports'
