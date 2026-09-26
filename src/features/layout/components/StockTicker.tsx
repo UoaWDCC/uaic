@@ -15,15 +15,26 @@ interface StockTickerProps {
 
 function useTickerWidget(symbols: TickerSymbol[] = [], colorTheme: "light" | "dark") {
   const ref = useRef<HTMLDivElement>(null);
+  const SYMBOLS = [
+    { proName: "FOREXCOM:SPXUSD", title: "S&P 500 Index" },
+    { proName: "FOREXCOM:NSXUSD", title: "US 100 Cash CFD" },
+    { proName: "FX_IDC:EURUSD", title: "EUR to USD" },
+    { proName: "BITSTAMP:BTCUSD", title: "Bitcoin" },
+    { proName: "BITSTAMP:ETHUSD", title: "Ethereum" },
+  ];
+
+  const checkedSymbols = !symbols || symbols.length == 0 ? SYMBOLS : symbols; //if empty then use the local list
 
   useEffect(() => {
-    if (!ref.current || !symbols || symbols.length === 0) return;
+    if (!ref.current) {
+      return;
+    }
 
     const script = document.createElement("script");
     script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
     script.async = true;
     script.innerHTML = JSON.stringify({
-      symbols,
+      symbols: checkedSymbols, // <--- Pass activeSymbols here!
       showSymbolLogo: true,
       isTransparent: true,
       displayMode: "regular",
@@ -33,7 +44,7 @@ function useTickerWidget(symbols: TickerSymbol[] = [], colorTheme: "light" | "da
 
     ref.current.innerHTML = "";
     ref.current.appendChild(script);
-  }, [colorTheme, symbols]);
+  }, [checkedSymbols, colorTheme, symbols]);
 
   return ref;
 }
@@ -58,6 +69,7 @@ export default function StockTicker({
         }`}
         ref={lightRef}
       />
+
       <div
         className={`tradingview-widget-container__widget duration-base absolute inset-0 h-full w-full transition-opacity ease-in-out ${
           isTransparent ? "opacity-100" : "pointer-events-none opacity-0"

@@ -17,6 +17,7 @@
     "@payloadcms/ui": "3.89.0",
     "@stripe/react-stripe-js": "^4.0.2",
     "@stripe/stripe-js": "^7.10.0",
+    "aws4": "^1.13.2",
     "better-auth": "^1.7.4",
     "dotenv": "^17.4.2",
     "graphql": "^16.10.0",

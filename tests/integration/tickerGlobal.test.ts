@@ -1,27 +1,32 @@
 import { Ticker } from "@/collections/Ticker";
 import { describe, it, expect } from "vitest";
-// This test ensures the Global ticker contains the specified fields.
+import type { ArrayField, Field } from "payload";
+
+// Helper type for fields that have a name and optional required property
+type NamedField = Extract<Field, { name: string }> & { required?: boolean };
 
 describe("Ticker Global Configuration", () => {
   it("should have correct slug and required fields for tickers", () => {
     expect(Ticker.slug).toBe("ticker");
 
-    // Locate the 'tickers' array field
+    // Type guard narrows `field` to Payload's ArrayField
     const tickersArrayField = Ticker.fields.find(
-      (field: any) => field.name === "tickers" && field.type === "array",
-    ) as any;
+      (field): field is ArrayField =>
+        "name" in field && field.name === "tickers" && field.type === "array",
+    );
 
     expect(tickersArrayField).toBeDefined();
 
-    // Find proName and title sub-fields inside the array
-    const proNameField = tickersArrayField.fields.find((f: any) => f.name === "proName");
-    const titleField = tickersArrayField.fields.find((f: any) => f.name === "title");
+    // Cast subfields to NamedField to safely access .name and .required
+    const subFields = (tickersArrayField?.fields ?? []) as NamedField[];
 
-    // Check required field validation
+    const proNameField = subFields.find((f) => f.name === "proName");
+    const titleField = subFields.find((f) => f.name === "title");
+
     expect(proNameField).toBeDefined();
-    expect(proNameField.required).toBe(true);
+    expect(proNameField?.required).toBe(true);
 
     expect(titleField).toBeDefined();
-    expect(titleField.required).toBe(true);
+    expect(titleField?.required).toBe(true);
   });
 });
