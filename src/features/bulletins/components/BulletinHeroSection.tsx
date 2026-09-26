@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { getLandingPageImage } from "@/features/bulletins/data/getLandingPageImage";
 import Button from "@/components/Button";
 
@@ -20,12 +21,15 @@ const BulletinHeroSection = () => {
     <>
       <div className="relative min-h-[500px] w-full overflow-x-hidden overflow-y-hidden lg:min-h-[749px]">
         {/* Background */}
-        <div
-          className="absolute top-0 left-0 z-[-2] min-h-[610px] w-screen bg-cover bg-center bg-no-repeat lg:min-h-screen"
-          style={{
-            backgroundImage: `url('${backgroundImage || "/assets/home/bull-cow-bg.webp"}')`,
-          }}
-        />
+        <div className="absolute top-0 left-0 z-[-2] min-h-[610px] w-screen lg:min-h-screen">
+          <Image
+            src={backgroundImage || "/assets/home/bull-cow-bg.webp"}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
 
         {/* Transparent Overlay */}
         <div className="absolute top-0 left-0 z-[-1] h-screen w-full bg-white/50 from-white/10 to-white/0 lg:bg-[transparent] lg:bg-gradient-to-r" />
