@@ -59,11 +59,20 @@ const EventCardList = ({
   useEffect(() => {
     if (!selectedEvent) return;
 
+    // Compensate for the scrollbar that overflow:hidden removes, so the page
+    // width doesn't shift when the modal opens/closes.
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     const previousOverflow = document.body.style.overflow;
+    const previousPaddingRight = document.body.style.paddingRight;
+
     document.body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
 
     return () => {
       document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPaddingRight;
     };
   }, [selectedEvent]);
 
@@ -129,15 +138,15 @@ const EventCardList = ({
 
   return (
     <div className="mt-[20px] w-full text-center text-black lg:mt-[0px]">
-      <div className="px-[16px] lg:px-0">
+      <div className="px-cozy lg:px-0">
         <div className="flex flex-col items-stretch gap-[36px] pt-[10px] text-left">
           {events.map((event: Event) => (
             <article
               key={event.id}
-              className="group/card mx-auto flex w-full max-w-[1444.56px] flex-shrink-0 flex-col gap-[20px] rounded-[24px] border border-[#DCE6F2] bg-white p-[8px] shadow-[0_1px_4px_0_rgba(12,12,13,0.05),0_1px_4px_0_rgba(12,12,13,0.10)] transition-transform duration-200 ease-in-out hover:-translate-y-[5px] lg:h-[clamp(226px,calc(20vw+21px),260px)] lg:flex-row lg:gap-[clamp(24px,calc(10vw-78px),39px)]"
+              className="group/card border-border duration-fast mx-auto flex w-full max-w-[1444.56px] flex-shrink-0 flex-col gap-[20px] rounded-[24px] border bg-white p-[8px] shadow-[0_1px_4px_0_rgba(12,12,13,0.05),0_1px_4px_0_rgba(12,12,13,0.10)] transition-transform ease-in-out hover:-translate-y-[5px] lg:h-[clamp(226px,calc(20vw+21px),260px)] lg:flex-row lg:gap-[clamp(24px,calc(10vw-78px),39px)]"
             >
-              <div className="flex h-[190px] w-full flex-shrink-0 flex-row gap-[8px] lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:w-[clamp(428px,calc(40vw+18px),496px)]">
-                <div className="flex h-full min-w-0 flex-1 flex-col items-center justify-center rounded-[16px] bg-[#EFF4FA] py-[24px] text-center text-[#145BA7] lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:w-[clamp(210px,calc(20vw+5px),244px)] lg:flex-none lg:py-0">
+              <div className="gap-tight flex h-[190px] w-full flex-shrink-0 flex-row lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:w-[clamp(428px,calc(40vw+18px),496px)]">
+                <div className="bg-surface-faint py-comfortable text-primary flex h-full min-w-0 flex-1 flex-col items-center justify-center rounded-lg text-center lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:w-[clamp(210px,calc(20vw+5px),244px)] lg:flex-none lg:py-0">
                   <span className="text-[52px] leading-[90%] font-extrabold tracking-[0px] lg:text-[clamp(80.85px,calc(7.7vw+1.925px),93.85px)] lg:leading-[90%]">
                     {event.day}
                   </span>
@@ -146,7 +155,7 @@ const EventCardList = ({
                   </span>
                 </div>
 
-                <div className="relative min-w-0 flex-1 overflow-hidden rounded-[16px] lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:w-[clamp(210px,calc(20vw+5px),244px)] lg:flex-none">
+                <div className="relative min-w-0 flex-1 overflow-hidden rounded-lg lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:w-[clamp(210px,calc(20vw+5px),244px)] lg:flex-none">
                   <Image
                     src={event.photo}
                     alt={`${event.title} photo`}
@@ -158,39 +167,39 @@ const EventCardList = ({
               </div>
 
               <div
-                className="hidden h-[38px] w-[4px] flex-shrink-0 self-center rounded-[17px] bg-[#DCE6F2] transition-[height,background-color] duration-200 ease-in-out group-hover/card:h-[175px] group-hover/card:bg-[#249AFF] lg:block"
+                className="bg-surface-muted duration-fast group-hover/card:bg-primary-light hidden h-[38px] w-[4px] flex-shrink-0 self-center rounded-[17px] transition-[height,background-color] ease-in-out group-hover/card:h-[175px] lg:block"
                 aria-hidden="true"
               />
 
-              <div className="flex min-w-0 flex-1 flex-col gap-[20px] px-[8px] pb-[8px] lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:self-center lg:px-0 lg:pt-[clamp(0px,calc(8.5vw-87px),15px)] lg:pb-[clamp(0px,calc(8.5vw-87px),15px)]">
+              <div className="px-tight flex min-w-0 flex-1 flex-col gap-[20px] pb-[8px] lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:self-center lg:px-0 lg:pt-[clamp(0px,calc(8.5vw-87px),15px)] lg:pb-[clamp(0px,calc(8.5vw-87px),15px)]">
                 <div className="min-w-0">
-                  <h2 className="text-[24px] leading-[32px] font-semibold tracking-[0px] text-[#0B1A2B] lg:text-[30px]">
+                  <h2 className="text-ink text-[24px] leading-[32px] font-semibold tracking-[0px] lg:text-[30px]">
                     {event.title}
                   </h2>
-                  <p className="mt-[8px] text-[16px] leading-[18.75px] font-medium tracking-[0px] text-[#6B6F8D] lg:text-[20px]">
+                  <p className="text-muted-foreground mt-[8px] text-[16px] leading-[18.75px] font-medium tracking-[0px] lg:text-[20px]">
                     <span>{event.startTime}</span> • <span>{event.location}</span>
                   </p>
                 </div>
 
-                <p className="line-clamp-3 text-[16px] leading-[25px] font-medium tracking-[0px] text-[#0B1A2B]">
+                <p className="text-ink line-clamp-3 text-[16px] leading-[25px] font-medium tracking-[0px]">
                   {event.description}
                 </p>
 
-                <div className="mt-auto flex w-full flex-row items-stretch gap-[24px]">
+                <div className="gap-comfortable mt-auto flex w-full flex-row items-stretch">
                   {event.application_link ? (
                     <Link
                       href={event.application_link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group relative flex min-h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden rounded-[100px] border border-transparent bg-[#EFF4FA] px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-white transition-colors duration-200 hover:border-[#DCE6F2] hover:text-[#005EAF]"
+                      className="group rounded-pill bg-surface-faint duration-fast hover:border-border hover:text-primary relative flex min-h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden border border-transparent px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-white transition-colors"
                     >
-                      <span className="absolute inset-0 rounded-[100px] bg-gradient-to-r from-[#249AFF] to-[#005EAF] transition-opacity duration-200 group-hover:opacity-0" />
-                      <span className="relative z-10 font-[500] whitespace-nowrap">
+                      <span className="rounded-pill from-primary-light to-primary duration-fast absolute inset-0 bg-gradient-to-r transition-opacity group-hover:opacity-0" />
+                      <span className="z-dropdown relative font-[500] whitespace-nowrap">
                         Register Now
                       </span>
                     </Link>
                   ) : (
-                    <span className="flex min-h-[27px] min-w-0 flex-1 cursor-not-allowed items-center justify-center rounded-[100px] bg-[#DCE6F2] px-[12px] py-[4px] text-[16px] leading-[18px] font-medium text-[#6B6F8D]">
+                    <span className="rounded-pill bg-surface-muted text-muted-foreground flex min-h-[27px] min-w-0 flex-1 cursor-not-allowed items-center justify-center px-[12px] py-[4px] text-[16px] leading-[18px] font-medium">
                       <span className="max-w-full min-w-0 text-center break-words">
                         Registration unavailable
                       </span>
@@ -199,10 +208,12 @@ const EventCardList = ({
                   <button
                     type="button"
                     onClick={() => openSelectedEvent(event)}
-                    className="group relative flex min-h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden rounded-[100px] border border-[#DCE6F2] bg-[#EFF4FA] px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-[#005EAF] transition-colors duration-200 hover:cursor-pointer hover:border-transparent hover:text-white"
+                    className="group rounded-pill border-border bg-surface-faint text-primary duration-fast relative flex min-h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden border px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] transition-colors hover:cursor-pointer hover:border-transparent hover:text-white"
                   >
-                    <span className="pointer-events-none absolute -inset-px rounded-[inherit] bg-gradient-to-r from-[#249AFF] to-[#005EAF] opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
-                    <span className="relative z-10 font-[500] whitespace-nowrap">Learn More</span>
+                    <span className="from-primary-light to-primary duration-fast pointer-events-none absolute -inset-px rounded-[inherit] bg-gradient-to-r opacity-0 transition-opacity group-hover:opacity-100" />
+                    <span className="z-dropdown relative font-[500] whitespace-nowrap">
+                      Learn More
+                    </span>
                   </button>
                 </div>
               </div>
@@ -218,14 +229,14 @@ const EventCardList = ({
             onClick={(event) => {
               if (event.target === event.currentTarget) closeSelectedEvent();
             }}
-            className={`fixed inset-0 z-50 flex items-center justify-center overflow-hidden p-[clamp(24px,6vw,64px)] transition-[opacity,background-color,backdrop-filter] duration-200 ease-in-out lg:p-[clamp(32px,4vw,64px)] ${
+            className={`z-modal duration-fast fixed inset-0 flex items-center justify-center overflow-hidden p-[clamp(24px,6vw,64px)] transition-[opacity,background-color,backdrop-filter] ease-in-out lg:p-[clamp(32px,4vw,64px)] ${
               isModalVisible
                 ? "bg-black/20 opacity-100 backdrop-blur-md"
                 : "bg-black/0 opacity-0 backdrop-blur-none"
             }`}
           >
             <div
-              className="relative flex max-h-[calc(100dvh-clamp(48px,12vw,128px))] w-full max-w-[clamp(320px,calc(100dvh-360px),640px)] overflow-hidden rounded-[24px] border border-[#DCE6F2] bg-white p-[8px] text-left shadow-[0_1px_4px_0_rgba(12,12,13,0.05)] lg:h-auto lg:max-h-[calc(100dvh-clamp(64px,8vw,128px))] lg:min-h-[calc(var(--modal-media-size)+16px)] lg:max-w-[1244px]"
+              className="border-border relative flex max-h-[calc(100dvh-clamp(48px,12vw,128px))] w-full max-w-[clamp(320px,calc(100dvh-360px),640px)] overflow-hidden rounded-[24px] border bg-white p-[8px] text-left shadow-[0_1px_4px_0_rgba(12,12,13,0.05)] lg:h-auto lg:max-h-[calc(100dvh-clamp(64px,8vw,128px))] lg:min-h-[calc(var(--modal-media-size)+16px)] lg:max-w-[1244px]"
               style={
                 {
                   "--modal-media-size":
@@ -236,14 +247,14 @@ const EventCardList = ({
               <button
                 type="button"
                 onClick={closeSelectedEvent}
-                className="absolute top-[clamp(14px,2vw,24px)] right-[clamp(14px,2vw,24px)] z-20 flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-full bg-white/85 p-0 text-[#6B7A8D] transition-[transform,color] duration-200 ease-in-out hover:scale-[1.0667] hover:text-[#005EAF]"
+                className="text-muted-foreground duration-fast hover:text-primary absolute top-[clamp(14px,2vw,24px)] right-[clamp(14px,2vw,24px)] z-20 flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-full bg-white/85 p-0 transition-[transform,color] ease-in-out hover:scale-[1.0667]"
                 aria-label="Close"
               >
                 <VscClose size={30} aria-hidden="true" />
               </button>
 
               <div className="flex min-h-0 w-full flex-auto flex-col items-stretch gap-[clamp(24px,4vw,36px)] overflow-y-auto overscroll-contain lg:min-h-[var(--modal-media-size)] lg:[scrollbar-width:none] lg:flex-row lg:items-center lg:gap-[clamp(28px,5vw,88px)] lg:overflow-x-hidden lg:overflow-y-auto lg:[&::-webkit-scrollbar]:hidden">
-                <div className="relative mx-auto aspect-square w-full flex-shrink-0 overflow-hidden rounded-[16px] lg:mx-0 lg:h-[var(--modal-media-size)] lg:w-[var(--modal-media-size)]">
+                <div className="relative mx-auto aspect-square w-full flex-shrink-0 overflow-hidden rounded-lg lg:mx-0 lg:h-[var(--modal-media-size)] lg:w-[var(--modal-media-size)]">
                   <Image
                     src={selectedEvent.photo}
                     alt={`${selectedEvent.title} photo`}
@@ -254,21 +265,21 @@ const EventCardList = ({
                 </div>
 
                 <div
-                  className="h-[8px] w-[calc(100%-16px)] flex-shrink-0 self-center rounded-[32.66px] bg-[#249AFF] lg:h-[clamp(220px,30vw,340px)] lg:w-[8px]"
+                  className="bg-primary-light h-[8px] w-[calc(100%-16px)] flex-shrink-0 self-center rounded-[32.66px] lg:h-[clamp(220px,30vw,340px)] lg:w-[8px]"
                   aria-hidden="true"
                 />
 
                 <div className="flex min-h-[clamp(260px,36dvh,320px)] w-full min-w-0 flex-col px-[clamp(8px,2vw,20px)] pb-[clamp(8px,2vw,20px)] lg:h-auto lg:min-h-[336px] lg:flex-1 lg:px-0 lg:pr-[clamp(8px,1.5vw,16px)] lg:pb-0">
-                  <div className="flex flex-shrink-0 flex-col gap-[8px] pr-[48px]">
-                    <p className="text-[18px] leading-[20px] font-bold whitespace-nowrap text-[#249AFF] sm:text-[20px]">
+                  <div className="gap-tight flex flex-shrink-0 flex-col pr-[48px]">
+                    <p className="text-primary-light text-[18px] leading-[20px] font-bold whitespace-nowrap sm:text-[20px]">
                       Event Info
                     </p>
-                    <h2 className="w-full text-[clamp(24px,4vw,30px)] leading-[32px] font-semibold text-[#0B1A2B]">
+                    <h2 className="text-ink w-full text-[clamp(24px,4vw,30px)] leading-[32px] font-semibold">
                       {selectedEvent.title}
                     </h2>
                   </div>
 
-                  <p className="mt-[clamp(16px,2vw,25px)] h-[158px] w-full flex-none [scrollbar-width:thin] [scrollbar-color:#DCE6F2_transparent] [scrollbar-gutter:stable] overflow-y-scroll pr-[8px] text-[16px] leading-[20px] font-normal text-black sm:text-[20px] sm:leading-[22.5px] [&::-webkit-scrollbar]:w-[6px] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#DCE6F2] [&::-webkit-scrollbar-track]:bg-transparent">
+                  <p className="[&::-webkit-scrollbar-thumb]:bg-surface-muted mt-[clamp(16px,2vw,25px)] h-[158px] w-full flex-none [scrollbar-width:thin] [scrollbar-color:var(--color-blue-200)_transparent] [scrollbar-gutter:stable] overflow-y-scroll pr-[8px] text-[16px] leading-[20px] font-normal text-black sm:text-[20px] sm:leading-[22.5px] [&::-webkit-scrollbar]:w-[6px] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent">
                     {selectedEvent.description}
                   </p>
 
@@ -281,7 +292,7 @@ const EventCardList = ({
                         openInNewTab
                       />
                     ) : (
-                      <div className="flex h-[37px] w-full cursor-not-allowed items-center justify-center rounded-full bg-[#DCE6F2] text-sm font-medium text-[#6B6F8D] sm:h-[51px] sm:text-[20px]">
+                      <div className="bg-surface-muted text-muted-foreground flex h-[37px] w-full cursor-not-allowed items-center justify-center rounded-full text-sm font-medium sm:h-[51px] sm:text-[20px]">
                         Registration unavailable
                       </div>
                     )}

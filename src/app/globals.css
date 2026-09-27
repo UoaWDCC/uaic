@@ -1,25 +1,143 @@
 @import "tailwindcss";
 
+@theme {
+  /* Brand color primitives — defining these here (not @theme inline) auto-generates
+     utilities like bg-blue-900, text-blue-500, etc. */
+  --color-blue-100: #eff4fa;
+  --color-blue-200: #dce6f2;
+  --color-blue-500: #249aff;
+  --color-blue-900: #005eaf;
+  --color-slate-200: #c5cbde;
+  --color-slate-300: #9aa0b6;
+  --color-slate-500: #6b6f8d;
+  --color-ink: #0b1a2b;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Payment CTA gradient — a deliberately distinct, more saturated blue used only
+     on payment/checkout submit buttons, not the general brand blue above. Named
+     "cobalt" (not "blue-*") on purpose: Tailwind v4 ships its own blue-50..950
+     scale, and reusing those names here would silently override the built-in
+     scale everywhere else in the app that still uses plain Tailwind blue
+     utilities (this already happened once with --color-blue-500/900 above,
+     which quietly repainted unrelated blue-500/900 usages such as the login/
+     signup input focus rings) - a non-reserved family name avoids repeating that. */
+  --color-cobalt-400: #3881f7;
+  --color-cobalt-700: #1439dd;
+
+  /* Legacy neutrals — restored as-is (unchanged values), still used for plain
+     grey borders/dividers/hover states that aren't part of the blue brand scale */
+  --color-grey-100: #d9d9d9;
+  --color-grey-200: #cbc6c6;
+  --color-whiteHover: #f0f8ff;
+  --background-image-footer-gradient: linear-gradient(to bottom, #249aff, #005eaf);
+
+  /* Typography */
+  --font-sans: var(--font-figtree);
+  --font-mono: var(--font-figtree);
+  --font-weight-bold: 700;
+  --font-weight-semibold: 600;
+  --font-weight-medium: 500;
+  --font-weight-regular: 400;
+  --text-title: 2rem;
+  --text-header: 1.3rem;
+  --text-subtitle: 1.875rem; /* 30px */
+  --text-cta: 1.25rem; /* 20px */
+  --text-body: 1rem;
+
+  /* Motion — must use the --transition-duration-* namespace for Tailwind v4
+     to generate duration-* utilities; a plain --duration-* key compiles to nothing */
+  --transition-duration-base: 300ms;
+  --transition-duration-fast: 200ms;
+
+  /* Shadow */
+  --shadow-input-group: 0 2px 8px rgba(11, 26, 43, 0.08);
+  --shadow-card: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+  /* Spacing — must use --spacing-*, not --space-*, for Tailwind v4 to generate
+     gap, px, and py utilities from these. Also deliberately NOT named sm/md/lg/xl:
+     --spacing is the same shared namespace that max-width, width, min-width, and
+     height utilities pull their own named sizes from too, so a --spacing-lg here
+     would silently hijack max-w-lg (and friends) app-wide instead of just the
+     gap/px/py utilities intended - this already happened once and broke the hero
+     section width. Non-t-shirt names sidestep every scale that reserves sm/md/lg/xl. */
+  --spacing-tight: 8px;
+  --spacing-cozy: 16px;
+  --spacing-comfortable: 24px;
+  --spacing-roomy: 32px;
+
+  /* Z-index — must use --z-index-*, not --z-*, for Tailwind v4 to generate
+     z-* utilities from these */
+  --z-index-dropdown: 10;
+  --z-index-modal: 50;
+
+  /* Fully-round pill radius — sits outside the --radius scale on purpose (not
+     a fraction of card radius, so it lives here as a flat value, not in :root) */
+  --radius-pill: 100px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Radius scale — single base, everything else derived. */
+  --radius: 16px; /* = card radius, backed by 8 identical hits in the codebase */
 
-  /* Colours */
-  --darkBlue: #145ca9;
-  --babyBlue: #5fb4ff;
-  --lightBlue: #ebf7fe;
-  --grey-100: #d9d9d9;
-  --grey-200: #cbc6c6;
-  --footerGradient: linear-gradient(to bottom, #249aff, #005eaf);
+  /* Semantic tokens — kept in :root (not @theme) so a future .dark override is possible */
+  --background: var(--color-white);
+  --foreground: #171717; /* unchanged, per earlier decision */
+  --primary: var(--color-blue-900);
+  --primary-light: var(--color-blue-500);
+  --surface-muted: var(--color-blue-200);
+  --surface-faint: var(--color-blue-100);
+  --muted-foreground: var(--color-slate-500);
+  --border: var(--color-blue-200); /* matches existing #DCE6F2 border usage */
+  --input: var(--color-blue-200);
+  --ring: var(--color-blue-500); /* matches existing #249AFF/40 focus rings */
+  --destructive: #dc2626; /* ⚠️ PLACEHOLDER — no confirmed error-red in Figma yet */
+  --gradient-primary: linear-gradient(135deg, var(--color-blue-900), var(--color-blue-500));
+}
 
-  /* Hover */
-  --whiteHover: #f0f8ff;
+@theme inline {
+  /* Every entry below aliases a :root value under the SAME name Tailwind needs
+     to generate its utility (e.g. --color-primary: var(--primary);) - that's
+     intentional, it's what lets a future .dark override just redefine the
+     :root value with no changes needed here. Do NOT add a new token to this
+     block unless it genuinely needs that :root-level overridability: aliasing
+     a name to itself here when the value already lives directly in :root (as
+     --radius-pill originally did) creates a self-referential custom property,
+     which CSS treats as invalid rather than resolving it - it silently
+     computes to nothing instead of erroring. If a token doesn't need runtime
+     overriding, declare it directly in the @theme block above instead. */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-faint: var(--surface-faint);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --background-image-gradient-primary: var(--gradient-primary);
+
+  --radius-sm: calc(var(--radius) * 0.5); /* 8px */
+  --radius-md: calc(var(--radius) * 0.75); /* 12px */
+  --radius-lg: var(--radius); /* 16px */
+  --radius-xl: calc(var(--radius) * 1.5); /* 24px */
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
 /* Styles for the article scrollbar */
 .article-scrollbar {
   scrollbar-width: auto;
-  scrollbar-color: var(--darkBlue) transparent;
+  scrollbar-color: var(--color-blue-900) transparent;
 }
 
 .article-scrollbar::-webkit-scrollbar {
@@ -33,34 +151,11 @@
 }
 
 .article-scrollbar::-webkit-scrollbar-thumb {
-  background-color: var(--darkBlue);
+  background-color: var(--color-blue-900);
   border-radius: 100vh;
   border: 2px solid transparent;
   background-clip: content-box;
   min-height: 40px; /* optional: ensures thumb is always a reasonable size */
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-figtree);
-  --font-mono: var(--font-figtree);
-
-  /* Colours */
-  --color-darkBlue: var(--darkBlue);
-  --color-babyBlue: var(--babyBlue);
-  --color-lightBlue: var(--lightBlue);
-  --color-grey-100: var(--grey-100);
-  --color-grey-200: var(--grey-200);
-  --background-image-footer-gradient: var(--footerGradient);
-
-  /* Hover */
-  --color-whiteHover: var(--whiteHover);
-
-  /* 📏 Font sizes */
-  --text-title: 2rem;
-  --text-header: 1.3rem;
-  --text-body: 1rem;
 }
 
 @font-face {
@@ -80,7 +175,5 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: "Figtree", Arial, Helvetica, sans-serif;
 }

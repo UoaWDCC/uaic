@@ -2,6 +2,38 @@ import React, { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
+import type { Member } from "../../../../payload-types";
+
+// The `/api/update-member` route passes this straight into `payload.update()`
+// for the `member` collection, so it's derived from the generated `Member`
+// type rather than hand-typed - keeps the select-field unions (ethnicity,
+// gender, universityYear, memberType) from drifting out of sync with the
+// actual schema in src/collections/Member.ts.
+type MemberSignupPayload = Pick<
+  Member,
+  | "firstName"
+  | "lastName"
+  | "upi"
+  | "studentId"
+  | "degrees"
+  | "majors"
+  | "paymentDate"
+  | "memberType"
+  | "hasPaid"
+> &
+  Partial<Pick<Member, "email">> & {
+    // NOT Pick<Member, ...> for these three - the real `Member` type
+    // constrains them to Payload's select-field enum values (e.g.
+    // "european" | "maori" | ...), but this component's dropdowns actually
+    // send their display labels ("European", "Male", "Year 1", ...), which
+    // don't match any of those enum values. That's a pre-existing data bug
+    // (see issue filed for it), not something to paper over with a cast here
+    // - typed as plain `string` to reflect what this component actually
+    // produces today.
+    ethnicity: string;
+    gender: string;
+    universityYear: string;
+  };
 
 const CheckoutPage = ({
   amount,
@@ -102,7 +134,7 @@ const CheckoutPage = ({
           const lastName = nameParts.slice(1).join(" ") || firstName;
 
           // 2. Build payload object dynamically
-          const payloadData: Record<string, any> = {
+          const payloadData: MemberSignupPayload = {
             firstName,
             lastName,
             upi,
@@ -230,12 +262,12 @@ const CheckoutPage = ({
 
       <button
         disabled={isLoading}
-        className="w-full rounded-full bg-linear-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white hover:from-blue-700 hover:to-blue-900"
+        className="from-cobalt-400 to-cobalt-700 w-full rounded-full bg-gradient-to-r px-4 py-2 font-bold text-white hover:from-blue-700 hover:to-blue-900"
       >
         {isLoading ? "Processing..." : "Pay"}
       </button>
 
-      {errMessage && <div className="mt-4 font-bold text-red-500">{errMessage}</div>}
+      {errMessage && <div className="text-destructive mt-4 font-bold">{errMessage}</div>}
     </form>
   );
 };

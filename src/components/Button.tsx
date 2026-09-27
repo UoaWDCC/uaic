@@ -33,8 +33,8 @@ const Button: React.FC<ButtonProps> = ({
       hover:bg-gradient-to-r hover:from-[#8bc7fc] hover:to-sky-400
     `,
     secondary: `
-      bg-white text-darkBlue border-2 border-darkBlue
-      hover:bg-darkBlue hover:text-white hover:border-transparent
+      bg-white text-primary border-2 border-primary
+      hover:bg-primary hover:text-white hover:border-transparent
     `,
   };
 
@@ -46,7 +46,7 @@ const Button: React.FC<ButtonProps> = ({
   const baseClasses = `
     inline-flex ${sizeClasses} rounded-full
     items-center justify-center text-lg select-none
-    cursor-pointer transition-colors duration-200
+    cursor-pointer transition-colors duration-fast
     ${variantClasses[variant]}
     ${disabled ? "opacity-50 cursor-not-allowed" : ""}
     ${className}

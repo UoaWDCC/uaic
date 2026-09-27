@@ -43,13 +43,13 @@ const CardHeader = ({ title, subtitle, onEdit, isEditing }: CardHeaderProps) => 
   return (
     <div className="mb-5 flex items-start justify-between">
       <div>
-        <p className="text-xl font-bold text-[#0B1A2B]">{title}</p>
+        <p className="text-primary text-xl font-bold">{title}</p>
         {subtitle && <p className="mt-1 text-sm text-slate-500">{subtitle}</p>}
       </div>
       {onEdit && !isEditing && (
         <button
           onClick={onEdit}
-          className="bg-lightBlue grid h-9 w-9 shrink-0 place-items-center rounded-full text-blue-600 hover:cursor-pointer"
+          className="bg-surface-faint grid h-9 w-9 shrink-0 place-items-center rounded-full text-blue-600 hover:cursor-pointer"
         >
           <FiEdit2 size={16} />
         </button>
@@ -252,7 +252,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           Membership Dashboard
         </div>
         <div className="inline-flex items-center gap-2">
-          <div className="mt-1 text-xl font-extrabold text-[#0B1A2B] md:text-2xl">
+          <div className="mt-1 text-xl font-extrabold text-primary md:text-2xl">
             Welcome Back, {member?.firstName || "Member"}
           </div>
           {member?.hasPaid && (
@@ -281,8 +281,8 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                 <div key={field.label}>
                   <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                     {field.label}
-                  </div>
-                  <div className="mt-1 text-[#0B1A2B]">{field.value}</div>
+                  </p>
+                  <p className="text-primary mt-1">{field.value}</p>
                 </div>
               ))}
             </div>
@@ -335,7 +335,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                     <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                       Member Since
                     </div>
-                    <p className="mt-1 text-[#0B1A2B]">{formatMemberSince(member?.paymentDate)}</p>
+                    <p className="mt-1 text-primary">{formatMemberSince(member?.paymentDate)}</p>
                   </div>
                   <div className="w-1/2 flex-col">
                     <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
@@ -362,17 +362,15 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                   key={index}
                   className="flex items-center gap-4 border-b border-[#E2E9F2] py-4 last:border-0"
                 >
-                  <div className="bg-lightBlue grid h-14 w-14 shrink-0 place-items-center rounded-lg">
-                    <span className="text-darkBlue text-lg leading-none font-bold">
-                      {event.day}
-                    </span>
+                  <div className="bg-surface-faint grid h-14 w-14 shrink-0 place-items-center rounded-lg">
+                    <span className="text-primary text-lg leading-none font-bold">{event.day}</span>
                     <span className="mt-0.5 text-[10px] font-medium tracking-wide text-slate-500 uppercase">
                       {event.month}
                     </span>
                   </div>
                   <hr className="mt-4 border-t border-[#E2E9F2] pb-6 md:mt-15 md:pb-0" />
                   <div className="min-w-0">
-                    <p className="text-darkBlue font-semibold">{event.title}</p>
+                    <p className="text-primary font-semibold">{event.title}</p>
                     <p className="mt-0.5 text-sm text-slate-500">{event.detail}</p>
                   </div>
                 </div>

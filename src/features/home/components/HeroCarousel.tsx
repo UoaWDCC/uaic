@@ -44,7 +44,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ images, onSlideChange, swip
       </Swiper>
 
       {/* Gradient overlay */}
-      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-black/5 via-black/3 to-black/10" />
+      <div className="z-dropdown pointer-events-none absolute inset-0 bg-gradient-to-b from-black/5 via-black/3 to-black/10" />
     </div>
   );
 };

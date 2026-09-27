@@ -19,7 +19,7 @@ const ArticleCard = ({ contentToDisplay }: { contentToDisplay: ArticleCardConten
       href={contentToDisplay.link}
       target={contentToDisplay.openInNewTab ? "_blank" : undefined}
       rel={contentToDisplay.openInNewTab ? "noopener noreferrer" : undefined}
-      className="group flex h-full w-full flex-col overflow-hidden rounded-[16px] bg-white shadow-[0_2.5px_10px_rgba(0,0,0,0.25)]"
+      className="group flex h-full w-full flex-col overflow-hidden rounded-lg bg-white shadow-[0_2.5px_10px_rgba(0,0,0,0.25)]"
     >
       <div className="aspect-[400/161] w-full overflow-hidden">
         <Image
@@ -27,18 +27,18 @@ const ArticleCard = ({ contentToDisplay }: { contentToDisplay: ArticleCardConten
           alt={contentToDisplay.title}
           width={400}
           height={161}
-          className="h-full w-full scale-110 object-cover transition-transform duration-300 group-hover:scale-100"
+          className="duration-base h-full w-full scale-110 object-cover transition-transform group-hover:scale-100"
         />
       </div>
 
       <div className="flex flex-1 flex-col gap-2 p-4">
-        <div className="inline-flex w-fit items-center justify-center rounded-full bg-gradient-to-l from-[#005EAF] to-[#249AFF] px-3 py-1 lg:min-h-[25px] lg:px-4">
+        <div className="from-primary to-primary-light inline-flex w-fit items-center justify-center rounded-full bg-gradient-to-l px-3 py-1 lg:min-h-[25px] lg:px-4">
           <p className="text-[11px] leading-none font-normal text-white lg:text-[13px]">
             {contentToDisplay.category}
           </p>
         </div>
 
-        <h2 className="line-clamp-2 text-[16px] leading-[1.35] font-semibold text-[#0A0A0A] lg:text-[20px]">
+        <h2 className="text-foreground line-clamp-2 text-[16px] leading-[1.35] font-semibold lg:text-[20px]">
           {contentToDisplay.title}
         </h2>
 
@@ -56,7 +56,7 @@ const ArticleCard = ({ contentToDisplay }: { contentToDisplay: ArticleCardConten
               </>
             )}
           </div>
-          <GoArrowUpRight className="h-5 w-5 shrink-0 text-[#145BA7] transition-transform duration-300 group-hover:rotate-45 lg:h-[29px] lg:w-[29px]" />
+          <GoArrowUpRight className="text-primary duration-base h-5 w-5 shrink-0 transition-transform group-hover:rotate-45 lg:h-[29px] lg:w-[29px]" />
         </div>
       </div>
     </Link>

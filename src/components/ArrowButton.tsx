@@ -18,16 +18,16 @@ const ArrowButton = ({
   fullWidth = false,
   openInNewTab = false,
 }: ArrowButtonProps) => {
-  const className = `group relative flex h-[37px] shrink-0 items-center justify-center gap-3 overflow-hidden rounded-full bg-white px-4.5 py-2.5 whitespace-nowrap text-white transition-colors duration-200 hover:text-[#005EAF] sm:h-[51px] sm:gap-[8px] sm:px-[16px] sm:py-0 ${
+  const className = `group relative flex h-[37px] shrink-0 items-center justify-center gap-3 overflow-hidden rounded-full bg-white px-4.5 py-2.5 whitespace-nowrap text-white transition-colors duration-fast hover:text-primary sm:h-[51px] sm:gap-tight sm:px-cozy sm:py-0 ${
     fullWidth ? "w-full" : "w-fit"
   }`;
 
   const content = (
     <>
-      <span className="absolute inset-0 rounded-full bg-gradient-to-l from-[#005EAF] to-[#249AFF] transition-opacity duration-200 group-hover:opacity-0" />
+      <span className="from-primary to-primary-light duration-fast absolute inset-0 rounded-full bg-gradient-to-l transition-opacity group-hover:opacity-0" />
 
-      <GoArrowUpRight className="relative z-10 hidden h-[34.36px] w-[34.36px] transition-transform duration-200 group-hover:rotate-45 sm:block" />
-      <span className="relative z-10 text-sm font-medium sm:text-[20px]">{text}</span>
+      <GoArrowUpRight className="z-dropdown duration-fast relative hidden h-[34.36px] w-[34.36px] transition-transform group-hover:rotate-45 sm:block" />
+      <span className="z-dropdown relative text-sm font-medium sm:text-[20px]">{text}</span>
     </>
   );
 

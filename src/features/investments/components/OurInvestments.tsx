@@ -48,26 +48,26 @@ const OurInvestments = () => {
     <section className="bg-background px-4 py-8 lg:px-80 lg:py-12">
       {/* Pills style tab switcher */}
       <div className="mb-8 flex flex-col gap-4 lg:mb-12 lg:flex-row lg:justify-center">
-        <div className="bg-darkBlue border-darkBlue relative flex w-full overflow-hidden rounded-full border-2 lg:w-[500px] lg:border-4">
+        <div className="bg-primary border-primary relative flex w-full overflow-hidden rounded-full border-2 lg:w-[500px] lg:border-4">
           {/* Sliding background */}
           <div
-            className="bg-background absolute top-0 left-0 h-full w-1/2 rounded-full transition-transform duration-300"
+            className="bg-background duration-base absolute top-0 left-0 h-full w-1/2 rounded-full transition-transform"
             style={{
               transform: activeTab === "current" ? "translateX(0%)" : "translateX(100%)",
             }}
           />
           <button
             onClick={() => setActiveTab("current")}
-            className={`lg:text-body relative w-1/2 px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:cursor-pointer ${
-              activeTab === "current" ? "text-darkBlue" : "text-background"
+            className={`lg:text-body duration-base relative w-1/2 px-4 py-2 text-sm font-semibold transition-colors hover:cursor-pointer ${
+              activeTab === "current" ? "text-primary" : "text-background"
             }`}
           >
             Current Investments
           </button>
           <button
             onClick={() => setActiveTab("past")}
-            className={`lg:text-body relative w-1/2 px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:cursor-pointer ${
-              activeTab === "past" ? "text-darkBlue" : "text-background"
+            className={`lg:text-body duration-base relative w-1/2 px-4 py-2 text-sm font-semibold transition-colors hover:cursor-pointer ${
+              activeTab === "past" ? "text-primary" : "text-background"
             }`}
           >
             Past Investments
@@ -82,26 +82,26 @@ const OurInvestments = () => {
             key={idx}
             className="bg-background rounded-lg p-4 shadow-sm transition hover:cursor-pointer hover:shadow-lg lg:p-6"
           >
-            <h2 className="text-darkBlue lg:text-header mb-2 text-lg font-bold lg:mb-3">
+            <h2 className="text-primary lg:text-header mb-2 text-lg font-bold lg:mb-3">
               {inv.name}
             </h2>
             <p className="text-foreground lg:text-body mb-3 text-sm lg:mb-4">{inv.description}</p>
 
             <div className="lg:text-body text-foreground grid grid-cols-2 gap-4 text-sm lg:grid-cols-4">
               <div>
-                <p className="text-darkBlue font-semibold">Investment Date</p>
+                <p className="text-primary font-semibold">Investment Date</p>
                 <p>{inv.date}</p>
               </div>
               <div>
-                <p className="text-darkBlue font-semibold">Ticker</p>
+                <p className="text-primary font-semibold">Ticker</p>
                 <p>{inv.ticker}</p>
               </div>
               <div>
-                <p className="text-darkBlue font-semibold">Exchange</p>
+                <p className="text-primary font-semibold">Exchange</p>
                 <p>{inv.exchange}</p>
               </div>
               <div>
-                <p className="text-darkBlue font-semibold">Industry</p>
+                <p className="text-primary font-semibold">Industry</p>
                 <p>{inv.industry}</p>
               </div>
             </div>

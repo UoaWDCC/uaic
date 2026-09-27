@@ -150,15 +150,15 @@ export default function Payment() {
 
   return (
     /* Parent layout container: centering elements horizontally and vertically using flex */
-    <div className="fixed inset-0 z-50 mx-auto flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-tr from-[var(--babyBlue)] to-[var(--darkBlue)] p-10">
+    <div className="z-modal from-primary-light to-primary fixed inset-0 mx-auto flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-tr p-10">
       {/* Centered White wrapper container card */}
       <div className="mb-10 w-full rounded-2xl bg-white p-4 pb-0 text-black shadow-[0_5px_15px_rgba(0,0,0,0.25)] lg:max-w-xl">
         <div
-          className={`fixed bottom-10 left-5/7 z-70 flex w-1/3 items-center justify-center gap-2 rounded-xl border-2 border-red-400 bg-white p-1 pt-2 text-center text-xl transition duration-100 lg:h-[150px] lg:max-w-[300px] ${openErrorPage ? "opacity-100" : "opacity-0"}`}
+          className={`border-destructive fixed bottom-10 left-5/7 z-70 flex w-1/3 items-center justify-center gap-2 rounded-xl border-2 bg-white p-1 pt-2 text-center text-xl transition duration-100 lg:h-[150px] lg:max-w-[300px] ${openErrorPage ? "opacity-100" : "opacity-0"}`}
         >
           {" "}
           {/* left-1/2 puts element's left edge at the middle, and -translate-x-1/2 move element left by half, essentially moving the element to the middle. */}{" "}
-          <MdError className="text-3xl text-red-500" />
+          <MdError className="text-destructive text-3xl" />
           {errorMsg}
         </div>
 
@@ -183,61 +183,61 @@ export default function Payment() {
           <div className="mb-6 flex w-full items-center justify-between">
             <div className="relative h-9 w-9 flex-shrink-0 lg:h-9 lg:w-9">
               <CgRadioChecked
-                className={`absolute inset-0 text-4xl text-blue-500 transition-all duration-300 lg:text-4xl ${currentStep === 0 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+                className={`duration-base absolute inset-0 text-4xl text-blue-500 transition-all lg:text-4xl ${currentStep === 0 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
               />
 
               <IoIosCheckmarkCircle
-                className={`absolute inset-0 text-4xl text-blue-500 transition-all duration-300 lg:text-4xl ${currentStep > 0 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+                className={`duration-base absolute inset-0 text-4xl text-blue-500 transition-all lg:text-4xl ${currentStep > 0 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
               />
             </div>
 
             <div
-              className={`mx-2 h-px flex-1 transition-colors duration-300 ${currentStep >= 1 ? "bg-blue-500" : "bg-gray-300"}`}
+              className={`duration-base mx-2 h-px flex-1 transition-colors ${currentStep >= 1 ? "bg-blue-500" : "bg-gray-300"}`}
             />
 
             <div className="relative h-9 w-9 flex-shrink-0 lg:h-9 lg:w-9">
               <CgRadioChecked
-                className={`absolute inset-0 text-4xl text-blue-500 transition-all duration-300 lg:text-4xl ${currentStep === 1 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+                className={`duration-base absolute inset-0 text-4xl text-blue-500 transition-all lg:text-4xl ${currentStep === 1 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
               />
 
               <IoIosCheckmarkCircle
-                className={`absolute inset-0 text-4xl text-blue-500 transition-all duration-300 lg:text-4xl ${currentStep > 1 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+                className={`duration-base absolute inset-0 text-4xl text-blue-500 transition-all lg:text-4xl ${currentStep > 1 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
               />
 
               <MdRadioButtonUnchecked
-                className={`absolute inset-0 text-4xl text-gray-300 transition-all duration-300 lg:text-4xl ${currentStep < 1 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+                className={`duration-base absolute inset-0 text-4xl text-gray-300 transition-all lg:text-4xl ${currentStep < 1 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
               />
             </div>
 
             <div
-              className={`mx-2 h-px flex-1 transition-colors duration-300 ${currentStep >= 2 ? "bg-blue-500" : "bg-gray-300"}`}
+              className={`duration-base mx-2 h-px flex-1 transition-colors ${currentStep >= 2 ? "bg-blue-500" : "bg-gray-300"}`}
             />
 
             <div className="relative h-9 w-9 flex-shrink-0 lg:h-9 lg:w-9">
               <CgRadioChecked
-                className={`absolute inset-0 text-4xl text-blue-500 transition-all duration-300 lg:text-4xl ${currentStep === 2 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+                className={`duration-base absolute inset-0 text-4xl text-blue-500 transition-all lg:text-4xl ${currentStep === 2 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
               />
 
               <IoIosCheckmarkCircle
-                className={`absolute inset-0 text-4xl text-blue-500 transition-all duration-300 lg:text-4xl ${currentStep > 2 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+                className={`duration-base absolute inset-0 text-4xl text-blue-500 transition-all lg:text-4xl ${currentStep > 2 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
               />
 
               <MdRadioButtonUnchecked
-                className={`absolute inset-0 text-4xl text-gray-300 transition-all duration-300 lg:text-4xl ${currentStep < 2 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+                className={`duration-base absolute inset-0 text-4xl text-gray-300 transition-all lg:text-4xl ${currentStep < 2 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
               />
             </div>
 
             <div
-              className={`mx-2 h-px flex-1 transition-all duration-300 ${currentStep >= 3 ? "bg-blue-500" : "bg-gray-300"}`}
+              className={`duration-base mx-2 h-px flex-1 transition-all ${currentStep >= 3 ? "bg-blue-500" : "bg-gray-300"}`}
             />
 
             <div className="relative h-9 w-9 flex-shrink-0 lg:h-9 lg:w-9">
               <CgRadioChecked
-                className={`absolute inset-0 text-4xl text-blue-500 transition-all duration-300 lg:text-4xl ${currentStep === 3 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+                className={`duration-base absolute inset-0 text-4xl text-blue-500 transition-all lg:text-4xl ${currentStep === 3 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
               />
 
               <MdRadioButtonUnchecked
-                className={`absolute inset-0 text-4xl text-gray-300 transition-all duration-300 lg:text-4xl ${currentStep < 3 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
+                className={`duration-base absolute inset-0 text-4xl text-gray-300 transition-all lg:text-4xl ${currentStep < 3 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
               />
             </div>
           </div>
@@ -285,14 +285,14 @@ export default function Payment() {
               <div className="flex gap-3 pt-2">
                 <button
                   type="button"
-                  className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-[#145ca9] transition hover:bg-gray-300"
+                  className="text-primary w-full rounded-full bg-gray-200 px-4 py-2 font-bold transition hover:bg-gray-300"
                   onClick={() => router.push("/")}
                 >
                   Back
                 </button>
                 <button
                   type="button"
-                  className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
+                  className="from-cobalt-400 to-cobalt-700 w-full rounded-full bg-gradient-to-r px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
                   onClick={() => validateNext(1, false)}
                 >
                   Next
@@ -320,7 +320,7 @@ export default function Payment() {
                 </button>
 
                 {dropdown1 && (
-                  <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
+                  <div className="z-dropdown absolute mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
                     {genderOptions.map((option) => (
                       <div
                         key={option}
@@ -360,7 +360,7 @@ export default function Payment() {
                 </button>
 
                 {dropdown3 && (
-                  <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
+                  <div className="z-dropdown absolute mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
                     {ethnicityOptions.map((option) => (
                       <div
                         key={option}
@@ -405,7 +405,7 @@ export default function Payment() {
                 </button>
 
                 {dropdown2 && (
-                  <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
+                  <div className="z-dropdown absolute mt-2 w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-lg">
                     {universityYearOptions.map((option) => (
                       <div
                         key={option}
@@ -482,14 +482,14 @@ export default function Payment() {
               <div className="flex gap-3 pt-2">
                 <button
                   type="button"
-                  className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-[#145ca9] transition hover:bg-gray-300"
+                  className="text-primary w-full rounded-full bg-gray-200 px-4 py-2 font-bold transition hover:bg-gray-300"
                   onClick={() => setCurrentStep(0)}
                 >
                   Back
                 </button>
                 <button
                   type="button"
-                  className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
+                  className="from-cobalt-400 to-cobalt-700 w-full rounded-full bg-gradient-to-r px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
                   onClick={() => validateNext(2, false)}
                 >
                   Next
@@ -651,13 +651,13 @@ export default function Payment() {
 
               <div className="flex gap-3 pt-10">
                 <button
-                  className="w-full rounded-full bg-gray-200 px-4 py-2 font-bold text-[#145ca9] transition hover:bg-gray-300"
+                  className="text-primary w-full rounded-full bg-gray-200 px-4 py-2 font-bold transition hover:bg-gray-300"
                   onClick={() => setCurrentStep(1)}
                 >
                   Back
                 </button>
                 <button
-                  className="w-full rounded-full bg-gradient-to-r from-[#3881f7] to-[#1439dd] px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
+                  className="from-cobalt-400 to-cobalt-700 w-full rounded-full bg-gradient-to-r px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
                   onClick={() => validateNext(3, false)}
                 >
                   Next

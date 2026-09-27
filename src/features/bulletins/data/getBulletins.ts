@@ -2,6 +2,8 @@
 import { getPayload } from "payload";
 import config from "@payload-config";
 import type { BulletinCategory } from "@/lib/bulletinCategories";
+import type { Bulletin as PayloadBulletin } from "../../../../payload-types";
+import { resolveMedia } from "@/lib/payload/media";
 
 export interface Bulletin {
   id: string;
@@ -32,27 +34,32 @@ export const getBulletins = async (): Promise<Bulletin[]> => {
       depth: 1,
     });
 
-    return result.docs.map((doc: any) => ({
-      id: doc.id,
-      title: doc.title,
-      issueNumber: doc.issueNumber,
-      publishDate: doc.publishDate,
-      description: doc.description,
-      category: doc.category ?? undefined,
-      readTime: doc.readTime ?? undefined,
-      bulletinCover: doc.bulletinCover
-        ? {
-            url: doc.bulletinCover.url,
-            alt: doc.bulletinCover.alt || doc.title,
-          }
-        : undefined,
-      bulletinPDF: doc.bulletinPDF
-        ? {
-            url: doc.bulletinPDF.url,
-            alt: doc.bulletinPDF.alt || doc.title,
-          }
-        : undefined,
-    }));
+    return result.docs.map((doc: PayloadBulletin) => {
+      const cover = resolveMedia(doc.bulletinCover);
+      const pdf = resolveMedia(doc.bulletinPDF);
+
+      return {
+        id: doc.id,
+        title: doc.title,
+        issueNumber: doc.issueNumber,
+        publishDate: doc.publishDate,
+        description: doc.description ?? undefined,
+        category: doc.category ?? undefined,
+        readTime: doc.readTime ?? undefined,
+        bulletinCover: cover
+          ? {
+              url: cover.url ?? "",
+              alt: cover.alt || doc.title,
+            }
+          : undefined,
+        bulletinPDF: pdf
+          ? {
+              url: pdf.url ?? "",
+              alt: pdf.alt || doc.title,
+            }
+          : undefined,
+      };
+    });
   } catch (error) {
     console.error("Error fetching bulletins:", error);
     return [];
