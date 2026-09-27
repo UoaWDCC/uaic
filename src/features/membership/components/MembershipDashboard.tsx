@@ -162,7 +162,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="flex w-full items-center gap-2 rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+          className="flex w-full items-center gap-2 rounded-lg border border-blue-900 px-2 py-2 text-sm"
           autoComplete="name"
           autoFocus
         />
@@ -176,7 +176,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
         <input
           value={studentId}
           onChange={(e) => setStudentId(e.target.value)}
-          className="flex w-full items-center gap-2 rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+          className="flex w-full items-center gap-2 rounded-lg border border-blue-900 px-2 py-2 text-sm"
         />
       ) : (
         maskStudentID(member?.studentId ?? "")
@@ -189,7 +189,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+          className="w-full rounded-lg border border-blue-900 px-2 py-2 text-sm"
           autoComplete="email"
         />
       ) : (
@@ -204,7 +204,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           inputMode="tel"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
-          className="w-full rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+          className="w-full rounded-lg border border-blue-900 px-2 py-2 text-sm"
           autoComplete="tel"
         />
       ) : (
@@ -217,7 +217,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
         <input
           value={degrees}
           onChange={(e) => setDegrees(e.target.value)}
-          className="w-full rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+          className="w-full rounded-lg border border-blue-900 px-2 py-2 text-sm"
         />
       ) : (
         member?.degrees || "—"
@@ -229,7 +229,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
         <select
           value={universityYear}
           onChange={(e) => setUniversityYear(e.target.value as MemberProfile["universityYear"])}
-          className="w-full appearance-none rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+          className="w-full appearance-none rounded-lg border border-blue-900 px-2 py-2 text-sm"
         >
           {Object.entries(YEAR_LABELS).map(([value, label]) => (
             <option key={value} value={value}>
@@ -248,7 +248,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
   return (
     <div className="min-h-screen bg-slate-100 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto w-full max-w-6xl">
-        <div className="text-sm font-bold tracking-wide text-[#249AFF] uppercase">
+        <div className="border-blue-900 text-sm font-bold tracking-wide uppercase">
           Membership Dashboard
         </div>
         <div className="inline-flex items-center gap-2">
@@ -290,7 +290,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
             <hr className="mt-5 mb-4 border-t border-[#E2E9F2]" />
             {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
             <div className="flex justify-between">
-              <a className="text-sm font-semibold text-[#005EAF] hover:cursor-pointer hover:underline">
+              <a className="border-blue-900 text-sm font-semibold hover:cursor-pointer hover:underline">
                 Change Password
               </a>
 
@@ -342,7 +342,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                     <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                       Chapter
                     </div>
-                    <p className="mt-1 text-[#0B1A2B]">Auckland CBD</p>
+                    <p className="text-ink mt-1">Auckland CBD</p>
                   </div>
                 </div>
                 <hr className="mt-4 border-t border-[#E2E9F2] pb-6 md:mt-15 md:pb-0" />
