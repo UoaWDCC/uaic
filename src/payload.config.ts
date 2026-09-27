@@ -13,6 +13,7 @@ import { InvestmentCommitteeImages } from "./collections/InvestmentCommitteeImag
 import { Bulletins } from "./collections/Bulletins";
 import { Member } from "./collections/Member";
 import { Events } from "./collections/Events";
+import { EventSignups } from "./collections/EventSignups";
 import { Executive } from "./collections/Executive";
 import { ExecutiveCommittee } from "./collections/ExecutiveCommittee";
 import { ExecutiveSubteams } from "./collections/ExecutiveSubteams";
@@ -52,6 +53,7 @@ export default buildConfig({
     ExecutiveCommittee,
     ExecutiveSubteams,
     Events,
+    EventSignups,
     Portfolio,
     Sponsors,
   ],
