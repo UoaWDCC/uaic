@@ -53,29 +53,29 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
     <nav className="w-full">
       {/* Top Bar */}
       <div
-        className={`topbar flex items-center justify-between transition-colors duration-300 ease-in-out ${hasBlueTheme ? "bg-white" : "bg-transparent"} px-6 py-2 text-[#172741] lg:p-0 lg:px-6`}
+        className={`topbar duration-base flex items-center justify-between transition-colors ease-in-out ${hasBlueTheme ? "bg-white" : "bg-transparent"} text-ink px-6 py-2 lg:p-0 lg:px-6`}
       >
         {/* Logo */}
         <Link href="/">
           <div
-            className={`sticky z-50 m-0 h-[86px] w-[140px] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat transition-colors duration-300 ease-in-out lg:ml-10 lg:h-[100px] lg:w-[140px] ${isOpen || hasBlueTheme ? "bg-[#145BA7]" : "bg-white brightness-0 invert"}`}
+            className={`z-modal duration-base sticky m-0 h-[86px] w-[140px] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat transition-colors ease-in-out lg:ml-10 lg:h-[100px] lg:w-[140px] ${isOpen || hasBlueTheme ? "bg-primary" : "bg-white brightness-0 invert"}`}
           />
         </Link>
 
         {/* Hamburger to X icon */}
         <button
-          className="fixed top-6 right-2 z-50 cursor-pointer rounded-full bg-transparent p-3 transition-all lg:hidden"
+          className="z-modal fixed top-6 right-2 cursor-pointer rounded-full bg-transparent p-3 transition-all lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <div className="z-50 flex h-10 w-10 flex-col items-center justify-center gap-2">
+          <div className="z-modal flex h-10 w-10 flex-col items-center justify-center gap-2">
             <span
-              className={`block h-[0.1875rem] w-8 rounded-full transition-all duration-300 ${isOpen ? "translate-y-[10px] -rotate-45 bg-[#145CA9]" : hasBlueTheme ? "bg-[#145CA9]" : "bg-white"} ease-[cubic-bezier(0.34,1.56,0.64,1)]`}
+              className={`duration-base block h-[0.1875rem] w-8 rounded-full transition-all ${isOpen ? "bg-primary translate-y-[10px] -rotate-45" : hasBlueTheme ? "bg-primary" : "bg-white"} ease-[cubic-bezier(0.34,1.56,0.64,1)]`}
             />
             <span
-              className={`block h-[0.1875rem] w-8 rounded-full transition-all duration-300 ${isOpen ? "scale-x-0 opacity-0" : hasBlueTheme ? "bg-[#145CA9]" : "bg-white"} ease-[cubic-bezier(0.23,1,0.32,1)]`}
+              className={`duration-base block h-[0.1875rem] w-8 rounded-full transition-all ${isOpen ? "scale-x-0 opacity-0" : hasBlueTheme ? "bg-primary" : "bg-white"} ease-[cubic-bezier(0.23,1,0.32,1)]`}
             />
             <span
-              className={`block h-[0.1875rem] w-8 rounded-full transition-all duration-300 ${isOpen ? "-translate-y-[12px] rotate-45 bg-[#145CA9]" : hasBlueTheme ? "bg-[#145CA9]" : "bg-white"} ease-[cubic-bezier(0.34,1.56,0.64,1)]`}
+              className={`duration-base block h-[0.1875rem] w-8 rounded-full transition-all ${isOpen ? "bg-primary -translate-y-[12px] rotate-45" : hasBlueTheme ? "bg-primary" : "bg-white"} ease-[cubic-bezier(0.34,1.56,0.64,1)]`}
             />
           </div>
         </button>
@@ -85,7 +85,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           <li>
             <Link
               href="/"
-              className={`cursor-pointer p-[4px] transition-colors duration-300 ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+              className={`duration-base cursor-pointer p-[4px] transition-colors ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-primary" : "text-white"}`}
             >
               Home
             </Link>
@@ -97,14 +97,14 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           >
             <Link
               href="/about"
-              className={`cursor-pointer p-[4px] font-[300] transition-colors duration-300 ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+              className={`duration-base cursor-pointer p-[4px] font-[300] transition-colors ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-primary" : "text-white"}`}
             >
               About
             </Link>
             {/* Dropdown Menu */}
             {isAboutDropdownOpen && (
               <div
-                className="bg-darkBlue absolute top-full left-0 z-50 overflow-hidden rounded-lg text-white shadow-lg"
+                className="bg-primary z-modal absolute top-full left-0 overflow-hidden rounded-lg text-white shadow-lg"
                 style={{ width: "220px", height: "80px" }}
               >
                 <div className="flex h-full flex-col">
@@ -127,7 +127,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           <li>
             <Link
               href="/events"
-              className={`cursor-pointer p-[4px] transition-colors duration-300 ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+              className={`duration-base cursor-pointer p-[4px] transition-colors ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-primary" : "text-white"}`}
             >
               Events
             </Link>
@@ -135,7 +135,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           <li>
             <Link
               href="/bulletin"
-              className={`cursor-pointer p-[4px] transition-colors duration-300 ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+              className={`duration-base cursor-pointer p-[4px] transition-colors ease-in-out hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-primary" : "text-white"}`}
             >
               Bulletin
             </Link>
@@ -143,7 +143,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           {/* <li>
             <Link
               href="/investmentportfolio"
-              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+              className={`cursor-pointer p-[4px] hover:rounded-xl hover:text-blue-400 lg:text-lg ${hasBlueTheme ? "text-primary" : "text-white"}`}
             >
               Investments
             </Link>
@@ -154,7 +154,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
           {session ? (
             <Link
               href="/dashboard"
-              className={`flex items-center justify-center transition-colors duration-300 ease-in-out ${hasBlueTheme ? "text-[#00529B]" : "text-white"}`}
+              className={`duration-base flex items-center justify-center transition-colors ease-in-out ${hasBlueTheme ? "text-primary" : "text-white"}`}
             >
               <CgProfile size={32} />
             </Link>
@@ -172,10 +172,10 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
       <div
         className={`fixed top-0 z-30 w-full overflow-hidden transition-[translate,opacity] duration-600 ease-in-out lg:hidden ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}
       >
-        <ul className="flex w-full flex-col rounded-b-3xl bg-white pb-5 text-[#005EAF] shadow-xl/20">
+        <ul className="text-primary flex w-full flex-col rounded-b-3xl bg-white pb-5 shadow-xl/20">
           <div className="flex items-center justify-between pr-2 pb-7 pl-6">
             <div
-              className={`bg-[#00529B] mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat transition-opacity duration-600 ease-in-out lg:ml-10 lg:h-[100px] lg:w-[140px]`}
+              className={`bg-primary mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat transition-opacity duration-600 ease-in-out lg:ml-10 lg:h-[100px] lg:w-[140px]`}
             ></div>
             <div className="h-15"></div>
           </div>
@@ -194,7 +194,7 @@ const Navbar = ({ theme = "auto" }: NavbarProps) => {
             <span>About</span>
             <GoArrowUpRight
               size={40}
-              className={`transition-transform duration-200 ${showAboutSubpage ? "rotate-45" : ""}`}
+              className={`duration-fast transition-transform ${showAboutSubpage ? "rotate-45" : ""}`}
             />
           </li>
           {/* Sub-menu Items */}

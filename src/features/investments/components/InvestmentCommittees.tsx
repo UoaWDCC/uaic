@@ -13,9 +13,9 @@ export default async function InvestmentCommittee() {
   return (
     <div className="bg-background mx-auto w-full rounded-lg p-4 lg:px-80">
       <div>
-        <h1 className="text-title text-darkBlue mb-8 pb-2 font-bold">Investment Committees</h1>
+        <h1 className="text-title text-primary mb-8 pb-2 font-bold">Investment Committees</h1>
 
-        <div className="text-body text-darkBlue">
+        <div className="text-body text-primary">
           <p className="mb-4 font-bold">
             The Investment Committee is a team of student analysts who actively manage the Club's
             Investment Fund.

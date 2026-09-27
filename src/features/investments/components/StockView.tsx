@@ -55,7 +55,7 @@ const StockView: React.FC<StockViewProps> = ({ symbol, title, height = 300 }) =>
   return (
     <div className="text-center">
       {/* Chart heading */}
-      <h2 className="text-header text-darkBlue mb-4 font-semibold hover:cursor-pointer">{title}</h2>
+      <h2 className="text-header text-primary mb-4 font-semibold hover:cursor-pointer">{title}</h2>
 
       {/* Chart container */}
       <div

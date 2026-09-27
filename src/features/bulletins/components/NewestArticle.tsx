@@ -10,7 +10,7 @@ const NewestArticle = async () => {
 
   return (
     <div className="mb-20 ps-5 pe-5 lg:mb-35 lg:ps-30 lg:pe-30">
-      <p className="text-darkBlue pb-1 text-3xl font-semibold lg:pb-3">Newest Articles</p>
+      <p className="text-primary pb-1 text-3xl font-semibold lg:pb-3">Newest Articles</p>
 
       <div className="grid grid-rows-2 flex-col gap-2 lg:grid-cols-6 lg:grid-rows-1 lg:gap-10">
         {newest[0] && (
@@ -29,13 +29,15 @@ const NewestArticle = async () => {
               className="z-0 scale-110 object-cover transition-all duration-500 ease-in-out group-hover:scale-100"
             />
 
-            <div className="z-10 mt-auto w-fit rounded-2xl bg-gradient-to-r from-[#44a6fc] to-sky-600 ps-2 pe-2 text-white">
+            <div className="z-dropdown mt-auto w-fit rounded-2xl bg-gradient-to-r from-[#44a6fc] to-sky-600 ps-2 pe-2 text-white">
               Issue {newest[0].issueNumber}
             </div>
 
-            <p className="z-10 pt-1 pb-2 text-base text-white lg:text-3xl">{newest[0].title}</p>
+            <p className="z-dropdown pt-1 pb-2 text-base text-white lg:text-3xl">
+              {newest[0].title}
+            </p>
 
-            <p className="z-10 pb-3 text-xs text-white">
+            <p className="z-dropdown pb-3 text-xs text-white">
               {new Date(newest[0].publishDate).toLocaleDateString("en-NZ", {
                 month: "short",
                 day: "numeric",
@@ -69,7 +71,7 @@ const NewestArticle = async () => {
                   {b.title}
                 </p>
 
-                <p className="text-[9px] text-[#778189] lg:text-[12px] xl:text-base">
+                <p className="text-muted-foreground text-[9px] lg:text-[12px] xl:text-base">
                   {new Date(b.publishDate).toLocaleDateString("en-NZ", {
                     month: "short",
                     day: "numeric",

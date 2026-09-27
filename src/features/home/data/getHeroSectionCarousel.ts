@@ -2,6 +2,7 @@
 
 import { getPayload } from "payload";
 import config from "@payload-config";
+import { resolveMedia } from "@/lib/payload/media";
 
 export interface HeroSectionCarouselSlide {
   id: string;
@@ -22,16 +23,12 @@ export const getHeroSectionCarousel = async (): Promise<HeroSectionCarouselSlide
     });
 
     return result.docs
-      .map((doc) => {
-        const image = doc.image as any;
-
-        return {
-          id: doc.id,
-          index: doc.index,
-          name: doc.name,
-          imageUrl: image?.url || "",
-        };
-      })
+      .map((doc) => ({
+        id: doc.id,
+        index: doc.index,
+        name: doc.name,
+        imageUrl: resolveMedia(doc.image)?.url || "",
+      }))
       .filter((slide) => slide.imageUrl.length > 0);
   } catch (error) {
     console.error("Error fetching hero section carousel slides:", error);

@@ -135,15 +135,15 @@ const FilterPill = ({ options, value, defaultValue, onChange, ariaLabel }: Filte
         aria-label={ariaLabel}
         onClick={() => setIsOpen((prev) => !prev)}
         style={{ minWidth: `${longestOption.length + 3}ch` }}
-        className={`flex shrink-0 cursor-pointer items-center justify-between gap-1.5 rounded-full px-3.5 py-1.5 text-[12px] whitespace-nowrap transition-colors duration-200 lg:px-4 lg:py-2 lg:text-[13px] ${
+        className={`duration-fast flex shrink-0 cursor-pointer items-center justify-between gap-1.5 rounded-full px-3.5 py-1.5 text-[12px] whitespace-nowrap transition-colors lg:px-4 lg:py-2 lg:text-[13px] ${
           isActive
-            ? "bg-gradient-to-l from-[#005EAF] to-[#249AFF] text-white"
-            : "bg-[#F1F5FA] text-[#0B1A2B]/50 hover:bg-[#E4EEF9] hover:text-[#145BA7]"
+            ? "from-primary to-primary-light bg-gradient-to-l text-white"
+            : "bg-surface-faint text-ink/50 hover:bg-surface-muted hover:text-primary"
         }`}
       >
         <span>{value}</span>
         <GoChevronDown
-          className={`h-3.5 w-3.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""} ${isActive ? "text-white/80" : "text-[#0B1A2B]/40"}`}
+          className={`duration-fast h-3.5 w-3.5 transition-transform ${isOpen ? "rotate-180" : ""} ${isActive ? "text-white/80" : "text-ink/40"}`}
         />
       </button>
 
@@ -151,7 +151,7 @@ const FilterPill = ({ options, value, defaultValue, onChange, ariaLabel }: Filte
         <div
           role="listbox"
           aria-label={ariaLabel}
-          className="absolute top-full left-0 z-10 mt-2 max-h-64 min-w-[160px] overflow-y-auto rounded-2xl bg-white p-1.5 shadow-[0_8px_24px_rgba(11,26,43,0.12)]"
+          className="z-dropdown absolute top-full left-0 mt-2 max-h-64 min-w-[160px] overflow-y-auto rounded-2xl bg-white p-1.5 shadow-[0_8px_24px_rgba(11,26,43,0.12)]"
         >
           {options.map((option) => {
             const isSelected = option === value;
@@ -166,10 +166,10 @@ const FilterPill = ({ options, value, defaultValue, onChange, ariaLabel }: Filte
                   onChange(option);
                   setIsOpen(false);
                 }}
-                className={`block w-full cursor-pointer rounded-full px-3.5 py-1.5 text-left text-[12px] whitespace-nowrap transition-colors duration-200 lg:text-[13px] ${
+                className={`duration-fast block w-full cursor-pointer rounded-full px-3.5 py-1.5 text-left text-[12px] whitespace-nowrap transition-colors lg:text-[13px] ${
                   isSelected
-                    ? "bg-gradient-to-l from-[#005EAF] to-[#249AFF] text-white"
-                    : "text-[#0B1A2B]/70 hover:bg-[#F1F5FA] hover:text-[#145BA7]"
+                    ? "from-primary to-primary-light bg-gradient-to-l text-white"
+                    : "text-ink/70 hover:bg-surface-faint hover:text-primary"
                 }`}
               >
                 {option}
@@ -276,7 +276,7 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
   };
 
   return (
-    <section className="w-full bg-[#F4F8FE]">
+    <section className="bg-surface-faint w-full">
       {/* Padding mirrors the navbar (px-6, and px-6 + the logo's ml-10 at lg) so
           the page content lines up with the logo and nav links above it. */}
       <div className="flex w-full flex-col px-6 py-12 lg:px-16 lg:py-20">
@@ -290,7 +290,7 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
         {/* Search + filters */}
         <div className="mt-10 flex flex-col gap-4 lg:mt-24 lg:flex-row lg:items-center lg:gap-6">
           <div className="relative w-full lg:flex-1">
-            <GoSearch className="pointer-events-none absolute top-1/2 left-5 h-4 w-4 -translate-y-1/2 text-[#0B1A2B]/40 lg:h-5 lg:w-5" />
+            <GoSearch className="text-ink/40 pointer-events-none absolute top-1/2 left-5 h-4 w-4 -translate-y-1/2 lg:h-5 lg:w-5" />
             <input
               type="search"
               value={searchQuery}
@@ -300,7 +300,7 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
               }}
               placeholder="Search by title or issue #..."
               aria-label="Search articles by title or issue number"
-              className="w-full rounded-full bg-white py-3 pr-5 pl-12 text-[13px] text-[#0B1A2B] shadow-[0_2px_8px_rgba(11,26,43,0.08)] outline-none placeholder:text-[#0B1A2B]/40 focus:ring-2 focus:ring-[#249AFF]/40 lg:py-3.5 lg:pl-14 lg:text-[15px]"
+              className="text-ink shadow-input-group placeholder:text-ink/40 focus:ring-ring/40 w-full rounded-full bg-white py-3 pr-5 pl-12 text-[13px] outline-none focus:ring-2 lg:py-3.5 lg:pl-14 lg:text-[15px]"
             />
           </div>
 
@@ -310,11 +310,11 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
               rounded-full: rounded-full is relative to height, so once the
               pills wrap onto a second row on narrow screens the corners
               balloon into an oversized blob instead of staying consistent. */}
-          <div className="flex w-full items-center gap-2 rounded-[28px] bg-white p-1.5 shadow-[0_2px_8px_rgba(11,26,43,0.08)] lg:w-auto lg:p-2">
+          <div className="shadow-input-group flex w-full items-center gap-2 rounded-[28px] bg-white p-1.5 lg:w-auto lg:p-2">
             {/* Own div so the label never gets caught up in the pills'
                 wrapping — it stays pinned top-left, only the pills row
                 wraps beneath it. */}
-            <span className="shrink-0 px-2 py-1.5 text-[12px] font-semibold text-[#145BA7] lg:px-3 lg:py-2 lg:text-[14px]">
+            <span className="text-primary shrink-0 px-2 py-1.5 text-[12px] font-semibold lg:px-3 lg:py-2 lg:text-[14px]">
               Sort By
             </span>
             <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2 lg:flex-none">
@@ -361,7 +361,7 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
               ))}
             </div>
           ) : (
-            <p className="py-12 text-center text-[14px] text-[#0B1A2B]/60">
+            <p className="text-ink/60 py-12 text-center text-[14px]">
               {bulletins.length === 0
                 ? "No articles have been published yet."
                 : "No articles match your filters."}
@@ -373,13 +373,13 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
             row. Shown even on a single page, but not over an empty result. */}
         {pageBulletins.length > 0 && (
           <nav aria-label="Article pagination" className="mt-10 flex justify-center lg:mt-14">
-            <div className="flex max-w-full [scrollbar-width:none] items-center gap-1 overflow-x-auto rounded-full bg-white p-1.5 shadow-[0_2px_8px_rgba(11,26,43,0.08)] lg:gap-2 lg:p-2 [&::-webkit-scrollbar]:hidden">
+            <div className="shadow-input-group flex max-w-full [scrollbar-width:none] items-center gap-1 overflow-x-auto rounded-full bg-white p-1.5 lg:gap-2 lg:p-2 [&::-webkit-scrollbar]:hidden">
               <button
                 type="button"
                 aria-label="Previous page"
                 disabled={activePage === 1}
                 onClick={() => goToPage(activePage - 1)}
-                className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full text-[#145BA7] transition-colors duration-200 hover:bg-[#F1F5FA] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent lg:h-9 lg:w-9"
+                className="text-primary duration-fast hover:bg-surface-faint flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent lg:h-9 lg:w-9"
               >
                 <GoChevronLeft className="h-4 w-4 lg:h-5 lg:w-5" />
               </button>
@@ -389,7 +389,7 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
                   <span
                     key={`gap-${index}`}
                     aria-hidden="true"
-                    className="shrink-0 px-1 text-[12px] text-[#0B1A2B]/40 lg:text-[13px]"
+                    className="text-ink/40 shrink-0 px-1 text-[12px] lg:text-[13px]"
                   >
                     {ELLIPSIS}
                   </span>
@@ -400,10 +400,10 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
                     aria-label={`Page ${item}`}
                     aria-current={item === activePage ? "page" : undefined}
                     onClick={() => goToPage(item)}
-                    className={`flex h-8 min-w-8 shrink-0 cursor-pointer items-center justify-center rounded-full px-2 text-[12px] transition-colors duration-200 lg:h-9 lg:min-w-9 lg:text-[13px] ${
+                    className={`duration-fast flex h-8 min-w-8 shrink-0 cursor-pointer items-center justify-center rounded-full px-2 text-[12px] transition-colors lg:h-9 lg:min-w-9 lg:text-[13px] ${
                       item === activePage
-                        ? "bg-gradient-to-l from-[#005EAF] to-[#249AFF] font-semibold text-white"
-                        : "text-[#0B1A2B]/50 hover:bg-[#F1F5FA] hover:text-[#145BA7]"
+                        ? "from-primary to-primary-light bg-gradient-to-l font-semibold text-white"
+                        : "text-ink/50 hover:bg-surface-faint hover:text-primary"
                     }`}
                   >
                     {item}
@@ -416,7 +416,7 @@ const AllArticles = ({ bulletins }: AllArticlesProps) => {
                 aria-label="Next page"
                 disabled={activePage === totalPages}
                 onClick={() => goToPage(activePage + 1)}
-                className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full text-[#145BA7] transition-colors duration-200 hover:bg-[#F1F5FA] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent lg:h-9 lg:w-9"
+                className="text-primary duration-fast hover:bg-surface-faint flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent lg:h-9 lg:w-9"
               >
                 <GoChevronRight className="h-4 w-4 lg:h-5 lg:w-5" />
               </button>

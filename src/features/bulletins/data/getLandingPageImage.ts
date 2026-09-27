@@ -1,6 +1,7 @@
 "use server";
 import { getPayload } from "payload";
 import config from "@payload-config";
+import { resolveMedia } from "@/lib/payload/media";
 
 export const getLandingPageImage = async (tag: string): Promise<string | null> => {
   const payload = await getPayload({ config });
@@ -17,12 +18,8 @@ export const getLandingPageImage = async (tag: string): Promise<string | null> =
       depth: 1,
     });
 
-    console.log("Result of payload.find:", JSON.stringify(result, null, 2)); // Debugging
-
     if (result.docs.length > 0) {
-      const image = result.docs[0].image as any; // Access the image field
-      console.log("Image field:", image); // Debugging
-      return image?.url || null; // Ensure the URL property is accessed safely
+      return resolveMedia(result.docs[0].image)?.url ?? null;
     }
 
     return null;

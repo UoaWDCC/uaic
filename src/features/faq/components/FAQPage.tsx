@@ -19,20 +19,20 @@ const FAQPage = ({ faqs }: { faqs: FAQ[] }) => {
     setOpenFaqs((prev) => ({ ...prev, [id]: !prev[id] }));
   };
   const renderFaq = (faq: FAQ) => (
-    <div key={faq.id} className="rounded-[28px] p-4 outline-1 outline-[#DCE6F2]">
+    <div key={faq.id} className="outline-border rounded-[28px] p-4 outline-1">
       <button
         onClick={() => toggleFaq(faq.id)}
         className="flex w-full items-center justify-between text-left hover:cursor-pointer"
       >
         <span className="text-body">{faq.question}</span>
         <GoArrowUpRight
-          className={`h-7 w-7 flex-shrink-0 fill-[#005EAF] transition-transform duration-200 ${
+          className={`fill-primary duration-fast h-7 w-7 flex-shrink-0 transition-transform ${
             openFaqs[faq.id] ? "rotate-45" : ""
           }`}
         />
       </button>
       <div
-        className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
+        className={`duration-base grid transition-[grid-template-rows] ease-in-out ${
           openFaqs[faq.id] ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
         }`}
       >

@@ -55,12 +55,12 @@ const FilterableArticleList = ({ bulletins }: FilterableArticleListProps) => {
   }, [bulletins, selectedYear, sortOrder]);
 
   if (years.length === 0) {
-    return <p className="text-darkBlue text-center">No articles are available yet.</p>;
+    return <p className="text-primary text-center">No articles are available yet.</p>;
   }
 
   return (
     <>
-      <div className="relative z-10 grid h-[25px] w-[308px] grid-cols-2 gap-[27px] lg:w-[514px]">
+      <div className="z-dropdown relative grid h-[25px] w-[308px] grid-cols-2 gap-[27px] lg:w-[514px]">
         <Dropdown
           options={[ALL_YEARS, ...years.map(String)]}
           value={selectedYear}
@@ -89,7 +89,7 @@ const FilterableArticleList = ({ bulletins }: FilterableArticleListProps) => {
             />
           ))
         ) : (
-          <p className="text-darkBlue py-8 text-center">
+          <p className="text-primary py-8 text-center">
             No articles were published{selectedYear === ALL_YEARS ? "" : ` in ${selectedYear}`}.
           </p>
         )}
