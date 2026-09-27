@@ -3,6 +3,6 @@ export function maskStudentID(value: string, visibleChars = 2) {
     return "—";
   }
   const studentID = value.trim();
-  const masked = "•".repeat(studentID.length - visibleChars);
+  const masked = "•".repeat(Math.max(0, studentID.length - visibleChars));
   return masked + studentID.slice(-visibleChars);
 }

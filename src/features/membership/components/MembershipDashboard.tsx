@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FiEdit2, FiLogOut } from "react-icons/fi";
 import { signOut } from "@/lib/auth-client";
-import Link from "next/link";
 import ArrowButton from "@/components/ArrowButton";
 import { maskPhoneNumber } from "../utils/maskPhoneNumber";
 import { maskStudentID } from "../utils/maskStudentID";
@@ -164,6 +163,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="flex w-full items-center gap-2 rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+          autoComplete="name"
           autoFocus
         />
       ) : (
@@ -290,9 +290,9 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
             <hr className="mt-5 mb-4 border-t border-[#E2E9F2]" />
             {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
             <div className="flex justify-between">
-              <button className="text-sm font-semibold text-[#005EAF] hover:cursor-pointer hover:underline">
+              <a className="text-sm font-semibold text-[#005EAF] hover:cursor-pointer hover:underline">
                 Change Password
-              </button>
+              </a>
 
               {isEditingDetails && (
                 <div className="flex items-center gap-3">
@@ -319,13 +319,14 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                 </div>
               </div>
               <div className="my-auto">
+                {/* 
                 <Link href="/">
                   {" "}
-                  {/* empty link ?*/}
                   <button className="rounded-4xl bg-[#FFFFFF2E] px-3 py-2 text-xs font-semibold">
                     Renews auto.
                   </button>
                 </Link>
+                */}
               </div>
             </div>
             {member?.hasPaid && (
