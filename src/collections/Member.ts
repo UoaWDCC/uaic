@@ -78,6 +78,7 @@ export const Member: CollectionConfig = {
       label: "University Year",
       required: true,
       options: [
+        { label: "unknown", value: " " },
         { label: "Year 1", value: "year1" },
         { label: "Year 2", value: "year2" },
         { label: "Year 3", value: "year3" },
@@ -156,11 +157,6 @@ export const Member: CollectionConfig = {
 
         return true;
       },
-    },
-    {
-      name: "experienceLevel",
-      type: "select",
-      options: ["beginner", "intermediate", "advanced"],
     },
   ],
   access: {

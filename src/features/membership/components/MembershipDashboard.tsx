@@ -7,52 +7,24 @@ import Link from "next/link";
 import ArrowButton from "@/components/ArrowButton";
 import { maskPhoneNumber } from "../utils/maskPhoneNumber";
 import { maskStudentID } from "../utils/maskStudentID";
-
-type SessionUser = {
-  name: string;
-  email: string;
-};
-
-export type MemberProfile = {
-  studentId: string;
-  universityYear: "year1" | "year2" | "year3" | "year4" | "year5Plus" | "postgraduate";
-  phoneNumber: string;
-  degrees: string;
-  firstName: string;
-  lastName: string;
-  hasPaid: boolean;
-  paymentDate?: string | null;
-  experienceLevel?: ExperienceLevel | null;
-  areasOfInterest?: string[] | null;
-  linkedinHandle?: string | null;
-  caseCompetitionInterest?: boolean | null;
-};
+import { MemberProfile, SessionUser, UpcomingEvent } from "../types";
+import SaveButton from "./SaveButton";
+import CancelButton from "./CancelButton";
+import { savePersonalDetails } from "../data/savePersonalDetails";
 
 interface MembershipDashboardProps {
   user: SessionUser;
   member: MemberProfile | null;
 }
 
-export type Membership = {
-  membershipType: "General Membership";
-};
-
 const YEAR_LABELS: Record<MemberProfile["universityYear"], string> = {
+  unknown: "—",
   year1: "1st Year",
   year2: "2nd Year",
   year3: "3rd Year",
   year4: "4th Year",
   year5Plus: "5th Year+",
   postgraduate: "Postgraduate",
-};
-
-type ExperienceLevel = "beginner" | "intermediate" | "advanced";
-
-type UpcomingEvent = {
-  day: string;
-  month: string;
-  title: string;
-  detail: string;
 };
 
 interface CardProps {
@@ -64,7 +36,27 @@ interface CardHeaderProps {
   title: string;
   subtitle?: string;
   onEdit?: () => void;
+  isEditing?: boolean;
 }
+
+const CardHeader = ({ title, subtitle, onEdit, isEditing }: CardHeaderProps) => {
+  return (
+    <div className="mb-5 flex items-start justify-between">
+      <div>
+        <p className="text-xl font-bold text-[#0B1A2B]">{title}</p>
+        {subtitle && <p className="mt-1 text-sm text-slate-500">{subtitle}</p>}
+      </div>
+      {onEdit && !isEditing && (
+        <button
+          onClick={onEdit}
+          className="bg-lightBlue grid h-9 w-9 shrink-0 place-items-center rounded-full text-blue-600 hover:cursor-pointer"
+        >
+          <FiEdit2 size={16} />
+        </button>
+      )}
+    </div>
+  );
+};
 
 const upcomingEvents: UpcomingEvent[] = [
   {
@@ -83,25 +75,6 @@ const upcomingEvents: UpcomingEvent[] = [
 
 const Card = ({ children, className }: CardProps) => {
   return <div className={`rounded-2xl bg-white p-6 shadow-sm ${className ?? ""}`}>{children} </div>;
-};
-
-const CardHeader = ({ title, subtitle, onEdit }: CardHeaderProps) => {
-  return (
-    <div className="mb-5 flex items-start justify-between">
-      <div>
-        <p className="text-xl font-bold text-[#0B1A2B]">{title}</p>
-        {subtitle && <p className="mt-1 text-sm text-slate-500">{subtitle}</p>}
-      </div>
-      {onEdit && (
-        <button
-          onClick={onEdit}
-          className="bg-lightBlue grid h-9 w-9 shrink-0 place-items-center rounded-full text-blue-600 hover:cursor-pointer"
-        >
-          <FiEdit2 size={16} />
-        </button>
-      )}
-    </div>
-  );
 };
 
 const formatMemberSince = (paymentDate?: string | null) => {
@@ -123,8 +96,8 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
   const [studentId, setStudentId] = useState(member?.studentId ?? "");
   const [phoneNumber, setPhoneNumber] = useState(member?.phoneNumber ?? "");
   const [degrees, setDegrees] = useState(member?.degrees ?? "");
-  const [universityYear, setUniversityYear] = useState<MemberProfile["universityYear"] | "">(
-    member?.universityYear ?? "",
+  const [universityYear, setUniversityYear] = useState<MemberProfile["universityYear"]>(
+    member?.universityYear ?? "unknown",
   );
 
   /* Checks if the email has a valid abc@xyz format with only one '@' */
@@ -142,7 +115,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
     setStudentId(member?.studentId ?? "");
     setPhoneNumber(member?.phoneNumber ?? "");
     setDegrees(member?.degrees ?? "");
-    setUniversityYear(member?.universityYear ?? "");
+    setUniversityYear(member?.universityYear ?? "unknown");
     setError(null);
     setEmail(user.email);
     setIsEditingDetails(false);
@@ -165,30 +138,19 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
       return;
     }
 
-    const { firstName, lastName } = splitName(name);
-
     setSaving(true);
     setError(null);
     try {
-      const response = await fetch("/api/accounts/personal-details", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName: firstName.trim(),
-          lastName: lastName.trim(),
-          email: email.trim(),
-          studentId: studentId.trim(),
-          degrees: degrees.trim(),
-          universityYear,
-          phoneNumber: phoneNumber.trim(),
-        }),
-      });
-      if (!response.ok) throw new Error("Failed to update details");
+      const { firstName, lastName } = splitName(name);
+      await savePersonalDetails(
+        { firstName, lastName, studentId, degrees, universityYear, phoneNumber },
+        { email: user.email },
+      );
       setIsEditingDetails(false);
       router.refresh();
     } catch (err) {
       console.error("Failed to save details:", err);
-      setError("Couldn't save your details. Try again.");
+      setError(err instanceof Error ? err.message : "Couldn't save your details. Try again.");
     } finally {
       setSaving(false);
     }
@@ -228,6 +190,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+          autoComplete="email"
         />
       ) : (
         user.email
@@ -237,9 +200,12 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
       label: "Phone Number",
       value: isEditingDetails ? (
         <input
+          type="tel"
+          inputMode="tel"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
           className="w-full rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
+          autoComplete="tel"
         />
       ) : (
         maskPhoneNumber(member?.phoneNumber ?? "")
@@ -262,12 +228,9 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
       value: isEditingDetails ? (
         <select
           value={universityYear}
-          onChange={(e) =>
-            setUniversityYear(e.target.value as MemberProfile["universityYear"] | "")
-          }
+          onChange={(e) => setUniversityYear(e.target.value as MemberProfile["universityYear"])}
           className="w-full appearance-none rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
         >
-          <option value=""></option>
           {Object.entries(YEAR_LABELS).map(([value, label]) => (
             <option key={value} value={value}>
               {label}
@@ -308,9 +271,10 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           {/* Personal details */}
           <Card>
             <CardHeader
-              title="Personal details"
+              title="Personl details"
               subtitle="Visible to club admin only"
               onEdit={() => setIsEditingDetails(true)}
+              isEditing={isEditingDetails}
             />
             <div className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
               {personalDetails.map((field) => (
@@ -332,20 +296,8 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
 
               {isEditingDetails && (
                 <div className="flex items-center gap-3">
-                  <button
-                    onClick={handleCancelEdit}
-                    disabled={saving}
-                    className="rounded-lg border-2 border-[#E2E9F2] px-5 py-2 text-sm font-medium text-slate-500 hover:cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={handleSaveDetails}
-                    disabled={saving}
-                    className="rounded-lg bg-linear-to-r from-[#249AFF] to-[#005EAF] px-5 py-2 text-sm font-semibold text-white hover:cursor-pointer disabled:opacity-50"
-                  >
-                    {saving ? "Saving..." : "Save Changes"}
-                  </button>
+                  <CancelButton onClick={handleCancelEdit} disabled={saving} />
+                  <SaveButton onClick={handleSaveDetails} saving={saving} />
                 </div>
               )}
             </div>
