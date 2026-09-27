@@ -399,6 +399,52 @@ export interface Event {
   registrationLink?: string | null;
   image?: (string | null) | Media;
   attendees?: (string | Member)[] | null;
+  /**
+   * Turn on to let members register for this event on the website.
+   */
+  requiresSignup?: boolean | null;
+  /**
+   * Only paid members can sign up for this event.
+   */
+  requiresMembership?: boolean | null;
+  /**
+   * Maximum number of sign-ups. Leave empty for unlimited.
+   */
+  capacity?: number | null;
+  /**
+   * Release the slot back to the pool when someone cancels their sign-up.
+   */
+  freeSlotOnCancel?: boolean | null;
+  /**
+   * Sign-ups cannot be edited after this time. Defaults to the event start date.
+   */
+  editCutoff?: string | null;
+  /**
+   * Sign-ups cannot be cancelled after this time. Defaults to the edit cut-off.
+   */
+  cancelCutoff?: string | null;
+  /**
+   * Editing this form after sign-ups already exist will NOT update existing submitted responses.
+   */
+  signupForm?:
+    | {
+        label: string;
+        fieldType: 'shortText' | 'paragraph' | 'multipleChoice' | 'checkboxes' | 'dropdown';
+        required?: boolean | null;
+        /**
+         * Only used by Multiple Choice, Checkboxes and Dropdown field types.
+         */
+        options?:
+          | {
+              option: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'formField';
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -936,6 +982,31 @@ export interface EventsSelect<T extends boolean = true> {
   registrationLink?: T;
   image?: T;
   attendees?: T;
+  requiresSignup?: T;
+  requiresMembership?: T;
+  capacity?: T;
+  freeSlotOnCancel?: T;
+  editCutoff?: T;
+  cancelCutoff?: T;
+  signupForm?:
+    | T
+    | {
+        formField?:
+          | T
+          | {
+              label?: T;
+              fieldType?: T;
+              required?: T;
+              options?:
+                | T
+                | {
+                    option?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
 }
