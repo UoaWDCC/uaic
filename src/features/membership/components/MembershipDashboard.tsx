@@ -183,18 +183,10 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
       ),
     },
     {
+    {
       label: "University Email",
-      value: isEditingDetails ? (
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-lg border border-[#005EAF] px-2 py-2 text-sm"
-          autoComplete="email"
-        />
-      ) : (
-        user.email
-      ),
+      user.email
+     }
     },
     {
       label: "Phone Number",
