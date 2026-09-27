@@ -1,9 +1,13 @@
 // Integration test - see tests/README.md for the DATABASE_URI import-order
 // gotcha this beforeAll works around, and why mongodb-memory-server is used.
-import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import type { getPayload as GetPayload } from "@/lib/payload";
 import type { auth as Auth } from "@/lib/auth";
+
+// Creating test events triggers the collection's revalidation hook, but Vitest
+// has no Next.js request/cache context. Keep Payload real and mock the cache call.
+vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
 
 describe("EventSignups collection", () => {
   let mongod: MongoMemoryServer;
