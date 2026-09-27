@@ -18,16 +18,7 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const {
-    firstName,
-    lastName,
-    email,
-    studentId,
-    phoneNumber,
-    degrees,
-    universityYear,
-    //experienceLevel,
-  } = body;
+  const { firstName, lastName, email, studentId, phoneNumber, degrees, universityYear } = body;
 
   const memberData = {
     firstName: typeof firstName === "string" ? firstName.trim() : undefined,
@@ -36,10 +27,7 @@ export async function PATCH(req: NextRequest) {
     studentId: typeof studentId === "string" ? studentId.trim() : undefined,
     phoneNumber: typeof phoneNumber === "string" ? phoneNumber.trim() : undefined,
     degrees: typeof degrees === "string" ? degrees.trim() : undefined,
-    universityYear:
-      universityYear === "" || universityYear === undefined
-        ? undefined
-        : (universityYear as (typeof VALID_YEARS)[number]),
+    universityYear: universityYear as (typeof VALID_YEARS)[number] | undefined,
   };
 
   if (

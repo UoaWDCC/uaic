@@ -313,7 +313,7 @@ export interface Member {
   upi: string;
   studentId: string;
   gender: 'male' | 'female' | 'nonBinary' | 'preferNotToSay';
-  universityYear: 'unkonw' | 'year1' | 'year2' | 'year3' | 'year4' | 'year5Plus' | 'postgraduate';
+  universityYear:  'year1' | 'year2' | 'year3' | 'year4' | 'year5Plus' | 'postgraduate' | undefined ;
   memberType: 'returning' | 'newMember';
   degrees: string;
   majors: string;

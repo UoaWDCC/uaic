@@ -16,8 +16,7 @@ interface MembershipDashboardProps {
   member: MemberProfile | null;
 }
 
-const YEAR_LABELS: Record<MemberProfile["universityYear"], string> = {
-  unknown: "—",
+const YEAR_LABELS: Record<NonNullable<MemberProfile["universityYear"]>, string> = {
   year1: "1st Year",
   year2: "2nd Year",
   year3: "3rd Year",
@@ -96,7 +95,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
   const [phoneNumber, setPhoneNumber] = useState(member?.phoneNumber ?? "");
   const [degrees, setDegrees] = useState(member?.degrees ?? "");
   const [universityYear, setUniversityYear] = useState<MemberProfile["universityYear"]>(
-    member?.universityYear ?? "unknown",
+    member?.universityYear ?? null,
   );
 
   /* Checks if the email has a valid abc@xyz format with only one '@' */
@@ -114,7 +113,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
     setStudentId(member?.studentId ?? "");
     setPhoneNumber(member?.phoneNumber ?? "");
     setDegrees(member?.degrees ?? "");
-    setUniversityYear(member?.universityYear ?? "unknown");
+    setUniversityYear(member?.universityYear ?? null);
     setError(null);
     setEmail(user.email);
     setIsEditingDetails(false);
@@ -227,10 +226,15 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
       label: "Year of Study",
       value: isEditingDetails ? (
         <select
-          value={universityYear}
-          onChange={(e) => setUniversityYear(e.target.value as MemberProfile["universityYear"])}
+          value={universityYear ?? ""}
+          onChange={(e) =>
+            setUniversityYear(
+              e.target.value === "" ? null : (e.target.value as MemberProfile["universityYear"]),
+            )
+          }
           className="w-full appearance-none rounded-lg border border-blue-900 px-2 py-2 text-sm"
         >
+          <option value="">Select year</option>
           {Object.entries(YEAR_LABELS).map(([value, label]) => (
             <option key={value} value={value}>
               {label}

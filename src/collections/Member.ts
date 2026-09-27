@@ -76,9 +76,8 @@ export const Member: CollectionConfig = {
       name: "universityYear",
       type: "select",
       label: "University Year",
-      required: true,
+      required: false,
       options: [
-        { label: "unknown", value: " " },
         { label: "Year 1", value: "year1" },
         { label: "Year 2", value: "year2" },
         { label: "Year 3", value: "year3" },

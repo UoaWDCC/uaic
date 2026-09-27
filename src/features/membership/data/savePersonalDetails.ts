@@ -18,7 +18,7 @@ export async function savePersonalDetails(
       email: user.email.trim(),
       studentId: details.studentId.trim(),
       degrees: details.degrees.trim(),
-      universityYear: details.universityYear,
+      universityYear: details.universityYear ?? null,
       phoneNumber: details.phoneNumber?.trim() ?? null,
     }),
   });

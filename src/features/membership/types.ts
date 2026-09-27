@@ -1,6 +1,6 @@
 export type MemberProfile = {
   studentId: string;
-  universityYear: "unknown" | "year1" | "year2" | "year3" | "year4" | "year5Plus" | "postgraduate";
+  universityYear: "year1" | "year2" | "year3" | "year4" | "year5Plus" | "postgraduate" | null;
   phoneNumber: string;
   degrees: string;
   firstName: string;
