@@ -252,7 +252,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           Membership Dashboard
         </div>
         <div className="inline-flex items-center gap-2">
-          <div className="mt-1 text-xl font-extrabold text-primary md:text-2xl">
+          <div className="text-primary mt-1 text-xl font-extrabold md:text-2xl">
             Welcome Back, {member?.firstName || "Member"}
           </div>
           {member?.hasPaid && (
@@ -281,7 +281,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                 <div key={field.label}>
                   <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                     {field.label}
-                  </p>
+                  </div>
                   <p className="text-primary mt-1">{field.value}</p>
                 </div>
               ))}
@@ -335,7 +335,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
                     <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                       Member Since
                     </div>
-                    <p className="mt-1 text-primary">{formatMemberSince(member?.paymentDate)}</p>
+                    <p className="text-primary mt-1">{formatMemberSince(member?.paymentDate)}</p>
                   </div>
                   <div className="w-1/2 flex-col">
                     <div className="text-xs font-medium tracking-wide text-slate-500 uppercase">
