@@ -49,10 +49,6 @@ export async function POST(request: NextRequest) {
         ethnicity: data.ethnicity,
         hasPaid: true,
         paymentDate: new Date().toISOString(),
-        experienceLevel: data.experenceLevel,
-        areasOfInterest: data.areasOfInterest,
-        linkedinHandle: data.linkedinHandle,
-        caseCompetitionInterest: data.caseCompetitionInterest,
       },
     });
 

@@ -308,11 +308,10 @@ export interface Member {
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber?: string | null;
   upi: string;
   studentId: string;
   gender: 'male' | 'female' | 'nonBinary' | 'preferNotToSay';
-  universityYear: 'year1' | 'year2' | 'year3' | 'year4' | 'year5Plus' | 'postgraduate';
+  universityYear: 'unkonw' | 'year1' | 'year2' | 'year3' | 'year4' | 'year5Plus' | 'postgraduate';
   memberType: 'returning' | 'newMember';
   degrees: string;
   majors: string;
@@ -320,7 +319,6 @@ export interface Member {
   howDidYouFindUs?: string | null;
   hasPaid: boolean;
   paymentDate?: string | null;
-  experienceLevel?: ('beginner' | 'intermediate' | 'advanced') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -846,7 +844,6 @@ export interface MemberSelect<T extends boolean = true> {
   firstName?: T;
   lastName?: T;
   email?: T;
-  phoneNumber?: T;
   upi?: T;
   studentId?: T;
   gender?: T;
@@ -858,7 +855,6 @@ export interface MemberSelect<T extends boolean = true> {
   howDidYouFindUs?: T;
   hasPaid?: T;
   paymentDate?: T;
-  experienceLevel?: T;
   updatedAt?: T;
   createdAt?: T;
 }
