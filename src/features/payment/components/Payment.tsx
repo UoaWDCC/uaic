@@ -150,11 +150,11 @@ export default function Payment() {
 
   return (
     /* Parent layout container: centering elements horizontally and vertically using flex */
-    <div className="z-modal from-primary-light to-primary fixed inset-0 mx-auto flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-tr p-10">
+    <div className="z-modal from-primary-light to-primary fixed inset-0 mx-auto flex h-screen w-screen flex-col items-center justify-center bg-linear-to-tr p-10">
       {/* Centered White wrapper container card */}
       <div className="mb-10 w-full rounded-2xl bg-white p-4 pb-0 text-black shadow-[0_5px_15px_rgba(0,0,0,0.25)] lg:max-w-xl">
         <div
-          className={`border-destructive fixed bottom-10 left-5/7 z-70 flex w-1/3 items-center justify-center gap-2 rounded-xl border-2 bg-white p-1 pt-2 text-center text-xl transition duration-100 lg:h-[150px] lg:max-w-[300px] ${openErrorPage ? "opacity-100" : "opacity-0"}`}
+          className={`border-destructive fixed bottom-10 left-5/7 z-70 flex w-1/3 items-center justify-center gap-2 rounded-xl border-2 bg-white p-1 pt-2 text-center text-xl transition duration-100 lg:h-37.5 lg:max-w-75 ${openErrorPage ? "opacity-100" : "opacity-0"}`}
         >
           {" "}
           {/* left-1/2 puts element's left edge at the middle, and -translate-x-1/2 move element left by half, essentially moving the element to the middle. */}{" "}
@@ -181,7 +181,7 @@ export default function Payment() {
           </div>
 
           <div className="mb-6 flex w-full items-center justify-between">
-            <div className="relative h-9 w-9 flex-shrink-0 lg:h-9 lg:w-9">
+            <div className="relative h-9 w-9 shrink-0 lg:h-9 lg:w-9">
               <CgRadioChecked
                 className={`duration-base absolute inset-0 text-4xl text-blue-500 transition-all lg:text-4xl ${currentStep === 0 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
               />
@@ -195,7 +195,7 @@ export default function Payment() {
               className={`duration-base mx-2 h-px flex-1 transition-colors ${currentStep >= 1 ? "bg-blue-500" : "bg-gray-300"}`}
             />
 
-            <div className="relative h-9 w-9 flex-shrink-0 lg:h-9 lg:w-9">
+            <div className="relative h-9 w-9 shrink-0 lg:h-9 lg:w-9">
               <CgRadioChecked
                 className={`duration-base absolute inset-0 text-4xl text-blue-500 transition-all lg:text-4xl ${currentStep === 1 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
               />
@@ -213,7 +213,7 @@ export default function Payment() {
               className={`duration-base mx-2 h-px flex-1 transition-colors ${currentStep >= 2 ? "bg-blue-500" : "bg-gray-300"}`}
             />
 
-            <div className="relative h-9 w-9 flex-shrink-0 lg:h-9 lg:w-9">
+            <div className="relative h-9 w-9 shrink-0 lg:h-9 lg:w-9">
               <CgRadioChecked
                 className={`duration-base absolute inset-0 text-4xl text-blue-500 transition-all lg:text-4xl ${currentStep === 2 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
               />
@@ -231,7 +231,7 @@ export default function Payment() {
               className={`duration-base mx-2 h-px flex-1 transition-all ${currentStep >= 3 ? "bg-blue-500" : "bg-gray-300"}`}
             />
 
-            <div className="relative h-9 w-9 flex-shrink-0 lg:h-9 lg:w-9">
+            <div className="relative h-9 w-9 shrink-0 lg:h-9 lg:w-9">
               <CgRadioChecked
                 className={`duration-base absolute inset-0 text-4xl text-blue-500 transition-all lg:text-4xl ${currentStep === 3 ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"}`}
               />
@@ -292,7 +292,7 @@ export default function Payment() {
                 </button>
                 <button
                   type="button"
-                  className="from-cobalt-400 to-cobalt-700 w-full rounded-full bg-gradient-to-r px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
+                  className="from-cobalt-400 to-cobalt-700 w-full rounded-full bg-linear-to-r px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
                   onClick={() => validateNext(1, false)}
                 >
                   Next
@@ -489,7 +489,7 @@ export default function Payment() {
                 </button>
                 <button
                   type="button"
-                  className="from-cobalt-400 to-cobalt-700 w-full rounded-full bg-gradient-to-r px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
+                  className="from-cobalt-400 to-cobalt-700 w-full rounded-full bg-linear-to-r px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
                   onClick={() => validateNext(2, false)}
                 >
                   Next
@@ -657,7 +657,7 @@ export default function Payment() {
                   Back
                 </button>
                 <button
-                  className="from-cobalt-400 to-cobalt-700 w-full rounded-full bg-gradient-to-r px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
+                  className="from-cobalt-400 to-cobalt-700 w-full rounded-full bg-linear-to-r px-4 py-2 font-bold text-white transition hover:from-blue-700 hover:to-blue-900"
                   onClick={() => validateNext(3, false)}
                 >
                   Next
