@@ -20,7 +20,7 @@ export default async function LatestArticle() {
       : latest.title;
 
   // create a placeholder cover page and add here
-  const imageSrc = latest.bulletinCover?.url || "/assets/bulletins/placeholder-bulletin-cover.png";
+  const imageSrc = latest.bulletinCover?.url || "/assets/bulletins/placeholder-bulletin-cover.webp";
   const pdfUrl = latest.bulletinPDF?.url || "#";
 
   return (
@@ -34,7 +34,7 @@ export default async function LatestArticle() {
         <div className="text-primary hidden gap-[75px] p-7 lg:flex lg:flex-row">
           {/* Image Container */}
           <div className="relative h-[366px] w-[259px] overflow-hidden rounded-3xl">
-            <Image src={imageSrc} alt={latest.title} fill className="object-cover" />
+            <Image src={imageSrc} alt={latest.title} fill sizes="259px" className="object-cover" />
           </div>
 
           {/* Text */}
@@ -54,15 +54,20 @@ export default async function LatestArticle() {
         <div className="relative flex h-[561px] w-[330px] flex-col items-center gap-[14px] overflow-hidden rounded-3xl bg-white lg:hidden">
           <h1 className="text-primary mt-6 text-xl font-bold lg:text-2xl">Latest Article</h1>
 
-          <div
-            className="relative flex h-[417px] w-[295px] flex-col justify-end gap-[9px] rounded-3xl bg-cover bg-center p-6 text-white"
-            style={{
-              backgroundImage: `linear-gradient(to top, rgba(20,92,169,1) 0%, rgba(20,92,169,1) 50%, rgba(255,255,255,0) 75%), url('${imageSrc}')`,
-            }}
-          >
-            <h2 className="text-xs font-light">Issue #{latest.issueNumber}</h2>
-            <h1 className="text-sm leading-tight font-bold">{truncatedTitle}</h1>
-            <p className="text-xs font-light">{truncatedDescription}</p>
+          <div className="relative flex h-[417px] w-[295px] flex-col justify-end overflow-hidden rounded-3xl p-6 text-white">
+            <Image
+              src={imageSrc}
+              alt={latest.title}
+              fill
+              sizes="295px"
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(20,92,169,1)_0%,rgba(20,92,169,1)_50%,rgba(255,255,255,0)_75%)]" />
+            <div className="relative flex flex-col gap-[9px]">
+              <h2 className="text-xs font-light">Issue #{latest.issueNumber}</h2>
+              <h1 className="text-sm leading-tight font-bold">{truncatedTitle}</h1>
+              <p className="text-xs font-light">{truncatedDescription}</p>
+            </div>
           </div>
 
           <div className="h-[37px] w-[295px]">
