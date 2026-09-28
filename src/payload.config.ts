@@ -21,6 +21,17 @@ import { Portfolio } from "./collections/Portfolio";
 import { LandingPageImages } from "./collections/LandingPageImages";
 import { HeroSectionCarousel } from "./collections/HeroSectionCarousel";
 import { Sponsors } from "./collections/Sponsors";
+import { MEDIA_CDN_URL } from "./lib/mediaCdn";
+
+// Files are served straight from CloudFront rather than streamed through
+// Payload's /api/<collection>/file route (a Vercel Function). This bypasses
+// Payload's access.read, so only use it for collections with public read.
+const cdnCollection = (prefix: string) => ({
+  prefix,
+  disablePayloadAccessControl: true as const,
+  generateFileURL: ({ filename }: { filename: string }) =>
+    `${MEDIA_CDN_URL}/${prefix}/${encodeURIComponent(filename)}`,
+});
 
 // The plugin's /download stream never calls push() on an empty result, so the
 // request hangs forever instead of returning a header-only CSV. When we detect
@@ -160,12 +171,8 @@ export default buildConfig({
     }),
     s3Storage({
       collections: {
-        media: {
-          prefix: "media",
-        },
-        "investment-committee-images": {
-          prefix: "investment-committee-images",
-        },
+        media: cdnCollection("media"),
+        "investment-committee-images": cdnCollection("investment-committee-images"),
       },
       bucket: process.env.S3_BUCKET || "",
       config: {
