@@ -21,7 +21,7 @@ const UpcomingEventsCard = () => {
     <div className="rounded-2xl bg-white p-6 shadow-sm lg:col-span-2">
       <div className="mb-5 flex items-start justify-between">
         <div>
-          <p className="text-primary text-xl font-bold">Your upcoming events</p>
+          <p className="text-ink text-xl font-bold">Your upcoming events</p>
           <p className="mt-1 text-sm text-slate-500">{upcomingEvents.length} events confirmed</p>
         </div>
       </div>
@@ -38,7 +38,7 @@ const UpcomingEventsCard = () => {
               </span>
             </div>
             <div className="min-w-0">
-              <p className="text-primary font-semibold">{event.title}</p>
+              <p className="text-ink font-semibold">{event.title}</p>
               <p className="mt-0.5 text-sm text-slate-500">{event.detail}</p>
             </div>
           </div>

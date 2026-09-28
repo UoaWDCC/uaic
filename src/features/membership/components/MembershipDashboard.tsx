@@ -30,7 +30,7 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           Membership Dashboard
         </div>
         <div className="inline-flex items-center gap-2">
-          <div className="text-primary mt-1 text-xl font-extrabold md:text-2xl">
+          <div className="text-ink mt-1 text-xl font-extrabold md:text-2xl">
             Welcome Back, {member?.firstName || "Member"}
           </div>
           {member?.hasPaid && (
