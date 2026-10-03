@@ -1,3 +1,4 @@
+import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 import type { CollectionConfig, TextFieldSingleValidation } from "payload";
 import { validateUrl } from "@payloadcms/richtext-lexical";
 
@@ -6,6 +7,7 @@ const validateLinkedinUrl: TextFieldSingleValidation = (value) =>
 
 export const ExecutiveCommittee: CollectionConfig = {
   slug: "executive-committee",
+  hooks: revalidateOnChange("/about"),
   labels: {
     singular: "Executive Committee Member",
     plural: "Executive Committee Members",
