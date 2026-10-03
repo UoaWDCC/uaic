@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
@@ -35,10 +36,15 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ images, onSlideChange, swip
       >
         {safeImages.map((img, i) => (
           <SwiperSlide key={i}>
-            <div
-              className="h-full w-full bg-cover bg-[center_80%] bg-no-repeat lg:bg-[center_3%]"
-              style={{ backgroundImage: `url('${img}')` }}
-            />
+            <div className="relative h-full w-full">
+              <Image
+                src={img}
+                alt=""
+                fill
+                sizes="100vw"
+                className="object-cover object-[center_80%] lg:object-[center_3%]"
+              />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
