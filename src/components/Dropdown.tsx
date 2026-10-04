@@ -130,7 +130,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       <div
         className={
           isInput
-            ? ""
+            ? "peer-focus:[&>button]:border-primary-light"
             : `overflow-hidden rounded-2xl bg-white transition-[max-height] duration-500 ease-in-out ${isOpen ? "shadow-sm" : "shadow-none"} ${isOpen ? "max-h-[500px]" : "max-h-[44px] lg:max-h-[56px]"}`
         }
       >
@@ -147,7 +147,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           aria-invalid={isInvalid || undefined}
           className={
             isInput
-              ? `flex h-[52px] w-full cursor-pointer items-center justify-between gap-2 rounded-[40px] border-[0.5px] bg-white px-4 py-2 text-left ${isInvalid ? "border-destructive focus-visible:outline-none" : `focus-visible:outline-ring focus-visible:outline-2 focus-visible:outline-offset-2 ${isOpen ? "border-primary-light" : "border-slate-200"}`}`
+              ? `focus:border-primary-light focus-visible:outline-ring flex h-[52px] w-full cursor-pointer items-center justify-between gap-2 rounded-[40px] border-[0.5px] bg-white px-4 py-2 text-left focus-visible:outline-2 focus-visible:outline-offset-2 ${isOpen ? "border-primary-light" : "border-slate-200"}`
               : "flex w-full cursor-pointer items-center justify-between rounded-xl px-4 py-1 text-left lg:rounded-2xl lg:px-4 lg:py-2"
           }
           onClick={() => setIsOpen((prev) => !prev)}
