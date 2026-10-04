@@ -10,7 +10,7 @@ type DropdownProps = {
   ariaLabel: string;
   variant?: "default" | "input";
   placeholder?: string;
-  error?: string;
+  required?: boolean;
 };
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -20,13 +20,12 @@ const Dropdown: React.FC<DropdownProps> = ({
   ariaLabel,
   variant = "default",
   placeholder,
-  error,
+  required = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listId = useId();
-  const errorId = useId();
   const isInput = variant === "input";
 
   useEffect(() => {
@@ -90,11 +89,39 @@ const Dropdown: React.FC<DropdownProps> = ({
         focusOption(next);
       }}
     >
+      {isInput && (
+        // Native validation needs a rendered, focusable form control. Keep this
+        // select aligned with the trigger so the browser anchors its popup here.
+        // It is excluded from normal tab navigation, but remains available when
+        // the browser focuses the invalid field. Do not use hidden/display:none.
+        <select
+          value={value}
+          required={required}
+          tabIndex={-1}
+          aria-label={`${ariaLabel} form value`}
+          onChange={(event) => onChange(event.target.value)}
+          onInvalid={() => setIsOpen(false)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              setIsOpen(true);
+            }
+          }}
+          className="peer pointer-events-none absolute top-0 left-0 h-[52px] w-full opacity-0"
+        >
+          <option value="">{placeholder || "Select an option"}</option>
+          {options.map((option, index) => (
+            <option key={option + index} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      )}
       {/* Expanding container */}
       <div
         className={
           isInput
-            ? ""
+            ? "peer-focus-visible:outline-ring rounded-[40px] peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2"
             : `overflow-hidden rounded-2xl bg-white transition-[max-height] duration-500 ease-in-out ${isOpen ? "shadow-sm" : "shadow-none"} ${isOpen ? "max-h-[500px]" : "max-h-[44px] lg:max-h-[56px]"}`
         }
       >
@@ -107,11 +134,10 @@ const Dropdown: React.FC<DropdownProps> = ({
           aria-expanded={isOpen}
           aria-haspopup={isInput ? "listbox" : undefined}
           aria-controls={isInput && isOpen ? listId : undefined}
-          aria-invalid={isInput && error ? true : undefined}
-          aria-describedby={isInput && error ? errorId : undefined}
+          aria-required={isInput && required ? true : undefined}
           className={
             isInput
-              ? `focus-visible:outline-ring flex h-[52px] w-full cursor-pointer items-center justify-between gap-2 rounded-[40px] border-[0.5px] bg-white px-4 py-2 text-left focus-visible:outline-2 focus-visible:outline-offset-2 ${error ? "border-destructive" : isOpen ? "border-primary-light" : "border-slate-200"}`
+              ? `focus-visible:outline-ring flex h-[52px] w-full cursor-pointer items-center justify-between gap-2 rounded-[40px] border-[0.5px] bg-white px-4 py-2 text-left focus-visible:outline-2 focus-visible:outline-offset-2 ${isOpen ? "border-primary-light" : "border-slate-200"}`
               : "flex w-full cursor-pointer items-center justify-between rounded-xl px-4 py-1 text-left lg:rounded-2xl lg:px-4 lg:py-2"
           }
           onClick={() => setIsOpen((prev) => !prev)}
@@ -161,11 +187,6 @@ const Dropdown: React.FC<DropdownProps> = ({
           </div>
         )}
       </div>
-      {isInput && error && (
-        <p id={errorId} className="text-destructive mt-2 text-sm">
-          {error}
-        </p>
-      )}
     </div>
   );
 };
