@@ -23,10 +23,12 @@ const Dropdown: React.FC<DropdownProps> = ({
   required = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [validationFailed, setValidationFailed] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listId = useId();
   const isInput = variant === "input";
+  const isInvalid = isInput && required && validationFailed && (!value || !options.includes(value));
 
   useEffect(() => {
     if (!isInput || !isOpen) return;
@@ -47,6 +49,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   }, [isInput, isOpen, options, value]);
 
   const handleSelect = (option: string) => {
+    if (isInput) setValidationFailed(false);
     if (option !== value) {
       onChange(option);
     }
@@ -99,8 +102,14 @@ const Dropdown: React.FC<DropdownProps> = ({
           required={required}
           tabIndex={-1}
           aria-label={`${ariaLabel} form value`}
-          onChange={(event) => onChange(event.target.value)}
-          onInvalid={() => setIsOpen(false)}
+          onChange={(event) => {
+            setValidationFailed(false);
+            onChange(event.target.value);
+          }}
+          onInvalid={() => {
+            setValidationFailed(true);
+            setIsOpen(false);
+          }}
           onKeyDown={(event) => {
             if (event.key === "Enter" || event.key === " ") {
               event.preventDefault();
@@ -121,7 +130,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       <div
         className={
           isInput
-            ? "peer-focus-visible:outline-ring rounded-[40px] peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2"
+            ? ""
             : `overflow-hidden rounded-2xl bg-white transition-[max-height] duration-500 ease-in-out ${isOpen ? "shadow-sm" : "shadow-none"} ${isOpen ? "max-h-[500px]" : "max-h-[44px] lg:max-h-[56px]"}`
         }
       >
@@ -135,9 +144,10 @@ const Dropdown: React.FC<DropdownProps> = ({
           aria-haspopup={isInput ? "listbox" : undefined}
           aria-controls={isInput && isOpen ? listId : undefined}
           aria-required={isInput && required ? true : undefined}
+          aria-invalid={isInvalid || undefined}
           className={
             isInput
-              ? `focus-visible:outline-ring flex h-[52px] w-full cursor-pointer items-center justify-between gap-2 rounded-[40px] border-[0.5px] bg-white px-4 py-2 text-left focus-visible:outline-2 focus-visible:outline-offset-2 ${isOpen ? "border-primary-light" : "border-slate-200"}`
+              ? `flex h-[52px] w-full cursor-pointer items-center justify-between gap-2 rounded-[40px] border-[0.5px] bg-white px-4 py-2 text-left ${isInvalid ? "border-destructive focus-visible:outline-none" : `focus-visible:outline-ring focus-visible:outline-2 focus-visible:outline-offset-2 ${isOpen ? "border-primary-light" : "border-slate-200"}`}`
               : "flex w-full cursor-pointer items-center justify-between rounded-xl px-4 py-1 text-left lg:rounded-2xl lg:px-4 lg:py-2"
           }
           onClick={() => setIsOpen((prev) => !prev)}
