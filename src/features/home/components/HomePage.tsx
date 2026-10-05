@@ -5,6 +5,7 @@ import type { Swiper as SwiperType } from "swiper";
 import ArrowButton from "@/components/ArrowButton";
 import HeroCarousel from "./HeroCarousel";
 import HeroSlideIndicator from "./HeroSlideIndicator";
+import { useSession } from "@/lib/auth-client";
 
 interface HomePageProps {
   images: string[];
@@ -16,6 +17,7 @@ const HomePage: React.FC<HomePageProps> = ({ images }) => {
   const [current, setCurrent] = useState(0);
   const totalSlides = safeImages.length;
   const swiperRef = useRef<SwiperType | null>(null);
+  const { data: session } = useSession();
 
   const handleSelect = (index: number) => {
     setCurrent(index);
@@ -49,7 +51,11 @@ const HomePage: React.FC<HomePageProps> = ({ images }) => {
           </h3>
 
           <div className="duration-base pointer-events-auto mx-auto transition-all lg:mx-0 lg:ml-auto">
-            <ArrowButton text="Become A Member" link="/login" />
+            {session ? (
+              <ArrowButton text="Go To Dashboard" link="/dashboard" />
+            ) : (
+              <ArrowButton text="Become A Member" link="/login" />
+            )}
           </div>
         </div>
 
