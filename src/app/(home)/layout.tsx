@@ -2,28 +2,35 @@ import Navbar from "@/features/layout/components/Navbar";
 import type { Metadata } from "next";
 import Footer from "@/features/layout/components/Footer";
 import "../globals.css";
+import { getPayload } from "payload";
+import configPromise from "@payload-config";
 
 export const metadata: Metadata = {
   title: "Investment Club",
   description: "Investment Club Website",
 };
 
-// Match Fly behaviour: pages are rendered on demand, never prerendered at
-// build. Also lets `next build` run without a database, the way Fly's
-// `next build --experimental-build-mode compile` does.
 export const dynamic = "force-dynamic";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const payload = await getPayload({ config: configPromise });
+  const tickerGlobal = await payload.findGlobal({ slug: "ticker" });
+
+  const symbols = (tickerGlobal?.tickers || []).map((item) => ({
+    proName: item.proName,
+    title: item.title,
+  }));
+
   return (
     <html lang="en">
       <body>
         {/* Visible Navbar */}
         <div className="z-modal fixed top-0 left-0 w-full">
-          <Navbar />
+          <Navbar symbols={symbols} />
         </div>
 
         {/* Margin height to match Navbar */}
