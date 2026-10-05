@@ -33,12 +33,6 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
           <div className="text-ink mt-1 text-xl font-extrabold md:text-2xl">
             Welcome Back, {member?.firstName || "Member"}
           </div>
-          {member?.hasPaid && (
-            <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-[#E7F7EE] px-3 py-2 text-[2vw] font-semibold text-[#1B7A43] md:text-xs">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#1B7A43]" />
-              Active member
-            </div>
-          )}
         </div>
         <div className="mt-2 max-w-2xl text-sm text-slate-500">
           Manage your details, track your event RSVPs, and tell us what kind of investing content
