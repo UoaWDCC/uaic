@@ -21,6 +21,7 @@ import { Portfolio } from "./collections/Portfolio";
 import { LandingPageImages } from "./collections/LandingPageImages";
 import { HeroSectionCarousel } from "./collections/HeroSectionCarousel";
 import { Sponsors } from "./collections/Sponsors";
+import { Ticker } from "./collections/Ticker";
 
 // The plugin's /download stream never calls push() on an empty result, so the
 // request hangs forever instead of returning a header-only CSV. When we detect
@@ -57,6 +58,8 @@ export default buildConfig({
     Portfolio,
     Sponsors,
   ],
+
+  globals: [Ticker],
 
   secret: process.env.PAYLOAD_SECRET || "",
 
