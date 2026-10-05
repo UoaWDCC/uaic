@@ -7,6 +7,7 @@ import { MemberProfile, SessionUser } from "../types";
 import SaveButton from "./SaveButton";
 import CancelButton from "./CancelButton";
 import { savePersonalDetails } from "../data/savePersonalDetails";
+import { GoArrowUpRight } from "react-icons/go";
 
 const YEAR_LABELS: Record<NonNullable<MemberProfile["universityYear"]>, string> = {
   year1: "1st Year",
@@ -36,6 +37,8 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
   const [universityYear, setUniversityYear] = useState<MemberProfile["universityYear"]>(
     member?.universityYear ?? null,
   );
+
+  const [isYearOpen, setIsYearOpen] = useState(false);
 
   /* Checks if the email has a valid abc@xyz format with only one '@' */
   const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -94,7 +97,7 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border-ink flex w-full items-center gap-2 rounded-lg border px-2 py-2 text-sm"
+          className="border-color-slate-500 flex w-full items-center gap-2 rounded-full border px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
           autoComplete="name"
           autoFocus
         />
@@ -108,7 +111,7 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
         <input
           value={studentId}
           onChange={(e) => setStudentId(e.target.value)}
-          className="border-ink flex w-full items-center gap-2 rounded-lg border px-2 py-2 text-sm"
+          className="border-color-slate-500 flex w-full items-center gap-2 rounded-full border px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
         />
       ) : (
         maskStudentID(member?.studentId ?? "")
@@ -121,7 +124,7 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border-ink flex w-full items-center gap-2 rounded-lg border px-2 py-2 text-sm"
+          className="border-color-slate-500 flex w-full items-center gap-2 rounded-full border px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
           autoComplete="email"
         />
       ) : (
@@ -136,7 +139,7 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
           inputMode="tel"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
-          className="border-ink flex w-full items-center gap-2 rounded-lg border px-2 py-2 text-sm"
+          className="border-color-slate-500 flex w-full items-center gap-2 rounded-full border px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
           autoComplete="tel"
         />
       ) : (
@@ -149,7 +152,7 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
         <input
           value={degrees}
           onChange={(e) => setDegrees(e.target.value)}
-          className="border-ink flex w-full items-center gap-2 rounded-lg border px-2 py-2 text-sm"
+          className="border-color-slate-500 flex w-full items-center gap-2 rounded-full border px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
         />
       ) : (
         member?.degrees || "—"
@@ -158,22 +161,32 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
     {
       label: "Year of Study",
       value: isEditingDetails ? (
-        <select
-          value={universityYear ?? ""}
-          onChange={(e) =>
-            setUniversityYear(
-              e.target.value === "" ? null : (e.target.value as MemberProfile["universityYear"]),
-            )
-          }
-          className="border-ink flex w-full items-center gap-2 rounded-lg border px-2 py-2 text-sm"
-        >
-          <option value="">Select year</option>
-          {Object.entries(YEAR_LABELS).map(([value, label]) => (
-            <option key={value} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
+        <div className="group width-full relative">
+          <select
+            value={universityYear ?? ""}
+            onFocus={() => setIsYearOpen(true)}
+            onBlur={() => setIsYearOpen(false)}
+            onChange={(e) =>
+              setUniversityYear(
+                e.target.value === "" ? null : (e.target.value as MemberProfile["universityYear"]),
+              )
+            }
+            className="border-color-slate-500 flex w-full appearance-none items-center gap-2 rounded-full border px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
+          >
+            <option value="">Select year</option>
+            {Object.entries(YEAR_LABELS).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+          <GoArrowUpRight
+            size={16}
+            className={`pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-blue-900 transition-transform duration-200 ${
+              isYearOpen ? "rotate-45" : ""
+            }`}
+          />
+        </div>
       ) : member?.universityYear && YEAR_LABELS[member.universityYear] ? (
         YEAR_LABELS[member.universityYear]
       ) : (
@@ -192,7 +205,7 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
         {!isEditingDetails && (
           <button
             onClick={() => setIsEditingDetails(true)}
-            className="bg-surface-faint grid h-9 w-9 shrink-0 place-items-center rounded-full text-blue-600 hover:cursor-pointer"
+            className="bg-surface-faint grid h-9 w-9 shrink-0 place-items-center rounded-full text-blue-600 hover:cursor-pointer focus:border-blue-500 focus:outline-none"
           >
             <FiEdit2 size={16} />
           </button>
@@ -212,13 +225,13 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
 
       <hr className="mt-5 mb-4 border-t border-[#E2E9F2]" />
       {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
-      <div className="flex justify-between">
-        <a className="border-blue-900 text-sm font-semibold text-blue-900 hover:cursor-pointer hover:underline">
+      <div className="flex items-center justify-between gap-1">
+        <a className="border-blue-900 text-xs font-semibold text-blue-900 hover:cursor-pointer hover:underline md:text-sm">
           Change Password
         </a>
 
         {isEditingDetails && (
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 md:gap-3">
             <CancelButton onClick={handleCancelEdit} disabled={saving} />
             <SaveButton onClick={handleSaveDetails} saving={saving} />
           </div>
