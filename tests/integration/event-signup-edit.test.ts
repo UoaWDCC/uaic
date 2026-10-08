@@ -114,8 +114,8 @@ describe("PATCH /api/event-signups/:id", () => {
     ({ PATCH } = await import("@/app/api/event-signups/[id]/route"));
 
     [owner, otherMember] = await Promise.all([
-      signUpMember("edit-owner@example.com"),
-      signUpMember("edit-other@example.com"),
+      signUpMember("edit-owner@aucklanduni.ac.nz"),
+      signUpMember("edit-other@aucklanduni.ac.nz"),
     ]);
   }, 60_000);
 
