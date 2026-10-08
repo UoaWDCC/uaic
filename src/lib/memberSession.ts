@@ -11,7 +11,9 @@ import type { PayloadRequest } from "payload";
  * Returns the member's id, or null when the request carries no usable session -
  * callers are expected to treat null as "not a member" and deny.
  */
-export async function getMemberIdFromRequest(req: PayloadRequest): Promise<string | null> {
+export async function getMemberIdFromRequest(
+  req: Pick<PayloadRequest, "headers">,
+): Promise<string | null> {
   // Local API calls (payload.find() from server code) synthesise a req with no
   // headers. There's no session to read in that case.
   if (!req.headers) {

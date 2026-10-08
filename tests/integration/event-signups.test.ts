@@ -23,7 +23,7 @@ describe("EventSignups collection", () => {
       data: {
         firstName: "Test",
         lastName: `Member ${counter}`,
-        email: `member-${counter}@example.com`,
+        email: `member-${counter}@aucklanduni.ac.nz`,
         upi: `tmem${counter}`,
         studentId: `10000000${counter}`,
         gender: "preferNotToSay",
@@ -251,7 +251,7 @@ describe("EventSignups collection", () => {
 
       staffUser = await payload.create({
         collection: "users",
-        data: { email: "staff@example.com", password: "Password123!", role: "admin" },
+        data: { email: "staff@aucklanduni.ac.nz", password: "Password123!", role: "admin" },
       });
     }, 60_000);
 
