@@ -231,8 +231,8 @@ describe("EventSignups collection", () => {
       eventId = event.id;
 
       [memberA, memberB] = await Promise.all([
-        signUpMember("access-a@example.com"),
-        signUpMember("access-b@example.com"),
+        signUpMember("access-a@aucklanduni.ac.nz"),
+        signUpMember("access-b@aucklanduni.ac.nz"),
       ]);
 
       const [signupA, signupB] = await Promise.all([
