@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import EventCardList from "@/features/events/components/EventCardList";
 import EventsFilterBar from "@/features/events/components/EventsFilterBar";
 import EventsHeader from "@/features/events/components/EventsHeader";
+import type { RegistrationStatus } from "@/features/events/lib/registrationStatus";
 import type { Event as PayloadEvent } from "../../../../payload-types";
 
 export type EventsTab = "upcoming" | "past";
@@ -11,6 +12,7 @@ export type EventsTab = "upcoming" | "past";
 type EventsPageContentProps = {
   upcomingEvents: PayloadEvent[];
   pastEvents: PayloadEvent[];
+  registrationStatuses: Record<string, RegistrationStatus>;
 };
 
 const matchesQuery = (event: PayloadEvent, query: string) => {
@@ -23,7 +25,11 @@ const matchesQuery = (event: PayloadEvent, query: string) => {
     .includes(query);
 };
 
-const EventsPageContent = ({ upcomingEvents, pastEvents }: EventsPageContentProps) => {
+const EventsPageContent = ({
+  upcomingEvents,
+  pastEvents,
+  registrationStatuses,
+}: EventsPageContentProps) => {
   const [activeTab, setActiveTab] = useState<EventsTab>("upcoming");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -47,6 +53,7 @@ const EventsPageContent = ({ upcomingEvents, pastEvents }: EventsPageContentProp
         <div className="mt-6 lg:mt-8">
           <EventCardList
             events={visibleEvents}
+            registrationStatuses={registrationStatuses}
             isPast={activeTab === "past"}
             emptyMessage={
               activeTab === "upcoming"

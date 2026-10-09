@@ -185,6 +185,7 @@ export interface User {
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
   sessions?:
@@ -205,6 +206,7 @@ export interface Media {
   id: string;
   alt: string;
   prefix?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -227,6 +229,7 @@ export interface InvestmentCommitteeImage {
   id: string;
   alt: string;
   prefix?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -407,6 +410,10 @@ export interface Event {
    * Turn on to let members register for this event on the website.
    */
   requiresSignup?: boolean | null;
+  /**
+   * Once the event has started, show registration as closed and remove the Register button. This doesn't close an external form (e.g. a Google Form) - close that in the form itself.
+   */
+  closeRegistrationOnStart?: boolean | null;
   /**
    * Only paid members can sign up for this event.
    */
@@ -815,6 +822,7 @@ export interface UsersSelect<T extends boolean = true> {
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
+  resetPasswordRequestedAt?: T;
   loginAttempts?: T;
   lockUntil?: T;
   sessions?:
@@ -832,6 +840,7 @@ export interface UsersSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   prefix?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -851,6 +860,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface InvestmentCommitteeImagesSelect<T extends boolean = true> {
   alt?: T;
   prefix?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -987,6 +997,7 @@ export interface EventsSelect<T extends boolean = true> {
   image?: T;
   attendees?: T;
   requiresSignup?: T;
+  closeRegistrationOnStart?: T;
   requiresMembership?: T;
   capacity?: T;
   freeSlotOnCancel?: T;
