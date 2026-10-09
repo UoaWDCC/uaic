@@ -2,16 +2,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { VscClose } from "react-icons/vsc";
 import Image from "next/image";
-import Link from "next/link";
 import type { Event as PayloadEvent } from "../../../../payload-types";
-import ArrowButton from "@/components/ArrowButton";
+import EventCTA from "@/features/events/components/EventCTA";
+import {
+  cardDescriptionLines,
+  getRegistrationStatus,
+  LOGGED_OUT_VIEWER,
+  NO_SIGNUPS,
+  type RegistrationStatus,
+} from "@/features/events/lib/registrationStatus";
 
 interface Event {
   id: string;
-  date: string;
   day: string;
   month: string;
-  startTime: string;
   time: string;
   title: string;
   location: string;
@@ -19,29 +23,76 @@ interface Event {
   photo: string;
   description: string;
   application_link?: string | null;
+  registrationStatus: RegistrationStatus;
 }
 
 interface EventCardListProps {
   events: PayloadEvent[];
+  // Per-event CTA state, keyed by event id - from getEventRegistrationStatuses
+  // on the server. Events missing from it fall back to the logged-out view.
+  // Every caller should pass this; the fallback exists so a missing entry
+  // degrades gracefully rather than crashing.
+  registrationStatuses?: Record<string, RegistrationStatus>;
   emptyMessage?: string;
   isPast?: boolean;
 }
 
-const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+// Full class names so Tailwind can see them.
+const DESKTOP_LINE_CLAMP = { 1: "lg:line-clamp-1", 2: "lg:line-clamp-2", 3: "" } as const;
 
-// toLocaleDateString/toLocaleTimeString aren't guaranteed to return identical
-// strings across JS engines (e.g. Node/V8 vs Safari's JavaScriptCore), which
-// causes SSR/CSR hydration mismatches since this component renders on both.
-const formatTime = (date: Date) => {
-  const hours24 = date.getHours();
-  const minutes = date.getMinutes().toString().padStart(2, "0");
-  const period = hours24 >= 12 ? "PM" : "AM";
-  const hours12 = hours24 % 12 || 12;
-  return `${hours12}:${minutes} ${period}`;
+const MONTH_NAMES = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const MONTHS = MONTH_NAMES.map((month) => month.toUpperCase());
+
+// Events happen in Auckland, and this component renders on both the server
+// (UTC - no TZ is set) and the browser (whatever the viewer's timezone is).
+// Reading dates with getHours()/getDate() would give different answers on
+// each - a hydration mismatch, or the wrong day/time. So every date part is
+// read in NZ time via formatToParts, which only returns numbers we then format
+// ourselves (toLocaleDateString's wording also varies between JS engines).
+const NZ_DATE_PARTS = new Intl.DateTimeFormat("en-NZ", {
+  timeZone: "Pacific/Auckland",
+  year: "numeric",
+  month: "numeric",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  hourCycle: "h23",
+});
+
+const toNzParts = (date: Date) => {
+  const parts = Object.fromEntries(
+    NZ_DATE_PARTS.formatToParts(date).map(({ type, value }) => [type, Number(value)]),
+  );
+  return {
+    year: parts.year,
+    monthIndex: parts.month - 1,
+    day: parts.day,
+    hours: parts.hour,
+    minutes: parts.minute,
+  };
+};
+
+const formatTime = ({ hours, minutes }: { hours: number; minutes: number }) => {
+  const period = hours >= 12 ? "PM" : "AM";
+  return `${hours % 12 || 12}:${minutes.toString().padStart(2, "0")} ${period}`;
 };
 
 const EventCardList = ({
   events: rawEvents,
+  registrationStatuses = {},
   emptyMessage = "No upcoming events at this time.",
   isPast = false,
 }: EventCardListProps) => {
@@ -88,6 +139,19 @@ const EventCardList = ({
     setSelectedEvent(event);
   };
 
+  // Clicking anywhere on a card opens the event (the popup today; the event's
+  // own page once #458 lands - change it here). Clicks on the card's own
+  // links and buttons (Register, Learn More, Sign in) keep doing their thing,
+  // and finishing a text selection (e.g. copying the address) doesn't count.
+  // Mouse-only convenience: keyboard users get the same via the title button
+  // (and Learn More), so the card itself isn't made a button around other
+  // interactive elements.
+  const handleCardClick = (clickEvent: React.MouseEvent, event: Event) => {
+    if ((clickEvent.target as HTMLElement).closest("a, button")) return;
+    if (window.getSelection()?.toString()) return;
+    openSelectedEvent(event);
+  };
+
   const closeSelectedEvent = () => {
     if (closeTimerRef.current !== null) window.clearTimeout(closeTimerRef.current);
     setIsModalVisible(false);
@@ -99,27 +163,25 @@ const EventCardList = ({
 
   // Transform database events to component format
   const events: Event[] = rawEvents.map((dbEvent) => {
-    const startDate = new Date(dbEvent.startDate);
-    const endDate = new Date(dbEvent.endDate);
+    const start = toNzParts(new Date(dbEvent.startDate));
+    const end = toNzParts(new Date(dbEvent.endDate));
 
-    const formattedDate = startDate
-      .toLocaleDateString("en-NZ", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      })
-      .replace(",", "");
-
-    const startTime = formatTime(startDate);
-    const endTime = formatTime(endDate);
+    const startTime = formatTime(start);
+    const endTime = formatTime(end);
+    // Same-day events just show the end time; anything ending on a later day
+    // says which day, so a multi-day event doesn't read as a few hours long.
+    const endsSameDay =
+      start.year === end.year && start.monthIndex === end.monthIndex && start.day === end.day;
+    const endYear = end.year !== start.year ? ` ${end.year}` : "";
+    const endLabel = endsSameDay
+      ? endTime
+      : `${end.day} ${MONTH_NAMES[end.monthIndex]}${endYear}, ${endTime}`;
 
     return {
       id: dbEvent.id,
-      date: formattedDate,
-      day: startDate.toLocaleDateString("en-NZ", { day: "2-digit" }),
-      month: MONTHS[startDate.getMonth()],
-      startTime,
-      time: `${startTime} - ${endTime}`,
+      day: start.day.toString().padStart(2, "0"),
+      month: MONTHS[start.monthIndex],
+      time: `${startTime} - ${endLabel}`,
       title: dbEvent.event,
       location: dbEvent.location,
       type: "Event",
@@ -129,6 +191,14 @@ const EventCardList = ({
           : "/assets/logos/uaic.webp",
       description: dbEvent.description,
       application_link: dbEvent.registrationLink,
+      // The fallback never reads the clock (now: null) - this renders on both
+      // server and client, and the two could disagree right at an event's
+      // end time. `isPast` covers "concluded" instead.
+      registrationStatus:
+        registrationStatuses[dbEvent.id] ??
+        (isPast
+          ? "concluded"
+          : getRegistrationStatus(dbEvent, LOGGED_OUT_VIEWER, NO_SIGNUPS, null)),
     };
   });
 
@@ -143,7 +213,8 @@ const EventCardList = ({
           {events.map((event: Event) => (
             <article
               key={event.id}
-              className="group/card border-border duration-fast mx-auto flex w-full max-w-[1444.56px] flex-shrink-0 flex-col gap-[20px] rounded-[24px] border bg-white p-[8px] shadow-[0_1px_4px_0_rgba(12,12,13,0.05),0_1px_4px_0_rgba(12,12,13,0.10)] transition-transform ease-in-out hover:-translate-y-[5px] lg:h-[clamp(226px,calc(20vw+21px),260px)] lg:flex-row lg:gap-[clamp(24px,calc(10vw-78px),39px)]"
+              onClick={(clickEvent) => handleCardClick(clickEvent, event)}
+              className="group/card border-border duration-fast mx-auto flex w-full max-w-[1444.56px] flex-shrink-0 cursor-pointer flex-col gap-[20px] rounded-[24px] border bg-white p-[8px] shadow-[0_1px_4px_0_rgba(12,12,13,0.05),0_1px_4px_0_rgba(12,12,13,0.10)] transition-transform ease-in-out hover:-translate-y-[5px] lg:h-[clamp(226px,calc(20vw+21px),260px)] lg:flex-row lg:gap-[clamp(24px,calc(10vw-78px),39px)]"
             >
               <div className="gap-tight flex h-[190px] w-full flex-shrink-0 flex-row lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:w-[clamp(428px,calc(40vw+18px),496px)]">
                 <div className="bg-surface-faint py-comfortable text-primary flex h-full min-w-0 flex-1 flex-col items-center justify-center rounded-lg text-center lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:w-[clamp(210px,calc(20vw+5px),244px)] lg:flex-none lg:py-0">
@@ -171,50 +242,48 @@ const EventCardList = ({
                 aria-hidden="true"
               />
 
-              <div className="px-tight flex min-w-0 flex-1 flex-col gap-[20px] pb-[8px] lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:self-center lg:px-0 lg:pt-[clamp(0px,calc(8.5vw-87px),15px)] lg:pb-[clamp(0px,calc(8.5vw-87px),15px)]">
+              <div className="px-tight flex min-w-0 flex-1 flex-col gap-[20px] pb-[8px] lg:h-[clamp(210px,calc(20vw+5px),244px)] lg:gap-[12px] lg:self-center lg:px-0 lg:pt-[clamp(0px,calc(8.5vw-87px),15px)] lg:pb-[clamp(0px,calc(8.5vw-87px),15px)]">
                 <div className="min-w-0">
-                  <h2 className="text-ink text-[24px] leading-[32px] font-semibold tracking-[0px] lg:text-[30px]">
-                    {event.title}
+                  {/* One line each on desktop - the card is a fixed height there,
+                      and a wrapping title or address pushes the CTA out of it. */}
+                  <h2
+                    title={event.title}
+                    className="text-ink text-[24px] leading-[32px] font-semibold tracking-[0px] lg:text-[30px]"
+                  >
+                    {/* The keyboard way into the event details - every CTA
+                        variant has one (the locked members-only CTA has no
+                        Learn More), and the whole-card click is mouse-only.
+                        The clamp sits on the inner span: a <button> lays out
+                        as one unbreakable box, so clamping the <h2> or the
+                        button itself wouldn't truncate anything. */}
+                    <button
+                      type="button"
+                      onClick={() => openSelectedEvent(event)}
+                      className="focus-visible:outline-primary block w-full cursor-pointer rounded-sm text-left underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4"
+                    >
+                      <span className="lg:line-clamp-1">{event.title}</span>
+                    </button>
                   </h2>
-                  <p className="text-muted-foreground mt-[8px] text-[16px] leading-[18.75px] font-medium tracking-[0px] lg:text-[20px]">
-                    <span>{event.startTime}</span> • <span>{event.location}</span>
+                  <p className="text-muted-foreground mt-[8px] text-[16px] leading-[18.75px] font-medium tracking-[0px] lg:line-clamp-1 lg:text-[20px] lg:leading-[24px]">
+                    <span>{event.time}</span> • <span>{event.location}</span>
                   </p>
                 </div>
 
-                <p className="text-ink line-clamp-3 text-[16px] leading-[25px] font-medium tracking-[0px]">
+                <p
+                  className={`text-ink line-clamp-3 flex-shrink-0 text-[16px] leading-[25px] font-medium tracking-[0px] ${
+                    DESKTOP_LINE_CLAMP[cardDescriptionLines(event.registrationStatus)]
+                  }`}
+                >
                   {event.description}
                 </p>
 
-                <div className="gap-comfortable mt-auto flex w-full flex-row items-stretch">
-                  {event.application_link ? (
-                    <Link
-                      href={event.application_link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group rounded-pill bg-surface-faint duration-fast hover:border-border hover:text-primary relative flex min-h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden border border-transparent px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] text-white transition-colors"
-                    >
-                      <span className="rounded-pill from-primary-light to-primary duration-fast absolute inset-0 bg-gradient-to-r transition-opacity group-hover:opacity-0" />
-                      <span className="z-dropdown relative font-[500] whitespace-nowrap">
-                        Register Now
-                      </span>
-                    </Link>
-                  ) : (
-                    <span className="rounded-pill bg-surface-muted text-muted-foreground flex min-h-[27px] min-w-0 flex-1 cursor-not-allowed items-center justify-center px-[12px] py-[4px] text-[16px] leading-[18px] font-medium">
-                      <span className="max-w-full min-w-0 text-center break-words">
-                        Registration unavailable
-                      </span>
-                    </span>
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => openSelectedEvent(event)}
-                    className="group rounded-pill border-border bg-surface-faint text-primary duration-fast relative flex min-h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden border px-[12px] py-[4px] text-[16px] leading-[100%] font-semibold tracking-[0px] transition-colors hover:cursor-pointer hover:border-transparent hover:text-white"
-                  >
-                    <span className="from-primary-light to-primary duration-fast pointer-events-none absolute -inset-px rounded-[inherit] bg-gradient-to-r opacity-0 transition-opacity group-hover:opacity-100" />
-                    <span className="z-dropdown relative font-[500] whitespace-nowrap">
-                      Learn More
-                    </span>
-                  </button>
+                <div className="mt-auto w-full">
+                  <EventCTA
+                    status={event.registrationStatus}
+                    eventId={event.id}
+                    registrationLink={event.application_link}
+                    onLearnMore={() => openSelectedEvent(event)}
+                  />
                 </div>
               </div>
             </article>
@@ -283,19 +352,16 @@ const EventCardList = ({
                     {selectedEvent.description}
                   </p>
 
+                  {/* Same CTA as the card, so the modal can never offer a way
+                      around what the card gates (e.g. a registration link on a
+                      full or members-only event). No Learn More - this is it. */}
                   <div className="mt-auto w-full flex-shrink-0 pt-[clamp(24px,3vw,42px)]">
-                    {selectedEvent.application_link ? (
-                      <ArrowButton
-                        text="Complete Registration"
-                        link={selectedEvent.application_link}
-                        fullWidth
-                        openInNewTab
-                      />
-                    ) : (
-                      <div className="bg-surface-muted text-muted-foreground flex h-[37px] w-full cursor-not-allowed items-center justify-center rounded-full text-sm font-medium sm:h-[51px] sm:text-[20px]">
-                        Registration unavailable
-                      </div>
-                    )}
+                    <EventCTA
+                      status={selectedEvent.registrationStatus}
+                      eventId={selectedEvent.id}
+                      registrationLink={selectedEvent.application_link}
+                      layout="panel"
+                    />
                   </div>
                 </div>
               </div>
