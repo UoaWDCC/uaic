@@ -37,6 +37,15 @@ export const Member: CollectionConfig = {
       },
     },
     {
+      name: "phoneNumber",
+      type: "text",
+      label: "Phone Number",
+      required: false,
+      admin: {
+        readOnly: true,
+      },
+    },
+    {
       name: "upi",
       type: "text",
       label: "UPI",
@@ -67,7 +76,7 @@ export const Member: CollectionConfig = {
       name: "universityYear",
       type: "select",
       label: "University Year",
-      required: true,
+      required: false,
       options: [
         { label: "Year 1", value: "year1" },
         { label: "Year 2", value: "year2" },

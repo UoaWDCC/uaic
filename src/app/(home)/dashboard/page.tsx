@@ -3,9 +3,8 @@ import { redirect } from "next/navigation";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import { auth } from "@/lib/auth";
-import MembershipDashboard, {
-  type MemberProfile,
-} from "@/features/membership/components/MembershipDashboard";
+import type { MemberProfile } from "@/features/membership/types";
+import MembershipDashboard from "@/features/membership/components/MembershipDashboard";
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({ headers: await headers() });
