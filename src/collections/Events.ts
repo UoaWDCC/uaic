@@ -120,6 +120,21 @@ export const Events: CollectionConfig = {
       },
     },
     {
+      name: "closeRegistrationOnStart",
+      type: "checkbox",
+      label: "Close Registration When Event Starts",
+      defaultValue: false,
+      admin: {
+        description:
+          "Once the event has started, show registration as closed and remove the Register button. This doesn't close an external form (e.g. a Google Form) - close that in the form itself.",
+        condition: (_, siblingData) =>
+          siblingData?.requiresSignup === true || Boolean(siblingData?.registrationLink),
+        style: {
+          cursor: "pointer",
+        },
+      },
+    },
+    {
       name: "requiresMembership",
       type: "checkbox",
       label: "Requires Membership",
