@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { revalidatePath } from "next/cache";
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from "payload";
 import { revalidateOnChange } from "./revalidateOnChange";
+import { Media } from "../../collections/Media";
 
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
 
@@ -21,6 +22,34 @@ const deleteArgs = { doc } as DeleteArgs;
 describe("revalidateOnChange", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it.each(["page", "layout"] as const)(
+    "passes the %s type to change and delete invalidation",
+    async (type) => {
+      const hooks = revalidateOnChange<Doc>("/", type);
+
+      expect(await hooks.afterChange[0](changeArgs())).toBe(doc);
+      expect(await hooks.afterDelete[0](deleteArgs)).toBe(doc);
+      expect(vi.mocked(revalidatePath).mock.calls).toEqual([
+        ["/", type],
+        ["/", type],
+      ]);
+    },
+  );
+
+  it("invalidates the shared layout when Media is saved or deleted", async () => {
+    const afterChange = Media.hooks?.afterChange?.[0];
+    const afterDelete = Media.hooks?.afterDelete?.[0];
+
+    expect(afterChange).toBeDefined();
+    expect(afterDelete).toBeDefined();
+    expect(await afterChange!(changeArgs({ operation: "update" }))).toBe(doc);
+    expect(await afterDelete!(deleteArgs)).toBe(doc);
+    expect(vi.mocked(revalidatePath).mock.calls).toEqual([
+      ["/", "layout"],
+      ["/", "layout"],
+    ]);
   });
 
   it.each([

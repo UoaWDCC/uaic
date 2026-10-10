@@ -1,13 +1,22 @@
 import { revalidatePath } from "next/cache";
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, TypeWithID } from "payload";
 
-/** Invalidate a public page after a CMS write. Call from a Next.js request context. */
+/** Invalidate public pages or layouts after a CMS write. Call from a Next.js request context. */
 export const revalidateOnChange = <T extends TypeWithID = TypeWithID>(
   path: string | string[] | ((doc: T) => string),
+  type?: "page" | "layout",
 ) => {
   const getPaths = (doc: T): string[] => {
     const resolved = typeof path === "function" ? path(doc) : path;
     return typeof resolved === "string" ? [resolved] : resolved;
+  };
+
+  const invalidate = (pagePath: string) => {
+    if (type) {
+      revalidatePath(pagePath, type);
+    } else {
+      revalidatePath(pagePath);
+    }
   };
 
   const afterChange: CollectionAfterChangeHook<T> = ({ doc, previousDoc, operation }) => {
@@ -18,12 +27,12 @@ export const revalidateOnChange = <T extends TypeWithID = TypeWithID>(
       getPaths(previousDoc).forEach((pagePath) => paths.add(pagePath));
     }
 
-    paths.forEach((pagePath) => revalidatePath(pagePath));
+    paths.forEach(invalidate);
     return doc;
   };
 
   const afterDelete: CollectionAfterDeleteHook<T> = ({ doc }) => {
-    new Set(getPaths(doc)).forEach((pagePath) => revalidatePath(pagePath));
+    new Set(getPaths(doc)).forEach(invalidate);
     return doc;
   };
 
