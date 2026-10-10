@@ -28,6 +28,8 @@ const Dropdown: React.FC<DropdownProps> = ({
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listId = useId();
   const isInput = variant === "input";
+  const canClear = isInput && !required;
+  const menuOptions = canClear ? ["", ...options.filter((option) => option !== "")] : options;
   const isInvalid = isInput && required && validationFailed && (!value || !options.includes(value));
 
   useEffect(() => {
@@ -45,8 +47,13 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   useEffect(() => {
-    if (isInput && isOpen) focusOption(Math.max(0, options.indexOf(value)));
-  }, [isInput, isOpen, options, value]);
+    if (isInput && isOpen) {
+      const selectableOptions = canClear
+        ? ["", ...options.filter((option) => option !== "")]
+        : options;
+      focusOption(Math.max(0, selectableOptions.indexOf(value)));
+    }
+  }, [isInput, isOpen, options, value, canClear]);
 
   const handleSelect = (option: string) => {
     if (isInput) setValidationFailed(false);
@@ -182,7 +189,7 @@ const Dropdown: React.FC<DropdownProps> = ({
             }
           >
             {isOpen &&
-              options.map((option, i) => (
+              menuOptions.map((option, i) => (
                 <button
                   type="button"
                   role="option"
@@ -191,7 +198,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                   onClick={() => handleSelect(option)}
                   className={`hover:bg-surface-faint ${isInput ? "focus-visible:bg-surface-faint" : ""} block w-full cursor-pointer px-4 py-2 text-left ${option === value ? (isInput ? "bg-surface-faint" : "cursor-default text-gray-400") : ""}`}
                 >
-                  {option}
+                  {canClear && option === "" ? "None" : option}
                 </button>
               ))}
           </div>
