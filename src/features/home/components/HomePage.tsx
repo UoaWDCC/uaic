@@ -37,7 +37,7 @@ const HomePage: React.FC<HomePageProps> = ({ images }) => {
         onSlideChange={setCurrent}
         swiperRef={swiperRef}
       />
-      <div className="z-dropdown duration-base pointer-events-none absolute mx-auto mt-[130px] flex w-full flex-col items-center gap-[20px] px-[40px] text-center transition-all lg:mt-[150px] lg:items-start lg:gap-[35px] lg:px-[100px] lg:text-left 2xl:mt-[285px] 2xl:gap-[70px] 2xl:px-[200px]">
+      <div className="z-dropdown duration-base pointer-events-none absolute mx-auto mt-[235px] flex w-full flex-col items-center gap-[20px] px-[40px] text-center transition-all lg:mt-[255px] lg:items-start lg:gap-[35px] lg:px-[100px] lg:text-left 2xl:mt-[285px] 2xl:gap-[70px] 2xl:px-[200px]">
         <h1 className="duration-base mx-[30px] text-[30px] leading-[34px] font-[700] tracking-[0px] text-white transition-all lg:mx-0 lg:text-[100px] lg:leading-[120px] 2xl:text-[178px] 2xl:leading-[210px]">
           University Of Auckland
           <br />
