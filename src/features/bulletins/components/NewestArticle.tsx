@@ -22,10 +22,11 @@ const NewestArticle = async () => {
           >
             <Image
               src={
-                newest[0].bulletinCover?.url || "/assets/bulletins/placeholder-bulletin-cover.png"
+                newest[0].bulletinCover?.url || "/assets/bulletins/placeholder-bulletin-cover.webp"
               }
               alt={newest[0].title}
               fill
+              sizes="(min-width: 1024px) 60vw, 100vw"
               className="z-0 scale-110 object-cover transition-all duration-500 ease-in-out group-hover:scale-100"
             />
 
@@ -59,9 +60,10 @@ const NewestArticle = async () => {
             >
               <div className="relative aspect-square overflow-hidden rounded-2xl">
                 <Image
-                  src={b.bulletinCover?.url || "/assets/bulletins/placeholder-bulletin-cover.png"}
+                  src={b.bulletinCover?.url || "/assets/bulletins/placeholder-bulletin-cover.webp"}
                   alt={b.title}
                   fill
+                  sizes="(min-width: 1024px) 10vw, 25vw"
                   className="scale-105 object-cover object-center blur-[0.3px] transition-all duration-500 ease-in-out group-hover:scale-100"
                 />
               </div>

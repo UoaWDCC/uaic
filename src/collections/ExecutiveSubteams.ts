@@ -1,7 +1,9 @@
+import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 import type { CollectionConfig } from "payload";
 
 export const ExecutiveSubteams: CollectionConfig = {
   slug: "executive-subteams",
+  hooks: revalidateOnChange("/about"),
   labels: {
     singular: "Executive Subteam",
     plural: "Executive Subteams",

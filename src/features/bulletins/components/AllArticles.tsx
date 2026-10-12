@@ -16,7 +16,7 @@ type SortOrder = "Latest" | "Oldest";
 const ALL_SEMESTERS = "All semesters";
 const ALL_READ_TIMES = "All read times";
 const READ_TIME_BUCKETS = ["Quick (<5 min)", "Medium (5–10 min)", "Long (10+ min)"] as const;
-const FALLBACK_COVER = "/assets/bulletins/placeholder-bulletin-cover.png";
+const FALLBACK_COVER = "/assets/bulletins/placeholder-bulletin-cover.webp";
 const ARTICLES_PER_PAGE = 8;
 // The navbar is fixed, so paging back to the top has to clear its height.
 const NAVBAR_OFFSET_PX = 150;
