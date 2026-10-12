@@ -3,6 +3,8 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import { GoArrowUpRight } from "react-icons/go";
 
+const INPUT_HEIGHT_CLASS = "h-[52px]";
+
 type DropdownProps = {
   options: string[];
   value: string;
@@ -120,7 +122,7 @@ const Dropdown: React.FC<DropdownProps> = ({
               setIsOpen(true);
             }
           }}
-          className="peer pointer-events-none absolute top-0 left-0 h-[52px] w-full opacity-0"
+          className={`peer pointer-events-none absolute top-0 left-0 ${INPUT_HEIGHT_CLASS} w-full opacity-0`}
         >
           <option value="">{placeholder || "Select an option"}</option>
           {options.map((option, index) => (
@@ -151,7 +153,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           aria-invalid={isInvalid || undefined}
           className={
             isInput
-              ? `focus:border-primary-light focus-visible:outline-ring flex h-[52px] w-full cursor-pointer items-center justify-between gap-2 rounded-[40px] border-[0.5px] bg-white px-4 py-2 text-left focus-visible:outline-2 focus-visible:outline-offset-2 ${isOpen ? "border-primary-light" : "border-slate-200"}`
+              ? `focus:border-primary-light focus-visible:outline-ring flex ${INPUT_HEIGHT_CLASS} w-full cursor-pointer items-center justify-between gap-2 rounded-[40px] border-[0.5px] bg-white px-4 py-2 text-left focus-visible:outline-2 focus-visible:outline-offset-2 ${isOpen ? "border-primary-light" : "border-slate-200"}`
               : "flex w-full cursor-pointer items-center justify-between rounded-xl px-4 py-1 text-left lg:rounded-2xl lg:px-4 lg:py-2"
           }
           onClick={() => setIsOpen((prev) => !prev)}
