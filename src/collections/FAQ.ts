@@ -1,7 +1,9 @@
+import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 import { CollectionConfig } from "payload";
 
 const FAQ: CollectionConfig = {
   slug: "FAQ",
+  hooks: revalidateOnChange("/FAQ"),
   admin: {
     useAsTitle: "question",
   },
