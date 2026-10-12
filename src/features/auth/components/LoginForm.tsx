@@ -24,7 +24,7 @@ export default function LoginForm() {
       });
 
       if (result.error) {
-        setError(result.error.message || `${result.error}`);
+        setError(result.error.message || "Couldn't sign in. Please try again.");
       } else {
         router.push("/dashboard");
       }
