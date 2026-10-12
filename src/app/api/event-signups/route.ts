@@ -3,7 +3,8 @@ import { getPayload, ValidationError } from "payload";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import config from "@payload-config";
-import { Member } from "../../../../payload-types";
+import { signupStatusesTakingASpot } from "@/features/events/lib/registrationStatus";
+import { getMemberIdFromRequest } from "@/lib/memberSession";
 
 //post to create a new EventSignup.
 export async function POST(request: NextRequest) {
@@ -15,17 +16,15 @@ export async function POST(request: NextRequest) {
     }
 
     const payload = await getPayload({ config });
-    const { docs } = await payload.find({
-      collection: "member",
-      where: { email: { equals: session.user.email } },
-      limit: 1,
-    });
 
-    const member = (docs[0] as unknown as Member) ?? null;
+    const memberId = await getMemberIdFromRequest({
+      headers: request.headers,
+    } as any);
 
     // Session check
-    if (member) {
+    if (memberId) {
       const { eventId, data } = await request.json();
+      const member = await payload.findByID({ collection: "member", id: memberId });
 
       if (!eventId) {
         return NextResponse.json(
@@ -33,6 +32,23 @@ export async function POST(request: NextRequest) {
           { status: 400 },
         );
       }
+
+      const {
+        docs: [existingBooking],
+      } = await payload.find({
+        collection: "event-signups",
+        where: {
+          event: {
+            equals: eventId,
+          },
+          status: {
+            equals: "cancelled",
+          },
+          member: {
+            equals: member.id,
+          },
+        },
+      });
 
       const e = await payload.findByID({
         collection: "events",
@@ -46,6 +62,13 @@ export async function POST(request: NextRequest) {
         );
       }
 
+      //check if closeRegistrationOnStart is True and event has started
+      if (e.closeRegistrationOnStart && new Date() > new Date(e.startDate)) {
+        return NextResponse.json(
+          { error: "Event has already started. Registration denied." },
+          { status: 401 }, //Forbidden
+        );
+      }
       // Membership requirement check
       if (e.requiresMembership) {
         if (!member.hasPaid) {
@@ -110,44 +133,47 @@ export async function POST(request: NextRequest) {
 
       //checks if max capacity of event is reached.
       if (e.capacity) {
-        const totalConfirms = (
-          await payload.count({
-            collection: "event-signups",
-            where: {
-              event: {
-                equals: eventId,
-              },
-              status: {
-                equals: "confirmed",
-              },
+        const filter = signupStatusesTakingASpot(e.freeSlotOnCancel);
+
+        let { totalDocs: totalSignups } = await payload.count({
+          collection: "event-signups",
+          where: {
+            event: {
+              equals: eventId,
             },
-          })
-        ).totalDocs;
+            status: {
+              in: filter,
+            },
+          },
+        });
 
-        let cancelled = 0;
-
-        if (!e.freeSlotOnCancel) {
-          cancelled = (
-            await payload.count({
-              collection: "event-signups",
-              where: {
-                event: {
-                  equals: eventId,
-                },
-                status: {
-                  equals: "cancelled",
-                },
-              },
-            })
-          ).totalDocs;
+        //account for user's cancelled signup
+        if (existingBooking && !e.freeSlotOnCancel) {
+          totalSignups = totalSignups - 1;
         }
 
-        if (totalConfirms >= e.capacity - cancelled) {
+        if (totalSignups >= e.capacity) {
           return NextResponse.json(
             { error: "This event has reached max capacity." },
             { status: 409 },
           ); //Conflict
         }
+      }
+
+      //if previous booking is cancelled, then reactivate that booking
+      if (existingBooking) {
+        const bookingId = existingBooking.id;
+        const signup = await payload.update({
+          collection: "event-signups",
+          id: bookingId,
+          data: {
+            status: "confirmed",
+            responses: dataResponses,
+          },
+        });
+
+        console.log("Event added successfully");
+        return NextResponse.json({ success: true, signup }, { status: 201 });
       }
 
       try {
