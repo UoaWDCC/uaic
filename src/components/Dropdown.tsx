@@ -158,7 +158,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           }
           onClick={() => setIsOpen((prev) => !prev)}
         >
-          <span className={isInput && !value ? "text-[#6B7A8D]" : undefined}>
+          <span className={isInput && !value ? "text-placeholder-foreground" : undefined}>
             {isInput ? value || placeholder : value}
           </span>
           {isInput ? (
