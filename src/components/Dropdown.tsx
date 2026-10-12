@@ -47,13 +47,10 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   useEffect(() => {
-    if (isInput && isOpen) {
-      const selectableOptions = canClear
-        ? ["", ...options.filter((option) => option !== "")]
-        : options;
-      focusOption(Math.max(0, selectableOptions.indexOf(value)));
-    }
-  }, [isInput, isOpen, options, value, canClear]);
+    if (isInput && isOpen) focusOption(Math.max(0, menuOptions.indexOf(value)));
+    // Focus only on open; options/value changes must not steal focus mid-navigation.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isInput, isOpen]);
 
   const handleSelect = (option: string) => {
     if (isInput) setValidationFailed(false);
