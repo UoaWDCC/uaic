@@ -8,6 +8,12 @@ import SaveButton from "./SaveButton";
 import CancelButton from "./CancelButton";
 import { savePersonalDetails } from "../data/savePersonalDetails";
 import { GoArrowUpRight } from "react-icons/go";
+import {
+  MAX_DEGREE_LENGTH,
+  MAX_NAME_LENGTH,
+  validatePersonalDetails,
+  type PersonalDetailsErrors,
+} from "../utils/validatePersonalDetails";
 
 const YEAR_LABELS: Record<NonNullable<MemberProfile["universityYear"]>, string> = {
   year1: "1st Year",
@@ -17,6 +23,9 @@ const YEAR_LABELS: Record<NonNullable<MemberProfile["universityYear"]>, string> 
   year5Plus: "5th Year+",
   postgraduate: "Postgraduate",
 };
+
+const inputClassName =
+  "border-input focus:border-ring flex w-full items-center gap-2 rounded-full border px-4 py-2 text-sm focus:outline-none";
 
 interface PersonalDetailsCardProps {
   user: SessionUser;
@@ -28,9 +37,9 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
   const [isEditingDetails, setIsEditingDetails] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<PersonalDetailsErrors>({});
 
   const [name, setName] = useState(`${member?.firstName ?? ""} ${member?.lastName ?? ""}`.trim());
-  const [email, setEmail] = useState(user.email);
   const [studentId, setStudentId] = useState(member?.studentId ?? "");
   const [phoneNumber, setPhoneNumber] = useState(member?.phoneNumber ?? "");
   const [degrees, setDegrees] = useState(member?.degrees ?? "");
@@ -40,9 +49,6 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
 
   const [isYearOpen, setIsYearOpen] = useState(false);
 
-  /* Checks if the email has a valid abc@xyz format with only one '@' */
-  const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-
   /* Resets the input fields */
   const handleCancelEdit = () => {
     setName(`${member?.firstName ?? ""} ${member?.lastName ?? ""}`.trim());
@@ -51,35 +57,40 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
     setDegrees(member?.degrees ?? "");
     setUniversityYear(member?.universityYear ?? null);
     setError(null);
-    setEmail(user.email);
+    setFieldErrors({});
     setIsEditingDetails(false);
   };
 
   /* splits users full name from input field to fit into first and last name field */
   const splitName = (fullName: string) => {
-    const [first, ...rest] = fullName.trim().split(" ");
+    const [first, ...rest] = fullName.trim().split(/\s+/);
     return { firstName: first ?? "", lastName: rest.join(" ") };
   };
 
   const handleSaveDetails = async () => {
-    if (!name.trim()) {
-      setError("Name can't be empty.");
-      return;
-    }
+    const { firstName, lastName } = splitName(name);
+    const details = {
+      firstName,
+      lastName,
+      studentId: studentId.trim(),
+      degrees: degrees.trim(),
+      universityYear,
+      phoneNumber: phoneNumber.trim(),
+    };
 
-    if (!isValidEmail(email.trim())) {
-      setError("Please enter a valid email address.");
+    const errors = validatePersonalDetails(details);
+    /* lastName is required in Member.ts, so a single-word name can't be saved */
+    if (firstName && !lastName) errors.lastName = "Please enter your first and last name.";
+    setFieldErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      setError(null);
       return;
     }
 
     setSaving(true);
     setError(null);
     try {
-      const { firstName, lastName } = splitName(name);
-      await savePersonalDetails(
-        { firstName, lastName, studentId, degrees, universityYear, phoneNumber },
-        { email: user.email },
-      );
+      await savePersonalDetails(details);
       setIsEditingDetails(false);
       onSaved();
     } catch (err) {
@@ -93,12 +104,15 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
   const personalDetails = [
     {
       label: "Full Name",
+      error: fieldErrors.firstName || fieldErrors.lastName,
       value: isEditingDetails ? (
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border-color-slate-500 flex w-full items-center gap-2 rounded-full border px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
+          className={inputClassName}
           autoComplete="name"
+          maxLength={MAX_NAME_LENGTH * 2 + 1}
+          aria-invalid={!!(fieldErrors.firstName || fieldErrors.lastName)}
           autoFocus
         />
       ) : (
@@ -107,11 +121,15 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
     },
     {
       label: "Student ID",
+      error: fieldErrors.studentId,
       value: isEditingDetails ? (
         <input
           value={studentId}
           onChange={(e) => setStudentId(e.target.value)}
-          className="border-color-slate-500 flex w-full items-center gap-2 rounded-full border px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
+          className={inputClassName}
+          inputMode="numeric"
+          maxLength={10}
+          aria-invalid={!!fieldErrors.studentId}
         />
       ) : (
         maskStudentID(member?.studentId ?? "")
@@ -119,28 +137,21 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
     },
     {
       label: "University Email",
-      value: isEditingDetails ? (
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="border-color-slate-500 flex w-full items-center gap-2 rounded-full border px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
-          autoComplete="email"
-        />
-      ) : (
-        user.email
-      ),
+      value: user.email,
     },
     {
       label: "Phone Number",
+      error: fieldErrors.phoneNumber,
       value: isEditingDetails ? (
         <input
           type="tel"
           inputMode="tel"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
-          className="border-color-slate-500 flex w-full items-center gap-2 rounded-full border px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
+          className={inputClassName}
           autoComplete="tel"
+          maxLength={20}
+          aria-invalid={!!fieldErrors.phoneNumber}
         />
       ) : (
         maskPhoneNumber(member?.phoneNumber ?? "")
@@ -148,11 +159,14 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
     },
     {
       label: "Degree / Programme",
+      error: fieldErrors.degrees,
       value: isEditingDetails ? (
         <input
           value={degrees}
           onChange={(e) => setDegrees(e.target.value)}
-          className="border-color-slate-500 flex w-full items-center gap-2 rounded-full border px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
+          className={inputClassName}
+          maxLength={MAX_DEGREE_LENGTH}
+          aria-invalid={!!fieldErrors.degrees}
         />
       ) : (
         member?.degrees || "—"
@@ -160,8 +174,9 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
     },
     {
       label: "Year of Study",
+      error: fieldErrors.universityYear,
       value: isEditingDetails ? (
-        <div className="group width-full relative">
+        <div className="group relative w-full">
           <select
             value={universityYear ?? ""}
             onFocus={() => setIsYearOpen(true)}
@@ -171,7 +186,7 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
                 e.target.value === "" ? null : (e.target.value as MemberProfile["universityYear"]),
               )
             }
-            className="border-color-slate-500 flex w-full appearance-none items-center gap-2 rounded-full border px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
+            className={`${inputClassName} appearance-none`}
           >
             <option value="">Select year</option>
             {Object.entries(YEAR_LABELS).map(([value, label]) => (
@@ -205,6 +220,7 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
         {!isEditingDetails && (
           <button
             onClick={() => setIsEditingDetails(true)}
+            aria-label="Edit personal details"
             className="bg-surface-faint grid h-9 w-9 shrink-0 place-items-center rounded-full text-blue-600 hover:cursor-pointer focus:border-blue-500 focus:outline-none"
           >
             <FiEdit2 size={16} />
@@ -218,12 +234,15 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
             <div className="text-sm font-medium tracking-wide text-slate-500 uppercase">
               {field.label}
             </div>
-            <p className="text-ink mt-1 text-sm">{field.value}</p>
+            <div className="text-ink mt-1 text-sm">{field.value}</div>
+            {isEditingDetails && "error" in field && field.error && (
+              <p className="mt-1 text-xs text-red-600">{field.error}</p>
+            )}
           </div>
         ))}
       </div>
 
-      <hr className="mt-5 mb-4 border-t border-[#E2E9F2]" />
+      <hr className="border-border mt-5 mb-4 border-t" />
       {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
       <div className="flex items-center justify-between gap-1">
         <a className="border-blue-900 text-xs font-semibold text-blue-900 hover:cursor-pointer hover:underline md:text-sm">
