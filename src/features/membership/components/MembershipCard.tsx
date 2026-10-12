@@ -5,6 +5,12 @@ const formatMemberSince = (paymentDate?: string | null) => {
   return new Date(paymentDate).toLocaleDateString("en-NZ", { month: "long", year: "numeric" });
 };
 
+/* Membership runs until the end of the calendar year it was paid in */
+const formatValidUntil = (paymentDate?: string | null) => {
+  if (!paymentDate) return "";
+  return `Valid until end of ${new Date(paymentDate).getFullYear()}`;
+};
+
 interface MembershipCardProps {
   member: MemberProfile | null;
 }
@@ -16,14 +22,14 @@ const MembershipCard = ({ member }: MembershipCardProps) => {
         <p className="text-ink text-xl font-bold">Membership</p>
       </div>
 
-      <div className="flex justify-between rounded-2xl bg-linear-to-r from-[#249AFF] to-[#005EAF] p-5 text-white">
+      <div className="from-primary-light to-primary flex justify-between rounded-2xl bg-linear-to-r p-5 text-white">
         <div className="flex-col">
-          <div className="text-m text-xl font-bold">
+          <div className="text-xl font-bold">
             {member?.hasPaid ? "General Member" : "Membership Pending"}
             {!member && <p className="mt-1 text-sm text-blue-100">No membership on file yet</p>}
           </div>
-          <div className="text-#FFFFFF text-#FFFFFF text-xs">
-            {member?.hasPaid ? "Valid until end of 2026" : ""}
+          <div className="text-xs">
+            {member?.hasPaid ? formatValidUntil(member.paymentDate) : ""}
           </div>
         </div>
         <div className="my-auto">
@@ -40,7 +46,7 @@ const MembershipCard = ({ member }: MembershipCardProps) => {
       {member?.hasPaid && (
         <>
           <div className="w-full flex-col pt-7">
-            <hr className="border-t border-[#E2E9F2]" />
+            <hr className="border-border border-t" />
             <div className="pt-5 text-sm font-medium tracking-wide text-slate-500 uppercase">
               Member Since
             </div>

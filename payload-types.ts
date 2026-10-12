@@ -185,6 +185,7 @@ export interface User {
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
   sessions?:
@@ -205,6 +206,7 @@ export interface Media {
   id: string;
   alt: string;
   prefix?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -227,6 +229,7 @@ export interface InvestmentCommitteeImage {
   id: string;
   alt: string;
   prefix?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -314,10 +317,11 @@ export interface Member {
   firstName: string;
   lastName: string;
   email: string;
+  phoneNumber?: string | null;
   upi: string;
   studentId: string;
   gender: 'male' | 'female' | 'nonBinary' | 'preferNotToSay';
-  universityYear:  'year1' | 'year2' | 'year3' | 'year4' | 'year5Plus' | 'postgraduate' | undefined ;
+  universityYear?: ('year1' | 'year2' | 'year3' | 'year4' | 'year5Plus' | 'postgraduate') | null;
   memberType: 'returning' | 'newMember';
   degrees: string;
   majors: string;
@@ -815,6 +819,7 @@ export interface UsersSelect<T extends boolean = true> {
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
+  resetPasswordRequestedAt?: T;
   loginAttempts?: T;
   lockUntil?: T;
   sessions?:
@@ -832,6 +837,7 @@ export interface UsersSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   prefix?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -851,6 +857,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface InvestmentCommitteeImagesSelect<T extends boolean = true> {
   alt?: T;
   prefix?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -922,6 +929,7 @@ export interface MemberSelect<T extends boolean = true> {
   firstName?: T;
   lastName?: T;
   email?: T;
+  phoneNumber?: T;
   upi?: T;
   studentId?: T;
   gender?: T;

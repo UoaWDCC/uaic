@@ -9,7 +9,7 @@ const CancelButton = ({ onClick, disabled, label = "Cancel" }: CancelButtonProps
     <button
       onClick={onClick}
       disabled={disabled}
-      className="rounded-full border-2 border-[#E2E9F2] px-4 py-2 text-xs font-medium text-slate-500 hover:cursor-pointer md:text-sm"
+      className="border-border rounded-full border-2 px-4 py-2 text-xs font-medium text-slate-500 hover:cursor-pointer md:text-sm"
     >
       {label}
     </button>

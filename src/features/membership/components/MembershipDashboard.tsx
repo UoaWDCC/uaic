@@ -24,19 +24,15 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 px-4 py-8 sm:px-6 lg:px-8">
-      <div className="mx-auto w-full max-w-6xl">
+    <div className="min-h-screen bg-slate-100 px-4 pt-12 pb-8 sm:px-6 sm:pt-8 lg:px-8">
+      <div className="mx-auto w-full max-w-6xl sm:mt-6 lg:mt-10">
         <div className="border-blue-900 text-sm font-bold tracking-wide text-blue-500 uppercase">
           Membership Dashboard
         </div>
         <div className="inline-flex items-center gap-2">
           <div className="text-ink mt-1 text-xl font-extrabold md:text-2xl">
-            Welcome Back, {member?.firstName || "Member"}
+            Welcome Back, {member?.firstName || user.name?.split(" ")[0] || "Member"}
           </div>
-        </div>
-        <div className="mt-2 max-w-2xl text-sm text-slate-500">
-          Manage your details, track your event RSVPs, and tell us what kind of investing content
-          you want more of.
         </div>
 
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">

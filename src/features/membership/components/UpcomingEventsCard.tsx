@@ -29,7 +29,7 @@ const UpcomingEventsCard = () => {
         {upcomingEvents.map((event, index) => (
           <div
             key={index}
-            className="flex items-center gap-4 border-b border-[#E2E9F2] py-4 last:border-0"
+            className="border-border flex items-center gap-4 border-b py-4 last:border-0"
           >
             <div className="bg-surface-faint grid h-14 w-14 shrink-0 place-items-center rounded-lg">
               <span className="text-primary text-lg leading-none font-bold">{event.day}</span>
@@ -44,8 +44,8 @@ const UpcomingEventsCard = () => {
           </div>
         ))}
       </div>
-      <hr className="border-t border-[#E2E9F2]" />
-      <div className="w-1/4 pt-4">
+      <hr className="border-border border-t" />
+      <div className="flex justify-end pt-4">
         <ArrowButton text="View All Events" openInNewTab={true} link="/events" />
       </div>
     </div>
