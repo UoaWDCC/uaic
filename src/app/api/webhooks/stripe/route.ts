@@ -59,7 +59,6 @@ export async function POST(request: NextRequest) {
         await payload.create({
           collection: "member",
           overrideAccess: true, // Bypasses access control checks for server action
-          draft: false,
           data: {
             firstName,
             lastName,
