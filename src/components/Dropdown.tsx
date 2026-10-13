@@ -3,7 +3,6 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import { GoArrowUpRight } from "react-icons/go";
 
-const INPUT_HEIGHT_CLASS = "h-[52px]";
 const REQUIRED_MESSAGE = "Please select an option";
 
 type DropdownProps = {
@@ -128,13 +127,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           );
           if (!firstInvalid || firstInvalid === event.currentTarget) triggerRef.current?.focus();
         }}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            setIsOpen(true);
-          }
-        }}
-        className={`peer pointer-events-none absolute top-0 left-0 ${INPUT_HEIGHT_CLASS} w-full opacity-0`}
+        className="sr-only"
       >
         <option value="">{placeholderText}</option>
         {options.map((option, index) => (
@@ -145,7 +138,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       </select>
       {/* Positioning context for the options panel, so it opens under the trigger
           rather than under the error message */}
-      <div className={`relative ${isInvalid ? "" : "peer-focus:[&>button]:border-primary-light"}`}>
+      <div className="relative">
         {/* Trigger */}
         <button
           type="button"
@@ -159,7 +152,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           aria-invalid={isInvalid || undefined}
           aria-describedby={errorMessage ? errorId : undefined}
           disabled={disabled}
-          className={`focus-visible:outline-ring flex ${INPUT_HEIGHT_CLASS} duration-fast w-full items-center justify-between gap-2 rounded-[40px] border-[0.5px] px-4 py-2 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${
+          className={`focus-visible:outline-ring duration-fast flex h-[52px] w-full items-center justify-between gap-2 rounded-[40px] border-[0.5px] px-4 py-2 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${
             disabled
               ? "cursor-not-allowed border-neutral-200 bg-neutral-100"
               : `hover:bg-surface-faint cursor-pointer bg-white ${isInvalid ? "border-destructive" : `focus:border-primary-light ${isOpen ? "border-primary-light" : "border-slate-200"}`}`
