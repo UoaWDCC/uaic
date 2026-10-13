@@ -141,7 +141,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           className={`focus:border-primary-light focus-visible:outline-ring flex ${INPUT_HEIGHT_CLASS} w-full cursor-pointer items-center justify-between gap-2 rounded-[40px] border-[0.5px] bg-white px-4 py-2 text-left focus-visible:outline-2 focus-visible:outline-offset-2 ${isOpen ? "border-primary-light" : "border-slate-200"}`}
           onClick={() => setIsOpen((prev) => !prev)}
         >
-          <span className={value ? undefined : "text-placeholder-foreground"}>
+          <span className={`min-w-0 truncate ${value ? "" : "text-placeholder-foreground"}`}>
             {value || placeholderText}
           </span>
           <GoArrowUpRight
@@ -165,7 +165,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                 aria-selected={option === value}
                 key={option + i}
                 onClick={() => handleSelect(option)}
-                className={`hover:bg-surface-faint focus-visible:bg-surface-faint block w-full cursor-pointer px-4 py-2 text-left ${option === value ? "bg-surface-faint" : ""}`}
+                className={`hover:bg-surface-faint focus-visible:bg-surface-faint block w-full cursor-pointer px-4 py-2 text-left break-words ${option === value ? "bg-surface-faint" : ""}`}
               >
                 {canClear && option === "" ? "None" : option}
               </button>
