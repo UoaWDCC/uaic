@@ -14,7 +14,6 @@ function InputDropdown({ required = false, initialValue = "XS" }) {
   const [value, setValue] = useState(initialValue);
   return (
     <Dropdown
-      variant="input"
       required={required}
       options={["XS", "S", "M", "L"]}
       value={value}
@@ -25,7 +24,7 @@ function InputDropdown({ required = false, initialValue = "XS" }) {
   );
 }
 
-describe("Dropdown input variant", () => {
+describe("Dropdown", () => {
   it("marks an empty required dropdown invalid on submit and clears the error after selection", () => {
     const onSubmit = vi.fn((event: React.FormEvent<HTMLFormElement>) => event.preventDefault());
     render(
@@ -98,9 +97,7 @@ describe("Dropdown input variant", () => {
   });
 
   it("falls back to the same placeholder text as the form value when none is given", () => {
-    render(
-      <Dropdown variant="input" options={["S"]} value="" onChange={vi.fn()} ariaLabel="Size" />,
-    );
+    render(<Dropdown options={["S"]} value="" onChange={vi.fn()} ariaLabel="Size" />);
     expect(trigger()).toHaveTextContent("Select an option");
   });
 
@@ -110,7 +107,6 @@ describe("Dropdown input variant", () => {
       const onChange = vi.fn();
       const dropdown = (value: string) => (
         <Dropdown
-          variant="input"
           required={required}
           options={["XS", "S", "M", "L"]}
           value={value}
@@ -139,18 +135,4 @@ describe("Dropdown input variant", () => {
       expect(trigger()).toHaveAttribute("aria-expanded", "false");
     },
   );
-});
-
-describe("Dropdown default variant", () => {
-  it("preserves selection without moving focus on open", () => {
-    const onChange = vi.fn();
-    render(<Dropdown options={["S", "M"]} value="S" onChange={onChange} ariaLabel="Size" />);
-    const button = screen.getByRole("button", { name: "Size" });
-    button.focus();
-    fireEvent.click(button);
-    expect(button).toHaveFocus();
-    fireEvent.click(option("M"));
-    expect(onChange).toHaveBeenCalledWith("M");
-    expect(button).toHaveAttribute("aria-expanded", "false");
-  });
 });
