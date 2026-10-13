@@ -143,7 +143,9 @@ const Dropdown: React.FC<DropdownProps> = ({
           </option>
         ))}
       </select>
-      <div className={isInvalid ? undefined : "peer-focus:[&>button]:border-primary-light"}>
+      {/* Positioning context for the options panel, so it opens under the trigger
+          rather than under the error message */}
+      <div className={`relative ${isInvalid ? "" : "peer-focus:[&>button]:border-primary-light"}`}>
         {/* Trigger */}
         <button
           type="button"
