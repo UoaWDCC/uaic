@@ -11,6 +11,10 @@ Current contents and why each one qualifies:
 - `Button.tsx`, `ArrowButton.tsx`, `Dropdown.tsx` - plain UI primitives with
   no domain knowledge, used across unrelated features (bulletins, home,
   events, layout, ...).
+- `TextInput.tsx` - single-line (`TextInput`) and multiline (`TextArea`) text
+  form primitives. An exception to the "used by more than one feature" rule
+  below: they're part of the form primitive set from #425, which places them
+  here up front for the event registration form and any later forms.
 - `PageHeader.tsx` - shared page-header layout, used by `bulletins`,
   `about`, `events`, and `faq`.
 - `NotFoundContent.tsx` - the 404 page body, rendered from both the
