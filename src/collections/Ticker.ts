@@ -1,7 +1,9 @@
 import { GlobalConfig } from "payload";
+import { revalidateGlobal } from "../lib/payload/revalidateGlobal";
 
 export const Ticker: GlobalConfig = {
   slug: "ticker",
+  hooks: revalidateGlobal("/", "layout"),
   fields: [
     {
       name: "tickers", //an array named tickers

@@ -17,7 +17,9 @@ export const getEvents = async (): Promise<Event[]> => {
   return events.docs;
 };
 
-// Get only upcoming events (startDate >= today)
+// Get upcoming events, including ones already in progress (they haven't ended
+// yet). Filtering on startDate instead would hide an event from both this and
+// getRecentEvents for as long as it's running.
 export const getUpcomingEvents = async (): Promise<Event[]> => {
   const payload = await getPayload({ config });
 
@@ -25,9 +27,9 @@ export const getUpcomingEvents = async (): Promise<Event[]> => {
     collection: "events",
     depth: 1,
     pagination: false,
-    sort: "startDate", // Ascending - soonest first
+    sort: "startDate", // Ascending - in-progress first, then soonest
     where: {
-      startDate: {
+      endDate: {
         greater_than_equal: new Date().toISOString(),
       },
     },

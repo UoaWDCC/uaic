@@ -1,8 +1,10 @@
+import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 import type { CollectionConfig } from "payload";
 import { BULLETIN_CATEGORIES } from "../lib/bulletinCategories";
 
 export const Bulletins: CollectionConfig = {
   slug: "bulletin",
+  hooks: revalidateOnChange(["/bulletin", "/"]),
   access: {
     read: () => true,
   },

@@ -1,7 +1,9 @@
 import type { CollectionConfig } from "payload";
+import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 
 export const Media: CollectionConfig = {
   slug: "media",
+  hooks: revalidateOnChange("/", "layout"),
   access: {
     read: () => true,
   },

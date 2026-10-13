@@ -1,8 +1,13 @@
 // Integration test - see tests/README.md for the DATABASE_URI import-order
 // gotcha this beforeAll works around, and why mongodb-memory-server is used.
-import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
+import { revalidatePath } from "next/cache";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import type { getPayload as GetPayload } from "@/lib/payload";
+
+// Payload runs against real MongoDB here, but Vitest has no Next.js request/cache
+// context. Assert invalidation requests without invoking Next.js's runtime cache.
+vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
 
 describe("FAQ collection (Payload + Mongo round-trip)", () => {
   let mongod: MongoMemoryServer;
@@ -20,8 +25,9 @@ describe("FAQ collection (Payload + Mongo round-trip)", () => {
     await mongod.stop();
   });
 
-  it("creates, reads back, and deletes an FAQ", async () => {
+  it("creates, updates, reads back, and deletes an FAQ, invalidating its page", async () => {
     const payload = await getPayload();
+    vi.mocked(revalidatePath).mockClear();
 
     const created = await payload.create({
       collection: "FAQ",
@@ -30,12 +36,25 @@ describe("FAQ collection (Payload + Mongo round-trip)", () => {
         answer: "Yes, or else this test would fail.",
       },
     });
+    expect(revalidatePath).toHaveBeenCalledExactlyOnceWith("/FAQ");
 
     const found = await payload.findByID({ collection: "FAQ", id: created.id });
     expect(found.question).toBe("Does this example question require an example answer?");
     expect(found.answer).toBe("Yes, or else this test would fail.");
 
+    vi.mocked(revalidatePath).mockClear();
+    await payload.update({
+      collection: "FAQ",
+      id: created.id,
+      data: { answer: "Updated example answer." },
+    });
+    const updated = await payload.findByID({ collection: "FAQ", id: created.id });
+    expect(updated.answer).toBe("Updated example answer.");
+    expect(revalidatePath).toHaveBeenCalledExactlyOnceWith("/FAQ");
+
+    vi.mocked(revalidatePath).mockClear();
     await payload.delete({ collection: "FAQ", id: created.id });
+    expect(revalidatePath).toHaveBeenCalledExactlyOnceWith("/FAQ");
     await expect(payload.findByID({ collection: "FAQ", id: created.id })).rejects.toThrow();
   });
 });

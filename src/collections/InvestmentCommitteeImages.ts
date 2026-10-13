@@ -1,7 +1,9 @@
+import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 import { CollectionConfig } from "payload";
 
 export const InvestmentCommitteeImages: CollectionConfig = {
   slug: "investment-committee-images",
+  hooks: revalidateOnChange("/investmentportfolio"),
   labels: {
     singular: "Investment Committee Image",
     plural: "Investment Committee Images",
