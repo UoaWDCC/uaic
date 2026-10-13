@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type FormEventHandler, type ReactNode } from "react";
+import type { FormEventHandler, ReactNode } from "react";
 import Link from "next/link";
 import ArrowButton from "@/components/ArrowButton";
 
@@ -24,8 +24,6 @@ export default function RegistrationShell({
   submitLabel = "Complete Registration",
   onSubmit,
 }: RegistrationShellProps) {
-  const formRef = useRef<HTMLFormElement>(null);
-
   return (
     <div className="from-primary to-primary-light relative flex min-h-svh flex-col justify-center bg-gradient-to-l px-4 pt-28 pb-10 sm:px-6 sm:pb-28">
       <header className="absolute top-0 left-0 w-full px-6">
@@ -44,7 +42,6 @@ export default function RegistrationShell({
           children
         ) : (
           <form
-            ref={formRef}
             aria-label={title}
             className="flex flex-1 flex-col gap-[44px]"
             onSubmit={(event) => {
@@ -54,16 +51,8 @@ export default function RegistrationShell({
           >
             {children}
             <div className="mt-auto w-full">
-              {action ?? (
-                <ArrowButton
-                  text={submitLabel}
-                  fullWidth
-                  onClick={() => formRef.current?.requestSubmit()}
-                />
-              )}
+              {action ?? <ArrowButton text={submitLabel} type="submit" fullWidth />}
             </div>
-            {/* Enables native Enter-key submission when multiple text fields are present. */}
-            <button type="submit" hidden tabIndex={-1} aria-hidden="true" />
           </form>
         )}
       </main>
