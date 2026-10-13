@@ -4,6 +4,7 @@ import React, { useEffect, useId, useRef, useState } from "react";
 import { GoArrowUpRight } from "react-icons/go";
 
 const INPUT_HEIGHT_CLASS = "h-[52px]";
+const REQUIRED_MESSAGE = "Please select an option";
 
 type DropdownProps = {
   options: string[];
@@ -12,6 +13,8 @@ type DropdownProps = {
   ariaLabel: string;
   placeholder?: string;
   required?: boolean;
+  error?: string;
+  disabled?: boolean;
 };
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -21,15 +24,20 @@ const Dropdown: React.FC<DropdownProps> = ({
   ariaLabel,
   placeholder,
   required = false,
+  error,
+  disabled = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [validationFailed, setValidationFailed] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listId = useId();
+  const errorId = useId();
   const canClear = !required;
   const menuOptions = canClear ? ["", ...options.filter((option) => option !== "")] : options;
-  const isInvalid = required && validationFailed && (!value || !options.includes(value));
+  const isMissing = required && validationFailed && (!value || !options.includes(value));
+  const errorMessage = error || (isMissing ? REQUIRED_MESSAGE : undefined);
+  const isInvalid = Boolean(errorMessage);
   const placeholderText = placeholder || "Select an option";
 
   useEffect(() => {
@@ -69,6 +77,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         if (!event.currentTarget.contains(event.relatedTarget)) setIsOpen(false);
       }}
       onKeyDown={(event) => {
+        if (disabled) return;
         if (event.key === "Escape" && isOpen) {
           event.preventDefault();
           setIsOpen(false);
@@ -94,22 +103,30 @@ const Dropdown: React.FC<DropdownProps> = ({
         focusOption(next);
       }}
     >
-      {/* Native validation needs a rendered, focusable form control. Keep this
-          select aligned with the trigger so the browser anchors its popup here.
-          It is excluded from normal tab navigation, but remains available when
-          the browser focuses the invalid field. Do not use hidden/display:none. */}
+      {/* Native form value + `required` check. The browser's popup is suppressed in
+          onInvalid and the error is shown below the trigger instead, matching the
+          other form primitives. Do not use hidden/display:none - a hidden control
+          is skipped by constraint validation. */}
       <select
         value={value}
         required={required}
+        disabled={disabled}
         tabIndex={-1}
         aria-label={`${ariaLabel} form value`}
         onChange={(event) => {
           setValidationFailed(false);
           onChange(event.target.value);
         }}
-        onInvalid={() => {
+        onInvalid={(event) => {
+          event.preventDefault();
           setValidationFailed(true);
           setIsOpen(false);
+          // Suppressing the popup also stops the browser focusing the field, so
+          // focus the trigger - but only for the form's first invalid control
+          const firstInvalid = event.currentTarget.form?.querySelector(
+            ":is(input, select, textarea):invalid",
+          );
+          if (!firstInvalid || firstInvalid === event.currentTarget) triggerRef.current?.focus();
         }}
         onKeyDown={(event) => {
           if (event.key === "Enter" || event.key === " ") {
@@ -126,7 +143,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           </option>
         ))}
       </select>
-      <div className="peer-focus:[&>button]:border-primary-light">
+      <div className={isInvalid ? undefined : "peer-focus:[&>button]:border-primary-light"}>
         {/* Trigger */}
         <button
           type="button"
@@ -138,15 +155,23 @@ const Dropdown: React.FC<DropdownProps> = ({
           aria-controls={isOpen ? listId : undefined}
           aria-required={required || undefined}
           aria-invalid={isInvalid || undefined}
-          className={`focus:border-primary-light focus-visible:outline-ring flex ${INPUT_HEIGHT_CLASS} hover:bg-surface-faint duration-fast w-full cursor-pointer items-center justify-between gap-2 rounded-[40px] border-[0.5px] bg-white px-4 py-2 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${isOpen ? "border-primary-light" : "border-slate-200"}`}
+          aria-describedby={errorMessage ? errorId : undefined}
+          disabled={disabled}
+          className={`focus-visible:outline-ring flex ${INPUT_HEIGHT_CLASS} duration-fast w-full items-center justify-between gap-2 rounded-[40px] border-[0.5px] px-4 py-2 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${
+            disabled
+              ? "cursor-not-allowed border-neutral-200 bg-neutral-100"
+              : `hover:bg-surface-faint cursor-pointer bg-white ${isInvalid ? "border-destructive" : `focus:border-primary-light ${isOpen ? "border-primary-light" : "border-slate-200"}`}`
+          }`}
           onClick={() => setIsOpen((prev) => !prev)}
         >
-          <span className={`min-w-0 truncate ${value ? "" : "text-placeholder-foreground"}`}>
+          <span
+            className={`min-w-0 truncate ${disabled ? "text-neutral-400" : value ? "" : "text-placeholder-foreground"}`}
+          >
             {value || placeholderText}
           </span>
           <GoArrowUpRight
             aria-hidden="true"
-            className={`text-primary h-6 w-6 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-45" : "rotate-0"}`}
+            className={`${disabled ? "text-neutral-400" : "text-primary"} h-6 w-6 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-45" : "rotate-0"}`}
           />
         </button>
 
@@ -173,6 +198,12 @@ const Dropdown: React.FC<DropdownProps> = ({
           </div>
         )}
       </div>
+
+      {errorMessage && (
+        <p id={errorId} className="text-destructive mt-2 text-sm">
+          {errorMessage}
+        </p>
+      )}
     </div>
   );
 };

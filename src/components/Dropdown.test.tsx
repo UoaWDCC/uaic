@@ -37,10 +37,13 @@ describe("Dropdown", () => {
     fireEvent.click(screen.getByRole("button", { name: "Submit" }));
     expect(onSubmit).not.toHaveBeenCalled();
     expect(trigger()).toHaveAttribute("aria-invalid", "true");
+    expect(trigger()).toHaveAccessibleDescription("Please select an option");
+    expect(trigger()).toHaveFocus();
 
     fireEvent.click(trigger());
     fireEvent.click(option("S"));
     expect(trigger()).not.toHaveAttribute("aria-invalid");
+    expect(screen.queryByText("Please select an option")).not.toBeInTheDocument();
     expect(screen.getByRole("combobox", { name: "Size form value" })).toHaveValue("S");
     fireEvent.click(screen.getByRole("button", { name: "Submit" }));
     expect(onSubmit).toHaveBeenCalledTimes(1);
@@ -135,4 +138,37 @@ describe("Dropdown", () => {
       expect(trigger()).toHaveAttribute("aria-expanded", "false");
     },
   );
+
+  describe("error", () => {
+    it("marks the trigger invalid and links the message", () => {
+      render(
+        <Dropdown
+          options={["S"]}
+          value=""
+          onChange={vi.fn()}
+          ariaLabel="Size"
+          error="Please select a size"
+        />,
+      );
+      expect(trigger()).toHaveAttribute("aria-invalid", "true");
+      expect(trigger()).toHaveAccessibleDescription("Please select a size");
+    });
+
+    it("has no invalid state without an error", () => {
+      render(<InputDropdown />);
+      expect(trigger()).not.toHaveAttribute("aria-invalid");
+      expect(trigger()).not.toHaveAttribute("aria-describedby");
+    });
+  });
+
+  describe("disabled", () => {
+    it("disables the trigger and the form value, and won't open", () => {
+      render(<Dropdown options={["S"]} value="S" onChange={vi.fn()} ariaLabel="Size" disabled />);
+      expect(trigger()).toBeDisabled();
+      expect(screen.getByRole("combobox", { name: "Size form value" })).toBeDisabled();
+      fireEvent.click(trigger());
+      fireEvent.keyDown(trigger(), { key: "ArrowDown" });
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    });
+  });
 });
