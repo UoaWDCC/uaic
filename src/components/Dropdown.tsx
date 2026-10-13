@@ -166,7 +166,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           </span>
           <GoArrowUpRight
             aria-hidden="true"
-            className={`${disabled ? "text-neutral-400" : "text-primary"} h-6 w-6 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-45" : "rotate-0"}`}
+            className={`${disabled ? "text-neutral-400" : isInvalid ? "text-destructive" : "text-primary"} h-6 w-6 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-45" : "rotate-0"}`}
           />
         </button>
 
