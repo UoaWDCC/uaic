@@ -53,7 +53,6 @@ export default function RegistrationShell({
               <ArrowButton
                 text={submitLabel}
                 fullWidth
-                size="form"
                 onClick={() => formRef.current?.requestSubmit()}
               />
             )}
