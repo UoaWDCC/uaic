@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 // Creates (or reuses) a paid test member in the shared dev database, so the member
 // dashboard can be tested without a real Google account or a Stripe payment.
 // Does what a real sign-up + payment would:
@@ -7,12 +6,12 @@
 // Credentials are saved to .env as TEST_MEMBER_EMAIL / TEST_MEMBER_PASSWORD.
 //
 // pnpm seed-test-member                      (defaults to uaic-test@aucklanduni.ac.nz)
-// pnpm seed-test-member -- someone@aucklanduni.ac.nz
+// pnpm seed-test-member someone@aucklanduni.ac.nz
 //
-// Remove it again with: pnpm delete-test-account -- <email>
+// Remove it again with: pnpm delete-test-account <email>
 //
-// Runs through tsx (see package.json) so it can import the real auth instance and
-// payload.config.ts - see generate-payload-types.mjs for why plain node can't.
+// TypeScript ESM (.mts, run through tsx) because it imports the real auth instance and
+// payload.config.ts - see generate-payload-types.mjs for why plain node can't load those.
 import "dotenv/config";
 import { randomBytes } from "node:crypto";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
@@ -20,7 +19,9 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 const DEFAULT_EMAIL = "uaic-test@aucklanduni.ac.nz";
 const ENV_PATH = ".env";
 
-const email = (process.argv[2] ?? process.env.TEST_MEMBER_EMAIL ?? DEFAULT_EMAIL).toLowerCase();
+// pnpm forwards a literal "--" if one is passed, so skip it
+const emailArg = process.argv.slice(2).find((arg) => arg !== "--");
+const email = (emailArg ?? process.env.TEST_MEMBER_EMAIL ?? DEFAULT_EMAIL).toLowerCase();
 
 if (!process.env.DATABASE_URI) {
   console.error("DATABASE_URI is not set (check your .env file).");
@@ -28,7 +29,7 @@ if (!process.env.DATABASE_URI) {
 }
 
 /* Adds or replaces KEY=value lines in .env without touching anything else */
-function saveToEnv(values) {
+function saveToEnv(values: Record<string, string>) {
   let contents = existsSync(ENV_PATH) ? readFileSync(ENV_PATH, "utf8") : "";
   for (const [key, value] of Object.entries(values)) {
     const line = `${key}=${value}`;
@@ -41,9 +42,9 @@ function saveToEnv(values) {
 }
 
 // Imported after dotenv so both modules see the env vars at load time
-const { auth, client } = await import("../src/lib/auth.ts");
+const { auth, client } = await import("../src/lib/auth");
 const { getPayload } = await import("payload");
-const { default: config } = await import("../src/payload.config.ts");
+const { default: config } = await import("../src/payload.config");
 
 let exitCode = 0;
 try {
@@ -55,7 +56,7 @@ try {
     console.log(`Login already exists for ${email} - reusing it.`);
     if (!password || process.env.TEST_MEMBER_EMAIL?.toLowerCase() !== email) {
       console.warn(
-        "  Its password isn't in .env. Run `pnpm delete-test-account -- " +
+        "  Its password isn't in .env. Run `pnpm delete-test-account " +
           email +
           "` and re-run this script to reset it.",
       );
