@@ -33,6 +33,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   const canClear = isInput && !required;
   const menuOptions = canClear ? ["", ...options.filter((option) => option !== "")] : options;
   const isInvalid = isInput && required && validationFailed && (!value || !options.includes(value));
+  const placeholderText = placeholder || "Select an option";
 
   useEffect(() => {
     if (!isInput || !isOpen) return;
@@ -124,7 +125,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           }}
           className={`peer pointer-events-none absolute top-0 left-0 ${INPUT_HEIGHT_CLASS} w-full opacity-0`}
         >
-          <option value="">{placeholder || "Select an option"}</option>
+          <option value="">{placeholderText}</option>
           {options.map((option, index) => (
             <option key={option + index} value={option}>
               {option}
@@ -159,7 +160,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <span className={isInput && !value ? "text-placeholder-foreground" : undefined}>
-            {isInput ? value || placeholder : value}
+            {isInput ? value || placeholderText : value}
           </span>
           {isInput ? (
             <GoArrowUpRight

@@ -97,6 +97,13 @@ describe("Dropdown input variant", () => {
     expect(menu().getAllByRole("option")).toHaveLength(4);
   });
 
+  it("falls back to the same placeholder text as the form value when none is given", () => {
+    render(
+      <Dropdown variant="input" options={["S"]} value="" onChange={vi.fn()} ariaLabel="Size" />,
+    );
+    expect(trigger()).toHaveTextContent("Select an option");
+  });
+
   it.each([false, true])(
     "preserves keyboard focus across parent updates (required=%s)",
     (required) => {
