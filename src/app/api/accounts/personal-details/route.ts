@@ -21,6 +21,10 @@ export async function PATCH(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
+  // req.json() happily parses `null`, numbers and arrays too
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
+    return NextResponse.json({ error: "Body must be a JSON object" }, { status: 400 });
+  }
 
   // Fields left out of the body are left unchanged; email is deliberately not accepted
   const details = {
