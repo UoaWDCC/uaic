@@ -5,17 +5,19 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import EventCTA from "./EventCTA";
 
 describe("EventCTA", () => {
-  it("disables onsite Register Now until the registration page exists", () => {
+  it("links onsite Register Now to the registration page", () => {
     render(<EventCTA status="requires-signup" eventId="abc" />);
-    expect(screen.queryByRole("link", { name: "Register Now" })).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Registration Unavailable" })).toBeDisabled();
+    expect(screen.getByRole("link", { name: "Register Now" })).toHaveAttribute(
+      "href",
+      "/events/abc/register",
+    );
   });
 
-  it("falls back to the external form for onsite-signup events that have one", () => {
+  it("prefers the onsite registration page over an external form", () => {
     render(<EventCTA status="members-only" eventId="abc" registrationLink="https://forms.gle/x" />);
     const link = screen.getByRole("link", { name: "Register Now" });
-    expect(link).toHaveAttribute("href", "https://forms.gle/x");
-    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("href", "/events/abc/register");
+    expect(link).not.toHaveAttribute("target");
   });
 
   it("opens external registration links in a new tab", () => {
@@ -50,10 +52,13 @@ describe("EventCTA", () => {
     expect(screen.getByRole("button", { name: "No Spots Remaining" })).toBeDisabled();
   });
 
-  it("confirms a registration without linking to the missing registration page", () => {
+  it("confirms a registration and links to it", () => {
     render(<EventCTA status="registered" eventId="abc" />);
     expect(screen.getByText("You're signed up!")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "View Registration" })).toBeDisabled();
+    expect(screen.getByRole("link", { name: "View Registration" })).toHaveAttribute(
+      "href",
+      "/events/abc/register",
+    );
   });
 
   it("calls onLearnMore from both Learn More and the concluded recap button", () => {
@@ -116,8 +121,11 @@ describe("EventCTA", () => {
     expect(screen.getByRole("button", { name: "Signups Closed" })).toBeDisabled();
   });
 
-  it("greys out an onsite in-progress event with nowhere to register yet", () => {
+  it("links an onsite in-progress event to the registration page", () => {
     render(<EventCTA status="in-progress" eventId="abc" />);
-    expect(screen.getByRole("button", { name: "Signups Closed" })).toBeDisabled();
+    expect(screen.getByRole("link", { name: "Signups open - Register Now" })).toHaveAttribute(
+      "href",
+      "/events/abc/register",
+    );
   });
 });
