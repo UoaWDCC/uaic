@@ -10,7 +10,9 @@ type RegistrationShellProps = {
   action?: ReactNode;
   title?: string;
   submitLabel?: string;
-  onSubmit: FormEventHandler<HTMLFormElement>;
+  // Omit to render the card without a form or submit button - e.g. a
+  // "registration closed" message in place of the fields.
+  onSubmit?: FormEventHandler<HTMLFormElement>;
 };
 
 /** Shared registration layout; callers supply the header, fields, and action. */
@@ -38,28 +40,32 @@ export default function RegistrationShell({
       <main className="text-ink shadow-card mx-auto flex min-h-[527px] w-full max-w-[544px] flex-col gap-[44px] rounded-lg border-[0.5px] border-slate-200 bg-white px-6 py-[28px] sm:px-8">
         <h1 className="text-[30px] leading-tight font-bold">{title}</h1>
         {header && <div className="border-border border-b pb-4">{header}</div>}
-        <form
-          ref={formRef}
-          aria-label={title}
-          className="flex flex-1 flex-col gap-[44px]"
-          onSubmit={(event) => {
-            event.preventDefault();
-            onSubmit(event);
-          }}
-        >
-          {children}
-          <div className="mt-auto w-full">
-            {action ?? (
-              <ArrowButton
-                text={submitLabel}
-                fullWidth
-                onClick={() => formRef.current?.requestSubmit()}
-              />
-            )}
-          </div>
-          {/* Enables native Enter-key submission when multiple text fields are present. */}
-          <button type="submit" hidden tabIndex={-1} aria-hidden="true" />
-        </form>
+        {!onSubmit ? (
+          children
+        ) : (
+          <form
+            ref={formRef}
+            aria-label={title}
+            className="flex flex-1 flex-col gap-[44px]"
+            onSubmit={(event) => {
+              event.preventDefault();
+              onSubmit(event);
+            }}
+          >
+            {children}
+            <div className="mt-auto w-full">
+              {action ?? (
+                <ArrowButton
+                  text={submitLabel}
+                  fullWidth
+                  onClick={() => formRef.current?.requestSubmit()}
+                />
+              )}
+            </div>
+            {/* Enables native Enter-key submission when multiple text fields are present. */}
+            <button type="submit" hidden tabIndex={-1} aria-hidden="true" />
+          </form>
+        )}
       </main>
     </div>
   );
