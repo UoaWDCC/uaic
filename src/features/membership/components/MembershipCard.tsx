@@ -1,14 +1,29 @@
 import { MemberProfile } from "../types";
 
+/*
+ * Formatted in NZ time explicitly - this renders on the server (UTC on Fly) and again in the
+ * browser, so without a fixed timeZone a payment near midnight could show a different
+ * month/year on each and cause a hydration mismatch.
+ */
+const NZ_TIME_ZONE = "Pacific/Auckland";
+
 const formatMemberSince = (paymentDate?: string | null) => {
   if (!paymentDate) return "—";
-  return new Date(paymentDate).toLocaleDateString("en-NZ", { month: "long", year: "numeric" });
+  return new Date(paymentDate).toLocaleDateString("en-NZ", {
+    month: "long",
+    year: "numeric",
+    timeZone: NZ_TIME_ZONE,
+  });
 };
 
 /* Membership runs until the end of the calendar year it was paid in */
 const formatValidUntil = (paymentDate?: string | null) => {
   if (!paymentDate) return "";
-  return `Valid until end of ${new Date(paymentDate).getFullYear()}`;
+  const year = new Date(paymentDate).toLocaleDateString("en-NZ", {
+    year: "numeric",
+    timeZone: NZ_TIME_ZONE,
+  });
+  return `Valid until end of ${year}`;
 };
 
 interface MembershipCardProps {
@@ -16,43 +31,30 @@ interface MembershipCardProps {
 }
 
 const MembershipCard = ({ member }: MembershipCardProps) => {
+  /* A signed-in but unpaid user still has a (login-only) doc, so check hasPaid rather than !member */
+  const hasPaid = !!member?.hasPaid;
+
   return (
     <div className="rounded-2xl bg-white p-6 shadow-sm">
       <div className="mb-5 flex items-start justify-between">
         <p className="text-ink text-xl font-bold">Membership</p>
       </div>
 
-      <div className="from-primary-light to-primary flex justify-between rounded-2xl bg-linear-to-r p-5 text-white">
-        <div className="flex-col">
-          <div className="text-xl font-bold">
-            {member?.hasPaid ? "General Member" : "Membership Pending"}
-            {!member && <p className="mt-1 text-sm text-blue-100">No membership on file yet</p>}
-          </div>
-          <div className="text-xs">
-            {member?.hasPaid ? formatValidUntil(member.paymentDate) : ""}
-          </div>
+      <div className="from-primary-light to-primary rounded-2xl bg-linear-to-r p-5 text-white">
+        <div className="text-xl font-bold">
+          {hasPaid ? "General Member" : "Membership Pending"}
+          {!hasPaid && <p className="mt-1 text-sm text-blue-100">No membership on file yet</p>}
         </div>
-        <div className="my-auto">
-          {/* 
-          <Link href="/">
-            {" "}
-            <button className="rounded-4xl bg-[#FFFFFF2E] px-3 py-2 text-xs font-semibold">
-              Renews auto.
-            </button>
-          </Link>
-          */}
-        </div>
+        {hasPaid && <div className="text-xs">{formatValidUntil(member?.paymentDate)}</div>}
       </div>
-      {member?.hasPaid && (
-        <>
-          <div className="w-full flex-col pt-7">
-            <hr className="border-border border-t" />
-            <div className="pt-5 text-sm font-medium tracking-wide text-slate-500 uppercase">
-              Member Since
-            </div>
-            <p className="text-ink mt-1 text-sm">{formatMemberSince(member?.paymentDate)}</p>
+      {hasPaid && (
+        <div className="w-full flex-col pt-7">
+          <hr className="border-border border-t" />
+          <div className="pt-5 text-sm font-medium tracking-wide text-slate-500 uppercase">
+            Member Since
           </div>
-        </>
+          <p className="text-ink mt-1 text-sm">{formatMemberSince(member?.paymentDate)}</p>
+        </div>
       )}
     </div>
   );

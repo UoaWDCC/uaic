@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPayload } from "payload";
+import { getPayload, ValidationError } from "payload";
 import config from "@payload-config";
 import { auth } from "@/lib/auth";
 import {
@@ -71,6 +71,15 @@ export async function PATCH(req: NextRequest) {
       );
     }
 
+    // Better Auth logins live in the same collection, so a signed-in but unpaid user still has
+    // a doc here - just without the required member fields, which would fail Payload validation
+    if (!memberResult.docs[0].hasPaid) {
+      return NextResponse.json(
+        { error: "Only paid members can edit their details" },
+        { status: 403 },
+      );
+    }
+
     await payload.update({
       collection: "member",
       id: memberResult.docs[0].id,
@@ -79,6 +88,9 @@ export async function PATCH(req: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (err) {
+    if (err instanceof ValidationError) {
+      return NextResponse.json({ error: err.message }, { status: 400 });
+    }
     console.error("Failed to update member details:", err);
     return NextResponse.json({ error: "Failed to save details" }, { status: 500 });
   }

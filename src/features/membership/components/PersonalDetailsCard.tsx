@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useId, useState, type ReactNode } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import { maskPhoneNumber } from "../utils/maskPhoneNumber";
 import { maskStudentID } from "../utils/maskStudentID";
@@ -27,6 +27,14 @@ const YEAR_LABELS: Record<NonNullable<MemberProfile["universityYear"]>, string> 
 const inputClassName =
   "border-input focus:border-ring flex w-full items-center gap-2 rounded-full border px-4 py-2 text-sm focus:outline-none";
 
+interface DetailField {
+  label: string;
+  value: ReactNode;
+  /* Set when the field renders an input in edit mode, so its label can point at it */
+  inputId?: string;
+  error?: string;
+}
+
 interface PersonalDetailsCardProps {
   user: SessionUser;
   member: MemberProfile | null;
@@ -34,12 +42,14 @@ interface PersonalDetailsCardProps {
 }
 
 const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps) => {
+  const idPrefix = useId();
   const [isEditingDetails, setIsEditingDetails] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<PersonalDetailsErrors>({});
 
-  const [name, setName] = useState(`${member?.firstName ?? ""} ${member?.lastName ?? ""}`.trim());
+  const [firstName, setFirstName] = useState(member?.firstName ?? "");
+  const [lastName, setLastName] = useState(member?.lastName ?? "");
   const [studentId, setStudentId] = useState(member?.studentId ?? "");
   const [phoneNumber, setPhoneNumber] = useState(member?.phoneNumber ?? "");
   const [degrees, setDegrees] = useState(member?.degrees ?? "");
@@ -49,9 +59,13 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
 
   const [isYearOpen, setIsYearOpen] = useState(false);
 
+  /* Only paid members have a full Member record that can be saved (the route enforces this too) */
+  const canEdit = !!member?.hasPaid;
+
   /* Resets the input fields */
   const handleCancelEdit = () => {
-    setName(`${member?.firstName ?? ""} ${member?.lastName ?? ""}`.trim());
+    setFirstName(member?.firstName ?? "");
+    setLastName(member?.lastName ?? "");
     setStudentId(member?.studentId ?? "");
     setPhoneNumber(member?.phoneNumber ?? "");
     setDegrees(member?.degrees ?? "");
@@ -61,17 +75,10 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
     setIsEditingDetails(false);
   };
 
-  /* splits users full name from input field to fit into first and last name field */
-  const splitName = (fullName: string) => {
-    const [first, ...rest] = fullName.trim().split(/\s+/);
-    return { firstName: first ?? "", lastName: rest.join(" ") };
-  };
-
   const handleSaveDetails = async () => {
-    const { firstName, lastName } = splitName(name);
     const details = {
-      firstName,
-      lastName,
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
       studentId: studentId.trim(),
       degrees: degrees.trim(),
       universityYear,
@@ -79,8 +86,6 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
     };
 
     const errors = validatePersonalDetails(details);
-    /* lastName is required in Member.ts, so a single-word name can't be saved */
-    if (firstName && !lastName) errors.lastName = "Please enter your first and last name.";
     setFieldErrors(errors);
     if (Object.keys(errors).length > 0) {
       setError(null);
@@ -101,35 +106,66 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
     }
   };
 
-  const personalDetails = [
-    {
-      label: "Full Name",
-      error: fieldErrors.firstName || fieldErrors.lastName,
-      value: isEditingDetails ? (
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className={inputClassName}
-          autoComplete="name"
-          maxLength={MAX_NAME_LENGTH * 2 + 1}
-          aria-invalid={!!(fieldErrors.firstName || fieldErrors.lastName)}
-          autoFocus
-        />
-      ) : (
-        `${member?.firstName ?? ""} ${member?.lastName ?? ""}`.trim() || "—"
-      ),
-    },
+  /* Props shared by every edit input: id for its <label>, and error state for screen readers */
+  const inputProps = (key: keyof PersonalDetailsErrors) => ({
+    id: `${idPrefix}-${key}`,
+    className: inputClassName,
+    "aria-invalid": !!fieldErrors[key],
+    "aria-describedby": fieldErrors[key] ? `${idPrefix}-${key}-error` : undefined,
+  });
+
+  const nameFields: DetailField[] = isEditingDetails
+    ? [
+        {
+          label: "First Name",
+          inputId: `${idPrefix}-firstName`,
+          error: fieldErrors.firstName,
+          value: (
+            <input
+              {...inputProps("firstName")}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              autoComplete="given-name"
+              maxLength={MAX_NAME_LENGTH}
+              autoFocus
+            />
+          ),
+        },
+        {
+          label: "Last Name",
+          inputId: `${idPrefix}-lastName`,
+          error: fieldErrors.lastName,
+          value: (
+            <input
+              {...inputProps("lastName")}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              autoComplete="family-name"
+              maxLength={MAX_NAME_LENGTH}
+            />
+          ),
+        },
+      ]
+    : [
+        {
+          label: "Full Name",
+          value: `${member?.firstName ?? ""} ${member?.lastName ?? ""}`.trim() || "—",
+        },
+      ];
+
+  const personalDetails: DetailField[] = [
+    ...nameFields,
     {
       label: "Student ID",
+      inputId: `${idPrefix}-studentId`,
       error: fieldErrors.studentId,
       value: isEditingDetails ? (
         <input
+          {...inputProps("studentId")}
           value={studentId}
           onChange={(e) => setStudentId(e.target.value)}
-          className={inputClassName}
           inputMode="numeric"
           maxLength={10}
-          aria-invalid={!!fieldErrors.studentId}
         />
       ) : (
         maskStudentID(member?.studentId ?? "")
@@ -141,17 +177,17 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
     },
     {
       label: "Phone Number",
+      inputId: `${idPrefix}-phoneNumber`,
       error: fieldErrors.phoneNumber,
       value: isEditingDetails ? (
         <input
+          {...inputProps("phoneNumber")}
           type="tel"
           inputMode="tel"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
-          className={inputClassName}
           autoComplete="tel"
           maxLength={20}
-          aria-invalid={!!fieldErrors.phoneNumber}
         />
       ) : (
         maskPhoneNumber(member?.phoneNumber ?? "")
@@ -159,14 +195,14 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
     },
     {
       label: "Degree / Programme",
+      inputId: `${idPrefix}-degrees`,
       error: fieldErrors.degrees,
       value: isEditingDetails ? (
         <input
+          {...inputProps("degrees")}
           value={degrees}
           onChange={(e) => setDegrees(e.target.value)}
-          className={inputClassName}
           maxLength={MAX_DEGREE_LENGTH}
-          aria-invalid={!!fieldErrors.degrees}
         />
       ) : (
         member?.degrees || "—"
@@ -174,10 +210,12 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
     },
     {
       label: "Year of Study",
+      inputId: `${idPrefix}-universityYear`,
       error: fieldErrors.universityYear,
       value: isEditingDetails ? (
         <div className="group relative w-full">
           <select
+            {...inputProps("universityYear")}
             value={universityYear ?? ""}
             onFocus={() => setIsYearOpen(true)}
             onBlur={() => setIsYearOpen(false)}
@@ -217,7 +255,7 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
           <p className="text-ink text-xl font-bold">Personal details</p>
           <p className="mt-1 text-sm text-slate-500">Visible to club admin only</p>
         </div>
-        {!isEditingDetails && (
+        {canEdit && !isEditingDetails && (
           <button
             onClick={() => setIsEditingDetails(true)}
             aria-label="Edit personal details"
@@ -229,17 +267,27 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
       </div>
 
       <div className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
-        {personalDetails.map((field) => (
-          <div key={field.label}>
-            <div className="text-sm font-medium tracking-wide text-slate-500 uppercase">
-              {field.label}
+        {personalDetails.map((field) => {
+          const hasInput = isEditingDetails && field.inputId;
+          const labelClassName = "text-sm font-medium tracking-wide text-slate-500 uppercase";
+          return (
+            <div key={field.label}>
+              {hasInput ? (
+                <label htmlFor={field.inputId} className={`block ${labelClassName}`}>
+                  {field.label}
+                </label>
+              ) : (
+                <div className={labelClassName}>{field.label}</div>
+              )}
+              <div className="text-ink mt-1 text-sm">{field.value}</div>
+              {hasInput && field.error && (
+                <p id={`${field.inputId}-error`} className="mt-1 text-xs text-red-600">
+                  {field.error}
+                </p>
+              )}
             </div>
-            <div className="text-ink mt-1 text-sm">{field.value}</div>
-            {isEditingDetails && "error" in field && field.error && (
-              <p className="mt-1 text-xs text-red-600">{field.error}</p>
-            )}
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <hr className="border-border mt-5 mb-4 border-t" />
