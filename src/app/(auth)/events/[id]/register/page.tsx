@@ -43,7 +43,7 @@ export default async function EventRegisterPage({ params }: Props) {
   );
 
   if (!CAN_REGISTER.includes(status)) {
-    return <RegistrationUnavailable status={status} header={header} />;
+    return <RegistrationUnavailable eventId={event.id} status={status} header={header} />;
   }
 
   return <EventRegistrationForm header={header} />;

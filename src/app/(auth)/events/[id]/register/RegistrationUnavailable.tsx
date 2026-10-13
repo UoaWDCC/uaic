@@ -30,9 +30,11 @@ const FALLBACK = {
 
 // Shown in place of the form for any status that can't take a signup.
 export default function RegistrationUnavailable({
+  eventId,
   status,
   header,
 }: {
+  eventId: string;
   status: RegistrationStatus;
   header: ReactNode;
 }) {
@@ -52,7 +54,10 @@ export default function RegistrationUnavailable({
             {status === "members-only-logged-out" && (
               <p className="text-muted-foreground text-center text-[12px]">
                 Already a member?{" "}
-                <Link href="/login" className="text-primary hover:text-primary-light underline">
+                <Link
+                  href={`/login?redirect=${encodeURIComponent(`/events/${eventId}/register`)}`}
+                  className="text-primary hover:text-primary-light underline"
+                >
                   Sign in
                 </Link>
               </p>
