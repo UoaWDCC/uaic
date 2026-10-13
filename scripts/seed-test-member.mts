@@ -7,6 +7,10 @@
 //
 // pnpm seed-test-member                      (defaults to uaic-test@aucklanduni.ac.nz)
 // pnpm seed-test-member someone@aucklanduni.ac.nz
+// pnpm seed-test-member someone@aucklanduni.ac.nz --force
+//
+// Only fills in member details on a login it creates itself. This is the shared dev cluster,
+// so an existing unpaid account (possibly a real person's) is refused unless --force is passed.
 //
 // Remove it again with: pnpm delete-test-account <email>
 //
@@ -19,8 +23,10 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 const DEFAULT_EMAIL = "uaic-test@aucklanduni.ac.nz";
 const ENV_PATH = ".env";
 
-// pnpm forwards a literal "--" if one is passed, so skip it
-const emailArg = process.argv.slice(2).find((arg) => arg !== "--");
+// pnpm forwards a literal "--" if one is passed, so skip it along with flags
+const args = process.argv.slice(2);
+const force = args.includes("--force");
+const emailArg = args.find((arg) => !arg.startsWith("--"));
 const email = (emailArg ?? process.env.TEST_MEMBER_EMAIL ?? DEFAULT_EMAIL).toLowerCase();
 
 if (!process.env.DATABASE_URI) {
@@ -50,19 +56,17 @@ let exitCode = 0;
 try {
   const db = client.db();
   const existingLogin = await db.collection("members").findOne({ email });
-  let password = process.env.TEST_MEMBER_PASSWORD;
+  const passwordInEnv =
+    !!process.env.TEST_MEMBER_PASSWORD && process.env.TEST_MEMBER_EMAIL?.toLowerCase() === email;
 
   if (existingLogin) {
     console.log(`Login already exists for ${email} - reusing it.`);
-    if (!password || process.env.TEST_MEMBER_EMAIL?.toLowerCase() !== email) {
-      console.warn(
-        "  Its password isn't in .env. Run `pnpm delete-test-account " +
-          email +
-          "` and re-run this script to reset it.",
-      );
+    if (!passwordInEnv) {
+      console.warn("  Its password isn't in .env. To reset it, delete the account and re-run:");
+      console.warn(`    pnpm delete-test-account ${email} && pnpm seed-test-member ${email}`);
     }
   } else {
-    password = randomBytes(12).toString("base64url");
+    const password = randomBytes(12).toString("base64url");
     await auth.api.signUpEmail({ body: { email, password, name: "UAIC Test" } });
     saveToEnv({ TEST_MEMBER_EMAIL: email, TEST_MEMBER_PASSWORD: password });
     console.log(`Created login for ${email} (credentials saved to .env).`);
@@ -82,12 +86,18 @@ try {
     console.log("Paid member record already exists - leaving it as is.");
   } else if (!docs[0]) {
     throw new Error(`No doc found for ${email} after sign-up`);
+  } else if (existingLogin && !force) {
+    // Didn't create this login ourselves - it could be a real member who hasn't paid yet
+    console.error(
+      `${email} already exists and hasn't paid. Not overwriting it with test data.\n` +
+        "If it's definitely a test account, re-run with --force.",
+    );
+    exitCode = 1;
   } else {
     await payload.update({
       collection: "member",
       id: docs[0].id,
       overrideAccess: true,
-      draft: false,
       data: {
         email,
         firstName: "UAIC",
@@ -108,7 +118,13 @@ try {
     console.log("Filled in paid member details.");
   }
 
-  console.log(`\nLog in at /login with ${email} (password: TEST_MEMBER_PASSWORD in .env).`);
+  if (exitCode === 0) {
+    const passwordHint =
+      !existingLogin || passwordInEnv
+        ? "password: TEST_MEMBER_PASSWORD in .env"
+        : "with that account's existing password";
+    console.log(`\nLog in at /login with ${email} (${passwordHint}).`);
+  }
 } catch (err) {
   console.error("Failed to seed test member:", err);
   exitCode = 1;
