@@ -26,6 +26,10 @@ export async function POST(request: NextRequest) {
       const { eventId, data } = await request.json();
       const member = await payload.findByID({ collection: "member", id: memberId });
 
+      if (!member) {
+        return NextResponse.json({ error: "Unable to find member with such id" }, { status: 400 });
+      }
+
       if (!eventId) {
         return NextResponse.json(
           { error: "eventId is missing for event-signups post request" },
@@ -63,10 +67,10 @@ export async function POST(request: NextRequest) {
       }
 
       //check if closeRegistrationOnStart is True and event has started
-      if (e.closeRegistrationOnStart && new Date() > new Date(e.startDate)) {
+      if (e.closeRegistrationOnStart && new Date() >= new Date(e.startDate)) {
         return NextResponse.json(
           { error: "Event has already started. Registration denied." },
-          { status: 401 }, //Forbidden
+          { status: 409 }, //Forbidden
         );
       }
       // Membership requirement check
