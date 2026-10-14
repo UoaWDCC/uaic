@@ -8,9 +8,13 @@ than one feature today."
 
 Current contents and why each one qualifies:
 
-- `Button.tsx`, `ArrowButton.tsx`, `Dropdown.tsx` - plain UI primitives with
-  no domain knowledge, used across unrelated features (bulletins, home,
-  events, layout, ...).
+- `Button.tsx`, `ArrowButton.tsx` - plain UI primitives with no domain
+  knowledge, used across unrelated features (bulletins, home, events,
+  layout, ...).
+- `Dropdown.tsx` - single-select dropdown form primitive. An exception to the
+  "used by more than one feature" rule below: it's part of the form primitive
+  set from #425, which places it here up front for the event registration
+  form and any later forms.
 - `PageHeader.tsx` - shared page-header layout, used by `bulletins`,
   `about`, `events`, and `faq`.
 - `NotFoundContent.tsx` - the 404 page body, rendered from both the
