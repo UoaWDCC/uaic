@@ -130,11 +130,10 @@ export const getRegistrationStatus = (
   return event.requiresMembership ? "members-only" : "requires-signup";
 };
 
-// The onsite registration page (#430 / #457) doesn't exist yet. Until it
-// does, CTAs that would lead there use the event's external registration link
-// if it has one, or render disabled - never a link to a 404. Flip this once
-// the route has merged.
-export const ONSITE_REGISTRATION_LIVE = false;
+// Whether CTAs link to the onsite registration page (#430). With this off they
+// fall back to the event's external registration link if it has one, or
+// render disabled - never a link to a 404.
+export const ONSITE_REGISTRATION_LIVE = true;
 
 export const getEventRegistrationHref = (eventId: string): string | null =>
   ONSITE_REGISTRATION_LIVE ? `/events/${eventId}/register` : null;
