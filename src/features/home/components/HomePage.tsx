@@ -29,7 +29,7 @@ const HomePage: React.FC<HomePageProps> = ({ images }) => {
   return (
     <div
       id="hero"
-      className="duration-base relative -mt-[132px] h-[calc(100svh+132px)] min-h-[610px] w-full overflow-hidden transition-all lg:-mt-[131.75px] lg:h-[calc(100svh+131.75px)] lg:min-h-0"
+      className="duration-base relative -mt-[132px] h-[calc(100svh+132px)] max-h-[1100px] min-h-[610px] w-full overflow-hidden transition-all lg:-mt-[131.75px] lg:h-[calc(100svh+131.75px)] lg:min-h-0"
     >
       <HeroCarousel
         images={safeImages}
