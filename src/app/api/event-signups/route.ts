@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
 
     const memberId = await getMemberIdFromRequest({
       headers: request.headers,
-    } as any);
+    });
 
     // Session check
     if (!memberId) {
