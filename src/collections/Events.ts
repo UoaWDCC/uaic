@@ -1,7 +1,9 @@
 import type { CollectionConfig, CollectionSlug } from "payload";
+import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 
 export const Events: CollectionConfig = {
   slug: "events",
+  hooks: revalidateOnChange(["/", "/events"]),
   labels: {
     singular: "Event",
     plural: "Events",
@@ -114,6 +116,21 @@ export const Events: CollectionConfig = {
       defaultValue: false,
       admin: {
         description: "Turn on to let members register for this event on the website.",
+        style: {
+          cursor: "pointer",
+        },
+      },
+    },
+    {
+      name: "closeRegistrationOnStart",
+      type: "checkbox",
+      label: "Close Registration When Event Starts",
+      defaultValue: false,
+      admin: {
+        description:
+          "Once the event has started, show registration as closed and remove the Register button. This doesn't close an external form (e.g. a Google Form) - close that in the form itself.",
+        condition: (_, siblingData) =>
+          siblingData?.requiresSignup === true || Boolean(siblingData?.registrationLink),
         style: {
           cursor: "pointer",
         },

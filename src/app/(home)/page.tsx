@@ -1,3 +1,6 @@
+// CMS hooks invalidate edits immediately; also refresh time-dependent event lists.
+export const revalidate = 60;
+
 import HomePage from "@/features/home/components/HomePage";
 import UpcomingEventsSection from "@/features/home/components/UpcomingEventsSection";
 import RecentEventsSection from "@/features/home/components/RecentEventsSection";
