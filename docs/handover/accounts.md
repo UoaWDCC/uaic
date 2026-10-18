@@ -77,7 +77,7 @@ When people leave, change this account's password and review its 2-step verifica
 
   Give developers the `uaic-dev-app` connection string only. Prod and QA's strings live only in Vercel (Sensitive) - if one is lost, set a new password with `atlas dbusers update <user> --password <new>` and update Vercel.
 
-- **Being retired:** the old `test` database and the old all-access `uaic` user (`readWriteAnyDatabase`), which every `.env` used to share. Both are deleted once the team has switched to `uaic-dev-app` - drop `test` first, since nothing else can reach it once `uaic` is gone.
+- **Retired 2026-10-19:** the old all-access `uaic` user (`readWriteAnyDatabase`), which every `.env` used to share, was deleted once the team switched to `uaic-dev-app` - old copies of that connection string no longer work. The old `test` database it used can't be reached by any user now; if it's still listed in Data Explorer, drop it there (the Atlas UI uses your account, not a database user).
 - **CLI:** `brew install mongodb-atlas-cli`, then `atlas auth login` (sign in with Google as `uaic@projects.wdcc.co.nz`). Useful for managing database users without clicking through the UI. `pnpm copy-database` copies content between databases (e.g. refreshing QA from prod).
 - **When to use a second project:** if prod ever needs paid backups or more storage on its own, move `uaic-prod` into its own project and cluster (`mongodump` / `mongorestore`, then change Production's `DATABASE_URI`).
 
