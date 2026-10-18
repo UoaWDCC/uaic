@@ -13,7 +13,7 @@ Every external service the UAIC site depends on: who owns it, how to get in, and
 | Service                                    | What the site uses it for            | Account / login                                                        | Plan                | Owner                                     | Access confirmed by 2 WDCC execs |
 | ------------------------------------------ | ------------------------------------ | ---------------------------------------------------------------------- | ------------------- | ----------------------------------------- | -------------------------------- |
 | [Vercel](#vercel)                          | Hosting - production + PR previews   | `uaic@projects.wdcc.co.nz` (Vercel user `uaic-1185`, team `uaic-wdcc`) | Hobby (free)        | WDCC (via the Google account)             | ☐                                |
-| [MongoDB Atlas](#mongodb-atlas)            | Database (Payload CMS + Better Auth) | `uaic@projects.wdcc.co.nz`                                             | TODO                | WDCC (via the Google account)             | ☐                                |
+| [MongoDB Atlas](#mongodb-atlas)            | Database (Payload CMS + Better Auth) | `uaic@projects.wdcc.co.nz`                                             | Free                | WDCC (via the Google account)             | ☐                                |
 | [AWS S3 + CloudFront](#aws-s3--cloudfront) | Image uploads and serving            | Managed by WDCC execs - current team has no console access             | TODO                | WDCC execs (TODO: who)                    | ☐                                |
 | [Stripe](#stripe)                          | Membership payments                  | `uaic@projects.wdcc.co.nz`                                             | Sandbox (test only) | WDCC (via the Google account)             | ☐                                |
 | [Resend](#resend)                          | Transactional email                  | `uaic@projects.wdcc.co.nz`                                             | Free                | WDCC (via the Google account)             | ☐                                |
@@ -62,12 +62,23 @@ When people leave, change this account's password and review its 2-step verifica
 ### MongoDB Atlas
 
 - **Used for:** the only database. Payload CMS (events, members, content) and Better Auth (users, sessions, accounts) both live in it - Better Auth's users _are_ Payload's `member` documents.
-- **Cluster:** `uaic-wdcc` (`uaic-wdcc.4cqadha.mongodb.net`).
-- **Databases:** as of 2026-10-19, production, previews and local dev **all use the same `test` database**. #492 splits this into `uaic-prod`, `uaic-qa` and `uaic-dev` on the same cluster, each with its own database user.
-- **Account:** Sign in with Google as `uaic@projects.wdcc.co.nz`. The Atlas project is still called **`Project 0`** (Atlas's default) - rename it to something recognisable like `UAIC` (Project Settings -> project name; it doesn't affect connections). The cluster name `uaic-wdcc` can't be changed after creation, which is fine. TODO: any other members of the Atlas organization/project.
-- **Plan / tier:** TODO - shown on the cluster card under **Database -> Clusters** (e.g. "M0" / "Free"). The free tier has a 512MB storage limit; current data is ~5MB.
-- **Network access:** TODO - record the IP access list from **Security -> Network Access** in the project. Vercel's functions don't have fixed IPs, so this is normally `0.0.0.0/0` (anywhere), which means the database users' passwords are what keeps it safe.
-- **Watch out:** people with access to the Atlas _project_ can see every database in the UI, including prod. Keep project access to maintainers; give developers a database user for `uaic-dev` only.
+- **Where it is:** organization `UAIC's Org - 2025-04...` (full name is truncated in the Atlas header), project `Project 0` (Atlas's default name - rename it to `UAIC` in Project Settings; it doesn't affect connections), cluster `UAIC-WDCC` (`uaic-wdcc.4cqadha.mongodb.net`). Cluster names can't be changed after creation, which is fine.
+- **Account:** Sign in with Google as `uaic@projects.wdcc.co.nz`. Only that account logs in to Atlas - developers never need Atlas access, just a connection string.
+- **Plan / tier:** Free. One free cluster per project, 512MB storage; the app's data is ~1MB.
+- **Network access:** IP access list is `0.0.0.0/0` (anywhere). Vercel's functions don't have fixed IPs, so this stays open - which means **database user passwords are the only thing protecting the data**.
+- **Databases:** as of 2026-10-19, production, previews and local dev **all use the same `test` database**.
+- **Database users:** as of 2026-10-19 there's a single user, `uaic`, with `readWriteAnyDatabase` on every database. Its password is in every developer's `.env` and in production, so anyone who has ever had a copy of that `.env` can read and write live data.
+- **Planned setup (#492):** one project, one cluster, three databases, each with its own user that can only access that database:
+
+  | Database    | User            | Used by                         |
+  | ----------- | --------------- | ------------------------------- |
+  | `uaic-prod` | `uaic-prod-app` | Vercel Production only          |
+  | `uaic-qa`   | `uaic-qa-app`   | the `qa` branch only            |
+  | `uaic-dev`  | `uaic-dev-app`  | PR previews and every developer |
+
+  Once everything has switched over, `test` and the all-access `uaic` user are retired. Give developers the `uaic-dev-app` connection string only.
+
+- **When to use a second project:** if prod ever needs paid backups or more storage on its own, move `uaic-prod` into its own project and cluster (`mongodump` / `mongorestore`, then change Production's `DATABASE_URI`).
 
 ### AWS S3 + CloudFront
 
