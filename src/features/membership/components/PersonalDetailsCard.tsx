@@ -293,10 +293,11 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
       <hr className="border-border mt-5 mb-4 border-t" />
       {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
       <div className="flex items-center justify-between gap-1">
+        {/*
         <a className="border-blue-900 text-xs font-semibold text-blue-900 hover:cursor-pointer hover:underline md:text-sm">
           Change Password
         </a>
-
+        */}
         {isEditingDetails && (
           <div className="flex items-center gap-1 md:gap-3">
             <CancelButton onClick={handleCancelEdit} disabled={saving} />

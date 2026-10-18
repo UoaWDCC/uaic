@@ -6,7 +6,6 @@ import { signOut } from "@/lib/auth-client";
 import { MemberProfile, SessionUser } from "../types";
 import PersonalDetailsCard from "./PersonalDetailsCard";
 import MembershipCard from "./MembershipCard";
-import UpcomingEventsCard from "./UpcomingEventsCard";
 
 interface MembershipDashboardProps {
   user: SessionUser;
@@ -38,7 +37,9 @@ const MembershipDashboard = ({ user, member }: MembershipDashboardProps) => {
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
           <PersonalDetailsCard user={user} member={member} onSaved={() => router.refresh()} />
           <MembershipCard member={member} />
+          {/*
           <UpcomingEventsCard />
+          */}
         </div>
 
         <button
