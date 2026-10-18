@@ -299,8 +299,8 @@ const EventCTA = ({
         );
 
       case "concluded":
-        // With nowhere to send "View Recap" (e.g. inside the event modal, which
-        // is the recap), just say it's over rather than show a dead button.
+        // On the details page, the visitor is already viewing the recap, so
+        // show the concluded state without another recap link.
         return onLearnMore || learnMoreHref ? (
           <EventPillButton variant="secondary" onClick={onLearnMore} href={learnMoreHref}>
             Event Concluded: View Recap
