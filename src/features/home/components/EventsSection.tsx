@@ -1,16 +1,19 @@
 import React from "react";
 import EventCardList from "@/features/events/components/EventCardList";
 import ArrowButton from "@/components/ArrowButton";
+import type { RegistrationStatus } from "@/features/events/lib/registrationStatus";
 import type { Event } from "../../../../payload-types";
 
 interface EventsSectionProps {
   events: Event[];
+  registrationStatuses?: Record<string, RegistrationStatus>;
   subtitle?: string;
   title?: string;
 }
 
 const EventsSection = ({
   events,
+  registrationStatuses,
   subtitle = "Upcoming",
   title = "Events & Workshops",
 }: EventsSectionProps) => {
@@ -31,7 +34,7 @@ const EventsSection = ({
         </div>
       </div>
 
-      <EventCardList events={events} />
+      <EventCardList events={events} registrationStatuses={registrationStatuses} />
     </div>
   );
 };

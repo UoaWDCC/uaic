@@ -23,6 +23,21 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
+    // Reset links last one hour. Better Auth deletes the token when it's used,
+    // so each link only works once.
+    resetPasswordTokenExpiresIn: 60 * 60,
+    sendResetPassword: async ({ user, url }) => {
+      // Imported lazily: send-email throws at import time without RESEND_API_KEY,
+      // which would otherwise take down login and signup along with resets.
+      const { sendEmail } = await import("@/features/email/lib/send-email");
+
+      // Never log `url` - it contains the reset token.
+      await sendEmail({
+        recipient: user.email,
+        subject: "Reset your UAIC password",
+        message: `Use this link to reset your UAIC password. It expires in one hour.\n\n${url}\n\nIf you didn't ask to reset your password, you can ignore this email.`,
+      });
+    },
   },
   socialProviders: {
     google: {

@@ -13,4 +13,13 @@ export const authClient = createAuthClient({
   baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
 });
 
-export const { signIn, signUp, signOut, useSession } = authClient;
+export const { signIn, signUp, signOut, useSession, resetPassword } = authClient;
+
+// The page the emailed reset link lands on. Better Auth checks the token first,
+// then redirects here with `?token=...`, or `?error=INVALID_TOKEN` if it's
+// expired or already used.
+export const RESET_PASSWORD_PATH = "/reset-password";
+
+// Fixes the redirect target so every caller's reset link lands on RESET_PASSWORD_PATH.
+export const requestPasswordReset = (email: string) =>
+  authClient.requestPasswordReset({ email, redirectTo: RESET_PASSWORD_PATH });
