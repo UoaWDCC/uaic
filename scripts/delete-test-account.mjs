@@ -11,7 +11,8 @@ import { MongoClient } from "mongodb";
 import readline from "node:readline/promises";
 import { stdin, stdout } from "node:process";
 
-const email = process.argv[2];
+// `pnpm delete-test-account -- <email>` passes the `--` through, so skip it.
+const email = process.argv.slice(2).find((arg) => arg !== "--");
 
 if (!email) {
   console.error("Usage: node scripts/delete-test-account.mjs <email>");
