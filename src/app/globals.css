@@ -88,6 +88,7 @@
   --surface-muted: var(--color-blue-200);
   --surface-faint: var(--color-blue-100);
   --muted-foreground: var(--color-slate-500);
+  --placeholder-foreground: #6b7a8d;
   --border: var(--color-blue-200); /* matches existing #DCE6F2 border usage */
   --input: var(--color-blue-200);
   --ring: var(--color-blue-500); /* matches existing #249AFF/40 focus rings */
@@ -113,6 +114,7 @@
   --color-surface-muted: var(--surface-muted);
   --color-surface-faint: var(--surface-faint);
   --color-muted-foreground: var(--muted-foreground);
+  --color-placeholder-foreground: var(--placeholder-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
