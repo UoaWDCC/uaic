@@ -143,7 +143,7 @@ When people leave, change this account's password and review its 2-step verifica
 
 ## Handover checklist
 
-Done when every box is ticked (tracked in #491):
+Done when every box is ticked (tracked in #500):
 
 - [ ] Every TODO above filled in
 - [ ] `uaic@projects.wdcc.co.nz` has 2-step verification and recovery options that WDCC controls, and at least two WDCC tech execs can sign in to it
