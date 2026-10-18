@@ -56,8 +56,10 @@ Copy `.env.example` to `.env` at the root directory and fill in the values:
 cp .env.example .env
 ```
 
-`DATABASE_URI` points at a shared MongoDB Atlas cluster used by everyone's
-local dev — not a per-developer database. Use `pnpm delete-test-account -- <email>`
+`DATABASE_URI` points at the `uaic-dev` database on the team's MongoDB Atlas
+cluster. It's shared by everyone's local dev and by PR previews - not a
+per-developer database - and production and QA have their own databases that
+your connection string can't reach. Use `pnpm delete-test-account -- <email>`
 to clean up test accounts you create while testing signup/login rather than
 deleting things by hand.
 

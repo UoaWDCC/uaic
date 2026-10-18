@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-// Deletes a single account (and everything linked to it) from the shared
-// dev database. For removing test accounts created while testing signup/login
-// locally — this hits the same Atlas cluster everyone's local dev points at,
-// not a per-developer database, so double check the email before confirming.
+// Deletes a single account (and everything linked to it) from whichever
+// database DATABASE_URI points at - normally the shared uaic-dev database. For
+// removing test accounts created while testing signup/login locally. uaic-dev
+// is shared by everyone's local dev and PR previews, not a per-developer
+// database, so double check the email before confirming.
 
 // npm run delete-test-account -- your-email@aucklanduni.ac.nz
 
@@ -53,7 +54,7 @@ try {
   console.log(`  membership application:   ${member ? "yes" : "no"}`);
   console.log("");
   console.log(
-    "This permanently deletes all of the above from the shared uaic-wdcc database. This cannot be undone.",
+    `This permanently deletes all of the above from the ${db.databaseName} database. This cannot be undone.`,
   );
 
   const rl = readline.createInterface({ input: stdin, output: stdout });
