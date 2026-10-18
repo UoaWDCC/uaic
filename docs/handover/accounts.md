@@ -21,6 +21,7 @@ Every external service the UAIC site depends on: who owns it, how to get in, and
 | [Domain / DNS](#domain--dns)               | `uaic.wdcc.co.nz`                    | WDCC's registrar                                                       | -                   | WDCC                                      | ☐                                |
 | [GitHub](#github)                          | Code, CI, issues                     | `UoaWDCC` org, repo `uaic`                                             | -                   | WDCC                                      | ☐                                |
 | [Fly.io](#flyio-backup)                    | Backup host only                     | `uaic@projects.wdcc.co.nz`                                             | TODO                | WDCC (via the Google account)             | ☐                                |
+| [Payload admin](#payload-admin-panel)      | Content editing at `/admin`          | `uaic@projects.wdcc.co.nz` + own password (not Google)                 | -                   | WDCC                                      | ☐                                |
 | [Discord](#discord)                        | PR notifications (2026 only)         | WDCC Projects 2026 Discord server                                      | Free                | Project PM, tech lead and WDCC tech execs | ☐                                |
 
 ## Where credentials live
@@ -48,7 +49,7 @@ When people leave, change this account's password and review its 2-step verifica
 - **Used for:** production hosting (`uaic.wdcc.co.nz`, also `uaic-uaic-wdcc.vercel.app`) and a preview deployment for every PR. Pushes to `main` deploy production.
 - **Account:** Vercel user `uaic-1185` - sign in with Google as `uaic@projects.wdcc.co.nz`. It owns the `uaic-wdcc` team; the project is `uaic`.
 - **Plan:** Hobby. Hobby accounts **can't have team members**, so access is by sharing the login, not by inviting people. Don't try to "invite" someone - they won't be able to join.
-- **Env vars it holds:** `DATABASE_URI`, `PAYLOAD_SECRET`, `BETTER_AUTH_SECRET`, `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLIC_KEY`, `RESEND_API_KEY`, `S3_BUCKET`, `S3_REGION`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`. As of 2026-10-19 they are all scoped to Production **and** Preview together, and `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `STRIPE_WEBHOOK_SECRET` and `BETTER_AUTH_URL` / `NEXT_PUBLIC_BETTER_AUTH_URL` are missing - see #494.
+- **Env vars it holds:** `DATABASE_URI`, `PAYLOAD_SECRET`, `BETTER_AUTH_SECRET`, `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLIC_KEY`, `RESEND_API_KEY`, `S3_BUCKET`, `S3_REGION`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`. `DATABASE_URI` is set separately for Production (`uaic-prod`) and Preview (`uaic-dev`); the rest are still scoped to Production **and** Preview together, and `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `STRIPE_WEBHOOK_SECRET` and `BETTER_AUTH_URL` / `NEXT_PUBLIC_BETTER_AUTH_URL` are missing - see #494.
 - **CLI access:** keep the shared login in its own config folder so it doesn't replace your personal Vercel login:
 
   ```bash
@@ -62,23 +63,31 @@ When people leave, change this account's password and review its 2-step verifica
 ### MongoDB Atlas
 
 - **Used for:** the only database. Payload CMS (events, members, content) and Better Auth (users, sessions, accounts) both live in it - Better Auth's users _are_ Payload's `member` documents.
-- **Where it is:** organization `UAIC's Org - 2025-04...` (full name is truncated in the Atlas header), project `Project 0` (Atlas's default name - rename it to `UAIC` in Project Settings; it doesn't affect connections), cluster `UAIC-WDCC` (`uaic-wdcc.4cqadha.mongodb.net`). Cluster names can't be changed after creation, which is fine.
+- **Where it is:** organization `UAIC's Org - 2025-04...` (full name is truncated in the Atlas header), project `UAIC`, cluster `UAIC-WDCC` (`uaic-wdcc.4cqadha.mongodb.net`). Cluster names can't be changed after creation, which is fine.
 - **Account:** Sign in with Google as `uaic@projects.wdcc.co.nz`. Only that account logs in to Atlas - developers never need Atlas access, just a connection string.
 - **Plan / tier:** Free. One free cluster per project, 512MB storage; the app's data is ~1MB.
 - **Network access:** IP access list is `0.0.0.0/0` (anywhere). Vercel's functions don't have fixed IPs, so this stays open - which means **database user passwords are the only thing protecting the data**.
-- **Databases:** as of 2026-10-19, production, previews and local dev **all use the same `test` database**.
-- **Database users:** as of 2026-10-19 there's a single user, `uaic`, with `readWriteAnyDatabase` on every database. Its password is in every developer's `.env` and in production, so anyone who has ever had a copy of that `.env` can read and write live data.
-- **Planned setup (#492):** one project, one cluster, three databases, each with its own user that can only access that database:
+- **Databases and users** (set up 2026-10-19, #492) - each database has its own user that can only access that database:
 
   | Database    | User            | Used by                         |
   | ----------- | --------------- | ------------------------------- |
   | `uaic-prod` | `uaic-prod-app` | Vercel Production only          |
-  | `uaic-qa`   | `uaic-qa-app`   | the `qa` branch only            |
+  | `uaic-qa`   | `uaic-qa-app`   | the `qa` branch only (#487)     |
   | `uaic-dev`  | `uaic-dev-app`  | PR previews and every developer |
 
-  Once everything has switched over, `test` and the all-access `uaic` user are retired. Give developers the `uaic-dev-app` connection string only.
+  Give developers the `uaic-dev-app` connection string only. Prod and QA's strings live only in Vercel (Sensitive) - if one is lost, set a new password with `atlas dbusers update <user> --password <new>` and update Vercel.
 
+- **Being retired:** the old `test` database and the old all-access `uaic` user (`readWriteAnyDatabase`), which every `.env` used to share. Both are deleted once the team has switched to `uaic-dev-app` - drop `test` first, since nothing else can reach it once `uaic` is gone.
+- **CLI:** `brew install mongodb-atlas-cli`, then `atlas auth login` (sign in with Google as `uaic@projects.wdcc.co.nz`). Useful for managing database users without clicking through the UI. `pnpm copy-database` copies content between databases (e.g. refreshing QA from prod).
 - **When to use a second project:** if prod ever needs paid backups or more storage on its own, move `uaic-prod` into its own project and cluster (`mongodump` / `mongorestore`, then change Production's `DATABASE_URI`).
+
+### Payload admin panel
+
+- **Used for:** editing site content at `/admin` (e.g. `uaic.wdcc.co.nz/admin`). Separate from member accounts and from "Sign in with Google" - it's Payload's own `users` collection with its own email and password.
+- **Accounts:** prod's first admin is `uaic@projects.wdcc.co.nz` with role **Admin**, created 2026-10-19. Give each exec their own account (Users -> Create, role **Exec**) instead of sharing the admin password, and delete it when they leave.
+- **Roles:** `admin` and `exec` currently have **identical access** (`isAdminOrExec` in `src/lib/isAdminOrExec.ts`). Restricting execs would be a code change.
+- **Watch out:** "forgot password" doesn't work - `payload.config.ts` has no email adapter. If the admin password is lost, the only way back in is through the database, so it needs storing somewhere WDCC can reach (TODO: where).
+- **Each environment has its own admins** - prod, QA and dev don't share `users`.
 
 ### AWS S3 + CloudFront
 
