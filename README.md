@@ -24,6 +24,7 @@ pnpm test:watch                       # re-run tests on file changes
 
 pnpm generate:types                   # regenerate payload-types.ts after changing a Payload collection
 pnpm delete-test-account -- <email>   # delete a test account from the shared dev database (see below)
+pnpm copy-database -- --from <db> --to <db> --content   # copy CMS content between databases (see scripts/copy-database.mjs)
 ```
 
 # Getting Started
