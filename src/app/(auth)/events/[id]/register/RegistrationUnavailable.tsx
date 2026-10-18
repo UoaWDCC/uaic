@@ -2,7 +2,10 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import RegistrationShell from "@/components/RegistrationShell";
 import EventPillButton from "@/features/events/components/EventPillButton";
-import type { RegistrationStatus } from "@/features/events/lib/registrationStatus";
+import {
+  getEventSignInHref,
+  type RegistrationStatus,
+} from "@/features/events/lib/registrationStatus";
 
 const MESSAGES: Partial<Record<RegistrationStatus, { heading: string; body: string }>> = {
   full: { heading: "Event full", body: "There are no spots remaining for this event." },
@@ -55,7 +58,7 @@ export default function RegistrationUnavailable({
               <p className="text-muted-foreground text-center text-[12px]">
                 Already a member?{" "}
                 <Link
-                  href={`/login?redirect=${encodeURIComponent(`/events/${eventId}/register`)}`}
+                  href={getEventSignInHref(eventId)}
                   className="text-primary hover:text-primary-light underline"
                 >
                   Sign in

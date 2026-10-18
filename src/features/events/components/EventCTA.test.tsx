@@ -32,13 +32,16 @@ describe("EventCTA", () => {
     expect(screen.queryByRole("link", { name: "Register Now" })).not.toBeInTheDocument();
   });
 
-  it("sends logged-out viewers of members-only events to join, with a sign-in prompt", () => {
+  it("sends logged-out viewers of members-only events to join, with a sign-in prompt back to the event", () => {
     render(<EventCTA status="members-only-logged-out" eventId="abc" />);
     expect(screen.getByRole("link", { name: "Join to Register" })).toHaveAttribute(
       "href",
       "/joinus",
     );
-    expect(screen.getByRole("link", { name: "Sign in" })).toHaveAttribute("href", "/login");
+    expect(screen.getByRole("link", { name: "Sign in" })).toHaveAttribute(
+      "href",
+      "/login?redirect=%2Fevents%2Fabc%2Fregister",
+    );
   });
 
   it("doesn't offer sign-in to someone who's already logged in", () => {

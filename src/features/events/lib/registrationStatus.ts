@@ -137,3 +137,10 @@ export const ONSITE_REGISTRATION_LIVE = true;
 
 export const getEventRegistrationHref = (eventId: string): string | null =>
   ONSITE_REGISTRATION_LIVE ? `/events/${eventId}/register` : null;
+
+// "Sign in" for a members-only event sends the user back to its registration
+// page afterwards (see safeRedirectPath). Plain /login if that page is off.
+export const getEventSignInHref = (eventId: string): string => {
+  const registrationHref = getEventRegistrationHref(eventId);
+  return registrationHref ? `/login?redirect=${encodeURIComponent(registrationHref)}` : "/login";
+};
