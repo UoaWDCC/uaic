@@ -4,6 +4,7 @@ import { VscClose } from "react-icons/vsc";
 import Image from "next/image";
 import type { Event as PayloadEvent } from "../../../../payload-types";
 import EventCTA from "@/features/events/components/EventCTA";
+import { formatEventDate } from "@/features/events/lib/formatEventDate";
 import {
   cardDescriptionLines,
   getRegistrationStatus,
@@ -39,56 +40,6 @@ interface EventCardListProps {
 
 // Full class names so Tailwind can see them.
 const DESKTOP_LINE_CLAMP = { 1: "lg:line-clamp-1", 2: "lg:line-clamp-2", 3: "" } as const;
-
-const MONTH_NAMES = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-const MONTHS = MONTH_NAMES.map((month) => month.toUpperCase());
-
-// Events happen in Auckland, and this component renders on both the server
-// (UTC - no TZ is set) and the browser (whatever the viewer's timezone is).
-// Reading dates with getHours()/getDate() would give different answers on
-// each - a hydration mismatch, or the wrong day/time. So every date part is
-// read in NZ time via formatToParts, which only returns numbers we then format
-// ourselves (toLocaleDateString's wording also varies between JS engines).
-const NZ_DATE_PARTS = new Intl.DateTimeFormat("en-NZ", {
-  timeZone: "Pacific/Auckland",
-  year: "numeric",
-  month: "numeric",
-  day: "numeric",
-  hour: "numeric",
-  minute: "numeric",
-  hourCycle: "h23",
-});
-
-const toNzParts = (date: Date) => {
-  const parts = Object.fromEntries(
-    NZ_DATE_PARTS.formatToParts(date).map(({ type, value }) => [type, Number(value)]),
-  );
-  return {
-    year: parts.year,
-    monthIndex: parts.month - 1,
-    day: parts.day,
-    hours: parts.hour,
-    minutes: parts.minute,
-  };
-};
-
-const formatTime = ({ hours, minutes }: { hours: number; minutes: number }) => {
-  const period = hours >= 12 ? "PM" : "AM";
-  return `${hours % 12 || 12}:${minutes.toString().padStart(2, "0")} ${period}`;
-};
 
 const EventCardList = ({
   events: rawEvents,
@@ -163,25 +114,9 @@ const EventCardList = ({
 
   // Transform database events to component format
   const events: Event[] = rawEvents.map((dbEvent) => {
-    const start = toNzParts(new Date(dbEvent.startDate));
-    const end = toNzParts(new Date(dbEvent.endDate));
-
-    const startTime = formatTime(start);
-    const endTime = formatTime(end);
-    // Same-day events just show the end time; anything ending on a later day
-    // says which day, so a multi-day event doesn't read as a few hours long.
-    const endsSameDay =
-      start.year === end.year && start.monthIndex === end.monthIndex && start.day === end.day;
-    const endYear = end.year !== start.year ? ` ${end.year}` : "";
-    const endLabel = endsSameDay
-      ? endTime
-      : `${end.day} ${MONTH_NAMES[end.monthIndex]}${endYear}, ${endTime}`;
-
     return {
       id: dbEvent.id,
-      day: start.day.toString().padStart(2, "0"),
-      month: MONTHS[start.monthIndex],
-      time: `${startTime} - ${endLabel}`,
+      ...formatEventDate(dbEvent),
       title: dbEvent.event,
       location: dbEvent.location,
       type: "Event",

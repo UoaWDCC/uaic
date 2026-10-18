@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 interface EventPillButtonProps {
   children: ReactNode;
   variant?: "primary" | "secondary" | "disabled";
+  size?: "card" | "panel";
   href?: string;
   // Opens `href` in a new tab - for links out to external registration forms.
   external?: boolean;
@@ -22,7 +23,12 @@ interface EventPillButtonProps {
 const HOVER_TIMING = "duration-fast ease-in-out";
 
 const BASE =
-  "group rounded-pill relative flex min-h-[27px] min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden border px-[12px] py-[4px] text-[14px] leading-[100%] sm:text-[16px] tracking-[0px] transition-colors";
+  "group rounded-pill relative flex min-w-0 flex-1 flex-row items-center justify-center gap-[10px] overflow-hidden border px-[12px] tracking-[0px] transition-colors";
+
+const SIZES = {
+  card: "min-h-[27px] py-[4px] text-[14px] leading-[100%] sm:text-[16px]",
+  panel: "min-h-[52px] py-[12px] text-[20px] leading-[24px]",
+};
 
 const VARIANTS = {
   primary:
@@ -48,6 +54,7 @@ const GRADIENT = {
 const EventPillButton = ({
   children,
   variant = "primary",
+  size = "card",
   href,
   external = false,
   onClick,
@@ -55,7 +62,7 @@ const EventPillButton = ({
   hoverLabel,
   ariaLabel,
 }: EventPillButtonProps) => {
-  const classes = `${BASE} ${HOVER_TIMING} ${VARIANTS[variant]} ${className}`;
+  const classes = `${BASE} ${SIZES[size]} ${HOVER_TIMING} ${VARIANTS[variant]} ${className}`;
   const gradient = GRADIENT[variant] && `${GRADIENT[variant]} ${HOVER_TIMING}`;
   const fade = `transition-opacity ${HOVER_TIMING} col-start-1 row-start-1`;
 
