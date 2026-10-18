@@ -139,6 +139,23 @@ describe("Dropdown", () => {
     },
   );
 
+  it("closes without calling onChange when the current value is picked again", () => {
+    const onChange = vi.fn();
+    render(<Dropdown options={["XS", "S"]} value="XS" onChange={onChange} ariaLabel="Size" />);
+    fireEvent.click(trigger());
+    fireEvent.click(option("XS"));
+    expect(onChange).not.toHaveBeenCalled();
+    expect(trigger()).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("closes when the trigger is clicked again", () => {
+    render(<InputDropdown />);
+    fireEvent.click(trigger());
+    fireEvent.click(trigger());
+    expect(trigger()).toHaveAttribute("aria-expanded", "false");
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  });
+
   describe("error", () => {
     it("marks the trigger invalid and links the message", () => {
       render(

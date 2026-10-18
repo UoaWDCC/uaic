@@ -5,7 +5,7 @@ import { signIn } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function LoginForm() {
+export default function LoginForm({ redirectTo = "/dashboard" }: { redirectTo?: string }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,7 +26,7 @@ export default function LoginForm() {
       if (result.error) {
         setError(result.error.message || "Couldn't sign in. Please try again.");
       } else {
-        router.push("/dashboard");
+        router.push(redirectTo);
       }
     } catch {
       setError("An unexpected error occurred");
@@ -41,7 +41,7 @@ export default function LoginForm() {
     try {
       await signIn.social({
         provider: "google",
-        callbackURL: "/dashboard",
+        callbackURL: redirectTo,
         errorCallbackURL: "/signup",
       });
     } catch {

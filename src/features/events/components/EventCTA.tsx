@@ -4,11 +4,11 @@ import { LuCircleCheck, LuLock } from "react-icons/lu";
 import EventPillButton from "@/features/events/components/EventPillButton";
 import {
   getEventRegistrationHref,
+  getEventSignInHref,
   type RegistrationStatus,
 } from "@/features/events/lib/registrationStatus";
 
 const JOIN_HREF = "/joinus";
-const SIGN_IN_HREF = "/login";
 
 interface EventCTAProps {
   status: RegistrationStatus;
@@ -152,7 +152,7 @@ const EventCTA = ({
                 <p className="text-muted-foreground text-center text-[12px]">
                   Already a member?{" "}
                   <Link
-                    href={SIGN_IN_HREF}
+                    href={getEventSignInHref(eventId)}
                     className="text-primary hover:text-primary-light underline"
                   >
                     Sign in
