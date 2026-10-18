@@ -24,6 +24,7 @@ pnpm test:watch                       # re-run tests on file changes
 
 pnpm generate:types                   # regenerate payload-types.ts after changing a Payload collection
 pnpm delete-test-account -- <email>   # delete a test account from the shared dev database (see below)
+pnpm move-media-to-env -- --dry-run   # move a database's uploads into its S3 folder (see docs/media-cdn.md)
 ```
 
 # Getting Started
