@@ -4,6 +4,7 @@ import { cache } from "react";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import { getEventRegistrationStatuses } from "@/features/events/data/getEventRegistrationStatuses";
+import { isOnsiteRegistrationLive } from "@/features/events/lib/onsiteRegistration";
 import type { RegistrationStatus } from "@/features/events/lib/registrationStatus";
 import EventRegistrationForm from "./EventRegistrationForm";
 import RegistrationUnavailable from "./RegistrationUnavailable";
@@ -26,6 +27,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function EventRegisterPage({ params }: Props) {
+  // Off in production (see isOnsiteRegistrationLive): the URL mustn't be
+  // reachable directly while events still use their external forms.
+  if (!isOnsiteRegistrationLive()) notFound();
+
   const event = await getEvent((await params).id);
   if (!event) notFound();
 

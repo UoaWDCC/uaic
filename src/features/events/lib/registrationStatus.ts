@@ -1,4 +1,5 @@
 import type { Event, EventSignup } from "../../../../payload-types";
+import { isOnsiteRegistrationLive } from "./onsiteRegistration";
 
 // Every call-to-action an event can show, one per Figma "EventCTA" variant.
 // Derived once per event by `getRegistrationStatus` so components only ever
@@ -130,13 +131,12 @@ export const getRegistrationStatus = (
   return event.requiresMembership ? "members-only" : "requires-signup";
 };
 
-// Whether CTAs link to the onsite registration page (#430). With this off they
-// fall back to the event's external registration link if it has one, or
-// render disabled - never a link to a 404.
-export const ONSITE_REGISTRATION_LIVE = true;
-
+// CTAs link to the onsite registration page (#430) only when it's switched on
+// (see isOnsiteRegistrationLive). With it off they fall back to the event's
+// external registration link if it has one, or render disabled - never a link
+// to a 404.
 export const getEventRegistrationHref = (eventId: string): string | null =>
-  ONSITE_REGISTRATION_LIVE ? `/events/${eventId}/register` : null;
+  isOnsiteRegistrationLive() ? `/events/${eventId}/register` : null;
 
 // "Sign in" for a members-only event sends the user back to its registration
 // page afterwards (see safeRedirectPath). Plain /login if that page is off.
