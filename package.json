@@ -14,6 +14,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "delete-test-account": "node scripts/delete-test-account.mjs",
+    "copy-database": "node scripts/copy-database.mjs",
     "seed-test-member": "tsx scripts/seed-test-member.mts",
     "generate:types": "tsx scripts/generate-payload-types.mjs"
   },
