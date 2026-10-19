@@ -22,17 +22,22 @@ import { LandingPageImages } from "./collections/LandingPageImages";
 import { HeroSectionCarousel } from "./collections/HeroSectionCarousel";
 import { Sponsors } from "./collections/Sponsors";
 import { Ticker } from "./collections/Ticker";
-import { MEDIA_CDN_URL } from "./lib/mediaCdn";
+import { S3_ENV_FOLDER, mediaFileURL } from "./lib/mediaCdn";
 
 // Files are served straight from CloudFront rather than streamed through
 // Payload's /api/<collection>/file route (a Vercel Function). This bypasses
 // Payload's access.read, so only use it for collections with public read.
-const cdnCollection = (prefix: string) => ({
-  prefix,
-  disablePayloadAccessControl: true as const,
-  generateFileURL: ({ filename }: { filename: string }) =>
-    `${MEDIA_CDN_URL}/${prefix}/${encodeURIComponent(filename)}`,
-});
+// New uploads go under this environment's folder (e.g. prod/media); the plugin
+// stores that folder on each record and passes it back as `prefix`.
+const cdnCollection = (collectionFolder: string) => {
+  const prefix = `${S3_ENV_FOLDER}/${collectionFolder}`;
+  return {
+    prefix,
+    disablePayloadAccessControl: true as const,
+    generateFileURL: ({ filename, prefix: storedPrefix }: { filename: string; prefix?: string }) =>
+      mediaFileURL({ prefix: storedPrefix || prefix, filename }),
+  };
+};
 
 // The plugin's /download stream never calls push() on an empty result, so the
 // request hangs forever instead of returning a header-only CSV. When we detect

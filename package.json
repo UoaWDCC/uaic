@@ -16,7 +16,8 @@
     "delete-test-account": "node scripts/delete-test-account.mjs",
     "copy-database": "node scripts/copy-database.mjs",
     "seed-test-member": "tsx scripts/seed-test-member.mts",
-    "generate:types": "tsx scripts/generate-payload-types.mjs"
+    "generate:types": "tsx scripts/generate-payload-types.mjs",
+    "move-media-to-env": "node scripts/move-media-to-env.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1148.0",
