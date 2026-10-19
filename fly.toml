@@ -1,4 +1,5 @@
 # fly.toml app configuration file generated for uaic-prod on 2025-03-28T16:43:46+13:00
+# Fly is a cold backup for production (which runs on Vercel) - see docs/fly-backup.md.
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -11,8 +12,12 @@ swap_size_mb = 512
   NEXT_PUBLIC_BETTER_AUTH_URL = 'https://uaic.wdcc.co.nz'
 
 [build]
+  # NEXT_PUBLIC_* values are baked in at build time, so they go here rather than
+  # in Fly secrets. The Stripe key is the publishable one (safe to commit) - swap
+  # it for the live pk_live_ key when production moves to live Stripe (#497).
   [build.args]
     NEXT_PUBLIC_BETTER_AUTH_URL = 'https://uaic.wdcc.co.nz'
+    NEXT_PUBLIC_STRIPE_PUBLIC_KEY = 'pk_test_51S88gN7S9MIgYUruKKOrQ62kMol3GcHV1WJmnhQek2QzHkhZxOdVSuQuqZrAMfjD4lYUujBBiOBmJQZCBpZgMq9n00cDEE9F9P'
 
 [http_service]
   internal_port = 3000
