@@ -36,8 +36,8 @@ const Subtext = ({ children }: { children: ReactNode }) => (
 
 // Stacked on phones: two half-width pills are too narrow for labels like
 // "No Spots Remaining" below roughly 500px.
-// Links to the onsite registration page. Until that page exists (see
-// ONSITE_REGISTRATION_LIVE) it falls back to the event's external form if it
+// Links to the onsite registration page. While that's switched off (see
+// isOnsiteRegistrationLive) it falls back to the event's external form if it
 // has one, so onsite-signup events stay registerable; with neither it's a
 // neutral disabled pill rather than a promise of when registration opens.
 const OnsiteButton = ({

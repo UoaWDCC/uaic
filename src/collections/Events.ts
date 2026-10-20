@@ -1,5 +1,12 @@
 import type { CollectionConfig, CollectionSlug } from "payload";
 import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
+import { isOnsiteRegistrationLive } from "../features/events/lib/onsiteRegistration";
+
+// Onsite sign-up settings only show where onsite registration is switched on
+// (#473), so exec in production only see registrationLink. Hiding a field
+// doesn't change its stored value.
+const showSignupSettings = (siblingData: { requiresSignup?: unknown } | undefined) =>
+  isOnsiteRegistrationLive() && siblingData?.requiresSignup === true;
 
 export const Events: CollectionConfig = {
   slug: "events",
@@ -116,6 +123,7 @@ export const Events: CollectionConfig = {
       defaultValue: false,
       admin: {
         description: "Turn on to let members register for this event on the website.",
+        condition: () => isOnsiteRegistrationLive(),
         style: {
           cursor: "pointer",
         },
@@ -130,7 +138,7 @@ export const Events: CollectionConfig = {
         description:
           "Once the event has started, show registration as closed and remove the Register button. This doesn't close an external form (e.g. a Google Form) - close that in the form itself.",
         condition: (_, siblingData) =>
-          siblingData?.requiresSignup === true || Boolean(siblingData?.registrationLink),
+          showSignupSettings(siblingData) || Boolean(siblingData?.registrationLink),
         style: {
           cursor: "pointer",
         },
@@ -143,7 +151,7 @@ export const Events: CollectionConfig = {
       defaultValue: false,
       admin: {
         description: "Only paid members can sign up for this event.",
-        condition: (_, siblingData) => siblingData?.requiresSignup === true,
+        condition: (_, siblingData) => showSignupSettings(siblingData),
         style: {
           cursor: "pointer",
         },
@@ -155,7 +163,7 @@ export const Events: CollectionConfig = {
       label: "Capacity",
       admin: {
         description: "Maximum number of sign-ups. Leave empty for unlimited.",
-        condition: (_, siblingData) => siblingData?.requiresSignup === true,
+        condition: (_, siblingData) => showSignupSettings(siblingData),
         style: {
           cursor: "pointer",
         },
@@ -169,7 +177,9 @@ export const Events: CollectionConfig = {
       admin: {
         description: "Release the slot back to the pool when someone cancels their sign-up.",
         condition: (_, siblingData) =>
-          siblingData?.capacity !== undefined && siblingData?.capacity !== null,
+          showSignupSettings(siblingData) &&
+          siblingData?.capacity !== undefined &&
+          siblingData?.capacity !== null,
         style: {
           cursor: "pointer",
         },
@@ -181,7 +191,7 @@ export const Events: CollectionConfig = {
       label: "Edit Cut-off",
       admin: {
         description: "Sign-ups cannot be edited after this time. Defaults to the event start date.",
-        condition: (_, siblingData) => siblingData?.requiresSignup === true,
+        condition: (_, siblingData) => showSignupSettings(siblingData),
         date: {
           pickerAppearance: "dayAndTime",
           displayFormat: "yyyy-MM-dd HH:mm",
@@ -197,7 +207,7 @@ export const Events: CollectionConfig = {
       label: "Cancel Cut-off",
       admin: {
         description: "Sign-ups cannot be cancelled after this time. Defaults to the edit cut-off.",
-        condition: (_, siblingData) => siblingData?.requiresSignup === true,
+        condition: (_, siblingData) => showSignupSettings(siblingData),
         date: {
           pickerAppearance: "dayAndTime",
           displayFormat: "yyyy-MM-dd HH:mm",
@@ -218,7 +228,7 @@ export const Events: CollectionConfig = {
       admin: {
         description:
           "Editing this form after sign-ups already exist will NOT update existing submitted responses.",
-        condition: (_, siblingData) => siblingData?.requiresSignup === true,
+        condition: (_, siblingData) => showSignupSettings(siblingData),
       },
       blocks: [
         {

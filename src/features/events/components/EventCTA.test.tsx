@@ -1,10 +1,15 @@
 // Colocated with the component it covers - renders each status and checks the
 // CTA a viewer actually gets. No DB: status is passed in directly.
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import EventCTA from "./EventCTA";
 
 describe("EventCTA", () => {
+  // Onsite registration is switched on per environment (#473). These cases
+  // cover it on; the block at the end covers production, where it's off.
+  beforeEach(() => vi.stubEnv("NEXT_PUBLIC_ONSITE_REGISTRATION", "true"));
+  afterEach(() => vi.unstubAllEnvs());
+
   it("links onsite Register Now to the registration page", () => {
     render(<EventCTA status="requires-signup" eventId="abc" />);
     expect(screen.getByRole("link", { name: "Register Now" })).toHaveAttribute(
@@ -130,5 +135,29 @@ describe("EventCTA", () => {
       "href",
       "/events/abc/register",
     );
+  });
+
+  describe("with onsite registration off (production)", () => {
+    beforeEach(() => vi.stubEnv("NEXT_PUBLIC_ONSITE_REGISTRATION", ""));
+
+    it("falls back to the event's external form in a new tab", () => {
+      render(
+        <EventCTA status="requires-signup" eventId="abc" registrationLink="https://forms.gle/x" />,
+      );
+      const link = screen.getByRole("link", { name: "Register Now" });
+      expect(link).toHaveAttribute("href", "https://forms.gle/x");
+      expect(link).toHaveAttribute("target", "_blank");
+    });
+
+    it("shows a disabled button rather than linking to the register page", () => {
+      render(<EventCTA status="requires-signup" eventId="abc" />);
+      expect(screen.queryByRole("link", { name: "Register Now" })).not.toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Registration Unavailable" })).toBeDisabled();
+    });
+
+    it("sends sign-in to plain /login, not the register page", () => {
+      render(<EventCTA status="members-only-logged-out" eventId="abc" />);
+      expect(screen.getByRole("link", { name: "Sign in" })).toHaveAttribute("href", "/login");
+    });
   });
 });

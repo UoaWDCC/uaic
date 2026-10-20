@@ -4,11 +4,18 @@ import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import config from "@payload-config";
 import { signupStatusesTakingASpot } from "@/features/events/lib/registrationStatus";
+import { isOnsiteRegistrationLive } from "@/features/events/lib/onsiteRegistration";
 import { getMemberIdFromRequest } from "@/lib/memberSession";
 import { validateSignupResponses } from "@/lib/validateSignupResponses";
 
 //post to create a new EventSignup.
 export async function POST(request: NextRequest) {
+  // Hiding the register page isn't enough on its own - refuse direct requests too
+  // where onsite registration is off (production, for now).
+  if (!isOnsiteRegistrationLive()) {
+    return NextResponse.json({ error: "Onsite registration is not available." }, { status: 404 });
+  }
+
   try {
     const session = await auth.api.getSession({ headers: await headers() });
 
