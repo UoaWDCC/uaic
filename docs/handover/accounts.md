@@ -20,7 +20,7 @@ Every external service the UAIC site depends on: who owns it, how to get in, and
 | [Google Cloud](#google-cloud-oauth-client) | "Sign in with Google" OAuth client   | `uaic@projects.wdcc.co.nz`                                             | Free                | WDCC (via the Google account)             | ☐                                |
 | [Domain / DNS](#domain--dns)               | `uaic.wdcc.co.nz`                    | WDCC's registrar                                                       | -                   | WDCC                                      | ☐                                |
 | [GitHub](#github)                          | Code, CI, issues                     | `UoaWDCC` org, repo `uaic`                                             | -                   | WDCC                                      | ☐                                |
-| [Fly.io](#flyio-backup)                    | Backup host only                     | `uaic@projects.wdcc.co.nz`                                             | TODO                | WDCC (via the Google account)             | ☐                                |
+| [Fly.io](#flyio-backup)                    | Backup host only                     | `uaic@projects.wdcc.co.nz`                                             | WDCC's org          | WDCC (via the Google account)             | ☐                                |
 | [Payload admin](#payload-admin-panel)      | Content editing at `/admin`          | `uaic@projects.wdcc.co.nz` + own password (not Google)                 | -                   | WDCC                                      | ☐                                |
 | [Discord](#discord)                        | PR notifications (2026 only)         | WDCC Projects 2026 Discord server                                      | Free                | Project PM, tech lead and WDCC tech execs | ☐                                |
 
@@ -136,7 +136,8 @@ When people leave, change this account's password and review its 2-step verifica
 
 - **Used for:** the previous production host, now kept **only as a backup**. App name `uaic-prod`, config in `fly.toml`.
 - **Account:** Sign in with Google as `uaic@projects.wdcc.co.nz`.
-- **Watch out:** `.github/workflows/fly-deploy.yml` still deploys to Fly on every push to `main`, and its secrets probably point at the old shared database. #495 makes it manual-only.
+- **Organisation:** `projects-uaic`. WDCC's tech account ("Tech - WDCC") is its admin and handles billing; the UAIC account is a member.
+- **State:** a cold backup - working secrets (its own Atlas login, `uaic-fly-app`), no running machines. Deploys only run by hand. How to fail over, keep it in sync and retire it: `docs/fly-backup.md`.
 
 ### Discord
 

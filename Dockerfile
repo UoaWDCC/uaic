@@ -35,6 +35,8 @@ COPY . .
 # this must come from a build arg (see fly.toml's [build.args]) instead.
 ARG NEXT_PUBLIC_BETTER_AUTH_URL
 ENV NEXT_PUBLIC_BETTER_AUTH_URL=$NEXT_PUBLIC_BETTER_AUTH_URL
+ARG NEXT_PUBLIC_STRIPE_PUBLIC_KEY
+ENV NEXT_PUBLIC_STRIPE_PUBLIC_KEY=$NEXT_PUBLIC_STRIPE_PUBLIC_KEY
 
 # Build application
 RUN npx next build --experimental-build-mode compile
