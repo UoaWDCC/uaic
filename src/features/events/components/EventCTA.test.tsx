@@ -1,21 +1,28 @@
 // Colocated with the component it covers - renders each status and checks the
 // CTA a viewer actually gets. No DB: status is passed in directly.
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import EventCTA from "./EventCTA";
 
 describe("EventCTA", () => {
-  it("disables onsite Register Now until the registration page exists", () => {
+  // Onsite registration is switched on per environment (#473). These cases
+  // cover it on; the block at the end covers production, where it's off.
+  beforeEach(() => vi.stubEnv("NEXT_PUBLIC_ONSITE_REGISTRATION", "true"));
+  afterEach(() => vi.unstubAllEnvs());
+
+  it("links onsite Register Now to the registration page", () => {
     render(<EventCTA status="requires-signup" eventId="abc" />);
-    expect(screen.queryByRole("link", { name: "Register Now" })).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Registration Unavailable" })).toBeDisabled();
+    expect(screen.getByRole("link", { name: "Register Now" })).toHaveAttribute(
+      "href",
+      "/events/abc/register",
+    );
   });
 
-  it("falls back to the external form for onsite-signup events that have one", () => {
+  it("prefers the onsite registration page over an external form", () => {
     render(<EventCTA status="members-only" eventId="abc" registrationLink="https://forms.gle/x" />);
     const link = screen.getByRole("link", { name: "Register Now" });
-    expect(link).toHaveAttribute("href", "https://forms.gle/x");
-    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("href", "/events/abc/register");
+    expect(link).not.toHaveAttribute("target");
   });
 
   it("opens external registration links in a new tab", () => {
@@ -30,13 +37,16 @@ describe("EventCTA", () => {
     expect(screen.queryByRole("link", { name: "Register Now" })).not.toBeInTheDocument();
   });
 
-  it("sends logged-out viewers of members-only events to join, with a sign-in prompt", () => {
+  it("sends logged-out viewers of members-only events to join, with a sign-in prompt back to the event", () => {
     render(<EventCTA status="members-only-logged-out" eventId="abc" />);
     expect(screen.getByRole("link", { name: "Join to Register" })).toHaveAttribute(
       "href",
       "/joinus",
     );
-    expect(screen.getByRole("link", { name: "Sign in" })).toHaveAttribute("href", "/login");
+    expect(screen.getByRole("link", { name: "Sign in" })).toHaveAttribute(
+      "href",
+      "/login?redirect=%2Fevents%2Fabc%2Fregister",
+    );
   });
 
   it("doesn't offer sign-in to someone who's already logged in", () => {
@@ -50,10 +60,13 @@ describe("EventCTA", () => {
     expect(screen.getByRole("button", { name: "No Spots Remaining" })).toBeDisabled();
   });
 
-  it("confirms a registration without linking to the missing registration page", () => {
+  it("confirms a registration and links to it", () => {
     render(<EventCTA status="registered" eventId="abc" />);
     expect(screen.getByText("You're signed up!")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "View Registration" })).toBeDisabled();
+    expect(screen.getByRole("link", { name: "View Registration" })).toHaveAttribute(
+      "href",
+      "/events/abc/register",
+    );
   });
 
   it("calls onLearnMore from both Learn More and the concluded recap button", () => {
@@ -116,8 +129,35 @@ describe("EventCTA", () => {
     expect(screen.getByRole("button", { name: "Signups Closed" })).toBeDisabled();
   });
 
-  it("greys out an onsite in-progress event with nowhere to register yet", () => {
+  it("links an onsite in-progress event to the registration page", () => {
     render(<EventCTA status="in-progress" eventId="abc" />);
-    expect(screen.getByRole("button", { name: "Signups Closed" })).toBeDisabled();
+    expect(screen.getByRole("link", { name: "Signups open - Register Now" })).toHaveAttribute(
+      "href",
+      "/events/abc/register",
+    );
+  });
+
+  describe("with onsite registration off (production)", () => {
+    beforeEach(() => vi.stubEnv("NEXT_PUBLIC_ONSITE_REGISTRATION", ""));
+
+    it("falls back to the event's external form in a new tab", () => {
+      render(
+        <EventCTA status="requires-signup" eventId="abc" registrationLink="https://forms.gle/x" />,
+      );
+      const link = screen.getByRole("link", { name: "Register Now" });
+      expect(link).toHaveAttribute("href", "https://forms.gle/x");
+      expect(link).toHaveAttribute("target", "_blank");
+    });
+
+    it("shows a disabled button rather than linking to the register page", () => {
+      render(<EventCTA status="requires-signup" eventId="abc" />);
+      expect(screen.queryByRole("link", { name: "Register Now" })).not.toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Registration Unavailable" })).toBeDisabled();
+    });
+
+    it("sends sign-in to plain /login, not the register page", () => {
+      render(<EventCTA status="members-only-logged-out" eventId="abc" />);
+      expect(screen.getByRole("link", { name: "Sign in" })).toHaveAttribute("href", "/login");
+    });
   });
 });

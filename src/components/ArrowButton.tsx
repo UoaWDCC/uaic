@@ -5,6 +5,8 @@ interface ArrowButtonProps {
   text: string;
   link?: string;
   onClick?: () => void;
+  // Only applies to the <button> (no `link`) - "submit" lets it submit a form.
+  type?: "button" | "submit";
   fullWidth?: boolean;
   openInNewTab?: boolean;
 }
@@ -15,6 +17,7 @@ const ArrowButton = ({
   text,
   link,
   onClick,
+  type = "button",
   fullWidth = false,
   openInNewTab = false,
 }: ArrowButtonProps) => {
@@ -45,7 +48,7 @@ const ArrowButton = ({
   }
 
   return (
-    <button type="button" onClick={onClick} className={className}>
+    <button type={type} onClick={onClick} className={`${className} cursor-pointer`}>
       {content}
     </button>
   );

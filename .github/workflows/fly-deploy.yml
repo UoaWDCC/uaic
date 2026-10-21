@@ -1,10 +1,11 @@
-# See https://fly.io/docs/app-guides/continuous-deployment-with-github-actions/
+# Deploys the Fly.io backup host (app uaic-prod). Production runs on Vercel;
+# Fly is a cold backup, so this only runs by hand: Actions -> Fly Deploy ->
+# Run workflow. See docs/fly-backup.md before running it - deploying alone
+# doesn't put Fly in front of the domain.
+# https://fly.io/docs/app-guides/continuous-deployment-with-github-actions/
 
 name: Fly Deploy
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:

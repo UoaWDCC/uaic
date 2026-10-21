@@ -4,11 +4,11 @@ import { LuCircleCheck, LuLock } from "react-icons/lu";
 import EventPillButton from "@/features/events/components/EventPillButton";
 import {
   getEventRegistrationHref,
+  getEventSignInHref,
   type RegistrationStatus,
 } from "@/features/events/lib/registrationStatus";
 
 const JOIN_HREF = "/joinus";
-const SIGN_IN_HREF = "/login";
 
 interface EventCTAProps {
   status: RegistrationStatus;
@@ -50,8 +50,8 @@ const Subtext = ({ children }: { children: ReactNode }) => (
 
 // Stacked on phones: two half-width pills are too narrow for labels like
 // "No Spots Remaining" below roughly 500px.
-// Links to the onsite registration page. Until that page exists (see
-// ONSITE_REGISTRATION_LIVE) it falls back to the event's external form if it
+// Links to the onsite registration page. While that's switched off (see
+// isOnsiteRegistrationLive) it falls back to the event's external form if it
 // has one, so onsite-signup events stay registerable; with neither it's a
 // neutral disabled pill rather than a promise of when registration opens.
 const OnsiteButton = ({
@@ -214,7 +214,7 @@ const EventCTA = ({
                 <p className="text-muted-foreground text-center text-[calc(12*var(--event-panel-unit,1px))]">
                   Already a member?{" "}
                   <Link
-                    href={SIGN_IN_HREF}
+                    href={getEventSignInHref(eventId)}
                     className="text-primary hover:text-primary-light underline"
                   >
                     Sign in
