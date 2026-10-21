@@ -122,10 +122,10 @@ const EventCTA = ({
           return (
             <>
               <div>
-                <p className="text-ink hidden text-[calc(20*var(--event-panel-unit,1px))] leading-[1.2] lg:block">
+                <p className="text-ink hidden text-[calc(20*var(--event-panel-unit,1px))] leading-[1.2] md:block">
                   Open event — no signup required
                 </p>
-                <p className="text-muted-foreground text-center text-[calc(20*var(--event-panel-unit,1px))] leading-[1.1] lg:mt-[calc(4*var(--event-panel-unit,1px))] lg:text-left lg:leading-[1.2]">
+                <p className="text-muted-foreground text-center text-[calc(20*var(--event-panel-unit,1px))] leading-[1.1] md:mt-[calc(4*var(--event-panel-unit,1px))] md:text-left md:leading-[1.2]">
                   This event is open to everyone. Just show up!
                 </p>
               </div>
