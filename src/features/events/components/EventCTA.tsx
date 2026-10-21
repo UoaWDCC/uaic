@@ -23,6 +23,8 @@ interface EventCTAProps {
   layout?: "card" | "panel";
 }
 
+// EventDetails supplies a fluid pixel unit on desktop; other consumers keep
+// the original dimensions through the 1px fallback.
 const Heading = ({
   children,
   icon,
@@ -33,7 +35,7 @@ const Heading = ({
   panel?: boolean;
 }) => (
   <p
-    className={`text-ink flex items-center gap-[8px] leading-[24px] ${panel ? `text-[20px] ${icon ? "font-medium" : "font-normal"}` : "text-[18px] font-medium"}`}
+    className={`text-ink flex items-center gap-[calc(8*var(--event-panel-unit,1px))] ${panel ? `text-[calc(20*var(--event-panel-unit,1px))] leading-[1.2] ${icon ? "font-medium" : "font-normal"}` : "text-[18px] leading-[24px] font-medium"}`}
   >
     {icon}
     {children}
@@ -41,7 +43,9 @@ const Heading = ({
 );
 
 const Subtext = ({ children }: { children: ReactNode }) => (
-  <p className="text-muted-foreground text-[14px] leading-[20px]">{children}</p>
+  <p className="text-muted-foreground text-[calc(14*var(--event-panel-unit,1px))] leading-[1.428571]">
+    {children}
+  </p>
 );
 
 // Stacked on phones: two half-width pills are too narrow for labels like
@@ -82,7 +86,7 @@ const OnsiteButton = ({
 };
 
 const ButtonRow = ({ children }: { children: ReactNode }) => (
-  <div className="sm:gap-comfortable flex w-full flex-col items-stretch gap-[10px] sm:flex-row">
+  <div className="flex w-full flex-col items-stretch gap-[calc(10*var(--event-panel-unit,1px))] sm:flex-row sm:gap-[calc(24*var(--event-panel-unit,1px))]">
     {children}
   </div>
 );
@@ -118,10 +122,10 @@ const EventCTA = ({
           return (
             <>
               <div>
-                <p className="text-ink hidden text-[20px] leading-6 lg:block">
+                <p className="text-ink hidden text-[calc(20*var(--event-panel-unit,1px))] leading-[1.2] lg:block">
                   Open event — no signup required
                 </p>
-                <p className="text-muted-foreground text-center text-[20px] leading-[22px] lg:mt-1 lg:text-left lg:leading-6">
+                <p className="text-muted-foreground text-center text-[calc(20*var(--event-panel-unit,1px))] leading-[1.1] lg:mt-[calc(4*var(--event-panel-unit,1px))] lg:text-left lg:leading-[1.2]">
                   This event is open to everyone. Just show up!
                 </p>
               </div>
@@ -181,25 +185,33 @@ const EventCTA = ({
       case "members-only-non-member":
         return (
           <div
-            className={`gap-comfortable flex w-full flex-col ${isPanel ? "" : "lg:flex-row lg:items-end"}`}
+            className={`flex w-full flex-col ${isPanel ? "gap-[calc(24*var(--event-panel-unit,1px))]" : "gap-comfortable lg:flex-row lg:items-end"}`}
           >
-            <div className="flex min-w-0 items-start gap-[10px] lg:flex-1">
+            <div className="flex min-w-0 items-start gap-[calc(10*var(--event-panel-unit,1px))] lg:flex-1">
               <span
-                className={`border-primary-light text-primary-light mt-[2px] flex flex-shrink-0 items-center justify-center rounded-full border-[1.5px] ${isPanel ? "h-8 w-8" : "h-6 w-6"}`}
+                className={`border-primary-light text-primary-light mt-[calc(2*var(--event-panel-unit,1px))] flex flex-shrink-0 items-center justify-center rounded-full border-[1.5px] ${isPanel ? "h-[calc(32*var(--event-panel-unit,1px))] w-[calc(32*var(--event-panel-unit,1px))]" : "h-6 w-6"}`}
               >
-                <LuLock size={isPanel ? 16 : 12} aria-hidden="true" />
+                <LuLock
+                  size={isPanel ? 16 : 12}
+                  className={
+                    isPanel
+                      ? "h-[calc(16*var(--event-panel-unit,1px))] w-[calc(16*var(--event-panel-unit,1px))]"
+                      : undefined
+                  }
+                  aria-hidden="true"
+                />
               </span>
               <div className="min-w-0">
                 <Heading panel={isPanel}>Members only</Heading>
                 <Subtext>Signup for this event requires an active membership.</Subtext>
               </div>
             </div>
-            <div className="flex flex-col items-stretch gap-[8px] lg:flex-1">
+            <div className="flex flex-col items-stretch gap-[calc(8*var(--event-panel-unit,1px))] lg:flex-1">
               <EventPillButton href={JOIN_HREF} size={buttonSize}>
                 {isPanel ? "Become A Member" : "Join to Register"}
               </EventPillButton>
               {status === "members-only-logged-out" && (
-                <p className="text-muted-foreground text-center text-[12px]">
+                <p className="text-muted-foreground text-center text-[calc(12*var(--event-panel-unit,1px))]">
                   Already a member?{" "}
                   <Link
                     href={SIGN_IN_HREF}
@@ -276,7 +288,7 @@ const EventCTA = ({
               icon={
                 <LuCircleCheck
                   size={isPanel ? 32 : 24}
-                  className="text-primary-light flex-shrink-0"
+                  className={`text-primary-light flex-shrink-0 ${isPanel ? "h-[calc(32*var(--event-panel-unit,1px))] w-[calc(32*var(--event-panel-unit,1px))]" : ""}`}
                   aria-hidden="true"
                 />
               }
@@ -320,9 +332,9 @@ const EventCTA = ({
   return (
     <div
       data-status={status}
-      className={`flex w-full flex-col ${isPanel ? "gap-4" : "gap-[8px]"} ${
+      className={`flex w-full flex-col ${isPanel ? "gap-[calc(16*var(--event-panel-unit,1px))]" : "gap-[8px]"} ${
         isPanel
-          ? `border-border rounded-[24px] border p-5 shadow-[0_1px_4px_0_rgba(12,12,13,0.05)] ${isTinted ? "bg-surface-faint" : "bg-white"}`
+          ? `border-border rounded-[calc(24*var(--event-panel-unit,1px))] border p-[calc(20*var(--event-panel-unit,1px))] shadow-[0_1px_4px_0_rgba(12,12,13,0.05)] ${isTinted ? "bg-surface-faint" : "bg-white"}`
           : ""
       }`}
     >
