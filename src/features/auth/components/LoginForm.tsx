@@ -97,6 +97,12 @@ export default function LoginForm({ redirectTo = "/dashboard" }: { redirectTo?: 
                     className="px-cozy h-[52px] w-full rounded-[40px] border-[0.5px] border-slate-200 placeholder:font-light placeholder:text-slate-300 focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
                     required
                   />
+                  <Link
+                    href="/forgot-password"
+                    className="text-primary hover:text-primary-light mt-2 ml-auto block w-fit text-[14px] font-light underline"
+                  >
+                    Forgot password?
+                  </Link>
                 </div>
               </div>
 
