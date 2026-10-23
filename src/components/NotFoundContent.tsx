@@ -3,7 +3,7 @@ import ArrowButton from "@/components/ArrowButton";
 export default function NotFoundContent() {
   return (
     <div className="bg-surface-faint flex min-h-[calc(100vh-131.75px)] flex-col items-center justify-center px-6 py-[75px] lg:px-[98px]">
-      <section className="border-border flex min-h-[506px] w-full max-w-[1244px] flex-col items-center justify-between gap-[26px] rounded-lg border bg-white p-8 shadow-[0_1px_4px_0_rgba(12,12,13,0.05)] lg:flex-row lg:gap-[104px] lg:p-[100px]">
+      <section className="border-border shadow-panel flex min-h-[506px] w-full max-w-[1244px] flex-col items-center justify-between gap-[26px] rounded-lg border bg-white p-8 lg:flex-row lg:gap-[104px] lg:p-[100px]">
         <div className="flex min-h-[282px] w-full max-w-[470px] flex-col items-center justify-center gap-[26px] text-center lg:items-start lg:text-left">
           <div className="flex flex-col gap-[10px]">
             <div>

@@ -53,6 +53,7 @@
   /* Shadow */
   --shadow-input-group: 0 2px 8px rgba(11, 26, 43, 0.08);
   --shadow-card: 0 4px 4px rgba(0, 0, 0, 0.25);
+  --shadow-panel: 0 1px 4px 0 rgba(12, 12, 13, 0.05);
 
   /* Spacing — must use --spacing-*, not --space-*, for Tailwind v4 to generate
      gap, px, and py utilities from these. Also deliberately NOT named sm/md/lg/xl:
@@ -94,6 +95,10 @@
   --ring: var(--color-blue-500); /* matches existing #249AFF/40 focus rings */
   --destructive: #dc2626; /* ⚠️ PLACEHOLDER — no confirmed error-red in Figma yet */
   --gradient-primary: linear-gradient(135deg, var(--color-blue-900), var(--color-blue-500));
+
+  /* Event card / details sizing unit. The details page and event cards override
+     it to scale their contents with their layout; everywhere else it's 1px. */
+  --event-unit: 1px;
 }
 
 @theme inline {
