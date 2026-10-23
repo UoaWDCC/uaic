@@ -11,6 +11,7 @@ const { getPayload, findByID } = vi.hoisted(() => ({
 
 vi.mock("payload", () => ({ getPayload }));
 vi.mock("@payload-config", () => ({ default: {} }));
+vi.mock("server-only", () => ({}));
 
 const event: Event = {
   id: "507f1f77bcf86cd799439011",

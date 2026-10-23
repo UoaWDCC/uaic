@@ -1,4 +1,7 @@
-"use server";
+// Deliberately not "use server": that would expose every export as a server
+// action callable from the client with any ID. `server-only` makes importing
+// this from a client component a build error instead.
+import "server-only";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import type { Event } from "../../../../payload-types";
