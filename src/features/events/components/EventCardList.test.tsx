@@ -55,10 +55,11 @@ describe("EventCardList navigation", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
-  it("keeps a title link for locked events without Learn More", () => {
+  it("keeps title and Learn More links for locked events", () => {
     renderCard("members-only-logged-out");
-    expect(screen.getByRole("link", { name: event.event })).toHaveAttribute("href", "/events/evt");
-    expect(screen.queryByRole("link", { name: "Learn More" })).not.toBeInTheDocument();
+    for (const name of [event.event, "Learn More"]) {
+      expect(screen.getByRole("link", { name })).toHaveAttribute("href", "/events/evt");
+    }
   });
 
   it("navigates to the clicked card's own page without opening a dialog", () => {
@@ -66,31 +67,32 @@ describe("EventCardList navigation", () => {
       ...event,
       id: "second",
       event: "Second event",
-      description: "Another event",
+      location: "Another room",
     };
     render(<EventCardList events={[event, secondEvent]} />);
 
-    fireEvent.click(screen.getByText(secondEvent.description));
+    fireEvent.click(screen.getByText(secondEvent.location));
 
     expect(push).toHaveBeenCalledExactlyOnceWith("/events/second");
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
-  it("links past-event recaps and whole-card clicks to the event page", () => {
+  it("links past events and whole-card clicks to the event page", () => {
     render(<EventCardList events={[event]} isPast />);
-    const recap = screen.getByRole("link", { name: "Event Concluded: View Recap" });
-    expect(recap).toHaveAttribute("href", "/events/evt");
-    clickLink(recap);
+    expect(screen.getByText("This event has ended")).toBeInTheDocument();
+    const learnMore = screen.getByRole("link", { name: "Learn More" });
+    expect(learnMore).toHaveAttribute("href", "/events/evt");
+    clickLink(learnMore);
     expect(push).not.toHaveBeenCalled();
 
-    fireEvent.click(screen.getByText(event.description));
+    fireEvent.click(screen.getByText(event.location));
     expect(push).toHaveBeenCalledExactlyOnceWith("/events/evt");
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
   it.each([
     ["external", "Register Now", "https://forms.gle/x"],
-    ["members-only-logged-out", "Join to Register", "/joinus"],
+    ["members-only-logged-out", "Become A Member", "/joinus"],
     ["members-only-logged-out", "Sign in", "/login"],
   ] as const)("preserves the %s %s destination", (status, name, href) => {
     renderCard(status);
@@ -108,7 +110,7 @@ describe("EventCardList navigation", () => {
   });
 
   it.each([
-    ["full", "No Spots Remaining"],
+    ["full", "No spots remaining"],
     ["registered", "View Registration"],
     ["requires-signup", "Registration Unavailable"],
   ] as const)("doesn't navigate from a disabled %s action", (status, name) => {
@@ -159,25 +161,31 @@ describe("event card callers", () => {
       "href",
       "/events/past",
     );
-    expect(screen.getByRole("link", { name: "Event Concluded: View Recap" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Learn More" })).toHaveAttribute(
       "href",
       "/events/past",
     );
-    fireEvent.click(screen.getByText(pastEvent.description));
+    fireEvent.click(screen.getByText(pastEvent.location));
     expect(push).toHaveBeenCalledExactlyOnceWith("/events/past");
   });
 
-  it.each([
-    ["external", "Learn More"],
-    ["concluded", "Event Concluded: View Recap"],
-  ] as const)("uses dedicated event links in the homepage's %s section", (status, action) => {
-    render(<EventsSection events={[event]} registrationStatuses={{ evt: status }} />);
-    expect(screen.getByRole("link", { name: event.event })).toHaveAttribute("href", "/events/evt");
-    expect(screen.getByRole("link", { name: action })).toHaveAttribute("href", "/events/evt");
-    fireEvent.click(screen.getByText(event.description));
-    expect(push).toHaveBeenCalledExactlyOnceWith("/events/evt");
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-  });
+  it.each(["external", "concluded"] as const)(
+    "uses dedicated event links in the homepage's %s section",
+    (status) => {
+      render(<EventsSection events={[event]} registrationStatuses={{ evt: status }} />);
+      expect(screen.getByRole("link", { name: event.event })).toHaveAttribute(
+        "href",
+        "/events/evt",
+      );
+      expect(screen.getByRole("link", { name: "Learn More" })).toHaveAttribute(
+        "href",
+        "/events/evt",
+      );
+      fireEvent.click(screen.getByText(event.location));
+      expect(push).toHaveBeenCalledExactlyOnceWith("/events/evt");
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    },
+  );
 });
 
 describe("EventCardList time range", () => {
@@ -186,25 +194,22 @@ describe("EventCardList time range", () => {
   const renderWith = (startDate: string, endDate: string) =>
     render(<EventCardList events={[{ ...event, startDate, endDate }]} />);
 
-  it("shows just the end time for a same-day event", () => {
+  it("shows the date and time range for a same-day event", () => {
     renderWith("2050-03-24T00:00:00.000Z", "2050-03-24T01:00:00.000Z"); // NZDT +13
+    expect(screen.getByText("Thu 24 Mar 2050")).toBeInTheDocument();
     expect(screen.getByText("1:00 PM - 2:00 PM")).toBeInTheDocument();
   });
 
-  it("includes the end date when the event runs past its first day", () => {
-    renderWith("2050-03-24T00:00:00.000Z", "2050-03-27T00:00:00.000Z");
-    expect(screen.getByText("1:00 PM - 27 Mar, 1:00 PM")).toBeInTheDocument();
-  });
-
-  it("includes the year when the event ends in a later year", () => {
+  it("shows both dates when the event runs past its first day", () => {
     renderWith("2050-03-24T00:00:00.000Z", "2051-06-15T00:00:00.000Z"); // NZST +12
-    expect(screen.getByText("1:00 PM - 15 Jun 2051, 12:00 PM")).toBeInTheDocument();
+    expect(screen.getByText("Thu 24 Mar 2050 - Thu 15 Jun 2051")).toBeInTheDocument();
+    expect(screen.getByText("1:00 PM - 12:00 PM")).toBeInTheDocument();
   });
 
-  it("uses the NZ calendar day, not UTC's, for the date block", () => {
+  it("uses the NZ calendar day, not UTC's", () => {
     // 11:30 PM UTC on the 24th is 12:30 PM on the 25th in Auckland.
     renderWith("2050-03-24T23:30:00.000Z", "2050-03-25T01:00:00.000Z");
     expect(screen.getByText("25")).toBeInTheDocument();
-    expect(screen.getByText("12:30 PM - 2:00 PM")).toBeInTheDocument();
+    expect(screen.getByText("Fri 25 Mar 2050")).toBeInTheDocument();
   });
 });
