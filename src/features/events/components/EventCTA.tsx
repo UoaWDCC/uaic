@@ -23,8 +23,8 @@ interface EventCTAProps {
   layout?: "card" | "panel";
 }
 
-// EventDetails supplies a fluid pixel unit on desktop; other consumers keep
-// the original dimensions through the 1px fallback.
+// EventDetails scales --event-unit with its layout on desktop; everywhere
+// else it's 1px (set on :root), so other consumers keep the original sizes.
 const Heading = ({
   children,
   icon,
@@ -35,7 +35,7 @@ const Heading = ({
   panel?: boolean;
 }) => (
   <p
-    className={`text-ink flex items-center gap-[calc(8*var(--event-panel-unit,1px))] ${panel ? `text-[calc(20*var(--event-panel-unit,1px))] leading-[1.2] ${icon ? "font-medium" : "font-normal"}` : "text-[18px] leading-[24px] font-medium"}`}
+    className={`text-ink flex items-center gap-[calc(8*var(--event-unit))] ${panel ? `text-[calc(20*var(--event-unit))] leading-[1.2] ${icon ? "font-medium" : "font-normal"}` : "text-[18px] leading-[24px] font-medium"}`}
   >
     {icon}
     {children}
@@ -43,7 +43,7 @@ const Heading = ({
 );
 
 const Subtext = ({ children }: { children: ReactNode }) => (
-  <p className="text-muted-foreground text-[calc(14*var(--event-panel-unit,1px))] leading-[1.428571]">
+  <p className="text-muted-foreground text-[calc(14*var(--event-unit))] leading-[1.428571]">
     {children}
   </p>
 );
@@ -86,7 +86,7 @@ const OnsiteButton = ({
 };
 
 const ButtonRow = ({ children }: { children: ReactNode }) => (
-  <div className="flex w-full flex-col items-stretch gap-[calc(10*var(--event-panel-unit,1px))] sm:flex-row sm:gap-[calc(24*var(--event-panel-unit,1px))]">
+  <div className="flex w-full flex-col items-stretch gap-[calc(10*var(--event-unit))] sm:flex-row sm:gap-[calc(24*var(--event-unit))]">
     {children}
   </div>
 );
@@ -122,10 +122,10 @@ const EventCTA = ({
           return (
             <>
               <div>
-                <p className="text-ink hidden text-[calc(20*var(--event-panel-unit,1px))] leading-[1.2] md:block">
-                  Open event — no signup required
+                <p className="text-ink hidden text-[calc(20*var(--event-unit))] leading-[1.2] md:block">
+                  Open event - no signup required
                 </p>
-                <p className="text-muted-foreground text-center text-[calc(20*var(--event-panel-unit,1px))] leading-[1.1] md:mt-[calc(4*var(--event-panel-unit,1px))] md:text-left md:leading-[1.2]">
+                <p className="text-muted-foreground text-center text-[calc(20*var(--event-unit))] leading-[1.1] md:mt-[calc(4*var(--event-unit))] md:text-left md:leading-[1.2]">
                   This event is open to everyone. Just show up!
                 </p>
               </div>
@@ -136,7 +136,7 @@ const EventCTA = ({
         return (
           <div className="gap-comfortable flex w-full flex-col lg:flex-row lg:items-end">
             <div className="min-w-0 lg:flex-1">
-              <Heading>Open event — no signup required</Heading>
+              <Heading>Open event - no signup required</Heading>
               <Subtext>This event is open to everyone. Just show up!</Subtext>
             </div>
             {learnMore && <div className="flex lg:flex-1">{learnMore}</div>}
@@ -185,17 +185,17 @@ const EventCTA = ({
       case "members-only-non-member":
         return (
           <div
-            className={`flex w-full flex-col ${isPanel ? "gap-[calc(24*var(--event-panel-unit,1px))]" : "gap-comfortable lg:flex-row lg:items-end"}`}
+            className={`flex w-full flex-col ${isPanel ? "gap-[calc(24*var(--event-unit))]" : "gap-comfortable lg:flex-row lg:items-end"}`}
           >
-            <div className="flex min-w-0 items-start gap-[calc(10*var(--event-panel-unit,1px))] lg:flex-1">
+            <div className="flex min-w-0 items-start gap-[calc(10*var(--event-unit))] lg:flex-1">
               <span
-                className={`border-primary-light text-primary-light mt-[calc(2*var(--event-panel-unit,1px))] flex flex-shrink-0 items-center justify-center rounded-full border-[1.5px] ${isPanel ? "h-[calc(32*var(--event-panel-unit,1px))] w-[calc(32*var(--event-panel-unit,1px))]" : "h-6 w-6"}`}
+                className={`border-primary-light text-primary-light mt-[calc(2*var(--event-unit))] flex flex-shrink-0 items-center justify-center rounded-full border-[1.5px] ${isPanel ? "h-[calc(32*var(--event-unit))] w-[calc(32*var(--event-unit))]" : "h-6 w-6"}`}
               >
                 <LuLock
                   size={isPanel ? 16 : 12}
                   className={
                     isPanel
-                      ? "h-[calc(16*var(--event-panel-unit,1px))] w-[calc(16*var(--event-panel-unit,1px))]"
+                      ? "h-[calc(16*var(--event-unit))] w-[calc(16*var(--event-unit))]"
                       : undefined
                   }
                   aria-hidden="true"
@@ -206,12 +206,12 @@ const EventCTA = ({
                 <Subtext>Signup for this event requires an active membership.</Subtext>
               </div>
             </div>
-            <div className="flex flex-col items-stretch gap-[calc(8*var(--event-panel-unit,1px))] lg:flex-1">
+            <div className="flex flex-col items-stretch gap-[calc(8*var(--event-unit))] lg:flex-1">
               <EventPillButton href={JOIN_HREF} size={buttonSize}>
                 {isPanel ? "Become A Member" : "Join to Register"}
               </EventPillButton>
               {status === "members-only-logged-out" && (
-                <p className="text-muted-foreground text-center text-[calc(12*var(--event-panel-unit,1px))]">
+                <p className="text-muted-foreground text-center text-[calc(12*var(--event-unit))]">
                   Already a member?{" "}
                   <Link
                     href={getEventSignInHref(eventId)}
@@ -288,7 +288,7 @@ const EventCTA = ({
               icon={
                 <LuCircleCheck
                   size={isPanel ? 32 : 24}
-                  className={`text-primary-light flex-shrink-0 ${isPanel ? "h-[calc(32*var(--event-panel-unit,1px))] w-[calc(32*var(--event-panel-unit,1px))]" : ""}`}
+                  className={`text-primary-light flex-shrink-0 ${isPanel ? "h-[calc(32*var(--event-unit))] w-[calc(32*var(--event-unit))]" : ""}`}
                   aria-hidden="true"
                 />
               }
@@ -332,9 +332,9 @@ const EventCTA = ({
   return (
     <div
       data-status={status}
-      className={`flex w-full flex-col ${isPanel ? "gap-[calc(16*var(--event-panel-unit,1px))]" : "gap-[8px]"} ${
+      className={`flex w-full flex-col ${isPanel ? "gap-[calc(16*var(--event-unit))]" : "gap-[8px]"} ${
         isPanel
-          ? `border-border rounded-[calc(24*var(--event-panel-unit,1px))] border p-[calc(20*var(--event-panel-unit,1px))] shadow-[0_1px_4px_0_rgba(12,12,13,0.05)] ${isTinted ? "bg-surface-faint" : "bg-white"}`
+          ? `border-border shadow-panel rounded-[calc(24*var(--event-unit))] border p-[calc(20*var(--event-unit))] ${isTinted ? "bg-surface-faint" : "bg-white"}`
           : ""
       }`}
     >

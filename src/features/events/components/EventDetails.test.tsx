@@ -28,19 +28,21 @@ const event = {
 
 describe("EventDetails", () => {
   it("renders the full event with its image, Auckland date/time and a way back to events", () => {
-    const { container } = render(<EventDetails event={event} registrationStatus="open" />);
+    render(<EventDetails event={event} registrationStatus="open" />);
 
     expect(screen.getByRole("heading", { level: 1, name: event.event })).toBeInTheDocument();
     expect(screen.getByRole("img", { name: "Investing on a phone" })).toHaveAttribute(
       "src",
       "https://example.com/event.webp",
     );
-    expect(screen.getByText("20")).toBeInTheDocument();
+    expect(screen.getByText("Wed 20 Jul 2050")).toHaveAttribute("dateTime", event.startDate);
+    expect(screen.getByText("6:00 PM - 8:00 PM")).toBeInTheDocument();
+    expect(screen.getByText(event.location)).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "About this event" })).toHaveTextContent(
+      event.description.replace("\n", " "),
+    );
+    expect(screen.queryByText("Event Info")).not.toBeInTheDocument();
     expect(screen.getByText("JUL")).toBeInTheDocument();
-    expect(container.querySelector("time")).toHaveAttribute("dateTime", event.startDate);
-    expect(screen.getByText("6:00 PM")).toBeInTheDocument();
-    expect(screen.getByText(event.location, { exact: false })).toBeInTheDocument();
-    expect(screen.getByText(event.description.replace("\n", " "))).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Back to events" })).toHaveAttribute("href", "/events");
     expect(screen.queryByText("Learn More")).not.toBeInTheDocument();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -69,7 +71,7 @@ describe("EventDetails", () => {
     expect(document.querySelector("form")).not.toBeInTheDocument();
   });
 
-  it("keeps the Auckland date and cross-year end date for multi-day events", () => {
+  it("shows the full start and end dates in the text for multi-day events", () => {
     render(
       <EventDetails
         event={{
@@ -81,8 +83,7 @@ describe("EventDetails", () => {
       />,
     );
 
-    expect(screen.getByText("31")).toBeInTheDocument();
-    expect(screen.getByText("DEC")).toBeInTheDocument();
-    expect(screen.getByText("12:30 PM - 1 Jan 2051, 2:00 PM")).toBeInTheDocument();
+    expect(screen.getByText("Sat 31 Dec 2050 - Sun 1 Jan 2051")).toBeInTheDocument();
+    expect(screen.getByText("12:30 PM - 2:00 PM")).toBeInTheDocument();
   });
 });

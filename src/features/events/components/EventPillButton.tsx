@@ -28,7 +28,7 @@ const BASE =
 const SIZES = {
   card: "min-h-[27px] py-[4px] text-[14px] leading-[100%] sm:text-[16px]",
   panel:
-    "min-h-[calc(52*var(--event-panel-unit,1px))] px-[calc(12*var(--event-panel-unit,1px))] py-[calc(12*var(--event-panel-unit,1px))] text-[calc(20*var(--event-panel-unit,1px))] leading-[1.2]",
+    "min-h-[calc(52*var(--event-unit))] px-[calc(12*var(--event-unit))] py-[calc(12*var(--event-unit))] text-[calc(20*var(--event-unit))] leading-[1.2]",
 };
 
 const VARIANTS = {
