@@ -73,7 +73,7 @@ export const Events: CollectionConfig = {
     },
     {
       name: "description",
-      type: "text",
+      type: "textarea",
       label: "Description",
       required: true,
       admin: {
