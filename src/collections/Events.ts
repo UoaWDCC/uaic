@@ -1,6 +1,7 @@
 import type { CollectionConfig, CollectionSlug } from "payload";
 import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 import { isOnsiteRegistrationLive } from "../features/events/lib/onsiteRegistration";
+import { MEMBER_DETAILS } from "../features/events/lib/memberDetails";
 
 // Onsite sign-up settings only show where onsite registration is switched on
 // (#473), so exec in production only see registrationLink. Hiding a field
@@ -231,6 +232,28 @@ export const Events: CollectionConfig = {
         condition: (_, siblingData) => showSignupSettings(siblingData),
       },
       blocks: [
+        {
+          slug: "memberDetail",
+          labels: {
+            singular: "Member detail",
+            plural: "Member details",
+          },
+          admin: {
+            disableBlockName: true,
+          },
+          fields: [
+            {
+              name: "detail",
+              type: "select",
+              label: "Member detail",
+              required: true,
+              admin: {
+                description: "Member detail — pre-filled for members.",
+              },
+              options: MEMBER_DETAILS.map(({ label, value }) => ({ label, value })),
+            },
+          ],
+        },
         {
           slug: "formField",
           labels: {

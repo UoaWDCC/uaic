@@ -1,9 +1,17 @@
+import type { Event } from "../../payload-types";
+
 export type SignupFormField = {
+  blockType?: "formField";
   label: string;
   fieldType: "shortText" | "paragraph" | "multipleChoice" | "checkboxes" | "dropdown";
   required?: boolean | null;
   options?: { option: string }[] | null;
 };
+
+type MemberDetailBlock = Extract<
+  NonNullable<Event["signupForm"]>[number],
+  { blockType: "memberDetail" }
+>;
 
 export type SignupResponse = {
   fieldLabel: string;
@@ -24,10 +32,13 @@ const CHECKBOX_SEPARATOR = ",";
  * can't be stored).
  */
 export function validateSignupResponses(
-  signupForm: SignupFormField[] | null | undefined,
+  signupForm: (SignupFormField | MemberDetailBlock)[] | null | undefined,
   responses: unknown,
 ): ValidationResult {
-  const fields = signupForm ?? [];
+  // Member details are not custom responses; their submission/storage is handled separately.
+  const fields = (signupForm ?? []).filter(
+    (field): field is SignupFormField => field.blockType !== "memberDetail",
+  );
   const submitted = responses ?? [];
 
   if (!Array.isArray(submitted)) {

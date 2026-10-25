@@ -27,6 +27,24 @@ describe("validateSignupResponses", () => {
     expect(validateSignupResponses(form, valid)).toEqual({ ok: true, responses: valid });
   });
 
+  it("validates custom questions in a form containing member details", () => {
+    expect(
+      validateSignupResponses([{ blockType: "memberDetail", detail: "email" }, ...form], valid),
+    ).toEqual({ ok: true, responses: valid });
+  });
+
+  it("does not accept member details as custom question responses", () => {
+    expect(
+      validateSignupResponses(
+        [{ blockType: "memberDetail", detail: "email" }],
+        [{ fieldLabel: "Email", value: "member@example.com" }],
+      ),
+    ).toEqual({
+      ok: false,
+      errors: ['"Email" is not a question on this event\'s sign-up form'],
+    });
+  });
+
   it("drops unanswered optional questions and trims values", () => {
     const result = validateSignupResponses(form, [
       ...valid,
