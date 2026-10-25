@@ -2,6 +2,7 @@ import type { CollectionConfig, CollectionSlug } from "payload";
 import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 import { isOnsiteRegistrationLive } from "../features/events/lib/onsiteRegistration";
 import { MEMBER_DETAILS } from "../features/events/lib/memberDetails";
+import { initialiseEventSignupForm } from "./hooks/initialiseEventSignupForm";
 
 // Onsite sign-up settings only show where onsite registration is switched on
 // (#473), so exec in production only see registrationLink. Hiding a field
@@ -11,7 +12,10 @@ const showSignupSettings = (siblingData: { requiresSignup?: unknown } | undefine
 
 export const Events: CollectionConfig = {
   slug: "events",
-  hooks: revalidateOnChange(["/", "/events"]),
+  hooks: {
+    ...revalidateOnChange(["/", "/events"]),
+    beforeValidate: [initialiseEventSignupForm],
+  },
   labels: {
     singular: "Event",
     plural: "Events",
@@ -123,6 +127,11 @@ export const Events: CollectionConfig = {
       label: "Requires Sign-up",
       defaultValue: false,
       admin: {
+        components: {
+          afterInput: [
+            "/src/features/admin/components/InitialiseEventSignupForm#InitialiseEventSignupForm",
+          ],
+        },
         description: "Turn on to let members register for this event on the website.",
         condition: () => isOnsiteRegistrationLive(),
         style: {
