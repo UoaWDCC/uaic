@@ -467,7 +467,18 @@ export interface Event {
 export interface EventSignup {
   id: string;
   event: string | Event;
-  member: string | Member;
+  /**
+   * Set when the person was logged in at sign-up time, empty for guests.
+   */
+  member?: (string | null) | Member;
+  firstName: string;
+  lastName: string;
+  email: string;
+  upi?: string | null;
+  studentId?: string | null;
+  universityYear?: ('year1' | 'year2' | 'year3' | 'year4' | 'year5Plus' | 'postgraduate') | null;
+  degrees?: string | null;
+  majors?: string | null;
   /**
    * Answers to the event's sign-up questions, captured at sign-up time.
    */
@@ -1034,6 +1045,14 @@ export interface EventsSelect<T extends boolean = true> {
 export interface EventSignupsSelect<T extends boolean = true> {
   event?: T;
   member?: T;
+  firstName?: T;
+  lastName?: T;
+  email?: T;
+  upi?: T;
+  studentId?: T;
+  universityYear?: T;
+  degrees?: T;
+  majors?: T;
   responses?:
     | T
     | {

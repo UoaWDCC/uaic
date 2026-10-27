@@ -150,6 +150,14 @@ export async function POST(request: NextRequest) {
         data: {
           event: eventId, // The ID of the event
           member: member.id, // The ID of the logged-in user
+          firstName: member.firstName,
+          lastName: member.lastName,
+          email: member.email,
+          upi: member.upi,
+          studentId: member.studentId,
+          universityYear: member.universityYear,
+          degrees: member.degrees,
+          majors: member.majors,
           status: "confirmed",
           responses: result.responses,
         },

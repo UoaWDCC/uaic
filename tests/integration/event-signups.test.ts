@@ -83,25 +83,32 @@ describe("EventSignups collection", () => {
     await mongod.stop();
   });
 
-  describe("unique (event, member) index", () => {
+  // The standard details every signup carries, member or guest.
+  const details = (email: string) => ({ firstName: "Test", lastName: "Signup", email });
+
+  describe("unique (event, email) index", () => {
     it("declares the compound index as unique in MongoDB itself", async () => {
       const payload = await getPayload();
       const indexes = await payload.db.connection.db!.collection("event-signups").indexes();
 
-      const compound = indexes.find((index) => index.name === "event_1_member_1");
+      const compound = indexes.find((index) => index.name === "event_1_email_1");
 
       expect(compound).toBeDefined();
-      expect(compound!.key).toEqual({ event: 1, member: 1 });
+      expect(compound!.key).toEqual({ event: 1, email: 1 });
       expect(compound!.unique).toBe(true);
+
+      // A fresh database never gets the old index - existing ones need it
+      // dropped by hand, since MongoDB doesn't remove indexes on its own.
+      expect(indexes.find((index) => index.name === "event_1_member_1")).toBeUndefined();
     });
 
-    it("rejects a second signup for the same member and event", async () => {
+    it("rejects a second signup for the same email and event", async () => {
       const payload = await getPayload();
       const [member, event] = await Promise.all([createMember(), createEvent()]);
 
       const first = await payload.create({
         collection: "event-signups",
-        data: { event: event.id, member: member.id, status: "confirmed" },
+        data: { event: event.id, member: member.id, ...details(member.email), status: "confirmed" },
       });
 
       expect(first.id).toBeDefined();
@@ -112,7 +119,12 @@ describe("EventSignups collection", () => {
       await expect(
         payload.create({
           collection: "event-signups",
-          data: { event: event.id, member: member.id, status: "confirmed" },
+          data: {
+            event: event.id,
+            member: member.id,
+            ...details(member.email),
+            status: "confirmed",
+          },
         }),
       ).rejects.toMatchObject({
         name: "ValidationError",
@@ -120,64 +132,94 @@ describe("EventSignups collection", () => {
 
       const { totalDocs } = await payload.count({
         collection: "event-signups",
-        where: { event: { equals: event.id }, member: { equals: member.id } },
+        where: { event: { equals: event.id }, email: { equals: member.email } },
       });
 
       expect(totalDocs).toBe(1);
     });
 
-    it("allows different members to sign up for the same event", async () => {
+    // A guest using a member's email is still the same person as far as the
+    // index is concerned.
+    it("rejects a guest signup using an email that already signed up", async () => {
       const payload = await getPayload();
-      const [memberA, memberB, event] = await Promise.all([
-        createMember(),
-        createMember(),
-        createEvent(),
-      ]);
+      const [member, event] = await Promise.all([createMember(), createEvent()]);
 
       await payload.create({
         collection: "event-signups",
-        data: { event: event.id, member: memberA.id, status: "confirmed" },
+        data: { event: event.id, member: member.id, ...details(member.email), status: "confirmed" },
       });
 
       await expect(
         payload.create({
           collection: "event-signups",
-          data: { event: event.id, member: memberB.id, status: "confirmed" },
+          data: { event: event.id, ...details(member.email), status: "confirmed" },
         }),
-      ).resolves.toBeDefined();
+      ).rejects.toMatchObject({ name: "ValidationError" });
     });
 
-    it("allows one member to sign up for different events", async () => {
+    it("normalises email so case and whitespace don't dodge the index", async () => {
       const payload = await getPayload();
-      const [member, eventA, eventB] = await Promise.all([
-        createMember(),
-        createEvent(),
-        createEvent(),
-      ]);
+      const event = await createEvent();
+
+      const first = await payload.create({
+        collection: "event-signups",
+        data: { event: event.id, ...details("  Guest.Case@Example.com "), status: "confirmed" },
+      });
+
+      expect(first.email).toBe("guest.case@example.com");
+
+      await expect(
+        payload.create({
+          collection: "event-signups",
+          data: { event: event.id, ...details("guest.case@example.com"), status: "confirmed" },
+        }),
+      ).rejects.toMatchObject({ name: "ValidationError" });
+    });
+
+    it("allows several guests with no member on the same event", async () => {
+      const payload = await getPayload();
+      const event = await createEvent();
 
       await payload.create({
         collection: "event-signups",
-        data: { event: eventA.id, member: member.id, status: "confirmed" },
+        data: { event: event.id, ...details("guest-a@example.com"), status: "confirmed" },
+      });
+
+      const second = await payload.create({
+        collection: "event-signups",
+        data: { event: event.id, ...details("guest-b@example.com"), status: "confirmed" },
+      });
+
+      expect(second.member).toBeFalsy();
+    });
+
+    it("allows one email to sign up for different events", async () => {
+      const payload = await getPayload();
+      const [eventA, eventB] = await Promise.all([createEvent(), createEvent()]);
+
+      await payload.create({
+        collection: "event-signups",
+        data: { event: eventA.id, ...details("guest-multi@example.com"), status: "confirmed" },
       });
 
       await expect(
         payload.create({
           collection: "event-signups",
-          data: { event: eventB.id, member: member.id, status: "confirmed" },
+          data: { event: eventB.id, ...details("guest-multi@example.com"), status: "confirmed" },
         }),
       ).resolves.toBeDefined();
     });
 
-    // The index covers (event, member) only - `status` is not part of it, so a
+    // The index covers (event, email) only - `status` is not part of it, so a
     // cancelled row still occupies the pair. This is a property of the constraint
     // itself, not of any route: it's what rules out "cancel, then insert again".
     it("still rejects a duplicate when the existing signup is cancelled", async () => {
       const payload = await getPayload();
-      const [member, event] = await Promise.all([createMember(), createEvent()]);
+      const event = await createEvent();
 
       const signup = await payload.create({
         collection: "event-signups",
-        data: { event: event.id, member: member.id, status: "confirmed" },
+        data: { event: event.id, ...details("guest-cancel@example.com"), status: "confirmed" },
       });
 
       await payload.update({
@@ -189,7 +231,20 @@ describe("EventSignups collection", () => {
       await expect(
         payload.create({
           collection: "event-signups",
-          data: { event: event.id, member: member.id, status: "confirmed" },
+          data: { event: event.id, ...details("guest-cancel@example.com"), status: "confirmed" },
+        }),
+      ).rejects.toMatchObject({ name: "ValidationError" });
+    });
+
+    it("requires an email on every signup", async () => {
+      const payload = await getPayload();
+      const event = await createEvent();
+
+      await expect(
+        // @ts-expect-error - email is required by the generated type too
+        payload.create({
+          collection: "event-signups",
+          data: { event: event.id, firstName: "No", lastName: "Email", status: "confirmed" },
         }),
       ).rejects.toMatchObject({ name: "ValidationError" });
     });
@@ -242,11 +297,27 @@ describe("EventSignups collection", () => {
       const [signupA, signupB] = await Promise.all([
         payload.create({
           collection: "event-signups",
-          data: { event: eventId, member: memberA.id, status: "confirmed" },
+          data: {
+            event: eventId,
+            member: memberA.id,
+            ...details("access-a@aucklanduni.ac.nz"),
+            status: "confirmed",
+          },
         }),
         payload.create({
           collection: "event-signups",
-          data: { event: eventId, member: memberB.id, status: "confirmed" },
+          data: {
+            event: eventId,
+            member: memberB.id,
+            ...details("access-b@aucklanduni.ac.nz"),
+            status: "confirmed",
+          },
+        }),
+        // A guest row on the same event, so the assertions below also prove a
+        // member's `where` never matches rows with no member at all.
+        payload.create({
+          collection: "event-signups",
+          data: { event: eventId, ...details("access-guest@example.com"), status: "confirmed" },
         }),
       ]);
 
@@ -272,7 +343,7 @@ describe("EventSignups collection", () => {
         depth: 0,
       });
 
-      expect(totalDocs).toBe(2);
+      expect(totalDocs).toBe(3);
     });
 
     it("lets staff read every signup", async () => {
@@ -286,7 +357,7 @@ describe("EventSignups collection", () => {
         depth: 0,
       });
 
-      expect(totalDocs).toBe(2);
+      expect(totalDocs).toBe(3);
     });
 
     it("narrows a member to their own signups", async () => {

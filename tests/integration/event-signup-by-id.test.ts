@@ -88,6 +88,9 @@ describe("/api/event-signups/:id", () => {
       data: {
         event: event.id,
         member: owner.id,
+        firstName: "Edit",
+        lastName: "Owner",
+        email: "edit-owner@aucklanduni.ac.nz",
         status: "confirmed",
         responses: [{ fieldLabel: "Year", value: "First" }],
       },
