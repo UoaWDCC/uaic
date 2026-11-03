@@ -15,7 +15,9 @@ const NON_MEMBER = { isLoggedIn: true, isMember: false };
 const event = (overrides = {}) => ({
   startDate: "2026-07-20T18:00:00Z",
   endDate: "2026-07-20T20:00:00Z",
-  closeRegistrationOnStart: false,
+  registrationOpensAt: null,
+  registrationClosesAt: null,
+  registrationClosed: false,
   registrationLink: null,
   requiresSignup: true,
   requiresMembership: false,
@@ -77,24 +79,44 @@ describe("getRegistrationStatus", () => {
     const running = (overrides = {}) =>
       event({ startDate: "2026-06-30T00:00:00Z", endDate: "2026-07-02T00:00:00Z", ...overrides });
 
-    it("stays registerable by default", () => {
-      expect(getRegistrationStatus(running(), MEMBER, NO_SIGNUPS, NOW)).toBe("in-progress");
+    // Registration now closes at the start date unless an exec extends it, so
+    // anything that should still be registerable mid-event needs this.
+    const CLOSES_AT_END = { registrationClosesAt: "2026-07-02T00:00:00Z" };
+
+    it("closes registration at the start date by default", () => {
+      expect(getRegistrationStatus(running(), MEMBER, NO_SIGNUPS, NOW)).toBe("in-progress-closed");
     });
 
-    it("closes registration when the event says so", () => {
+    it("stays registerable when registration closes after the start", () => {
+      expect(getRegistrationStatus(running(CLOSES_AT_END), MEMBER, NO_SIGNUPS, NOW)).toBe(
+        "in-progress",
+      );
+    });
+
+    it("closes registration when an exec closes it manually", () => {
       expect(
-        getRegistrationStatus(running({ closeRegistrationOnStart: true }), MEMBER, NO_SIGNUPS, NOW),
+        getRegistrationStatus(
+          running({ ...CLOSES_AT_END, registrationClosed: true }),
+          MEMBER,
+          NO_SIGNUPS,
+          NOW,
+        ),
       ).toBe("in-progress-closed");
     });
 
     it("keeps external-link events registerable via the link unless closed", () => {
       const ext = { requiresSignup: false, registrationLink: "https://forms.gle/x" };
-      expect(getRegistrationStatus(running(ext), LOGGED_OUT_VIEWER, NO_SIGNUPS, NOW)).toBe(
-        "in-progress-external",
-      );
       expect(
         getRegistrationStatus(
-          running({ ...ext, closeRegistrationOnStart: true }),
+          running({ ...ext, ...CLOSES_AT_END }),
+          LOGGED_OUT_VIEWER,
+          NO_SIGNUPS,
+          NOW,
+        ),
+      ).toBe("in-progress-external");
+      expect(
+        getRegistrationStatus(
+          running({ ...ext, ...CLOSES_AT_END, registrationClosed: true }),
           LOGGED_OUT_VIEWER,
           NO_SIGNUPS,
           NOW,
@@ -111,7 +133,7 @@ describe("getRegistrationStatus", () => {
     it("still shows registered, full and the members-only gates first", () => {
       expect(
         getRegistrationStatus(
-          running({ closeRegistrationOnStart: true }),
+          running({ registrationClosed: true }),
           MEMBER,
           { signupCount: 0, isRegistered: true },
           NOW,
@@ -119,15 +141,82 @@ describe("getRegistrationStatus", () => {
       ).toBe("registered");
       expect(
         getRegistrationStatus(
-          running({ capacity: 1 }),
+          running({ ...CLOSES_AT_END, capacity: 1 }),
           MEMBER,
           { signupCount: 1, isRegistered: false },
           NOW,
         ),
       ).toBe("full");
       expect(
-        getRegistrationStatus(running({ requiresMembership: true }), NON_MEMBER, NO_SIGNUPS, NOW),
+        getRegistrationStatus(
+          running({ ...CLOSES_AT_END, requiresMembership: true }),
+          NON_MEMBER,
+          NO_SIGNUPS,
+          NOW,
+        ),
       ).toBe("members-only-non-member");
+    });
+  });
+
+  describe("the registration window", () => {
+    it("is not open yet before registrationOpensAt", () => {
+      expect(
+        getRegistrationStatus(
+          event({ registrationOpensAt: "2026-07-10T00:00:00Z" }),
+          MEMBER,
+          NO_SIGNUPS,
+          NOW,
+        ),
+      ).toBe("not-open-yet");
+    });
+
+    it("opens once registrationOpensAt has passed", () => {
+      expect(
+        getRegistrationStatus(
+          event({ registrationOpensAt: "2026-06-01T00:00:00Z" }),
+          MEMBER,
+          NO_SIGNUPS,
+          NOW,
+        ),
+      ).toBe("requires-signup");
+    });
+
+    it("is open straight away when registrationOpensAt is empty", () => {
+      expect(getRegistrationStatus(event(), MEMBER, NO_SIGNUPS, NOW)).toBe("requires-signup");
+    });
+
+    it("closes once registrationClosesAt has passed, even before the event starts", () => {
+      expect(
+        getRegistrationStatus(
+          event({ registrationClosesAt: "2026-06-01T00:00:00Z" }),
+          MEMBER,
+          NO_SIGNUPS,
+          NOW,
+        ),
+      ).toBe("registration-closed");
+    });
+
+    it("closes immediately when an exec closes it manually", () => {
+      expect(
+        getRegistrationStatus(event({ registrationClosed: true }), MEMBER, NO_SIGNUPS, NOW),
+      ).toBe("registration-closed");
+    });
+
+    it("honours a manual close with no clock, since it isn't time-based", () => {
+      expect(
+        getRegistrationStatus(event({ registrationClosed: true }), MEMBER, NO_SIGNUPS, null),
+      ).toBe("registration-closed");
+    });
+
+    it("shows registered over a closed window", () => {
+      expect(
+        getRegistrationStatus(
+          event({ registrationClosed: true }),
+          MEMBER,
+          { signupCount: 1, isRegistered: true },
+          NOW,
+        ),
+      ).toBe("registered");
     });
   });
 

@@ -7,6 +7,12 @@ import { isOnsiteRegistrationLive } from "../features/events/lib/onsiteRegistrat
 // doesn't change its stored value.
 const showSignupSettings = (siblingData: { requiresSignup?: unknown } | undefined) =>
   isOnsiteRegistrationLive() && siblingData?.requiresSignup === true;
+// The registration window gates the external registrationLink button as well
+// as onsite sign-up (#478), so it shows for either - unlike the onsite-only
+// settings above.
+const showRegistrationWindow = (
+  siblingData: { requiresSignup?: unknown; registrationLink?: unknown } | undefined,
+) => showSignupSettings(siblingData) || Boolean(siblingData?.registrationLink);
 
 export const Events: CollectionConfig = {
   slug: "events",
@@ -130,15 +136,52 @@ export const Events: CollectionConfig = {
       },
     },
     {
-      name: "closeRegistrationOnStart",
+      type: "row",
+      admin: {
+        condition: (_, siblingData) => showRegistrationWindow(siblingData),
+      },
+      fields: [
+        {
+          name: "registrationOpensAt",
+          type: "date",
+          label: "Registration Opens",
+          admin: {
+            description: "Leave empty to open as soon as sign-up is switched on.",
+            date: {
+              pickerAppearance: "dayAndTime",
+              displayFormat: "yyyy-MM-dd HH:mm",
+            },
+            style: {
+              cursor: "pointer",
+            },
+          },
+        },
+        {
+          name: "registrationClosesAt",
+          type: "date",
+          label: "Registration Closes",
+          admin: {
+            description: "Leave empty to close when the event starts.",
+            date: {
+              pickerAppearance: "dayAndTime",
+              displayFormat: "yyyy-MM-dd HH:mm",
+            },
+            style: {
+              cursor: "pointer",
+            },
+          },
+        },
+      ],
+    },
+    {
+      name: "registrationClosed",
       type: "checkbox",
-      label: "Close Registration When Event Starts",
+      label: "Close Registration Now",
       defaultValue: false,
       admin: {
         description:
-          "Once the event has started, show registration as closed and remove the Register button. This doesn't close an external form (e.g. a Google Form) - close that in the form itself.",
-        condition: (_, siblingData) =>
-          showSignupSettings(siblingData) || Boolean(siblingData?.registrationLink),
+          "Closes registration immediately, regardless of the dates above. This doesn't close an external form (e.g. a Google Form) - close that in the form itself.",
+        condition: (_, siblingData) => showRegistrationWindow(siblingData),
         style: {
           cursor: "pointer",
         },

@@ -412,9 +412,17 @@ export interface Event {
    */
   requiresSignup?: boolean | null;
   /**
-   * Once the event has started, show registration as closed and remove the Register button. This doesn't close an external form (e.g. a Google Form) - close that in the form itself.
+   * Leave empty to open as soon as sign-up is switched on.
    */
-  closeRegistrationOnStart?: boolean | null;
+  registrationOpensAt?: string | null;
+  /**
+   * Leave empty to close when the event starts.
+   */
+  registrationClosesAt?: string | null;
+  /**
+   * Closes registration immediately, regardless of the dates above. This doesn't close an external form (e.g. a Google Form) - close that in the form itself.
+   */
+  registrationClosed?: boolean | null;
   /**
    * Only paid members can sign up for this event.
    */
@@ -999,7 +1007,9 @@ export interface EventsSelect<T extends boolean = true> {
   image?: T;
   attendees?: T;
   requiresSignup?: T;
-  closeRegistrationOnStart?: T;
+  registrationOpensAt?: T;
+  registrationClosesAt?: T;
+  registrationClosed?: T;
   requiresMembership?: T;
   capacity?: T;
   freeSlotOnCancel?: T;

@@ -24,9 +24,14 @@ export type RegistrationStatus =
   | "in-progress"
   // Started but not ended, still taking registrations via the external link.
   | "in-progress-external"
-  // Started but not ended, and not taking registrations - either the event has
-  // `closeRegistrationOnStart` ticked or there was nothing to register for.
+  // Started but not ended, and not taking registrations - either the
+  // registration window has closed or there was nothing to register for.
   | "in-progress-closed"
+  // Registration hasn't opened yet - the card shows when it will (#478).
+  | "not-open-yet"
+  // Registration closed before the event started, either because
+  // `registrationClosesAt` passed or an exec ticked `registrationClosed`.
+  | "registration-closed"
   | "concluded";
 
 // How many description lines the event card has room for on desktop, where
@@ -44,6 +49,8 @@ const CARD_DESCRIPTION_LINES: Record<RegistrationStatus, 1 | 2 | 3> = {
   "in-progress": 2,
   "in-progress-external": 2,
   "in-progress-closed": 2,
+  "not-open-yet": 2,
+  "registration-closed": 2,
   // Heading + wrapping subtext (and the sign-in prompt for locked).
   open: 1,
   "members-only-logged-out": 1,
@@ -75,6 +82,34 @@ export const signupStatusesTakingASpot = (
   freeSlotOnCancel: boolean | null | undefined,
 ): EventSignup["status"][] => (freeSlotOnCancel ? ["confirmed"] : ["confirmed", "cancelled"]);
 
+// Resolves "empty means default" once so the card, register page and
+// create-signup route can't disagree - same reason signupStatusesTakingASpot
+// exists. An empty registrationClosesAt falls back to the start date, which is
+// what replaces closeRegistrationOnStart (#478).
+export interface RegistrationWindow {
+  opensAt: Date | null;
+  closesAt: Date;
+  manuallyClosed: boolean;
+}
+
+type RegistrationWindowFields = Pick<
+  Event,
+  "startDate" | "registrationOpensAt" | "registrationClosesAt" | "registrationClosed"
+>;
+
+export const resolveRegistrationWindow = (event: RegistrationWindowFields): RegistrationWindow => ({
+  opensAt: event.registrationOpensAt ? new Date(event.registrationOpensAt) : null,
+  closesAt: new Date(event.registrationClosesAt ?? event.startDate),
+  manuallyClosed: event.registrationClosed === true,
+});
+
+export const isRegistrationOpen = (event: RegistrationWindowFields, now: Date): boolean => {
+  const { opensAt, closesAt, manuallyClosed } = resolveRegistrationWindow(event);
+  if (manuallyClosed) return false;
+  if (opensAt && now < opensAt) return false;
+  return now < closesAt;
+};
+
 type EventFields = Pick<
   Event,
   | "startDate"
@@ -83,7 +118,9 @@ type EventFields = Pick<
   | "requiresSignup"
   | "requiresMembership"
   | "capacity"
-  | "closeRegistrationOnStart"
+  | "registrationOpensAt"
+  | "registrationClosesAt"
+  | "registrationClosed"
 >;
 
 // Order matters: an event that's over is concluded no matter what, and a
@@ -105,20 +142,24 @@ export const getRegistrationStatus = (
   if (now && new Date(event.endDate) < now) return "concluded";
 
   const hasStarted = now !== null && new Date(event.startDate) <= now;
-  const registrationClosed = hasStarted && event.closeRegistrationOnStart === true;
+
+  // A manual close is a stored flag, so it applies even without a clock -
+  // only the date comparisons are skipped when `now` is null.
+  const window = resolveRegistrationWindow(event);
+  const notOpenYet = now !== null && window.opensAt !== null && now < window.opensAt;
+  const closed = window.manuallyClosed || (now !== null && now >= window.closesAt);
 
   if (!event.requiresSignup) {
-    if (hasStarted) {
-      return event.registrationLink && !registrationClosed
-        ? "in-progress-external"
-        : "in-progress-closed";
-    }
-    return event.registrationLink ? "external" : "open";
+    if (!event.registrationLink) return hasStarted ? "in-progress-closed" : "open";
+    if (notOpenYet) return "not-open-yet";
+    if (closed) return hasStarted ? "in-progress-closed" : "registration-closed";
+    return hasStarted ? "in-progress-external" : "external";
   }
 
   if (signups.isRegistered) return "registered";
 
-  if (registrationClosed) return "in-progress-closed";
+  if (notOpenYet) return "not-open-yet";
+  if (closed) return hasStarted ? "in-progress-closed" : "registration-closed";
 
   if (typeof event.capacity === "number" && signups.signupCount >= event.capacity) return "full";
 
