@@ -25,6 +25,7 @@ interface Event {
   photo: string;
   description: string;
   application_link?: string | null;
+  registrationOpensAt?: string | null;
   registrationStatus: RegistrationStatus;
 }
 
@@ -73,6 +74,7 @@ const EventCardList = ({
           : "/assets/logos/uaic.webp",
       description: dbEvent.description,
       application_link: dbEvent.registrationLink,
+      registrationOpensAt: dbEvent.registrationOpensAt,
       // The fallback never reads the clock (now: null) - this renders on both
       // server and client, and the two could disagree right at an event's
       // end time. `isPast` covers "concluded" instead.
@@ -157,6 +159,7 @@ const EventCardList = ({
                     status={event.registrationStatus}
                     eventId={event.id}
                     registrationLink={event.application_link}
+                    registrationOpensAt={event.registrationOpensAt}
                     learnMoreHref={`/events/${event.id}`}
                   />
                 </div>

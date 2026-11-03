@@ -7,6 +7,7 @@ import {
   getEventSignInHref,
   type RegistrationStatus,
 } from "@/features/events/lib/registrationStatus";
+import { formatNzDateTime } from "@/features/events/lib/formatEventDate";
 
 const JOIN_HREF = "/joinus";
 
@@ -14,6 +15,8 @@ interface EventCTAProps {
   status: RegistrationStatus;
   eventId: string;
   registrationLink?: string | null;
+  // Shown on the "not open yet" CTA (#478).
+  registrationOpensAt?: string | null;
   // "Learn More" opens whichever of these is given; with neither it's hidden
   // (e.g. on the event's own page, where there's nothing more to learn).
   onLearnMore?: () => void;
@@ -98,6 +101,7 @@ const EventCTA = ({
   status,
   eventId,
   registrationLink,
+  registrationOpensAt,
   onLearnMore,
   learnMoreHref,
   layout = "card",
@@ -266,6 +270,36 @@ const EventCTA = ({
           </>
         );
       }
+
+      case "not-open-yet":
+        return (
+          <>
+            <Heading panel={isPanel}>
+              {registrationOpensAt
+                ? `Registration opens ${formatNzDateTime(new Date(registrationOpensAt))}`
+                : "Registration not open yet"}
+            </Heading>
+            <ButtonRow>
+              <EventPillButton variant="disabled" size={buttonSize}>
+                Not Open Yet
+              </EventPillButton>
+              {learnMore}
+            </ButtonRow>
+          </>
+        );
+
+      case "registration-closed":
+        return (
+          <>
+            <Heading panel={isPanel}>Registration closed</Heading>
+            <ButtonRow>
+              <EventPillButton variant="disabled" size={buttonSize}>
+                Registration Closed
+              </EventPillButton>
+              {learnMore}
+            </ButtonRow>
+          </>
+        );
 
       case "full":
         return (

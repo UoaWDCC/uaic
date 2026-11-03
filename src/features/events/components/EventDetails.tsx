@@ -51,6 +51,7 @@ const EventDetails = ({ event, registrationStatus }: EventDetailsProps) => {
               status={registrationStatus}
               eventId={event.id}
               registrationLink={event.registrationLink}
+              registrationOpensAt={event.registrationOpensAt}
               layout="panel"
             />
           </div>

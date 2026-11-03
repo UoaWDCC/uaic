@@ -51,6 +51,14 @@ const formatTime = ({ hours, minutes }: { hours: number; minutes: number }) => {
   return `${hours % 12 || 12}:${minutes.toString().padStart(2, "0")} ${period}`;
 };
 
+// One date and time in Auckland, for standalone labels like "Registration
+// opens ..." (#478). Reuses the parts above so it can't drift from the
+// event dates shown next to it.
+export const formatNzDateTime = (date: Date) => {
+  const parts = toNzParts(date);
+  return `${formatDate(parts)}, ${formatTime(parts)}`;
+};
+
 // Callers check the start date is valid. An invalid end date (e.g. a
 // half-entered CMS event) falls back to showing just the start.
 export const formatEventDate = (event: Pick<Event, "startDate" | "endDate">) => {
