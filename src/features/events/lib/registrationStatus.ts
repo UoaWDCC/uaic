@@ -151,15 +151,15 @@ export const getRegistrationStatus = (
 
   if (!event.requiresSignup) {
     if (!event.registrationLink) return hasStarted ? "in-progress-closed" : "open";
-    if (notOpenYet) return "not-open-yet";
     if (closed) return hasStarted ? "in-progress-closed" : "registration-closed";
+    if (notOpenYet) return "not-open-yet";
     return hasStarted ? "in-progress-external" : "external";
   }
 
   if (signups.isRegistered) return "registered";
 
-  if (notOpenYet) return "not-open-yet";
   if (closed) return hasStarted ? "in-progress-closed" : "registration-closed";
+  if (notOpenYet) return "not-open-yet";
 
   if (typeof event.capacity === "number" && signups.signupCount >= event.capacity) return "full";
 

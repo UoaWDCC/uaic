@@ -185,6 +185,17 @@ describe("getRegistrationStatus", () => {
       expect(getRegistrationStatus(event(), MEMBER, NO_SIGNUPS, NOW)).toBe("requires-signup");
     });
 
+    it("lets a manual close win over a window that hasn't opened yet", () => {
+      expect(
+        getRegistrationStatus(
+          event({ registrationOpensAt: "2026-07-10T00:00:00Z", registrationClosed: true }),
+          MEMBER,
+          NO_SIGNUPS,
+          NOW,
+        ),
+      ).toBe("registration-closed");
+    });
+
     it("closes once registrationClosesAt has passed, even before the event starts", () => {
       expect(
         getRegistrationStatus(
