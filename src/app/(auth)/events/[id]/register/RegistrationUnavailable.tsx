@@ -11,6 +11,14 @@ const MESSAGES: Partial<Record<RegistrationStatus, { heading: string; body: stri
   full: { heading: "Event full", body: "There are no spots remaining for this event." },
   registered: { heading: "You're signed up!", body: "You're already registered for this event." },
   concluded: { heading: "This event has ended", body: "Registration for this event is closed." },
+  "not-open-yet": {
+    heading: "Registration not open yet",
+    body: "Registration for this event hasn't opened yet. Check back closer to the date.",
+  },
+  "registration-closed": {
+    heading: "Registration closed",
+    body: "Registration for this event is no longer open.",
+  },
   "in-progress-closed": {
     heading: "Registration closed",
     body: "This event has started and is no longer taking registrations.",

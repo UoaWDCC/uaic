@@ -3,7 +3,11 @@ import { getPayload, ValidationError } from "payload";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import config from "@payload-config";
-import { signupStatusesTakingASpot } from "@/features/events/lib/registrationStatus";
+import {
+  isRegistrationOpen,
+  resolveRegistrationWindow,
+  signupStatusesTakingASpot,
+} from "@/features/events/lib/registrationStatus";
 import { isOnsiteRegistrationLive } from "@/features/events/lib/onsiteRegistration";
 import { getMemberIdFromRequest } from "@/lib/memberSession";
 import { validateSignupResponses } from "@/lib/validateSignupResponses";
@@ -57,10 +61,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Event not found." }, { status: 404 });
     }
 
-    //check if closeRegistrationOnStart is True and event has started
-    if (e.closeRegistrationOnStart && new Date() >= new Date(e.startDate)) {
+    // Registration window (#478) - same helper the card and register page
+    // use, so the UI and the server can't disagree about when signups shut.
+    const now = new Date();
+    const { opensAt } = resolveRegistrationWindow(e);
+
+    if (opensAt && now < opensAt) {
       return NextResponse.json(
-        { error: "Event has already started. Registration denied." },
+        { error: "Registration for this event hasn't opened yet." },
+        { status: 409 },
+      );
+    }
+
+    if (!isRegistrationOpen(e, now)) {
+      return NextResponse.json(
+        { error: "Registration for this event is closed." },
         { status: 409 },
       );
     }
