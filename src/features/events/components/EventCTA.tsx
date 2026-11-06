@@ -14,28 +14,14 @@ interface EventCTAProps {
   status: RegistrationStatus;
   eventId: string;
   registrationLink?: string | null;
-  // "Learn More" opens whichever of these is given; with neither it's hidden
-  // (e.g. on the event's own page, where there's nothing more to learn).
-  onLearnMore?: () => void;
-  learnMoreHref?: string;
-  // "card" sits inline at the bottom of an event card; "panel" is the
-  // standalone boxed version from the Figma EventCTA component (#458).
-  layout?: "card" | "panel";
+  className?: string;
 }
 
-// EventDetails scales --event-unit with its layout on desktop; everywhere
-// else it's 1px (set on :root), so other consumers keep the original sizes.
-const Heading = ({
-  children,
-  icon,
-  panel = false,
-}: {
-  children: ReactNode;
-  icon?: ReactNode;
-  panel?: boolean;
-}) => (
+// Sized in --event-unit, which the event card and details page scale with
+// their own layout (1px by default).
+const Heading = ({ children, icon }: { children: ReactNode; icon?: ReactNode }) => (
   <p
-    className={`text-ink flex items-center gap-[calc(8*var(--event-unit))] ${panel ? `text-[calc(20*var(--event-unit))] leading-[1.2] ${icon ? "font-medium" : "font-normal"}` : "text-[18px] leading-[24px] font-medium"}`}
+    className={`text-ink flex items-center gap-[calc(8*var(--event-unit))] text-[calc(20*var(--event-unit))] leading-[1.2] ${icon ? "font-medium" : "font-normal"}`}
   >
     {icon}
     {children}
@@ -48,8 +34,6 @@ const Subtext = ({ children }: { children: ReactNode }) => (
   </p>
 );
 
-// Stacked on phones: two half-width pills are too narrow for labels like
-// "No Spots Remaining" below roughly 500px.
 // Links to the onsite registration page. While that's switched off (see
 // isOnsiteRegistrationLive) it falls back to the event's external form if it
 // has one, so onsite-signup events stay registerable; with neither it's a
@@ -58,88 +42,64 @@ const OnsiteButton = ({
   href,
   fallbackLink,
   children,
-  size,
 }: {
   href: string | null;
   fallbackLink?: string | null;
   children: ReactNode;
-  size?: "card" | "panel";
 }) => {
   if (href)
     return (
-      <EventPillButton href={href} size={size}>
+      <EventPillButton href={href} size="panel">
         {children}
       </EventPillButton>
     );
   if (fallbackLink) {
     return (
-      <EventPillButton href={fallbackLink} external size={size}>
+      <EventPillButton href={fallbackLink} external size="panel">
         {children}
       </EventPillButton>
     );
   }
   return (
-    <EventPillButton variant="disabled" size={size}>
+    <EventPillButton variant="disabled" size="panel">
       Registration Unavailable
     </EventPillButton>
   );
 };
 
-const ButtonRow = ({ children }: { children: ReactNode }) => (
-  <div className="flex w-full flex-col items-stretch gap-[calc(10*var(--event-unit))] sm:flex-row sm:gap-[calc(24*var(--event-unit))]">
-    {children}
-  </div>
-);
+// Where a still-running event's "Signups Open" pill goes, or null once signups
+// have closed (or there was never anywhere to register).
+const getInProgressTarget = (
+  status: "in-progress" | "in-progress-external" | "in-progress-closed",
+  registrationHref: string | null,
+  registrationLink?: string | null,
+) => {
+  if (status === "in-progress" && registrationHref)
+    return { href: registrationHref, external: false };
+  if (status !== "in-progress-closed" && registrationLink)
+    return { href: registrationLink, external: true };
+  return null;
+};
 
-// The registration call-to-action for one event. Each `status` maps to one
-// Figma variant - all the deciding happens in `getRegistrationStatus`, this
-// only renders the result.
-const EventCTA = ({
-  status,
-  eventId,
-  registrationLink,
-  onLearnMore,
-  learnMoreHref,
-  layout = "card",
-}: EventCTAProps) => {
-  const isPanel = layout === "panel";
+// The registration call-to-action for one event, as the boxed panel from the
+// Figma EventCTA component (#458). Each `status` maps to one Figma variant -
+// all the deciding happens in `getRegistrationStatus`, this only renders it.
+const EventCTA = ({ status, eventId, registrationLink, className = "" }: EventCTAProps) => {
   const registrationHref = getEventRegistrationHref(eventId);
-  const buttonSize = isPanel ? "panel" : "card";
-
-  const learnMore =
-    onLearnMore || learnMoreHref ? (
-      <EventPillButton variant="secondary" onClick={onLearnMore} href={learnMoreHref}>
-        Learn More
-      </EventPillButton>
-    ) : null;
 
   const renderContent = () => {
     switch (status) {
       case "open":
-        // Figma's details panel keeps the heading on desktop. On mobile it
-        // shows only the centered invitation; cards keep their existing copy.
-        if (isPanel) {
-          return (
-            <>
-              <div>
-                <p className="text-ink hidden text-[calc(20*var(--event-unit))] leading-[1.2] md:block">
-                  Open event - no signup required
-                </p>
-                <p className="text-muted-foreground text-center text-[calc(20*var(--event-unit))] leading-[1.1] md:mt-[calc(4*var(--event-unit))] md:text-left md:leading-[1.2]">
-                  This event is open to everyone. Just show up!
-                </p>
-              </div>
-              {learnMore}
-            </>
-          );
-        }
+        // Figma keeps the heading on desktop. On mobile it shows only the
+        // centered invitation.
         return (
-          <div className="gap-comfortable flex w-full flex-col lg:flex-row lg:items-end">
-            <div className="min-w-0 lg:flex-1">
-              <Heading>Open event - no signup required</Heading>
-              <Subtext>This event is open to everyone. Just show up!</Subtext>
-            </div>
-            {learnMore && <div className="flex lg:flex-1">{learnMore}</div>}
+          <div>
+            <p className="text-ink hidden text-[calc(20*var(--event-unit))] leading-[1.2] md:block">
+              Open event - no signup required
+            </p>
+            <p className="text-muted-foreground text-center text-[calc(20*var(--event-unit))] leading-[1.1] md:mt-[calc(4*var(--event-unit))] md:text-left md:leading-[1.2]">
+              This event is open to everyone. Just show up!
+            </p>
           </div>
         );
 
@@ -147,81 +107,62 @@ const EventCTA = ({
       case "requires-signup":
         return (
           <>
-            {isPanel && status === "requires-signup" && (
-              <Heading panel>No membership required</Heading>
-            )}
-            <ButtonRow>
-              {/* "external" never has an onsite page - its form is the link. */}
-              <OnsiteButton
-                href={status === "external" ? null : registrationHref}
-                fallbackLink={registrationLink}
-                size={buttonSize}
-              >
-                {isPanel && status === "requires-signup" ? "Complete Registration" : "Register Now"}
-              </OnsiteButton>
-              {learnMore}
-            </ButtonRow>
+            {status === "requires-signup" && <Heading>No membership required</Heading>}
+            {/* "external" never has an onsite page - its form is the link. */}
+            <OnsiteButton
+              href={status === "external" ? null : registrationHref}
+              fallbackLink={registrationLink}
+            >
+              {status === "requires-signup" ? "Complete Registration" : "Register Now"}
+            </OnsiteButton>
           </>
         );
 
       case "members-only":
         return (
           <>
-            <Heading panel={isPanel}>Members only</Heading>
-            <ButtonRow>
-              <OnsiteButton
-                href={registrationHref}
-                fallbackLink={registrationLink}
-                size={buttonSize}
-              >
-                {isPanel ? "Complete Registration" : "Register Now"}
-              </OnsiteButton>
-              {learnMore}
-            </ButtonRow>
+            <Heading>Members only</Heading>
+            <OnsiteButton href={registrationHref} fallbackLink={registrationLink}>
+              Complete Registration
+            </OnsiteButton>
           </>
         );
 
       case "members-only-logged-out":
       case "members-only-non-member":
         return (
-          <div
-            className={`flex w-full flex-col ${isPanel ? "gap-[calc(24*var(--event-unit))]" : "gap-comfortable lg:flex-row lg:items-end"}`}
-          >
-            <div className="flex min-w-0 items-start gap-[calc(10*var(--event-unit))] lg:flex-1">
-              <span
-                className={`border-primary-light text-primary-light mt-[calc(2*var(--event-unit))] flex flex-shrink-0 items-center justify-center rounded-full border-[1.5px] ${isPanel ? "h-[calc(32*var(--event-unit))] w-[calc(32*var(--event-unit))]" : "h-6 w-6"}`}
-              >
+          <div className="flex w-full flex-col gap-[calc(24*var(--event-unit))]">
+            <div className="flex min-w-0 items-start gap-[calc(10*var(--event-unit))]">
+              <span className="border-primary-light text-primary-light mt-[calc(2*var(--event-unit))] flex h-[calc(32*var(--event-unit))] w-[calc(32*var(--event-unit))] flex-shrink-0 items-center justify-center rounded-full border-[1.5px]">
                 <LuLock
-                  size={isPanel ? 16 : 12}
-                  className={
-                    isPanel
-                      ? "h-[calc(16*var(--event-unit))] w-[calc(16*var(--event-unit))]"
-                      : undefined
-                  }
+                  className="h-[calc(16*var(--event-unit))] w-[calc(16*var(--event-unit))]"
                   aria-hidden="true"
                 />
               </span>
               <div className="min-w-0">
-                <Heading panel={isPanel}>Members only</Heading>
-                <Subtext>Signup for this event requires an active membership.</Subtext>
+                <Heading>Members only</Heading>
+                {/* Sign-in sits inline in the subtext rather than on its own
+                    line under the button, so this state isn't taller than the rest. */}
+                <Subtext>
+                  Signup for this event requires an active membership.
+                  {status === "members-only-logged-out" && (
+                    <>
+                      {" "}
+                      Already a member?{" "}
+                      <Link
+                        href={getEventSignInHref(eventId)}
+                        className="text-primary hover:text-primary-light underline"
+                      >
+                        Sign in
+                      </Link>
+                    </>
+                  )}
+                </Subtext>
               </div>
             </div>
-            <div className="flex flex-col items-stretch gap-[calc(8*var(--event-unit))] lg:flex-1">
-              <EventPillButton href={JOIN_HREF} size={buttonSize}>
-                {isPanel ? "Become A Member" : "Join to Register"}
-              </EventPillButton>
-              {status === "members-only-logged-out" && (
-                <p className="text-muted-foreground text-center text-[calc(12*var(--event-unit))]">
-                  Already a member?{" "}
-                  <Link
-                    href={getEventSignInHref(eventId)}
-                    className="text-primary hover:text-primary-light underline"
-                  >
-                    Sign in
-                  </Link>
-                </p>
-              )}
-            </div>
+            <EventPillButton href={JOIN_HREF} size="panel">
+              Become A Member
+            </EventPillButton>
           </div>
         );
 
@@ -231,38 +172,26 @@ const EventCTA = ({
         // Same layout as "Event full". Still registerable -> a blue pill that
         // reads "Signups Open" and turns into "Register Now" on hover/focus;
         // closed (or nowhere to register) -> grey and not clickable.
-        const target =
-          status === "in-progress"
-            ? registrationHref
-              ? { href: registrationHref, external: false }
-              : registrationLink
-                ? { href: registrationLink, external: true }
-                : null
-            : status === "in-progress-external" && registrationLink
-              ? { href: registrationLink, external: true }
-              : null;
+        const target = getInProgressTarget(status, registrationHref, registrationLink);
 
         return (
           <>
-            <Heading panel={isPanel}>Event in progress</Heading>
-            <ButtonRow>
-              {target ? (
-                <EventPillButton
-                  href={target.href}
-                  external={target.external}
-                  ariaLabel="Signups open - Register Now"
-                  hoverLabel="Register Now"
-                  size={buttonSize}
-                >
-                  Signups Open
-                </EventPillButton>
-              ) : (
-                <EventPillButton variant="disabled" size={buttonSize}>
-                  Signups Closed
-                </EventPillButton>
-              )}
-              {learnMore}
-            </ButtonRow>
+            <Heading>Event in progress</Heading>
+            {target ? (
+              <EventPillButton
+                href={target.href}
+                external={target.external}
+                ariaLabel="Signups open - Register Now"
+                hoverLabel="Register Now"
+                size="panel"
+              >
+                Signups Open
+              </EventPillButton>
+            ) : (
+              <EventPillButton variant="disabled" size="panel">
+                Signups Closed
+              </EventPillButton>
+            )}
           </>
         );
       }
@@ -270,13 +199,10 @@ const EventCTA = ({
       case "full":
         return (
           <>
-            <Heading panel={isPanel}>Event full</Heading>
-            <ButtonRow>
-              <EventPillButton variant="disabled" size={buttonSize}>
-                {isPanel ? "No spots remaining" : "No Spots Remaining"}
-              </EventPillButton>
-              {learnMore}
-            </ButtonRow>
+            <Heading>Event full</Heading>
+            <EventPillButton variant="disabled" size="panel">
+              No spots remaining
+            </EventPillButton>
           </>
         );
 
@@ -284,42 +210,29 @@ const EventCTA = ({
         return (
           <>
             <Heading
-              panel={isPanel}
               icon={
                 <LuCircleCheck
-                  size={isPanel ? 32 : 24}
-                  className={`text-primary-light flex-shrink-0 ${isPanel ? "h-[calc(32*var(--event-unit))] w-[calc(32*var(--event-unit))]" : ""}`}
+                  className="text-primary-light h-[calc(32*var(--event-unit))] w-[calc(32*var(--event-unit))] flex-shrink-0"
                   aria-hidden="true"
                 />
               }
             >
               You&apos;re signed up!
             </Heading>
-            <ButtonRow>
-              {registrationHref ? (
-                <EventPillButton href={registrationHref} size={buttonSize}>
-                  View Registration
-                </EventPillButton>
-              ) : (
-                <EventPillButton variant="disabled" size={buttonSize}>
-                  View Registration
-                </EventPillButton>
-              )}
-              {learnMore}
-            </ButtonRow>
+            {registrationHref ? (
+              <EventPillButton href={registrationHref} size="panel">
+                View Registration
+              </EventPillButton>
+            ) : (
+              <EventPillButton variant="disabled" size="panel">
+                View Registration
+              </EventPillButton>
+            )}
           </>
         );
 
       case "concluded":
-        // On the details page, the visitor is already viewing the recap, so
-        // show the concluded state without another recap link.
-        return onLearnMore || learnMoreHref ? (
-          <EventPillButton variant="secondary" onClick={onLearnMore} href={learnMoreHref}>
-            Event Concluded: View Recap
-          </EventPillButton>
-        ) : (
-          <Heading panel={isPanel}>This event has ended</Heading>
-        );
+        return <Heading>This event has ended</Heading>;
     }
   };
 
@@ -332,11 +245,7 @@ const EventCTA = ({
   return (
     <div
       data-status={status}
-      className={`flex w-full flex-col ${isPanel ? "gap-[calc(16*var(--event-unit))]" : "gap-[8px]"} ${
-        isPanel
-          ? `border-border shadow-panel rounded-[calc(24*var(--event-unit))] border p-[calc(20*var(--event-unit))] ${isTinted ? "bg-surface-faint" : "bg-white"}`
-          : ""
-      }`}
+      className={`border-border shadow-panel flex w-full flex-col gap-[calc(16*var(--event-unit))] rounded-[calc(24*var(--event-unit))] border p-[calc(20*var(--event-unit))] ${isTinted ? "bg-surface-faint" : "bg-white"} ${className}`}
     >
       {renderContent()}
     </div>

@@ -9,7 +9,6 @@ describe("formatEventDate", () => {
         endDate: "2050-07-20T08:00:00.000Z",
       }),
     ).toEqual({
-      time: "6:00 PM - 8:00 PM",
       day: "20",
       month: "JUL",
       dateLabel: "Wed 20 Jul 2050",
@@ -35,7 +34,6 @@ describe("formatEventDate", () => {
         endDate: "2050-07-21T08:00:00.000Z",
       }),
     ).toEqual({
-      time: "6:00 PM - 21 Jul, 8:00 PM",
       day: "20",
       month: "JUL",
       dateLabel: "Wed 20 Jul 2050 - Thu 21 Jul 2050",
@@ -44,12 +42,11 @@ describe("formatEventDate", () => {
   });
 
   it("includes both years when a multi-day event crosses into a new year", () => {
-    const { time, dateLabel } = formatEventDate({
+    const { dateLabel } = formatEventDate({
       startDate: "2050-12-30T23:30:00.000Z",
       endDate: "2051-01-01T01:00:00.000Z",
     });
 
-    expect(time).toBe("12:30 PM - 1 Jan 2051, 2:00 PM");
     expect(dateLabel).toBe("Sat 31 Dec 2050 - Sun 1 Jan 2051");
   });
 

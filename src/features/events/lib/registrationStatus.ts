@@ -29,29 +29,6 @@ export type RegistrationStatus =
   | "in-progress-closed"
   | "concluded";
 
-// How many description lines the event card has room for on desktop, where
-// it's a fixed height: the taller the CTA, the fewer lines. Lives next to the
-// statuses so a new status can't be added without deciding this.
-const CARD_DESCRIPTION_LINES: Record<RegistrationStatus, 1 | 2 | 3> = {
-  // Buttons only.
-  external: 3,
-  "requires-signup": 3,
-  concluded: 3,
-  // A heading above the buttons.
-  "members-only": 2,
-  full: 2,
-  registered: 2,
-  "in-progress": 2,
-  "in-progress-external": 2,
-  "in-progress-closed": 2,
-  // Heading + wrapping subtext (and the sign-in prompt for locked).
-  open: 1,
-  "members-only-logged-out": 1,
-  "members-only-non-member": 1,
-};
-
-export const cardDescriptionLines = (status: RegistrationStatus) => CARD_DESCRIPTION_LINES[status];
-
 export interface EventViewer {
   isLoggedIn: boolean;
   isMember: boolean;

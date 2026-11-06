@@ -58,25 +58,17 @@ export const formatEventDate = (event: Pick<Event, "startDate" | "endDate">) => 
   const endDate = new Date(event.endDate);
   const end = Number.isNaN(endDate.getTime()) ? null : toNzParts(endDate);
   const startTime = formatTime(start);
-  const endTime = end ? formatTime(end) : null;
   const isMultiDay =
     end !== null &&
     (start.year !== end.year || start.monthIndex !== end.monthIndex || start.day !== end.day);
 
-  // The event card's single line: a multi-day event says which day it ends,
-  // with the year only when it changes.
-  const endYear = end && end.year !== start.year ? ` ${end.year}` : "";
-  const endLabel =
-    end && isMultiDay ? `${end.day} ${MONTH_NAMES[end.monthIndex]}${endYear}, ${endTime}` : endTime;
-
   return {
-    time: endLabel ? `${startTime} - ${endLabel}` : startTime,
     // For the date badge on the event's image.
     day: start.day.toString().padStart(2, "0"),
     month: MONTH_NAMES[start.monthIndex].toUpperCase(),
     // Date and time get their own rows: always the full start date, plus the
     // end date for multi-day events.
     dateLabel: isMultiDay ? `${formatDate(start)} - ${formatDate(end)}` : formatDate(start),
-    timeLabel: endTime ? `${startTime} - ${endTime}` : startTime,
+    timeLabel: end ? `${startTime} - ${formatTime(end)}` : startTime,
   };
 };

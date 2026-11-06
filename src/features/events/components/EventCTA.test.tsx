@@ -1,7 +1,7 @@
 // Colocated with the component it covers - renders each status and checks the
 // CTA a viewer actually gets. No DB: status is passed in directly.
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import EventCTA from "./EventCTA";
 
 describe("EventCTA", () => {
@@ -10,9 +10,10 @@ describe("EventCTA", () => {
   beforeEach(() => vi.stubEnv("NEXT_PUBLIC_ONSITE_REGISTRATION", "true"));
   afterEach(() => vi.unstubAllEnvs());
 
-  it("links onsite Register Now to the registration page", () => {
+  it("links onsite Complete Registration to the registration page", () => {
     render(<EventCTA status="requires-signup" eventId="abc" />);
-    expect(screen.getByRole("link", { name: "Register Now" })).toHaveAttribute(
+    expect(screen.getByText("No membership required")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Complete Registration" })).toHaveAttribute(
       "href",
       "/events/abc/register",
     );
@@ -20,7 +21,7 @@ describe("EventCTA", () => {
 
   it("prefers the onsite registration page over an external form", () => {
     render(<EventCTA status="members-only" eventId="abc" registrationLink="https://forms.gle/x" />);
-    const link = screen.getByRole("link", { name: "Register Now" });
+    const link = screen.getByRole("link", { name: "Complete Registration" });
     expect(link).toHaveAttribute("href", "/events/abc/register");
     expect(link).not.toHaveAttribute("target");
   });
@@ -39,7 +40,7 @@ describe("EventCTA", () => {
 
   it("sends logged-out viewers of members-only events to join, with a sign-in prompt back to the event", () => {
     render(<EventCTA status="members-only-logged-out" eventId="abc" />);
-    expect(screen.getByRole("link", { name: "Join to Register" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Become A Member" })).toHaveAttribute(
       "href",
       "/joinus",
     );
@@ -57,7 +58,7 @@ describe("EventCTA", () => {
   it("shows a disabled button when the event is full", () => {
     render(<EventCTA status="full" eventId="abc" />);
     expect(screen.getByText("Event full")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "No Spots Remaining" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "No spots remaining" })).toBeDisabled();
   });
 
   it("confirms a registration and links to it", () => {
@@ -69,35 +70,16 @@ describe("EventCTA", () => {
     );
   });
 
-  it("calls onLearnMore from both Learn More and the concluded recap button", () => {
-    const onLearnMore = vi.fn();
-    const { rerender } = render(
-      <EventCTA status="registered" eventId="abc" onLearnMore={onLearnMore} />,
-    );
-    fireEvent.click(screen.getByRole("button", { name: "Learn More" }));
-
-    rerender(<EventCTA status="concluded" eventId="abc" onLearnMore={onLearnMore} />);
-    fireEvent.click(screen.getByRole("button", { name: "Event Concluded: View Recap" }));
-
-    expect(onLearnMore).toHaveBeenCalledTimes(2);
-  });
-
-  it("says a concluded event has ended when there's no recap to link to", () => {
-    render(<EventCTA status="concluded" eventId="abc" layout="panel" />);
+  it("says a concluded event has ended", () => {
+    render(<EventCTA status="concluded" eventId="abc" />);
     expect(screen.getByText("This event has ended")).toBeInTheDocument();
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
-  });
-
-  it("hides Learn More when there's nowhere for it to go", () => {
-    render(<EventCTA status="members-only" eventId="abc" layout="panel" />);
-    expect(screen.queryByText("Learn More")).not.toBeInTheDocument();
+    expect(screen.queryByRole("link")).not.toBeInTheDocument();
   });
 
   it("tints the panel only for the locked and signed-up variants", () => {
     const tinted = (status: Parameters<typeof EventCTA>[0]["status"]) => {
-      const { container, unmount } = render(
-        <EventCTA status={status} eventId="abc" layout="panel" />,
-      );
+      const { container, unmount } = render(<EventCTA status={status} eventId="abc" />);
       const isTinted = (container.firstChild as HTMLElement).classList.contains("bg-surface-faint");
       unmount();
       return isTinted;
@@ -144,14 +126,14 @@ describe("EventCTA", () => {
       render(
         <EventCTA status="requires-signup" eventId="abc" registrationLink="https://forms.gle/x" />,
       );
-      const link = screen.getByRole("link", { name: "Register Now" });
+      const link = screen.getByRole("link", { name: "Complete Registration" });
       expect(link).toHaveAttribute("href", "https://forms.gle/x");
       expect(link).toHaveAttribute("target", "_blank");
     });
 
     it("shows a disabled button rather than linking to the register page", () => {
       render(<EventCTA status="requires-signup" eventId="abc" />);
-      expect(screen.queryByRole("link", { name: "Register Now" })).not.toBeInTheDocument();
+      expect(screen.queryByRole("link", { name: "Complete Registration" })).not.toBeInTheDocument();
       expect(screen.getByRole("button", { name: "Registration Unavailable" })).toBeDisabled();
     });
 

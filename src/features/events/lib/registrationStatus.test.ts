@@ -1,7 +1,6 @@
 // Colocated with the helper it covers - plain function, no rendering, no DB.
 import { describe, it, expect } from "vitest";
 import {
-  cardDescriptionLines,
   getRegistrationStatus,
   LOGGED_OUT_VIEWER,
   NO_SIGNUPS,
@@ -150,13 +149,5 @@ describe("signupStatusesTakingASpot", () => {
     expect(signupStatusesTakingASpot(false)).toEqual(["confirmed", "cancelled"]);
     expect(signupStatusesTakingASpot(null)).toEqual(["confirmed", "cancelled"]);
     expect(signupStatusesTakingASpot(undefined)).toEqual(["confirmed", "cancelled"]);
-  });
-});
-
-describe("cardDescriptionLines", () => {
-  it("gives the description fewer lines the taller the CTA is", () => {
-    expect(cardDescriptionLines("requires-signup")).toBe(3);
-    expect(cardDescriptionLines("full")).toBe(2);
-    expect(cardDescriptionLines("members-only-logged-out")).toBe(1);
   });
 });
