@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { signUp, signIn } from "@/lib/auth-client";
-import { EMAIL_DOMAIN_NOT_ALLOWED, EMAIL_DOMAIN_NOT_ALLOWED_MESSAGE } from "@/lib/emailDomain";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
@@ -16,16 +15,14 @@ export default function SignUpForm() {
   // A Google sign-up with a non-uni account is rejected server-side and lands here with
   // ?error=EMAIL_DOMAIN_NOT_ALLOWED. Map the code to our own message rather than echoing
   // error_description from the URL.
-  const [error, setError] = useState(() =>
-    searchParams.get("error") === EMAIL_DOMAIN_NOT_ALLOWED ? EMAIL_DOMAIN_NOT_ALLOWED_MESSAGE : "",
-  );
+  const [error, setError] = useState("");
   const params = new URLSearchParams();
 
   useEffect(() => {
     // A Google sign-in for an account that doesn't exist yet lands here with
     // ?error=signup_disabled. Drop OAuth errors from the URL so a refresh starts clean.
     const oauthError = searchParams.get("error");
-    if (oauthError === "signup_disabled" || oauthError === EMAIL_DOMAIN_NOT_ALLOWED) {
+    if (oauthError === "signup_disabled") {
       router.replace("/signup");
     }
   }, [searchParams, router]);

@@ -1,21 +1,21 @@
 // Unit tier: pure function, no DB. Guards the signup domain check in lib/auth.ts.
 import { describe, it, expect } from "vitest";
-import { isAllowedEmail } from "./emailDomain";
+import { isUoAEmail } from "./emailDomain";
 
-describe("isAllowedEmail", () => {
+describe("isUoAEmail", () => {
   it.each([
     "abcd123@aucklanduni.ac.nz",
     "ABCD123@AucklandUni.ac.nz",
     "  abcd123@aucklanduni.ac.nz  ",
     "first.last+tag@aucklanduni.ac.nz",
   ])("accepts uni email %j", (email) => {
-    expect(isAllowedEmail(email)).toBe(true);
+    expect(isUoAEmail(email)).toBe(true);
   });
 
   it.each(["person@gmail.com", "person@auckland.ac.nz", "person@outlook.com", "person@uoa.nz"])(
     "rejects non-uni email %j",
     (email) => {
-      expect(isAllowedEmail(email)).toBe(false);
+      expect(isUoAEmail(email)).toBe(false);
     },
   );
 
@@ -29,7 +29,7 @@ describe("isAllowedEmail", () => {
     ["trailing dot", "abcd123@aucklanduni.ac.nz."],
     ["similar TLD", "abcd123@aucklanduni.ac.nz.com"],
   ])("rejects tricky address: %s", (_label, email) => {
-    expect(isAllowedEmail(email)).toBe(false);
+    expect(isUoAEmail(email)).toBe(false);
   });
 
   it.each([
@@ -39,10 +39,10 @@ describe("isAllowedEmail", () => {
     ["no local part", "@aucklanduni.ac.nz"],
     ["no domain", "abcd123@"],
   ])("rejects malformed input: %s", (_label, email) => {
-    expect(isAllowedEmail(email)).toBe(false);
+    expect(isUoAEmail(email)).toBe(false);
   });
 
   it.each([undefined, null, 123, {}])("rejects non-string input %j", (value) => {
-    expect(isAllowedEmail(value)).toBe(false);
+    expect(isUoAEmail(value)).toBe(false);
   });
 });
