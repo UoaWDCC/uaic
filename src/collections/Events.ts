@@ -261,7 +261,7 @@ export const Events: CollectionConfig = {
               label: "Member detail",
               required: true,
               admin: {
-                description: "Member detail — pre-filled for members.",
+                description: "Pre-filled for members",
               },
               options: MEMBER_DETAILS.map(({ label, value }) => ({ label, value })),
             },
@@ -304,7 +304,8 @@ export const Events: CollectionConfig = {
               type: "array",
               label: "Options",
               admin: {
-                description: "Only used by Multiple Choice, Checkboxes and Dropdown field types.",
+                condition: (_, siblingData) =>
+                  ["multipleChoice", "checkboxes", "dropdown"].includes(siblingData?.fieldType),
               },
               fields: [
                 {

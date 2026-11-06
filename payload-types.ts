@@ -442,7 +442,7 @@ export interface Event {
     | (
         | {
             /**
-             * Member detail — pre-filled for members.
+             * Pre-filled for members
              */
             detail: 'firstName' | 'lastName' | 'email' | 'upi' | 'studentId' | 'universityYear' | 'degrees' | 'majors';
             id?: string | null;
@@ -453,9 +453,6 @@ export interface Event {
             label: string;
             fieldType: 'shortText' | 'paragraph' | 'multipleChoice' | 'checkboxes' | 'dropdown';
             required?: boolean | null;
-            /**
-             * Only used by Multiple Choice, Checkboxes and Dropdown field types.
-             */
             options?:
               | {
                   option: string;
