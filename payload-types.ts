@@ -439,23 +439,31 @@ export interface Event {
    * Editing this form after sign-ups already exist will NOT update existing submitted responses.
    */
   signupForm?:
-    | {
-        label: string;
-        fieldType: 'shortText' | 'paragraph' | 'multipleChoice' | 'checkboxes' | 'dropdown';
-        required?: boolean | null;
-        /**
-         * Only used by Multiple Choice, Checkboxes and Dropdown field types.
-         */
-        options?:
-          | {
-              option: string;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'formField';
-      }[]
+    | (
+        | {
+            /**
+             * Pre-filled for members
+             */
+            detail: 'firstName' | 'lastName' | 'email' | 'upi' | 'studentId' | 'universityYear' | 'degrees' | 'majors';
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'memberDetail';
+          }
+        | {
+            label: string;
+            fieldType: 'shortText' | 'paragraph' | 'multipleChoice' | 'checkboxes' | 'dropdown';
+            required?: boolean | null;
+            options?:
+              | {
+                  option: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'formField';
+          }
+      )[]
     | null;
   updatedAt: string;
   createdAt: string;
@@ -1008,6 +1016,13 @@ export interface EventsSelect<T extends boolean = true> {
   signupForm?:
     | T
     | {
+        memberDetail?:
+          | T
+          | {
+              detail?: T;
+              id?: T;
+              blockName?: T;
+            };
         formField?:
           | T
           | {

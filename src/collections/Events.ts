@@ -1,6 +1,10 @@
 import type { CollectionConfig, CollectionSlug } from "payload";
 import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 import { isOnsiteRegistrationLive } from "../features/events/lib/onsiteRegistration";
+import { MEMBER_DETAILS } from "../features/events/lib/memberDetails";
+import { initialiseEventSignupForm } from "./hooks/initialiseEventSignupForm";
+import { validateEventSignupForm } from "./hooks/validateEventSignupForm";
+import { validateMemberDetailSignupForm } from "../features/events/lib/validateMemberDetailSignupForm";
 
 // Onsite sign-up settings only show where onsite registration is switched on
 // (#473), so exec in production only see registrationLink. Hiding a field
@@ -10,7 +14,11 @@ const showSignupSettings = (siblingData: { requiresSignup?: unknown } | undefine
 
 export const Events: CollectionConfig = {
   slug: "events",
-  hooks: revalidateOnChange(["/", "/events"]),
+  hooks: {
+    ...revalidateOnChange(["/", "/events"]),
+    beforeValidate: [initialiseEventSignupForm],
+    beforeChange: [validateEventSignupForm],
+  },
   labels: {
     singular: "Event",
     plural: "Events",
@@ -122,6 +130,11 @@ export const Events: CollectionConfig = {
       label: "Requires Sign-up",
       defaultValue: false,
       admin: {
+        components: {
+          afterInput: [
+            "/src/features/admin/components/InitialiseEventSignupForm#InitialiseEventSignupForm",
+          ],
+        },
         description: "Turn on to let members register for this event on the website.",
         condition: () => isOnsiteRegistrationLive(),
         style: {
@@ -220,6 +233,7 @@ export const Events: CollectionConfig = {
     {
       name: "signupForm",
       type: "blocks",
+      validate: (value, { previousValue }) => validateMemberDetailSignupForm(value, previousValue),
       label: "Sign-up Form",
       labels: {
         singular: "Form Field",
@@ -231,6 +245,28 @@ export const Events: CollectionConfig = {
         condition: (_, siblingData) => showSignupSettings(siblingData),
       },
       blocks: [
+        {
+          slug: "memberDetail",
+          labels: {
+            singular: "Member detail",
+            plural: "Member details",
+          },
+          admin: {
+            disableBlockName: true,
+          },
+          fields: [
+            {
+              name: "detail",
+              type: "select",
+              label: "Member detail",
+              required: true,
+              admin: {
+                description: "Pre-filled for members",
+              },
+              options: MEMBER_DETAILS.map(({ label, value }) => ({ label, value })),
+            },
+          ],
+        },
         {
           slug: "formField",
           labels: {
@@ -268,7 +304,8 @@ export const Events: CollectionConfig = {
               type: "array",
               label: "Options",
               admin: {
-                description: "Only used by Multiple Choice, Checkboxes and Dropdown field types.",
+                condition: (_, siblingData) =>
+                  ["multipleChoice", "checkboxes", "dropdown"].includes(siblingData?.fieldType),
               },
               fields: [
                 {

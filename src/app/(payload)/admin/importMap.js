@@ -1,6 +1,7 @@
 import { ExportListMenuItem as ExportListMenuItem_cdf7e044479f899a31f804427d568b36 } from '@payloadcms/plugin-import-export/rsc'
 import { ImportListMenuItem as ImportListMenuItem_cdf7e044479f899a31f804427d568b36 } from '@payloadcms/plugin-import-export/rsc'
 import { MemberExportButton as MemberExportButton_cb0fe84eac3954242ea1f685eb50a0f7 } from '../../../../src/features/admin/components/MemberExportButton'
+import { InitialiseEventSignupForm as InitialiseEventSignupForm_81ad5c6b0533197fc2df68892089ab81 } from '../../../../src/features/admin/components/InitialiseEventSignupForm'
 import { FormatField as FormatField_cdf7e044479f899a31f804427d568b36 } from '@payloadcms/plugin-import-export/rsc'
 import { LimitField as LimitField_cdf7e044479f899a31f804427d568b36 } from '@payloadcms/plugin-import-export/rsc'
 import { Page as Page_cdf7e044479f899a31f804427d568b36 } from '@payloadcms/plugin-import-export/rsc'
@@ -22,6 +23,7 @@ export const importMap = {
   "@payloadcms/plugin-import-export/rsc#ExportListMenuItem": ExportListMenuItem_cdf7e044479f899a31f804427d568b36,
   "@payloadcms/plugin-import-export/rsc#ImportListMenuItem": ImportListMenuItem_cdf7e044479f899a31f804427d568b36,
   "/src/features/admin/components/MemberExportButton#MemberExportButton": MemberExportButton_cb0fe84eac3954242ea1f685eb50a0f7,
+  "/src/features/admin/components/InitialiseEventSignupForm#InitialiseEventSignupForm": InitialiseEventSignupForm_81ad5c6b0533197fc2df68892089ab81,
   "@payloadcms/plugin-import-export/rsc#FormatField": FormatField_cdf7e044479f899a31f804427d568b36,
   "@payloadcms/plugin-import-export/rsc#LimitField": LimitField_cdf7e044479f899a31f804427d568b36,
   "@payloadcms/plugin-import-export/rsc#Page": Page_cdf7e044479f899a31f804427d568b36,
