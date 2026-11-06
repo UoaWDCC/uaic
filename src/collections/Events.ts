@@ -3,6 +3,8 @@ import { revalidateOnChange } from "../lib/payload/revalidateOnChange";
 import { isOnsiteRegistrationLive } from "../features/events/lib/onsiteRegistration";
 import { MEMBER_DETAILS } from "../features/events/lib/memberDetails";
 import { initialiseEventSignupForm } from "./hooks/initialiseEventSignupForm";
+import { validateEventSignupForm } from "./hooks/validateEventSignupForm";
+import { validateMemberDetailSignupForm } from "../features/events/lib/validateMemberDetailSignupForm";
 
 // Onsite sign-up settings only show where onsite registration is switched on
 // (#473), so exec in production only see registrationLink. Hiding a field
@@ -15,6 +17,7 @@ export const Events: CollectionConfig = {
   hooks: {
     ...revalidateOnChange(["/", "/events"]),
     beforeValidate: [initialiseEventSignupForm],
+    beforeChange: [validateEventSignupForm],
   },
   labels: {
     singular: "Event",
@@ -230,6 +233,7 @@ export const Events: CollectionConfig = {
     {
       name: "signupForm",
       type: "blocks",
+      validate: (value, { previousValue }) => validateMemberDetailSignupForm(value, previousValue),
       label: "Sign-up Form",
       labels: {
         singular: "Form Field",
