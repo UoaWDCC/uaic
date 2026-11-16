@@ -49,8 +49,8 @@ const CheckoutPage = ({
 }: {
   amount: number;
   name: string;
-  upi: string;
-  studentId: number;
+  upi?: string;
+  studentId?: number;
   degrees: string;
   ethnicity: string;
   gender: string;
@@ -60,6 +60,10 @@ const CheckoutPage = ({
 }) => {
   const stripe = useStripe();
   const elements = useElements();
+  // Non-UoA members have no UPI or student ID. Omit them rather than sending ""/"-1"/"undefined",
+  // which would collide with each other in the duplicate check.
+  const upiValue = upi?.trim() || undefined;
+  const studentIdValue = studentId !== undefined && studentId > 0 ? String(studentId) : undefined;
 
   const [errMessage, setErrMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -89,8 +93,8 @@ const CheckoutPage = ({
         body: JSON.stringify({
           amount: Math.round(amount * 100),
           name,
-          upi,
-          studentId: String(studentId),
+          upi: upiValue,
+          studentId: studentIdValue,
           degrees,
           ethnicity,
           gender,
@@ -137,8 +141,8 @@ const CheckoutPage = ({
           const payloadData: MemberSignupPayload = {
             firstName,
             lastName,
-            upi,
-            studentId: String(studentId), // Member schema expects string
+            upi: upiValue,
+            studentId: studentIdValue,
             degrees,
             ethnicity,
             gender,
@@ -262,7 +266,7 @@ const CheckoutPage = ({
 
       <button
         disabled={isLoading}
-        className="from-cobalt-400 to-cobalt-700 w-full rounded-full bg-gradient-to-r px-4 py-2 font-bold text-white hover:from-blue-700 hover:to-blue-900"
+        className="from-cobalt-400 to-cobalt-700 w-full rounded-full bg-linear-to-r px-4 py-2 font-bold text-white hover:from-blue-700 hover:to-blue-900"
       >
         {isLoading ? "Processing..." : "Pay"}
       </button>

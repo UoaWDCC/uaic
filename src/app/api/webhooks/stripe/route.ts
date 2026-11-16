@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import type { Member } from "../../../../../payload-types";
+import { cleanIdentifier, memberIdentityWhere } from "@/lib/memberLookup";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -34,26 +35,16 @@ export async function POST(request: NextRequest) {
 
     const payload = await getPayload({ config });
 
-    const existingMember = await payload.find({
-      collection: "member",
-      where: {
-        or: [
-          {
-            email: { equals: paymentIntent.metadata.email },
-          },
+    // Non-UoA members have no UPI or student ID, so only match on identifiers that exist.
+    const { email, upi, studentId } = paymentIntent.metadata;
+    const where = memberIdentityWhere({ email, upi, studentId });
+    const isDuplicate = where
+      ? (await payload.find({ collection: "member", where, limit: 1 })).docs.length > 0
+      : false;
 
-          {
-            upi: { equals: paymentIntent.metadata.upi },
-          },
-
-          {
-            studentId: { equals: paymentIntent.metadata.studentId },
-          },
-        ],
-      },
-    });
-
-    if (existingMember.docs.length === 0) {
+    if (isDuplicate) {
+      console.log(`[webhook] Duplicate member detected for ${email} — skipping creation.`);
+    } else {
       const [firstName, lastName] = (paymentIntent.metadata.name || "").split("|");
       try {
         await payload.create({
@@ -62,8 +53,8 @@ export async function POST(request: NextRequest) {
           data: {
             firstName,
             lastName,
-            upi: paymentIntent.metadata.upi,
-            studentId: paymentIntent.metadata.studentId,
+            upi: cleanIdentifier(upi),
+            studentId: cleanIdentifier(studentId),
             degrees: paymentIntent.metadata.degrees,
             ethnicity: paymentIntent.metadata.ethnicity as Member["ethnicity"],
             gender: paymentIntent.metadata.gender as Member["gender"],

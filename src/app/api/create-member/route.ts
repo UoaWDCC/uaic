@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPayload } from "payload";
 import config from "@payload-config";
+import { cleanIdentifier, memberIdentityWhere } from "@/lib/memberLookup";
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,38 +9,35 @@ export async function POST(request: NextRequest) {
     const [firstName, lastName] = data.name.split("|");
     const payload = await getPayload({ config });
 
-    const existingMember = await payload.find({
-      collection: "member",
-      where: {
-        or: [
-          {
-            email: { equals: data.email },
-          },
+    const email = cleanIdentifier(data.email);
+    if (!email) {
+      return NextResponse.json({ error: "Email is required." }, { status: 400 });
+    }
 
-          {
-            upi: { equals: data.upi },
-          },
-
-          {
-            studentId: { equals: data.studentId },
-          },
-        ],
-      },
+    // Non-UoA members have no UPI or student ID, so only match on identifiers that exist.
+    const where = memberIdentityWhere({
+      email,
+      upi: data.upi,
+      studentId: data.studentId,
     });
 
-    if (existingMember.docs.length > 0) {
-      return NextResponse.json({ error: "Such member already exists!" }, { status: 409 });
+    if (where) {
+      const existingMember = await payload.find({ collection: "member", where, limit: 1 });
+
+      if (existingMember.docs.length > 0) {
+        return NextResponse.json({ error: "Such member already exists!" }, { status: 409 });
+      }
     }
 
     const member = await payload.create({
       collection: "member",
       overrideAccess: true, // Bypasses access control checks for server action
       data: {
-        email: data.email,
+        email,
         firstName,
         lastName,
-        upi: data.upi,
-        studentId: String(data.studentId),
+        upi: cleanIdentifier(data.upi),
+        studentId: cleanIdentifier(data.studentId),
         gender: data.gender,
         universityYear: data.universityYear,
         memberType: "newMember", //assume new member for now
