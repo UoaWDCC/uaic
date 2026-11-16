@@ -318,8 +318,8 @@ export interface Member {
   lastName: string;
   email: string;
   phoneNumber?: string | null;
-  upi: string;
-  studentId: string;
+  upi?: string | null;
+  studentId?: string | null;
   gender: 'male' | 'female' | 'nonBinary' | 'preferNotToSay';
   universityYear?: ('year1' | 'year2' | 'year3' | 'year4' | 'year5Plus' | 'postgraduate') | null;
   memberType: 'returning' | 'newMember';

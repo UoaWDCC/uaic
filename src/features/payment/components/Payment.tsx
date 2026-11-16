@@ -11,6 +11,7 @@ import { MdError, MdRadioButtonUnchecked } from "react-icons/md";
 import { GoArrowUpRight } from "react-icons/go";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { isUoAEmail } from "@/lib/emailDomain";
 
 const stripePublicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY;
 
@@ -68,13 +69,16 @@ export default function Payment() {
   const [displayedEthnicity, setDisplayedEthnicity] = useState("Ethnicity:");
 
   const email = searchParams.get("email");
+  // Google sign-ups arrive with email=placeholder, so fall back to the session email
+  const memberEmail = email === "placeholder" ? (session?.user?.email ?? "") : (email ?? "");
+  const isUoA = isUoAEmail(memberEmail);
   const [currentStep, setCurrentStep] = useState(0);
 
   const router = useRouter();
 
   function validateNext(i: SetStateAction<number>, bypass: boolean) {
     if (i == 1 && bypass == false) {
-      if (firstName != "" && lastName != "" && UPI != "") {
+      if (firstName != "" && lastName != "" && (!isUoA || UPI != "")) {
         setCurrentStep(i);
         setErrorPage(false);
       } else {
@@ -90,7 +94,8 @@ export default function Payment() {
         university != "" &&
         ethnicity != "Ethnicity:" &&
         degrees != "" &&
-        major != ""
+        major != "" &&
+        (!isUoA || studentId > 0)
       ) {
         setCurrentStep(i);
         setErrorPage(false);
@@ -270,17 +275,19 @@ export default function Payment() {
                 />
               </div>
 
-              <div>
-                <input
-                  type="text"
-                  id="upi"
-                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="UPI(e.g. abcd123)"
-                  value={UPI}
-                  onChange={(e) => setUPI(e.target.value)}
-                  required
-                />
-              </div>
+              {isUoA && (
+                <div>
+                  <input
+                    type="text"
+                    id="upi"
+                    className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                    placeholder="UPI(e.g. abcd123)"
+                    value={UPI}
+                    onChange={(e) => setUPI(e.target.value)}
+                    required
+                  />
+                </div>
+              )}
 
               <div className="flex gap-3 pt-2">
                 <button
@@ -435,16 +442,18 @@ export default function Payment() {
                 )}
               </div>
 
-              <div>
-                <input
-                  type="number"
-                  className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
-                  placeholder="Student ID"
-                  value={studentId === -1 ? "" : studentId}
-                  onChange={(e) => setStudentId(Number(e.target.value))}
-                  required
-                />
-              </div>
+              {isUoA && (
+                <div>
+                  <input
+                    type="number"
+                    className="block w-full rounded-3xl border border-gray-200 px-3 py-2.5 text-sm shadow-xs"
+                    placeholder="Student ID"
+                    value={studentId === -1 ? "" : studentId}
+                    onChange={(e) => setStudentId(Number(e.target.value))}
+                    required
+                  />
+                </div>
+              )}
 
               <div>
                 <input
@@ -678,8 +687,8 @@ export default function Payment() {
               <CheckoutPage
                 amount={amount}
                 name={firstName + "|" + lastName}
-                upi={UPI}
-                studentId={studentId}
+                upi={isUoA ? UPI : undefined}
+                studentId={isUoA ? studentId : undefined}
                 degrees={degrees}
                 ethnicity={ethnicity}
                 gender={gender}

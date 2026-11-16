@@ -40,7 +40,7 @@ export const Member: CollectionConfig = {
       name: "phoneNumber",
       type: "text",
       label: "Phone Number",
-      required: false,
+      required: false, // UoA members only
       admin: {
         readOnly: true,
       },
@@ -49,7 +49,7 @@ export const Member: CollectionConfig = {
       name: "upi",
       type: "text",
       label: "UPI",
-      required: true,
+      required: false, // UoA members only
       admin: {
         readOnly: true,
       },
@@ -58,7 +58,7 @@ export const Member: CollectionConfig = {
       name: "studentId",
       type: "text",
       label: "Student ID",
-      required: true,
+      required: false,
     },
     {
       name: "gender",

@@ -79,7 +79,7 @@ const PersonalDetailsCard = ({ user, member, onSaved }: PersonalDetailsCardProps
     const details = {
       firstName: firstName.trim(),
       lastName: lastName.trim(),
-      studentId: studentId.trim(),
+      studentId: studentId.trim() ?? "",
       degrees: degrees.trim(),
       universityYear,
       phoneNumber: phoneNumber.trim(),

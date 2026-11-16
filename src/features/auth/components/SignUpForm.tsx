@@ -12,9 +12,6 @@ export default function SignUpForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  // A Google sign-up with a non-uni account is rejected server-side and lands here with
-  // ?error=EMAIL_DOMAIN_NOT_ALLOWED. Map the code to our own message rather than echoing
-  // error_description from the URL.
   const [error, setError] = useState("");
   const params = new URLSearchParams();
 
@@ -79,14 +76,14 @@ export default function SignUpForm() {
       <div className="z-modal fixed top-0 left-0 w-full px-6">
         <Link href="/" className="inline-block">
           <div
-            className={`m-0 h-[86px] w-[140px] bg-white mask-[url('/assets/logos/uaic.webp')] [mask-size:100%] mask-center mask-no-repeat lg:ml-10 lg:h-[100px] lg:w-[140px]`}
+            className={`m-0 h-21.5 w-35 bg-white mask-[url('/assets/logos/uaic.webp')] mask-size-[100%] mask-center mask-no-repeat lg:ml-10 lg:h-25 lg:w-35`}
           />
         </Link>
       </div>
       {/* Sign up form container*/}
       <div className="flex justify-center px-6">
-        <div className="px-comfortable shadow-card flex min-h-[527px] w-full max-w-[512px] flex-col gap-[44px] rounded-lg bg-white py-[28px]">
-          <h2 className="text-primary text-left text-2xl text-[30px] font-bold">Sign Up</h2>
+        <div className="px-comfortable shadow-card flex min-h-131.75 w-full max-w-lg flex-col gap-11 rounded-lg bg-white py-7">
+          <h2 className="text-primary text-subtitle text-left text-2xl font-bold">Sign Up</h2>
 
           {error && (
             <div className="mb-4 rounded border border-red-400 bg-red-100 p-3 text-red-700">
@@ -96,7 +93,7 @@ export default function SignUpForm() {
 
           <div className="gap-roomy flex flex-col">
             {/* Input fields, sign up button */}
-            <form onSubmit={handleSignUp} className="flex flex-col gap-[44px]">
+            <form onSubmit={handleSignUp} className="flex flex-col gap-11">
               <div className="gap-roomy flex flex-col">
                 <div>
                   <input
@@ -105,7 +102,7 @@ export default function SignUpForm() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Full Name"
-                    className="px-cozy h-[52px] w-full rounded-[40px] border-[0.5px] border-slate-200 placeholder:font-light placeholder:text-slate-300 focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
+                    className="px-cozy h-13 w-full rounded-[40px] border-[0.5px] border-slate-200 placeholder:font-light placeholder:text-slate-300 focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -117,7 +114,7 @@ export default function SignUpForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
-                    className="px-cozy h-[52px] w-full rounded-[40px] border-[0.5px] border-slate-200 placeholder:font-light placeholder:text-slate-300 focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
+                    className="px-cozy h-13 w-full rounded-[40px] border-[0.5px] border-slate-200 placeholder:font-light placeholder:text-slate-300 focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -129,7 +126,7 @@ export default function SignUpForm() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
-                    className="px-cozy h-[52px] w-full rounded-[40px] border-[0.5px] border-slate-200 placeholder:font-light placeholder:text-slate-300 focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
+                    className="px-cozy h-13 w-full rounded-[40px] border-[0.5px] border-slate-200 placeholder:font-light placeholder:text-slate-300 focus:border-blue-500 focus:ring-[0.5px] focus:ring-blue-500 focus:outline-none"
                     required
                     minLength={8}
                   />
@@ -139,9 +136,9 @@ export default function SignUpForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group duration-fast enabled:hover:text-primary relative flex h-[52px] cursor-pointer items-center justify-center overflow-hidden rounded-[37px] bg-white text-[20px] font-medium text-white shadow-[inset_0_0_0_1px_transparent] transition-colors enabled:hover:shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)] disabled:cursor-not-allowed disabled:opacity-50"
+                className="group duration-fast enabled:hover:text-primary text-cta relative flex h-13 cursor-pointer items-center justify-center overflow-hidden rounded-[37px] bg-white font-medium text-white shadow-[inset_0_0_0_1px_transparent] transition-colors enabled:hover:shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)] disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <span className="from-primary to-primary-light duration-fast absolute inset-0 rounded-[37px] bg-gradient-to-l transition-opacity group-enabled:group-hover:opacity-0" />
+                <span className="from-primary to-primary-light duration-fast absolute inset-0 rounded-[37px] bg-linear-to-l transition-opacity group-enabled:group-hover:opacity-0" />
                 <span className="z-dropdown relative">
                   {loading ? "Creating account..." : "Sign Up"}
                 </span>
@@ -149,13 +146,13 @@ export default function SignUpForm() {
             </form>
 
             {/* Continue breakline, google signin, log in*/}
-            <div className="flex flex-col gap-[20px]">
+            <div className="flex flex-col gap-5">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-black/20" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-white px-2 text-[16px] font-light text-black/20">
+                  <span className="text-body bg-white px-2 font-light text-black/20">
                     Or continue with
                   </span>
                 </div>
@@ -164,9 +161,9 @@ export default function SignUpForm() {
               <button
                 onClick={handleGoogleSignUp}
                 disabled={loading}
-                className="gap-tight flex h-[51px] cursor-pointer items-center justify-center rounded-[37px] border-[1px] border-black/25 bg-white py-[15px] font-[Roboto] text-[14px] font-medium tracking-[0.25px] enabled:hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="gap-tight flex h-12.75 cursor-pointer items-center justify-center rounded-[37px] border border-black/25 bg-white py-3.75 font-[Roboto] text-[14px] font-medium tracking-[0.25px] enabled:hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <svg className="h-[20px] w-[20px]" viewBox="0 0 24 24">
+                <svg className="h-5 w-5" viewBox="0 0 24 24">
                   <path
                     fill="#4285F4"
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -188,8 +185,8 @@ export default function SignUpForm() {
               </button>
 
               <div className="gap-tight flex justify-center">
-                <p className="text-[16px] font-light text-black/20">Have an account?</p>
-                <Link href="/login" className="text-primary text-[16px] font-light underline">
+                <p className="text-body font-light text-black/20">Have an account?</p>
+                <Link href="/login" className="text-primary text-body font-light underline">
                   Log in here
                 </Link>
               </div>
